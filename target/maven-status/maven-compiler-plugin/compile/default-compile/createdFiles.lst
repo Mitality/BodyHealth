@@ -1,0 +1,17 @@
+bodyhealth\effects\BodyHealthEffects.class
+bodyhealth\data\HealthStorage.class
+bodyhealth\debug\Debug.class
+bodyhealth\object\BodyHealth.class
+bodyhealth\command\BodyHealthTAB.class
+bodyhealth\data\DataManager.class
+bodyhealth\Main.class
+bodyhealth\util\MessageUtils.class
+bodyhealth\config\Config.class
+bodyhealth\util\BodyHealthUtils.class
+bodyhealth\depend\PlaceholderAPI.class
+bodyhealth\listener\BodyHealthListener.class
+bodyhealth\math\BodyHealthCalculator.class
+bodyhealth\object\BodyPart.class
+bodyhealth\listener\BodyHealthListener$1.class
+bodyhealth\object\BodyPartState.class
+bodyhealth\command\BodyHealthCommand.class

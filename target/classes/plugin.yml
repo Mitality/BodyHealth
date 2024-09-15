@@ -1,0 +1,39 @@
+name: BodyHealth
+version: '1.0.0'
+main: bodyhealth.Main
+api-version: '1.21'
+authors:
+  - Mitality
+description: description
+website: website
+softdepend:
+  - PlaceholderAPI
+
+commands:
+
+  bodyhealth:
+    aliases:
+      - bh
+    description: Manage a player's body part health.
+    permissions:
+
+      bodyhealth.reload:
+        description: Allows reloading the system
+        default: op
+      bodyhealth.heal:
+        description: Allows using the heal command
+        default: op
+      bodyhealth.get:
+        description: Allows using the get command
+        default: op
+      bodyhealth.set:
+        description: Allows using the set command
+        default: op
+      bodyhealth.*:
+        description: Allows managing body health
+        default: op
+        children:
+          bodyhealth.reload: true
+          bodyhealth.heal: true
+          bodyhealth.get: true
+          bodyhealth.set: true
