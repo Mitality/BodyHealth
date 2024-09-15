@@ -1,9 +1,9 @@
-package bodyhealth.math;
+package bodyhealth.calculations;
 
-import bodyhealth.object.BodyHealth;
-import bodyhealth.object.BodyPart;
+import bodyhealth.core.BodyHealth;
+import bodyhealth.core.BodyPart;
 import bodyhealth.util.BodyHealthUtils;
-import bodyhealth.debug.Debug;
+import bodyhealth.config.Debug;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;

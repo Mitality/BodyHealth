@@ -1,11 +1,11 @@
 package bodyhealth.effects;
 
-import bodyhealth.object.BodyHealth;
-import bodyhealth.object.BodyPart;
-import bodyhealth.object.BodyPartState;
+import bodyhealth.core.BodyHealth;
+import bodyhealth.core.BodyPart;
+import bodyhealth.core.BodyPartState;
 import bodyhealth.util.BodyHealthUtils;
 import bodyhealth.config.Config;
-import bodyhealth.debug.Debug;
+import bodyhealth.config.Debug;
 import bodyhealth.util.MessageUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;

@@ -1,6 +1,6 @@
-package bodyhealth.object;
+package bodyhealth.core;
 
-import bodyhealth.debug.Debug;
+import bodyhealth.config.Debug;
 import bodyhealth.effects.BodyHealthEffects;
 import bodyhealth.util.BodyHealthUtils;
 import org.bukkit.Bukkit;

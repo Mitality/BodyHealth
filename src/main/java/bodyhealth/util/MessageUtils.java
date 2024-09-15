@@ -1,7 +1,7 @@
 package bodyhealth.util;
 
-import bodyhealth.object.BodyHealth;
-import bodyhealth.object.BodyPart;
+import bodyhealth.core.BodyHealth;
+import bodyhealth.core.BodyPart;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;

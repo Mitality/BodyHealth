@@ -1,4 +1,4 @@
-package bodyhealth.object;
+package bodyhealth.core;
 
 public enum BodyPartState {
     FULL,

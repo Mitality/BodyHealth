@@ -1,4 +1,4 @@
-package bodyhealth.debug;
+package bodyhealth.config;
 
 import bodyhealth.config.Config;
 import org.bukkit.Bukkit;

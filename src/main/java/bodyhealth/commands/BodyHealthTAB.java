@@ -1,6 +1,6 @@
-package bodyhealth.command;
+package bodyhealth.commands;
 
-import bodyhealth.object.BodyPart;
+import bodyhealth.core.BodyPart;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

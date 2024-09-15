@@ -1,9 +1,8 @@
 package bodyhealth.data;
 
 import bodyhealth.Main;
-import bodyhealth.debug.Debug;
-import bodyhealth.object.BodyHealth;
-import bodyhealth.object.BodyPart;
+import bodyhealth.core.BodyHealth;
+import bodyhealth.core.BodyPart;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.Map;

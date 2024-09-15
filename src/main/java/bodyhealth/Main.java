@@ -1,15 +1,15 @@
 package bodyhealth;
 
-import bodyhealth.command.BodyHealthCommand;
-import bodyhealth.command.BodyHealthTAB;
+import bodyhealth.commands.BodyHealthCommand;
+import bodyhealth.commands.BodyHealthTAB;
 import bodyhealth.data.DataManager;
 import bodyhealth.data.HealthStorage;
 import bodyhealth.depend.PlaceholderAPI;
 import bodyhealth.effects.BodyHealthEffects;
-import bodyhealth.listener.BodyHealthListener;
-import bodyhealth.object.BodyHealth;
+import bodyhealth.listeners.BodyHealthListener;
+import bodyhealth.core.BodyHealth;
 import bodyhealth.config.Config;
-import bodyhealth.debug.Debug;
+import bodyhealth.config.Debug;
 import com.tchristofferson.configupdater.ConfigUpdater;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

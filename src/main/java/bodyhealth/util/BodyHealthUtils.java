@@ -1,12 +1,12 @@
 package bodyhealth.util;
 
 import bodyhealth.config.Config;
-import bodyhealth.debug.Debug;
+import bodyhealth.config.Debug;
 import bodyhealth.effects.BodyHealthEffects;
-import bodyhealth.object.BodyHealth;
+import bodyhealth.core.BodyHealth;
 import bodyhealth.Main;
-import bodyhealth.object.BodyPart;
-import bodyhealth.object.BodyPartState;
+import bodyhealth.core.BodyPart;
+import bodyhealth.core.BodyPartState;
 import com.tchristofferson.configupdater.ConfigUpdater;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;

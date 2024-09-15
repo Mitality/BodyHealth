@@ -1,14 +1,13 @@
-package bodyhealth.command;
+package bodyhealth.commands;
 
-import bodyhealth.object.BodyHealth;
-import bodyhealth.object.BodyPart;
+import bodyhealth.core.BodyHealth;
+import bodyhealth.core.BodyPart;
 import bodyhealth.util.BodyHealthUtils;
 import bodyhealth.config.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 

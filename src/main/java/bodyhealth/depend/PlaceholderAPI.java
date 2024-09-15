@@ -1,8 +1,8 @@
 package bodyhealth.depend;
 
-import bodyhealth.object.BodyHealth;
+import bodyhealth.core.BodyHealth;
 import bodyhealth.util.BodyHealthUtils;
-import bodyhealth.object.BodyPart;
+import bodyhealth.core.BodyPart;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;

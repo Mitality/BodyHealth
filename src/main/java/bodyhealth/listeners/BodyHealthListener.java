@@ -1,13 +1,12 @@
-package bodyhealth.listener;
+package bodyhealth.listeners;
 
 import bodyhealth.effects.BodyHealthEffects;
-import bodyhealth.object.BodyHealth;
-import bodyhealth.math.BodyHealthCalculator;
-import bodyhealth.object.BodyPart;
+import bodyhealth.core.BodyHealth;
+import bodyhealth.calculations.BodyHealthCalculator;
 import bodyhealth.util.BodyHealthUtils;
 import bodyhealth.Main;
 import bodyhealth.config.Config;
-import bodyhealth.debug.Debug;
+import bodyhealth.config.Debug;
 import bodyhealth.util.MessageUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
