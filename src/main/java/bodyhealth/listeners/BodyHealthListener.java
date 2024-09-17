@@ -141,7 +141,7 @@ public class BodyHealthListener implements Listener {
     public void onPlayerMove(PlayerMoveEvent event) {
         if (event.getPlayer().isSprinting()) {
             if (BodyHealthEffects.preventSprint.contains(event.getPlayer())) return; // Player is already slowed down
-            //if (event.getFrom().getBlockX() == event.getTo().getBlockX() && event.getFrom().getBlockZ() != event.getTo().getBlockZ()) return; // Player hasn't moved a block yet (performance)
+            //if (event.getFrom().getBlockX() == event.getTo().getBlockX() && event.getFrom().getBlockZ() != event.getTo().getBlockZ()) return; // Player hasn't moved a block yet (possible optimization for the line below)
             if (BodyHealthUtils.canPlayerSprint(event.getPlayer())) return; // Player is allowed to sprint
             BodyHealthEffects.preventSprint.add(event.getPlayer());
             Objects.requireNonNull(event.getPlayer().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).addModifier(BodyHealthEffects.getSpeedReductionModifier());

@@ -217,8 +217,9 @@ public class BodyHealthUtils {
 
 
     /**
-     * Validates ongoing effects and removes invalid ones
-     * Effects are deemed invalid, if they are no longer configured in the effects section of the configuration
+     * Unnecessary method to remove invalid (leftover) effects from a players BodyHealth -> ongoingEffects.
+     * This should never be necessary, meaning if this method does catch something, I messed up, but I'll
+     * leave it here as an extra layer of safety in case that should ever happen ¯\_(ツ)_/¯
      */
     public static void validateEffects(Player player) {
         for (Map.Entry<BodyPart, List<String[]>> entry : getBodyHealth(player).getOngoingEffects().entrySet()) {

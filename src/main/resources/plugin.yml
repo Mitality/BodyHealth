@@ -8,6 +8,7 @@ description: Minecraft Spigot Plugin to manage Health per BodyPart
 website: https://github.com/Mitality/BodyHealth (private for now)
 softdepend:
   - PlaceholderAPI
+  - BetterHud
 
 commands:
 

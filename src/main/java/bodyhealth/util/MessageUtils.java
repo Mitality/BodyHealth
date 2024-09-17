@@ -39,7 +39,7 @@ public class MessageUtils {
             for (String[] effectParts : effectsList) {
                 if (effectParts.length > 0 && effectParts[0].trim().equalsIgnoreCase(effect)) {
                     if (effect.equalsIgnoreCase("PREVENT_INTERACT") && effectParts.length > 2) notifyPlayer(player, effectParts[2]); // PREVENT_INTERACT / <HAND> / [MESSAGE]
-                    else if (effectParts.length > 1) notifyPlayer(player, effectParts[1]); // PREVENT_SPRINT / [MESSAGE]
+                    else if (effectParts.length > 1) notifyPlayer(player, effectParts[1]); // PREVENT_SPRINT / [MESSAGE]    (I know this is crap code, but it works, so don't touch it)
                 }
             }
         }

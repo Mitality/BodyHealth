@@ -4,6 +4,7 @@ import bodyhealth.commands.BodyHealthCommand;
 import bodyhealth.commands.BodyHealthTAB;
 import bodyhealth.data.DataManager;
 import bodyhealth.data.HealthStorage;
+import bodyhealth.depend.BetterHud;
 import bodyhealth.depend.PlaceholderAPI;
 import bodyhealth.effects.BodyHealthEffects;
 import bodyhealth.listeners.BodyHealthListener;
@@ -53,9 +54,15 @@ public final class Main extends JavaPlugin {
         Debug.log("Registered Commands and Listeners");
 
         // Register Placeholders
-        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null && Bukkit.getPluginManager().getPlugin("PlaceholderAPI").isEnabled()) {
             new PlaceholderAPI().register();
             Debug.log("Registered PlaceholderAPI extension");
+        }
+
+        // Register Placeholders
+        if (Bukkit.getPluginManager().getPlugin("BetterHud") != null && Bukkit.getPluginManager().getPlugin("BetterHud").isEnabled()) {
+            BetterHud.initialize();
+            Debug.log("BetterHud integration enabled");
         }
 
         // Set up DataManager

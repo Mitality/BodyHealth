@@ -75,6 +75,12 @@
             <id>placeholderapi</id>
             <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
+
+        <!-- BetterHud -->
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -107,6 +113,14 @@
             <groupId>me.clip</groupId>
             <artifactId>placeholderapi</artifactId>
             <version>2.11.6</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- BetterHud -->
+        <dependency>
+            <groupId>com.github.toxicity188</groupId>
+            <artifactId>BetterHud</artifactId>
+            <version>1.4</version>
             <scope>provided</scope>
         </dependency>
 
