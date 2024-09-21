@@ -358,7 +358,7 @@ body-damage:
 #
 #   <MESSAGE> (or [MESSAGE]) can be the following:
 #
-#      actionbar:this will be displayer in the actionbar
+#      actionbar:this will be displayed in the actionbar
 #      title:this is a title; this is a subtitle
 #      this is a normal chat message
 #
