@@ -87,6 +87,8 @@ public class BodyHealthListener implements Listener {
         if (player.getHealth() == player.getMaxHealth()) {
             bodyHealth.regenerateHealth(Integer.MAX_VALUE);
         }
+
+        checkHealthDelayed(player, player.getHealth());
     }
 
     // Other plugins could heal a player on item consumption
@@ -119,7 +121,7 @@ public class BodyHealthListener implements Listener {
     public void onPlayerCommand(PlayerCommandPreprocessEvent event) {
         String command = event.getMessage().toLowerCase();
 
-        if (command.startsWith("/heal")) {
+        if (command.startsWith("/heal")) { // Compatibility for a potential heal command
             Player player = event.getPlayer();
             if (command.equals("/heal")) {
                 BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(player);
@@ -135,6 +137,7 @@ public class BodyHealthListener implements Listener {
                 }
             }
         }
+        checkHealthDelayed(event.getPlayer(), event.getPlayer().getHealth());
     }
 
     @EventHandler

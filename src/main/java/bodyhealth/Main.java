@@ -7,26 +7,38 @@ import bodyhealth.data.HealthStorage;
 import bodyhealth.depend.BetterHud;
 import bodyhealth.depend.PlaceholderAPI;
 import bodyhealth.effects.BodyHealthEffects;
+import bodyhealth.listeners.BetterHudListener;
 import bodyhealth.listeners.BodyHealthListener;
 import bodyhealth.core.BodyHealth;
 import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
+import bodyhealth.listeners.PlaceholderAPIListener;
 import com.tchristofferson.configupdater.ConfigUpdater;
+import me.clip.placeholderapi.PlaceholderAPIPlugin;
+import me.clip.placeholderapi.configuration.PlaceholderAPIConfig;
+import me.clip.placeholderapi.expansion.cloud.CloudExpansion;
+import me.clip.placeholderapi.expansion.manager.CloudExpansionManager;
+import me.clip.placeholderapi.expansion.manager.LocalExpansionManager;
 import org.bukkit.Bukkit;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 
 public final class Main extends JavaPlugin {
     private static Main instance;
     public static Map<UUID, BodyHealth> playerBodyHealthMap;
+    public static PlaceholderAPI placeholderAPIexpansion;
+    public static long validationTimestamp;
 
     @Override
     public void onEnable() {
         instance = this;
+        validationTimestamp = 0;
 
         Debug.log("Initializing...");
 
@@ -48,22 +60,31 @@ public final class Main extends JavaPlugin {
         playerBodyHealthMap = new HashMap<>();
 
         // Commands and Listeners
-        Bukkit.getPluginManager().registerEvents(new BodyHealthListener(), Main.getPlugin(Main.class));
+        Bukkit.getPluginManager().registerEvents(new BodyHealthListener(), this);
         Objects.requireNonNull(Main.getPlugin(Main.class).getCommand("bodyhealth")).setExecutor(new BodyHealthCommand());
         Objects.requireNonNull(Main.getPlugin(Main.class).getCommand("bodyhealth")).setTabCompleter(new BodyHealthTAB());
         Debug.log("Registered Commands and Listeners");
 
         // Register Placeholders
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null && Bukkit.getPluginManager().getPlugin("PlaceholderAPI").isEnabled()) {
-            new PlaceholderAPI().register();
-            Debug.log("Registered PlaceholderAPI extension");
+            placeholderAPIexpansion = new PlaceholderAPI();
+            placeholderAPIexpansion.register();
+            Debug.log("Registered PlaceholderAPI expansion");
+
+            // BetterHud integration - Only works with PAPI installed
+            if (Bukkit.getPluginManager().getPlugin("BetterHud") != null && Bukkit.getPluginManager().getPlugin("BetterHud").isEnabled()) {
+                Debug.log("BetterHud detected, enabling BetterHud integration...");
+                Bukkit.getPluginManager().registerEvents(new BetterHudListener(), this);
+                Debug.log("BetterHud integration enabled");
+
+                Debug.log("The BetterHud integration requires the PlaceholderAPI expansion 'Player' to be installed. Setting up a Listener to ensure it is present at all times.");
+                Bukkit.getPluginManager().registerEvents(new PlaceholderAPIListener(), this);
+
+            }
+
         }
 
-        // Register Placeholders
-        if (Bukkit.getPluginManager().getPlugin("BetterHud") != null && Bukkit.getPluginManager().getPlugin("BetterHud").isEnabled()) {
-            BetterHud.initialize();
-            Debug.log("BetterHud integration enabled");
-        }
+        else if (Bukkit.getPluginManager().getPlugin("BetterHud") != null) Debug.logErr("BetterHud integration requires PlaceholderAPI to be installed!");
 
         // Set up DataManager
         DataManager.setup();

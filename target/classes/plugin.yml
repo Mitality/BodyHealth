@@ -4,10 +4,11 @@ main: bodyhealth.Main
 api-version: '1.21'
 authors:
   - Mitality
-description: description
-website: website
+description: Minecraft Spigot Plugin to manage Health per BodyPart
+website: https://github.com/Mitality/BodyHealth (private for now)
 softdepend:
   - PlaceholderAPI
+  - BetterHud
 
 commands:
 
@@ -16,7 +17,6 @@ commands:
       - bh
     description: Manage a player's body part health.
     permissions:
-
       bodyhealth.reload:
         description: Allows reloading the system
         default: op

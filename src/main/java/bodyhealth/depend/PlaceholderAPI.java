@@ -1,5 +1,6 @@
 package bodyhealth.depend;
 
+import bodyhealth.config.Debug;
 import bodyhealth.core.BodyHealth;
 import bodyhealth.util.BodyHealthUtils;
 import bodyhealth.core.BodyPart;
@@ -30,15 +31,15 @@ public class PlaceholderAPI extends PlaceholderExpansion {
 
         if (params.startsWith("health_")) {
             String[] splitParams = params.split("_");
-            if (splitParams.length == 2) {
+            if (splitParams.length > 1) {
 
-                String bodyPartName = splitParams[1].toUpperCase();
+                String bodyPartName = splitParams.length == 2 ? splitParams[1].toUpperCase() : splitParams[1].toUpperCase() + "_" + splitParams[2].toUpperCase();
 
                 BodyPart bodyPart;
                 try {
                     bodyPart = BodyPart.valueOf(bodyPartName);
                 } catch (IllegalArgumentException e) {
-                    return null;
+                    return "Invalid body part: " + bodyPartName;
                 }
 
                 if (player.isOnline()) {
@@ -62,7 +63,7 @@ public class PlaceholderAPI extends PlaceholderExpansion {
                 try {
                     bodyPart = BodyPart.valueOf(bodyPartName);
                 } catch (IllegalArgumentException e) {
-                    return null;
+                    return "Invalid body part: " + bodyPartName;
                 }
 
                 if (player.isOnline()) {
