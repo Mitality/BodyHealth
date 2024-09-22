@@ -3,7 +3,7 @@
 #   |  _ \ / _ \ / _` | | | | |_| |/ _ \/ _` | | __| '_ \
 #   | |_) | (_) | (_| | |_| |  _  |  __/ (_| | | |_| | | |
 #   |____/ \___/ \__,_|\__, |_| |_|\___|\__,_|_|\__|_| |_|
-#      Version 1.0.0   |___/  Manage health per BodyPart
+#      Version 1.2.0   |___/  Manage health per BodyPart
 
 #   Commands:
 #
@@ -61,293 +61,78 @@ body-health:
   FOOT_LEFT: 5
   FOOT_RIGHT: 5
 
-# You can fine-tune all kinds of damage per body-part here.
-# Even if damage is only applied to specific body parts, the
-# system still checks how much damage to deal with this list.
+# You can fine-tune all kinds of damage per body-part and damage-cause here. Defaults to 100% if not specified otherwise.
+# Even if damage is only applied to specific body parts, the system still checks how much damage to deal with this list.
+# Available types: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/event/entity/EntityDamageEvent.DamageCause.html
 body-damage:
   HEAD:
-    - ARROW 100%
-    - BAD_RESPAWN_POINT 100%
-    - CACTUS 100%
-    - DRAGON_BREATH 100%
-    - DROWN 100%
-    - DRY_OUT 100%
-    - EXPLOSION 100%
-    - FALLING_ANVIL 100%
-    - FALLING_BLOCK 100%
-    - FALLING_STALACTITE 100%
-    - FIREBALL 80%
-    - FIREWORKS 80%
-    - FLY_INTO_WALL 100%
-    - FREEZE 90%
-    - IN_FIRE 60%
-    - IN_WALL 100%
-    - INDIRECT_MAGIC 100%
-    - LAVA 60%
-    - LIGHTNING_BOLT 100%
-    - MAGIC 70%
-    - MOB_ATTACK 100%
-    - MOB_ATTACK_NO_AGGRO 100%
-    - MOB_PROJECTILE 100%
-    - ON_FIRE 60%
-    - OUT_OF_WORLD 100%
-    - OUTSIDE_BORDER 100%
-    - PLAYER_ATTACK 100%
-    - PLAYER_EXPLOSION 100%
-    - SONIC_BOOM 100%
-    - SPIT 100%
-    - STING 100%
-    - THORNS 100%
-    - THROWN 100%
-    - TRIDENT 100%
-    - UNATTRIBUTED_FIREBALL 80%
-    - WITHER_SKULL 80%
-  BODY:
-    - ARROW 100%
-    - BAD_RESPAWN_POINT 100%
-    - CACTUS 100%
-    - CRAMMING 100%
-    - DRAGON_BREATH 90%
     - DROWN 90%
-    - DRY_OUT 90%
-    - EXPLOSION 100%
-    - FIREBALL 100%
-    - FIREWORKS 100%
-    - FREEZE 100%
-    - GENERIC 100%
-    - GENERIC_KILL 100%
+    - IN_FIRE 60%
+    - LAVA 60%
+    - MAGIC 70%
+    - ON_FIRE 60%
+    - FALL 0%
+  BODY:
+    - FALLING_ANVIL 0%
+    - FALLING_BLOCK 0%
+    - FALLING_STALACTITE 0%
+    - FLY_INTO_WALL 0%
     - IN_FIRE 80%
-    - IN_WALL 100%
-    - INDIRECT_MAGIC 100%
     - LAVA 80%
-    - LIGHTNING_BOLT 100%
-    - MAGIC 100%
-    - MOB_ATTACK 100%
-    - MOB_ATTACK_NO_AGGRO 100%
-    - MOB_PROJECTILE 100%
     - ON_FIRE 80%
-    - OUT_OF_WORLD 100%
-    - OUTSIDE_BORDER 100%
-    - PLAYER_ATTACK 100%
-    - PLAYER_EXPLOSION 100%
-    - SONIC_BOOM 100%
-    - SPIT 100%
-    - STARVE 100%
-    - STING 100%
-    - THORNS 100%
-    - THROWN 100%
-    - TRIDENT 100%
-    - UNATTRIBUTED_FIREBALL 100%
-    - WITHER 100%
-    - WITHER_SKULL 100%
+    - FALL 0%
   ARM_LEFT:
-    - ARROW 100%
-    - BAD_RESPAWN_POINT 100%
-    - CACTUS 100%
-    - EXPLOSION 100%
-    - FIREBALL 80%
-    - FIREWORKS 80%
-    - FREEZE 90%
-    - GENERIC 100%
-    - GENERIC_KILL 100%
+    - DROWN 0%
+    - FALLING_ANVIL 0%
+    - FALLING_BLOCK 0%
+    - FALLING_STALACTITE 0%
+    - FLY_INTO_WALL 0%
     - IN_FIRE 80%
-    - IN_WALL 100%
-    - INDIRECT_MAGIC 100%
     - LAVA 80%
-    - LIGHTNING_BOLT 50%
-    - MAGIC 50%
-    - MOB_ATTACK 100%
-    - MOB_ATTACK_NO_AGGRO 100%
-    - MOB_PROJECTILE 100%
+    - MAGIC 70%
     - ON_FIRE 80%
-    - OUT_OF_WORLD 100%
-    - OUTSIDE_BORDER 100%
-    - PLAYER_ATTACK 100%
-    - PLAYER_EXPLOSION 100%
-    - SONIC_BOOM 100%
-    - SPIT 100%
-    - STING 100%
-    - THORNS 100%
-    - THROWN 100%
-    - TRIDENT 100%
-    - UNATTRIBUTED_FIREBALL 80%
-    - WITHER_SKULL 80%
+    - FALL 0%
   ARM_RIGHT:
-    - ARROW 100%
-    - BAD_RESPAWN_POINT 100%
-    - CACTUS 100%
-    - EXPLOSION 100%
-    - FIREBALL 80%
-    - FIREWORKS 80%
-    - FREEZE 90%
-    - GENERIC 100%
-    - GENERIC_KILL 100%
+    - DROWN 0%
+    - FALLING_ANVIL 0%
+    - FALLING_BLOCK 0%
+    - FALLING_STALACTITE 0%
+    - FLY_INTO_WALL 0%
     - IN_FIRE 80%
-    - IN_WALL 100%
-    - INDIRECT_MAGIC 100%
     - LAVA 80%
-    - LIGHTNING_BOLT 50%
-    - MAGIC 50%
-    - MOB_ATTACK 100%
-    - MOB_ATTACK_NO_AGGRO 100%
-    - MOB_PROJECTILE 100%
+    - MAGIC 70%
     - ON_FIRE 80%
-    - OUT_OF_WORLD 100%
-    - OUTSIDE_BORDER 100%
-    - PLAYER_ATTACK 100%
-    - PLAYER_EXPLOSION 100%
-    - SONIC_BOOM 100%
-    - SPIT 100%
-    - STING 100%
-    - THORNS 100%
-    - THROWN 100%
-    - TRIDENT 100%
-    - UNATTRIBUTED_FIREBALL 80%
-    - WITHER_SKULL 80%
+    - FALL 0%
   LEG_LEFT:
-    - ARROW 100%
-    - BAD_RESPAWN_POINT 100%
-    - CACTUS 100%
-    - EXPLOSION 100%
-    - FALL 90%
-    - FIREBALL 80%
-    - FIREWORKS 80%
-    - FREEZE 90%
-    - GENERIC 100%
-    - GENERIC_KILL 100%
-    - IN_FIRE 100%
-    - IN_WALL 100%
-    - INDIRECT_MAGIC 100%
-    - LAVA 100%
-    - LIGHTNING_BOLT 50%
-    - MAGIC 50%
-    - MOB_ATTACK 100%
-    - MOB_ATTACK_NO_AGGRO 100%
-    - MOB_PROJECTILE 100%
-    - ON_FIRE 100%
-    - OUT_OF_WORLD 100%
-    - OUTSIDE_BORDER 100%
-    - PLAYER_ATTACK 100%
-    - PLAYER_EXPLOSION 100%
-    - SONIC_BOOM 100%
-    - SPIT 100%
-    - STALAGMITE 80%
-    - STING 100%
-    - SWEET_BERRY_BUSH 100%
-    - THORNS 100%
-    - THROWN 100%
-    - TRIDENT 100%
-    - UNATTRIBUTED_FIREBALL 80%
-    - WITHER_SKULL 80%
+    - DROWN 0%
+    - FALLING_ANVIL 0%
+    - FALLING_BLOCK 0%
+    - FALLING_STALACTITE 0%
+    - FLY_INTO_WALL 0%
+    - MAGIC 70%
+    - FALL 75%
   LEG_RIGHT:
-    - ARROW 100%
-    - BAD_RESPAWN_POINT 100%
-    - CACTUS 100%
-    - EXPLOSION 100%
-    - FALL 90%
-    - FIREBALL 80%
-    - FIREWORKS 80%
-    - FREEZE 90%
-    - GENERIC 100%
-    - GENERIC_KILL 100%
-    - IN_FIRE 100%
-    - IN_WALL 100%
-    - INDIRECT_MAGIC 100%
-    - LAVA 100%
-    - LIGHTNING_BOLT 50%
-    - MAGIC 50%
-    - MOB_ATTACK 100%
-    - MOB_ATTACK_NO_AGGRO 100%
-    - MOB_PROJECTILE 100%
-    - ON_FIRE 100%
-    - OUT_OF_WORLD 100%
-    - OUTSIDE_BORDER 100%
-    - PLAYER_ATTACK 100%
-    - PLAYER_EXPLOSION 100%
-    - SONIC_BOOM 100%
-    - SPIT 100%
-    - STALAGMITE 80%
-    - STING 100%
-    - SWEET_BERRY_BUSH 100%
-    - THORNS 100%
-    - THROWN 100%
-    - TRIDENT 100%
-    - UNATTRIBUTED_FIREBALL 80%
-    - WITHER_SKULL 80%
+    - DROWN 0%
+    - FALLING_ANVIL 0%
+    - FALLING_BLOCK 0%
+    - FALLING_STALACTITE 0%
+    - FLY_INTO_WALL 0%
+    - MAGIC 70%
+    - FALL 75%
   FOOT_LEFT:
-    - ARROW 100%
-    - BAD_RESPAWN_POINT 100%
-    - CACTUS 100%
-    - CAMPFIRE 100%
-    - EXPLOSION 100%
-    - FALL 100%
-    - FIREBALL 60%
-    - FIREWORKS 60%
-    - FREEZE 90%
-    - GENERIC 100%
-    - GENERIC_KILL 100%
-    - HOT_FLOOR 100%
-    - IN_FIRE 100%
-    - IN_WALL 100%
-    - INDIRECT_MAGIC 100%
-    - LAVA 100%
-    - LIGHTNING_BOLT 20%
-    - MAGIC 20%
-    - MOB_ATTACK 100%
-    - MOB_ATTACK_NO_AGGRO 100%
-    - MOB_PROJECTILE 100%
-    - ON_FIRE 100%
-    - OUT_OF_WORLD 100%
-    - OUTSIDE_BORDER 100%
-    - PLAYER_ATTACK 100%
-    - PLAYER_EXPLOSION 100%
-    - SONIC_BOOM 100%
-    - SPIT 100%
-    - STALAGMITE 100%
-    - STING 100%
-    - SWEET_BERRY_BUSH 100%
-    - THORNS 100%
-    - THROWN 100%
-    - TRIDENT 100%
-    - UNATTRIBUTED_FIREBALL 80%
-    - WITHER_SKULL 80%
+    - DROWN 0%
+    - FALLING_ANVIL 0%
+    - FALLING_BLOCK 0%
+    - FALLING_STALACTITE 0%
+    - FLY_INTO_WALL 0%
+    - MAGIC 50%
   FOOT_RIGHT:
-    - ARROW 100%
-    - BAD_RESPAWN_POINT 100%
-    - CACTUS 100%
-    - CAMPFIRE 100%
-    - EXPLOSION 100%
-    - FALL 100%
-    - FIREBALL 60%
-    - FIREWORKS 60%
-    - FREEZE 90%
-    - GENERIC 100%
-    - GENERIC_KILL 100%
-    - HOT_FLOOR 100%
-    - IN_FIRE 100%
-    - IN_WALL 100%
-    - INDIRECT_MAGIC 100%
-    - LAVA 100%
-    - LIGHTNING_BOLT 20%
-    - MAGIC 20%
-    - MOB_ATTACK 100%
-    - MOB_ATTACK_NO_AGGRO 100%
-    - MOB_PROJECTILE 100%
-    - ON_FIRE 100%
-    - OUT_OF_WORLD 100%
-    - OUTSIDE_BORDER 100%
-    - PLAYER_ATTACK 100%
-    - PLAYER_EXPLOSION 100%
-    - SONIC_BOOM 100%
-    - SPIT 100%
-    - STALAGMITE 100%
-    - STING 100%
-    - SWEET_BERRY_BUSH 100%
-    - THORNS 100%
-    - THROWN 100%
-    - TRIDENT 100%
-    - UNATTRIBUTED_FIREBALL 80%
-    - WITHER_SKULL 80%
+    - DROWN 0%
+    - FALLING_ANVIL 0%
+    - FALLING_BLOCK 0%
+    - FALLING_STALACTITE 0%
+    - FLY_INTO_WALL 0%
+    - MAGIC 50%
 
 # Configure effects per body part and body part state:
 #

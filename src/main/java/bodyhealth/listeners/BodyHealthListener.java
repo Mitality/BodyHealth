@@ -1,5 +1,6 @@
 package bodyhealth.listeners;
 
+import bodyhealth.core.BodyPart;
 import bodyhealth.effects.BodyHealthEffects;
 import bodyhealth.core.BodyHealth;
 import bodyhealth.calculations.BodyHealthCalculator;
@@ -32,7 +33,7 @@ public class BodyHealthListener implements Listener {
         Player player = (Player) event.getEntity();
         BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(player);
         EntityDamageEvent.DamageCause cause = event.getCause();
-        double damage = event.getDamage();
+        double damage = event.getFinalDamage();
 
         if (event instanceof EntityDamageByEntityEvent) {
             EntityDamageByEntityEvent entityDamageEvent = (EntityDamageByEntityEvent) event;
@@ -40,33 +41,43 @@ public class BodyHealthListener implements Listener {
 
             if (damager instanceof Arrow) {
                 Arrow arrow = (Arrow) damager;
-                Location arrowHitLocation = arrow.getLocation();
-                BodyHealthCalculator.calculateHitByEntity(player, arrowHitLocation, cause, damage); // TODO: More exact method (specifically for arrows)
+                BodyPart hitBodyPart = BodyHealthCalculator.calculateHitByArrow(player, arrow);
+                BodyHealthUtils.applyDamageWithConfig(bodyHealth, cause, damage, hitBodyPart);
+                Debug.log("Player " + player.getName() + " was hit by an arrow on " + hitBodyPart.name() + " with " + damage + " damage.");
             }
 
             else if (damager.getType() == EntityType.CREEPER || damager.getType() == EntityType.TNT || damager.getType() == EntityType.TNT_MINECART || damager.getType() == EntityType.LIGHTNING_BOLT) {
+                Debug.log("Player " + player.getName() + " was hit by " + damager.getType().name() + " with " + damage + " damage.");
                 BodyHealthUtils.applyDamageWithConfig(bodyHealth, cause, damage);
             }
 
             else if (damager instanceof Player && damager == player) {
                 if (Config.self_harm) BodyHealthUtils.applyDamageWithConfig(bodyHealth, cause, damage);
+                if (Config.self_harm) Debug.log("Player " + player.getName() + " was hit by itself with " + damage + " damage.");
             }
 
             else {
-                Location damagerLocation = ((LivingEntity) damager).getEyeHeight() > 1.0 ? ((LivingEntity) damager).getEyeLocation().subtract(0.0, 0.5, 0.0) : ((LivingEntity) damager).getEyeLocation().add(0.0, 0.1, 0.0);
-                BodyHealthCalculator.calculateHitByEntity(player, damagerLocation, cause, damage);
+                BodyPart hitBodyPart = BodyHealthCalculator.calculateHitByEntity(player, damager);
+                BodyHealthUtils.applyDamageWithConfig(bodyHealth, cause, damage, hitBodyPart);
+                Debug.log("Player " + player.getName() + " was hit by an entity (" + damager.getType().name() + ") on " + hitBodyPart.name() + " with " + damage + " damage.");
             }
 
         }
 
         else if (event instanceof EntityDamageByBlockEvent) {
             EntityDamageByBlockEvent blockDamageEvent = (EntityDamageByBlockEvent) event;
-            Location blockLocation = Objects.requireNonNull(blockDamageEvent.getDamager()).getLocation();
-            if (blockDamageEvent.getDamager().getType() == Material.SWEET_BERRY_BUSH) blockLocation.subtract(0.0, 0.5, 0.0); // TODO: Why tf is this needed!?
-            BodyHealthCalculator.calculateHitByBlock(player, blockLocation, cause, damage);
+            //if (blockDamageEvent.getDamager().getType() == Material.SWEET_BERRY_BUSH) blockLocation.subtract(0.0, 0.5, 0.0); // TODO: Why tf is this needed!?
+            BodyPart[] hitBodyParts = BodyHealthCalculator.calculateHitByBlock(player, Objects.requireNonNull(blockDamageEvent.getDamager()));
+            StringBuilder hitBodyPartsString = new StringBuilder();
+            for (BodyPart bodyPart : hitBodyParts) {
+                BodyHealthUtils.applyDamageWithConfig(bodyHealth, cause, damage, bodyPart);
+                hitBodyPartsString.append(bodyPart.name()).append(", ");
+            }
+            Debug.log("Player " + player.getName() + " was hit by a block (" + blockDamageEvent.getDamager().getType().name() + ") on " + hitBodyPartsString.substring(0, hitBodyPartsString.length() - 1) + "with " + damage + "damage.");
         }
 
         else {
+            Debug.log("Player " + player.getName() + " was hit by an uncategorized damage source (" + cause.name() + ") with " + damage + " damage.");
             BodyHealthUtils.applyDamageWithConfig(bodyHealth, cause, damage);
         }
 
@@ -88,7 +99,7 @@ public class BodyHealthListener implements Listener {
             bodyHealth.regenerateHealth(Integer.MAX_VALUE);
         }
 
-        checkHealthDelayed(player, player.getHealth());
+        checkHealthDelayed(player, player.getHealth() + regenAmount);
     }
 
     // Other plugins could heal a player on item consumption

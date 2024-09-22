@@ -1,93 +1,158 @@
 package bodyhealth.calculations;
 
-import bodyhealth.core.BodyHealth;
 import bodyhealth.core.BodyPart;
-import bodyhealth.util.BodyHealthUtils;
 import bodyhealth.config.Debug;
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
+import org.bukkit.block.Block;
+import org.bukkit.entity.*;
 import org.bukkit.util.Vector;
 
 public class BodyHealthCalculator {
 
-    public static void calculateHitByEntity(Player player, Location damagerLocation, EntityDamageEvent.DamageCause cause, double damage) {
-        Location playerLocation = player.getLocation();
-        Vector damagerVector = damagerLocation.toVector();
-        Vector playerVector = playerLocation.toVector();
-
-        double yDiff = damagerVector.getY() - playerLocation.getY();
-        BodyPart bodyPart = determineBodyPart(damagerVector, playerVector, yDiff);
-
-        BodyHealthUtils.applyDamageWithConfig(BodyHealthUtils.getBodyHealth(player), cause, damage, bodyPart);
-        Debug.log("Player " + player.getName() + " was hit by an entity on " + bodyPart.name() + " with " + damage + " damage.");
+    public static BodyPart calculateHitByArrow(Player player, Arrow arrow) {
+        return calculateHitByEntityLegacy(player, arrow); // Extremely precise for arrows
     }
 
-    public static void calculateHitByBlock(Player player, Location blockLocation, EntityDamageEvent.DamageCause cause, double damage) {
+    public static BodyPart calculateHitByEntity(Player player, Entity entity) {
+        AttributeInstance scaleAttribute = player.getAttribute(Attribute.GENERIC_SCALE);
+        double scale = (scaleAttribute != null) ? scaleAttribute.getValue() : 1.0;
+
+        Location entityEyeLocation = ((LivingEntity) entity).getEyeHeight() > 1.0 ?
+                ((LivingEntity) entity).getEyeLocation().subtract(0.0, 0.3, 0.0) :
+                ((LivingEntity) entity).getEyeLocation().add(0.0, 0.1, 0.0);
+        if (entity.getType() == EntityType.PLAYER) entityEyeLocation = ((LivingEntity) entity).getEyeLocation();
+
         Location playerLocation = player.getLocation();
-        Vector blockVector = blockLocation.add(new Vector(0.5, 0.5, 0.5)).toVector();
-        Vector playerVector = playerLocation.toVector();
-        BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(player);
+        Vector direction = entityEyeLocation.getDirection().normalize();
 
-        double yDiff = blockLocation.add(new Vector(0.5, 0.5, 0.5)).getY() - playerLocation.getY();
-        float playerYaw = playerLocation.getYaw();
-        Vector blockDirection = blockVector.subtract(playerVector).normalize();
-        double blockYaw = Math.toDegrees(Math.atan2(blockDirection.getZ(), blockDirection.getX())) - 90;
-        blockYaw = (blockYaw + 360) % 360;
-        double relativeYaw = (playerYaw - blockYaw + 360) % 360;
+        Location rayHitLocation = traceRay(entityEyeLocation, direction, player, scale);
 
-        BodyPart[] parts = determineHitParts(relativeYaw, yDiff);
-
-        for (BodyPart part : parts) {
-            BodyHealthUtils.applyDamageWithConfig(bodyHealth, cause, damage, part);
-            Debug.log("Player was hit by a block on " + part.name() + " with " + damage + " damage.");
+        if (rayHitLocation != null) {
+            double hitY = rayHitLocation.getY();
+            double relativeHitY = hitY - playerLocation.getY();
+            double relativeYaw = getRelativeYaw(player, rayHitLocation);
+            return getHitBodyPart(relativeHitY, relativeYaw, scale);
         }
+
+        else {
+            Debug.log("Ray tracing failed to determine what BodyPart was hit, defaulting to legacy calculation...");
+            return calculateHitByEntityLegacy(player, entity);
+        }
+
     }
 
-    private static BodyPart[] determineHitParts(double relativeYaw, double yDiff) {
+    public static BodyPart calculateHitByEntityLegacy(Player player, Entity entity) {
+        AttributeInstance scaleAttribute = player.getAttribute(Attribute.GENERIC_SCALE);
+        double scale = (scaleAttribute != null) ? scaleAttribute.getValue() : 1.0;
+        double relativeHitY = entity.getLocation().getY() - player.getLocation().getY();
+        double relativeYaw = getRelativeYaw(player, entity.getLocation());
+        return getHitBodyPart(relativeHitY, relativeYaw, scale);
+    }
+
+    public static BodyPart[] calculateHitByBlock(Player player, Block block) {
+        AttributeInstance scaleAttribute = player.getAttribute(Attribute.GENERIC_SCALE);
+        double scale = (scaleAttribute != null) ? scaleAttribute.getValue() : 1.0;
+        double yDiff = (block.getLocation().getY() + 1) - player.getLocation().getY();
+        double relativeYaw = getRelativeYaw(player, block.getLocation());
+        return determineHitParts(relativeYaw, yDiff, scale);
+    }
+
+    private static BodyPart[] determineHitParts(double relativeYaw, double yDiff, double scale) {
+        Debug.log("RelativeYaw: " + relativeYaw + ", yDiff: " + yDiff + ", scale: " + scale);
         if (relativeYaw <= 45 || relativeYaw >= 315) {
-            return yDiff >= 1.9 ? new BodyPart[]{BodyPart.HEAD} :
-                    yDiff >= 1.0 ? new BodyPart[]{BodyPart.HEAD, BodyPart.BODY} :
-                            yDiff >= 0.3 ? new BodyPart[]{BodyPart.BODY} :
-                                    yDiff >= 0.2 ? new BodyPart[]{BodyPart.BODY, BodyPart.LEG_LEFT, BodyPart.LEG_RIGHT} :
-                                            yDiff >= -0.2 ? new BodyPart[]{BodyPart.LEG_LEFT, BodyPart.LEG_RIGHT, BodyPart.FOOT_LEFT, BodyPart.FOOT_RIGHT} :
+            return yDiff >= 2.4 * scale ? new BodyPart[]{BodyPart.HEAD} :
+                    yDiff >= 1.7 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.BODY} :
+                            yDiff >= 1.4 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.BODY, BodyPart.LEG_LEFT, BodyPart.LEG_RIGHT} :
+                                    yDiff >= 1.25 * scale ? new BodyPart[]{BodyPart.BODY, BodyPart.LEG_LEFT, BodyPart.LEG_RIGHT} :
+                                            yDiff >= 0.25 * scale ? new BodyPart[]{BodyPart.LEG_LEFT, BodyPart.LEG_RIGHT, BodyPart.FOOT_LEFT, BodyPart.FOOT_RIGHT} :
                                                     new BodyPart[]{BodyPart.FOOT_LEFT, BodyPart.FOOT_RIGHT};
         } else if (relativeYaw >= 135 && relativeYaw <= 225) {
-            return yDiff >= 1.9 ? new BodyPart[]{BodyPart.HEAD} :
-                    yDiff >= 1.0 ? new BodyPart[]{BodyPart.HEAD, BodyPart.BODY} :
-                            yDiff >= 0.3 ? new BodyPart[]{BodyPart.BODY} :
-                                    yDiff >= 0.2 ? new BodyPart[]{BodyPart.BODY, BodyPart.LEG_LEFT, BodyPart.LEG_RIGHT} :
-                                            yDiff >= -0.2 ? new BodyPart[]{BodyPart.LEG_LEFT, BodyPart.LEG_RIGHT, BodyPart.FOOT_LEFT, BodyPart.FOOT_RIGHT} :
+            return yDiff >= 2.4 * scale ? new BodyPart[]{BodyPart.HEAD} :
+                    yDiff >= 1.7 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.BODY} :
+                            yDiff >= 1.4 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.BODY, BodyPart.LEG_LEFT, BodyPart.LEG_RIGHT} :
+                                    yDiff >= 1.25 * scale ? new BodyPart[]{BodyPart.BODY, BodyPart.LEG_LEFT, BodyPart.LEG_RIGHT} :
+                                            yDiff >= 0.25 * scale ? new BodyPart[]{BodyPart.LEG_LEFT, BodyPart.LEG_RIGHT, BodyPart.FOOT_LEFT, BodyPart.FOOT_RIGHT} :
                                                     new BodyPart[]{BodyPart.FOOT_LEFT, BodyPart.FOOT_RIGHT};
         } else if (relativeYaw > 45 && relativeYaw < 135) {
-            return yDiff >= 1.9 ? new BodyPart[]{BodyPart.HEAD} :
-                    yDiff >= 1.0 ? new BodyPart[]{BodyPart.HEAD, BodyPart.ARM_LEFT} :
-                            yDiff >= 0.3 ? new BodyPart[]{BodyPart.ARM_LEFT} :
-                                    yDiff >= 0.2 ? new BodyPart[]{BodyPart.ARM_LEFT, BodyPart.LEG_LEFT} :
-                                            yDiff >= -0.2 ? new BodyPart[]{BodyPart.LEG_LEFT, BodyPart.FOOT_LEFT} :
+            return yDiff >= 2.4 * scale ? new BodyPart[]{BodyPart.HEAD} :
+                    yDiff >= 1.7 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.ARM_LEFT} :
+                            yDiff >= 1.4 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.ARM_LEFT, BodyPart.LEG_LEFT} :
+                                    yDiff >= 1.25 * scale ? new BodyPart[]{BodyPart.ARM_LEFT, BodyPart.LEG_LEFT} :
+                                            yDiff >= 0.25 * scale ? new BodyPart[]{BodyPart.LEG_LEFT, BodyPart.FOOT_LEFT} :
                                                     new BodyPart[]{BodyPart.FOOT_LEFT};
         } else {
-            return yDiff >= 1.9 ? new BodyPart[]{BodyPart.HEAD} :
-                    yDiff >= 1.0 ? new BodyPart[]{BodyPart.HEAD, BodyPart.ARM_RIGHT} :
-                            yDiff >= 0.3 ? new BodyPart[]{BodyPart.ARM_RIGHT} :
-                                    yDiff >= 0.2 ? new BodyPart[]{BodyPart.ARM_RIGHT, BodyPart.LEG_RIGHT} :
-                                            yDiff >= -0.2 ? new BodyPart[]{BodyPart.LEG_RIGHT, BodyPart.FOOT_RIGHT} :
+            return yDiff >= 2.4 * scale ? new BodyPart[]{BodyPart.HEAD} :
+                    yDiff >= 1.7 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.ARM_RIGHT} :
+                            yDiff >= 1.4 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.ARM_RIGHT, BodyPart.LEG_RIGHT} :
+                                    yDiff >= 1.25 * scale ? new BodyPart[]{BodyPart.ARM_RIGHT, BodyPart.LEG_RIGHT} :
+                                            yDiff >= 0.25 * scale ? new BodyPart[]{BodyPart.LEG_RIGHT, BodyPart.FOOT_RIGHT} :
                                                     new BodyPart[]{BodyPart.FOOT_RIGHT};
         }
     }
 
-    private static BodyPart determineBodyPart(Vector damagerVector, Vector playerVector, double yDiff) {
-        if (yDiff >= 1.6) {
+    private static double getRelativeYaw(Entity entity, Location location) {
+        float playerYaw = entity.getLocation().getYaw();
+        Vector locationVector = location.toVector();
+        Vector directionVector = locationVector.subtract(entity.getLocation().toVector()).normalize();
+        double locationYaw = Math.toDegrees(Math.atan2(directionVector.getZ(), directionVector.getX())) - 90;
+        locationYaw = (locationYaw + 360) % 360;
+        double relativeYaw = playerYaw - locationYaw;
+        relativeYaw = (relativeYaw + 360) % 360;
+        return relativeYaw;
+    }
+
+    private static BodyPart getHitBodyPart(double relativeHitY, double relativeYaw, double scale) {
+        if (relativeHitY > 1.4 * scale) {
             return BodyPart.HEAD;
-        } else if (yDiff >= 1.2) {
-            return BodyPart.BODY;
-        } else if (yDiff >= 0.8) {
-            return damagerVector.getX() < playerVector.getX() ? BodyPart.ARM_LEFT : BodyPart.ARM_RIGHT;
-        } else if (yDiff >= 0.4) {
-            return damagerVector.getX() < playerVector.getX() ? BodyPart.LEG_LEFT : BodyPart.LEG_RIGHT;
-        } else {
-            return damagerVector.getX() < playerVector.getX() ? BodyPart.FOOT_LEFT : BodyPart.FOOT_RIGHT;
         }
+
+        else if (relativeHitY > 0.7 * scale) {
+            if (relativeYaw > 45 && relativeYaw < 135) return BodyPart.ARM_LEFT;
+            if (relativeYaw > 225 && relativeYaw < 315) return BodyPart.ARM_RIGHT;
+            return BodyPart.BODY;
+        }
+
+        else if (relativeHitY > 0.25 * scale) {
+            if (relativeYaw > 0 && relativeYaw < 180) return BodyPart.LEG_LEFT;
+            return BodyPart.LEG_RIGHT;
+        }
+
+        else {
+            if (relativeYaw > 0 && relativeYaw < 180) return BodyPart.FOOT_LEFT;
+            return BodyPart.FOOT_RIGHT;
+        }
+    }
+
+    public static Location traceRay(Location start, Vector direction, Player player, double scale) {
+        double maxDistance = 10.0;
+        double stepSize = 0.1;
+
+        for (double i = 0; i < maxDistance; i += stepSize) {
+            Location currentPosition = start.clone().add(direction.clone().multiply(i));
+            //Bukkit.getServer().getWorld("world").spawnParticle(Particle.SMALL_FLAME, currentPosition, 1, 0, 0, 0, 0);
+            if (isWithinPlayerHitbox(currentPosition, player, scale)) return currentPosition;
+        }
+
+        return null;
+    }
+
+    public static boolean isWithinPlayerHitbox(Location location, Player player, double scale) {
+        double playerMinX = player.getLocation().getX() - 0.3 * scale;
+        double playerMaxX = player.getLocation().getX() + 0.3 * scale;
+        double playerMinY = player.getLocation().getY();
+        double playerMaxY = playerMinY + 1.8 * scale;
+        double playerMinZ = player.getLocation().getZ() - 0.3 * scale;
+        double playerMaxZ = player.getLocation().getZ() + 0.3 * scale;
+
+        double locX = location.getX();
+        double locY = location.getY();
+        double locZ = location.getZ();
+
+        return (locX >= playerMinX && locX <= playerMaxX) &&
+                (locY >= playerMinY && locY <= playerMaxY) &&
+                (locZ >= playerMinZ && locZ <= playerMaxZ);
     }
 
 }

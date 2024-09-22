@@ -1,0 +1,143 @@
+empty:
+  type: single
+  file: bodyhealth/bodyhealth_empty.png
+broken:
+  type: single
+  file: bodyhealth/bodyhealth_broken.png
+damaged:
+  type: single
+  file: bodyhealth/bodyhealth_damaged.png
+intermediate:
+  type: single
+  file: bodyhealth/bodyhealth_intermediate.png
+nearlyfull:
+  type: single
+  file: bodyhealth/bodyhealth_nearlyfull.png
+full:
+  type: single
+  file: bodyhealth/bodyhealth_full.png
+
+broken_head:
+  type: single
+  file: bodyhealth/bodyhealth_broken_head.png
+broken_body:
+  type: single
+  file: bodyhealth/bodyhealth_broken_body.png
+broken_arm_left:
+  type: single
+  file: bodyhealth/bodyhealth_broken_arm_left.png
+broken_arm_right:
+  type: single
+  file: bodyhealth/bodyhealth_broken_arm_right.png
+broken_leg_left:
+  type: single
+  file: bodyhealth/bodyhealth_broken_leg_left.png
+broken_leg_right:
+  type: single
+  file: bodyhealth/bodyhealth_broken_leg_right.png
+broken_foot_left:
+  type: single
+  file: bodyhealth/bodyhealth_broken_foot_left.png
+broken_foot_right:
+  type: single
+  file: bodyhealth/bodyhealth_broken_foot_right.png
+
+damaged_head:
+  type: single
+  file: bodyhealth/bodyhealth_damaged_head.png
+damaged_body:
+  type: single
+  file: bodyhealth/bodyhealth_damaged_body.png
+damaged_arm_left:
+  type: single
+  file: bodyhealth/bodyhealth_damaged_arm_left.png
+damaged_arm_right:
+  type: single
+  file: bodyhealth/bodyhealth_damaged_arm_right.png
+damaged_leg_left:
+  type: single
+  file: bodyhealth/bodyhealth_damaged_leg_left.png
+damaged_leg_right:
+  type: single
+  file: bodyhealth/bodyhealth_damaged_leg_right.png
+damaged_foot_left:
+  type: single
+  file: bodyhealth/bodyhealth_damaged_foot_left.png
+damaged_foot_right:
+  type: single
+  file: bodyhealth/bodyhealth_damaged_foot_right.png
+
+intermediate_head:
+  type: single
+  file: bodyhealth/bodyhealth_intermediate_head.png
+intermediate_body:
+  type: single
+  file: bodyhealth/bodyhealth_intermediate_body.png
+intermediate_arm_left:
+  type: single
+  file: bodyhealth/bodyhealth_intermediate_arm_left.png
+intermediate_arm_right:
+  type: single
+  file: bodyhealth/bodyhealth_intermediate_arm_right.png
+intermediate_leg_left:
+  type: single
+  file: bodyhealth/bodyhealth_intermediate_leg_left.png
+intermediate_leg_right:
+  type: single
+  file: bodyhealth/bodyhealth_intermediate_leg_right.png
+intermediate_foot_left:
+  type: single
+  file: bodyhealth/bodyhealth_intermediate_foot_left.png
+intermediate_foot_right:
+  type: single
+  file: bodyhealth/bodyhealth_intermediate_foot_right.png
+
+nearlyfull_head:
+  type: single
+  file: bodyhealth/bodyhealth_nearlyfull_head.png
+nearlyfull_body:
+  type: single
+  file: bodyhealth/bodyhealth_nearlyfull_body.png
+nearlyfull_arm_left:
+  type: single
+  file: bodyhealth/bodyhealth_nearlyfull_arm_left.png
+nearlyfull_arm_right:
+  type: single
+  file: bodyhealth/bodyhealth_nearlyfull_arm_right.png
+nearlyfull_leg_left:
+  type: single
+  file: bodyhealth/bodyhealth_nearlyfull_leg_left.png
+nearlyfull_leg_right:
+  type: single
+  file: bodyhealth/bodyhealth_nearlyfull_leg_right.png
+nearlyfull_foot_left:
+  type: single
+  file: bodyhealth/bodyhealth_nearlyfull_foot_left.png
+nearlyfull_foot_right:
+  type: single
+  file: bodyhealth/bodyhealth_nearlyfull_foot_right.png
+
+full_head:
+  type: single
+  file: bodyhealth/bodyhealth_full_head.png
+full_body:
+  type: single
+  file: bodyhealth/bodyhealth_full_body.png
+full_arm_left:
+  type: single
+  file: bodyhealth/bodyhealth_full_arm_left.png
+full_arm_right:
+  type: single
+  file: bodyhealth/bodyhealth_full_arm_right.png
+full_leg_left:
+  type: single
+  file: bodyhealth/bodyhealth_full_leg_left.png
+full_leg_right:
+  type: single
+  file: bodyhealth/bodyhealth_full_leg_right.png
+full_foot_left:
+  type: single
+  file: bodyhealth/bodyhealth_full_foot_left.png
+full_foot_right:
+  type: single
+  file: bodyhealth/bodyhealth_full_foot_right.png

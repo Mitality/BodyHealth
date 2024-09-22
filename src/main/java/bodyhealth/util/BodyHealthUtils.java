@@ -54,19 +54,8 @@ public class BodyHealthUtils {
     }
 
     public static void applyDamageWithConfig(BodyHealth bodyHealth, EntityDamageEvent.DamageCause cause, double damage) {
-        ConfigurationSection config = Config.body_damage;
-
         for (BodyPart part : BodyPart.values()) {
-            if (config.getKeys(false).contains(part.name())) {
-                for (String entry : config.getStringList(part.name())) {
-                    String[] data = entry.split(" ");
-                    String damageType = data[0];
-                    double percentage = Double.parseDouble(data[1].replace("%", ""));
-                    if (cause.name().equalsIgnoreCase(damageType)) bodyHealth.applyDamage(part, damage * (percentage / 100.0));
-                }
-            } else {
-                Debug.logErr("body_damage isn't configured for " + part.name() + "!");
-            }
+            applyDamageWithConfig(bodyHealth, cause, damage, part);
         }
     }
 
@@ -75,10 +64,16 @@ public class BodyHealthUtils {
         if (config.getKeys(false).contains(part.name())) {
             for (String entry : config.getStringList(part.name())) {
                 String[] data = entry.split(" ");
+                if (data.length < 2) continue; // Invalid entry
                 String damageType = data[0];
                 double percentage = Double.parseDouble(data[1].replace("%", ""));
-                if (cause.name().equalsIgnoreCase(damageType)) bodyHealth.applyDamage(part, damage * (percentage / 100.0));
+                if (percentage == -1) continue; // Invalid percentage
+                if (cause.name().equalsIgnoreCase(damageType)) {
+                    bodyHealth.applyDamage(part, damage * (percentage / 100.0));
+                    return;
+                }
             }
+            bodyHealth.applyDamage(part, damage); // Not configured - default to 100%
         } else {
             Debug.logErr("body_damage isn't configured for " + part.name() + "!");
         }

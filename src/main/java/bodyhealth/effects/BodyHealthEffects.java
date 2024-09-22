@@ -1,5 +1,6 @@
 package bodyhealth.effects;
 
+import bodyhealth.Main;
 import bodyhealth.core.BodyHealth;
 import bodyhealth.core.BodyPart;
 import bodyhealth.core.BodyPartState;
@@ -10,6 +11,7 @@ import bodyhealth.util.MessageUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.potion.PotionEffect;
@@ -139,10 +141,12 @@ public class BodyHealthEffects {
 
         // COMMAND / cmd args[...]
         else if (effectParts[0].trim().equalsIgnoreCase("COMMAND")) {
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), effectParts[1].trim()
-                    .replaceAll("%PlayerName%", player.getName())
-                    .replaceAll("%PlayerUUID%", player.getUniqueId().toString()));
-            Debug.log("(" + part.name() +") Dispatched command: /" + effectParts[1].trim());
+            Bukkit.getScheduler().runTask(Main.getInstance(), () -> { // Dispatch command synchronously
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), effectParts[1].trim()
+                        .replaceAll("%PlayerName%", player.getName())
+                        .replaceAll("%PlayerUUID%", player.getUniqueId().toString()));
+                Debug.log("(" + part.name() +") Dispatched command: /" + effectParts[1].trim());
+            });
         }
 
         // COMMAND_UNDO / cmd args[...]
@@ -245,10 +249,12 @@ public class BodyHealthEffects {
 
         // COMMAND_UNDO / cmd args[...]
         else if (effectParts[0].trim().equalsIgnoreCase("COMMAND_UNDO")) {
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), effectParts[1].trim()
-                    .replaceAll("%PlayerName%", player.getName())
-                    .replaceAll("%PlayerUUID%", player.getUniqueId().toString()));
-            Debug.log("(" + part.name() +") Dispatched command: /" + effectParts[1].trim());
+            Bukkit.getScheduler().runTaskLater(Main.getInstance(), () -> { // Dispatch command synchronously and ensure the player has already respawned
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), effectParts[1].trim()
+                        .replaceAll("%PlayerName%", player.getName())
+                        .replaceAll("%PlayerUUID%", player.getUniqueId().toString()));
+                Debug.log("(" + part.name() +") Dispatched command: /" + effectParts[1].trim());
+            }, 10L);
         }
 
         // KILL_PLAYER
