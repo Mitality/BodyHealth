@@ -58,8 +58,14 @@ public class BodyHealthListener implements Listener {
 
             else {
                 BodyPart hitBodyPart = BodyHealthCalculator.calculateHitByEntity(player, damager);
-                BodyHealthUtils.applyDamageWithConfig(bodyHealth, cause, damage, hitBodyPart);
-                Debug.log("Player " + player.getName() + " was hit by an entity (" + damager.getType().name() + ") on " + hitBodyPart.name() + " with " + damage + " damage.");
+                if (hitBodyPart != null) {
+                    BodyHealthUtils.applyDamageWithConfig(bodyHealth, cause, damage, hitBodyPart);
+                    Debug.log("Player " + player.getName() + " was hit by an entity (" + damager.getType().name() + ") on " + hitBodyPart.name() + " with " + damage + " damage.");
+                }
+                else {
+                    BodyHealthUtils.applyDamageWithConfig(bodyHealth, cause, damage);
+                    Debug.log("Player " + player.getName() + " was hit by a non-living entity (" + damager.getType().name() + ") with " + damage + " damage.");
+                }
             }
 
         }

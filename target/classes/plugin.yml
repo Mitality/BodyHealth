@@ -1,5 +1,5 @@
 name: BodyHealth
-version: '1.2.1'
+version: '1.2.2'
 main: bodyhealth.Main
 api-version: '1.21'
 authors:

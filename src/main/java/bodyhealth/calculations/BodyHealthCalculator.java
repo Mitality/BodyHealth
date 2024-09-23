@@ -3,7 +3,6 @@ package bodyhealth.calculations;
 import bodyhealth.config.Config;
 import bodyhealth.core.BodyPart;
 import bodyhealth.config.Debug;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
@@ -21,6 +20,11 @@ public class BodyHealthCalculator {
     }
 
     public static BodyPart calculateHitByEntity(Player player, Entity entity) {
+
+        if (!(entity instanceof LivingEntity)) {
+            Debug.log("Damaging entity is not an instance of LivingEntity, applying damage to all body parts...");
+            return null;
+        }
 
         if (!Config.raytracing_enabled) {
             Debug.log("Ray tracing is disabled, defaulting to legacy calculation...");

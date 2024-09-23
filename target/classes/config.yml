@@ -3,7 +3,7 @@
 #   |  _ \ / _ \ / _` | | | | |_| |/ _ \/ _` | | __| '_ \
 #   | |_) | (_) | (_| | |_| |  _  |  __/ (_| | | |_| | | |
 #   |____/ \___/ \__,_|\__, |_| |_|\___|\__,_|_|\__|_| |_|
-#      Version 1.2.1   |___/  Manage health per BodyPart
+#      Version 1.2.2   |___/  Manage health per BodyPart
 
 #   Commands:
 #
@@ -87,7 +87,6 @@ body-damage:
     - ON_FIRE 60%
     - FALL 0%
   BODY:
-    - FALLING_ANVIL 0%
     - FALLING_BLOCK 0%
     - FALLING_STALACTITE 0%
     - FLY_INTO_WALL 0%
@@ -97,7 +96,6 @@ body-damage:
     - FALL 0%
   ARM_LEFT:
     - DROWN 0%
-    - FALLING_ANVIL 0%
     - FALLING_BLOCK 0%
     - FALLING_STALACTITE 0%
     - FLY_INTO_WALL 0%
@@ -108,7 +106,6 @@ body-damage:
     - FALL 0%
   ARM_RIGHT:
     - DROWN 0%
-    - FALLING_ANVIL 0%
     - FALLING_BLOCK 0%
     - FALLING_STALACTITE 0%
     - FLY_INTO_WALL 0%
@@ -119,7 +116,6 @@ body-damage:
     - FALL 0%
   LEG_LEFT:
     - DROWN 0%
-    - FALLING_ANVIL 0%
     - FALLING_BLOCK 0%
     - FALLING_STALACTITE 0%
     - FLY_INTO_WALL 0%
@@ -127,7 +123,6 @@ body-damage:
     - FALL 75%
   LEG_RIGHT:
     - DROWN 0%
-    - FALLING_ANVIL 0%
     - FALLING_BLOCK 0%
     - FALLING_STALACTITE 0%
     - FLY_INTO_WALL 0%
@@ -135,14 +130,12 @@ body-damage:
     - FALL 75%
   FOOT_LEFT:
     - DROWN 0%
-    - FALLING_ANVIL 0%
     - FALLING_BLOCK 0%
     - FALLING_STALACTITE 0%
     - FLY_INTO_WALL 0%
     - MAGIC 50%
   FOOT_RIGHT:
     - DROWN 0%
-    - FALLING_ANVIL 0%
     - FALLING_BLOCK 0%
     - FALLING_STALACTITE 0%
     - FLY_INTO_WALL 0%
