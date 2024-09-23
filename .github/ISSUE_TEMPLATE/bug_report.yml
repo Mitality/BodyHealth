@@ -8,7 +8,7 @@ body:
       label: Please confirm you are using the latest version and you have read and understood the configuration.
       description: This helps us avoid common issues and resolve real problems faster.
       options:
-        - label: I am ugind the latest version
+        - label: I am using the latest version
           required: true
         - label: I have read through the config
           required: true
