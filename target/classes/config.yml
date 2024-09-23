@@ -3,7 +3,7 @@
 #   |  _ \ / _ \ / _` | | | | |_| |/ _ \/ _` | | __| '_ \
 #   | |_) | (_) | (_| | |_| |  _  |  __/ (_| | | |_| | | |
 #   |____/ \___/ \__,_|\__, |_| |_|\___|\__,_|_|\__|_| |_|
-#      Version 1.2.0   |___/  Manage health per BodyPart
+#      Version 1.2.1   |___/  Manage health per BodyPart
 
 #   Commands:
 #
@@ -36,6 +36,11 @@ prefix: "&8&l[&e&lBodyHealth&8&l] "
 # Enable this to see what the plugin is doing in your console
 debug-mode: false
 
+# This enables additional information about internal calculations
+# and variables. Also enables visual indicators in game such as
+# displaying raytracing lines with small flame particles.
+development-mode: false
+
 # You can disable all handled error messages here
 # DO NOT REQUEST SUPPORT IF THIS IS SET TO FALSE
 error-logging: true
@@ -48,6 +53,15 @@ self-harm: false
 # via the effects section. If this is done, should we ensure
 # that all players are still able to eat to heal back up?
 always-allow-eating: true
+
+# Raytracing settings - Don't touch unless you know what you're doing
+raytracing:
+  # Should raytracing be used to determine what body part was hit?
+  enabled: true
+  # How far should we trace rays before defaulting to vector calculations?
+  max-distance: 10.0
+  # How precise should we trace rays (smaller number = more precision)
+  step-size: 0.1
 
 # Specify the maximum health for each body part
 # (can use %PlayerMaxHealth% as placeholder)

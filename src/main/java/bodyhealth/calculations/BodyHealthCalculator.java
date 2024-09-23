@@ -1,13 +1,18 @@
 package bodyhealth.calculations;
 
+import bodyhealth.config.Config;
 import bodyhealth.core.BodyPart;
 import bodyhealth.config.Debug;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.block.Block;
 import org.bukkit.entity.*;
 import org.bukkit.util.Vector;
+
+import java.util.Objects;
 
 public class BodyHealthCalculator {
 
@@ -16,6 +21,12 @@ public class BodyHealthCalculator {
     }
 
     public static BodyPart calculateHitByEntity(Player player, Entity entity) {
+
+        if (!Config.raytracing_enabled) {
+            Debug.log("Ray tracing is disabled, defaulting to legacy calculation...");
+            return calculateHitByEntityLegacy(player, entity);
+        }
+
         AttributeInstance scaleAttribute = player.getAttribute(Attribute.GENERIC_SCALE);
         double scale = (scaleAttribute != null) ? scaleAttribute.getValue() : 1.0;
 
@@ -60,7 +71,7 @@ public class BodyHealthCalculator {
     }
 
     private static BodyPart[] determineHitParts(double relativeYaw, double yDiff, double scale) {
-        Debug.log("RelativeYaw: " + relativeYaw + ", yDiff: " + yDiff + ", scale: " + scale);
+        Debug.logDev("Relative yaw: " + relativeYaw + ", Height difference: " + yDiff + ", Scale: " + scale);
         if (relativeYaw <= 45 || relativeYaw >= 315) {
             return yDiff >= 2.4 * scale ? new BodyPart[]{BodyPart.HEAD} :
                     yDiff >= 1.7 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.BODY} :
@@ -104,6 +115,8 @@ public class BodyHealthCalculator {
     }
 
     private static BodyPart getHitBodyPart(double relativeHitY, double relativeYaw, double scale) {
+        Debug.logDev("Relative hit height: " + relativeHitY + ", Relative yaw: " + relativeYaw + ", Scale: " + scale);
+
         if (relativeHitY > 1.4 * scale) {
             return BodyPart.HEAD;
         }
@@ -126,12 +139,9 @@ public class BodyHealthCalculator {
     }
 
     public static Location traceRay(Location start, Vector direction, Player player, double scale) {
-        double maxDistance = 10.0;
-        double stepSize = 0.1;
-
-        for (double i = 0; i < maxDistance; i += stepSize) {
+        for (double i = 0; i < Config.raytracing_max_distance; i += Config.raytracing_step_size) {
             Location currentPosition = start.clone().add(direction.clone().multiply(i));
-            //Bukkit.getServer().getWorld("world").spawnParticle(Particle.SMALL_FLAME, currentPosition, 1, 0, 0, 0, 0);
+            if (Config.development_mode) Objects.requireNonNull(currentPosition.getWorld()).spawnParticle(Particle.SMALL_FLAME, currentPosition, 1, 0, 0, 0, 0);
             if (isWithinPlayerHitbox(currentPosition, player, scale)) return currentPosition;
         }
 

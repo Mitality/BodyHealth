@@ -23,4 +23,13 @@ public class Debug {
             Bukkit.getLogger().log(Level.SEVERE, prefixedMessage);
         }
     }
+
+    public static void logDev(String message) {
+        if (Config.development_mode) {
+            StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+            String callingClass = stackTrace[2].getClassName().split("\\.")[stackTrace[2].getClassName().split("\\.").length - 1];
+            String prefixedMessage = "[BodyHealthDevDebug - " + callingClass + "] " + message;
+            Bukkit.getLogger().log(Level.WARNING, prefixedMessage);
+        }
+    }
 }
