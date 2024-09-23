@@ -5,6 +5,7 @@ This was meant to be part of a private plugin of mine, but things escalated and 
 This plugin is capable of determining where players were hit by using a combination of vector
 calculations and raytracing. This should work for all possible ways of being damaged with more
 accuracy than mojang has with displaying body rotation and arrows stuck in your body in game.
+It also supports attributes and potion effects for both the player and the damage source!
 
 Everything I could imagine is highly customizable and if there's something important I missed,
 you can ask for it to be added and I'll see what I can do! It should work without any changes
