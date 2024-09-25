@@ -20,6 +20,7 @@ public class Config {
     public static boolean disable_betterhud_compass;
     public static boolean add_betterhud_mcmeta;
     public static boolean add_betterhud_icon;
+    public static boolean zip_betterhud_resourcepack;
 
     public static double raytracing_max_distance;
     public static double raytracing_step_size;
@@ -45,6 +46,7 @@ public class Config {
         disable_betterhud_compass = config.getBoolean("display.betterhud.disable.compass", true);
         add_betterhud_mcmeta = config.getBoolean("display.betterhud.add.mcmeta", true);
         add_betterhud_icon = config.getBoolean("display.betterhud.add.icon", true);
+        zip_betterhud_resourcepack = config.getBoolean("display.betterhud.zip", true);
 
         raytracing_max_distance = config.getDouble("raytracing.max-distance", 10.0);
         raytracing_step_size = config.getDouble("raytracing.step-size", 0.1);

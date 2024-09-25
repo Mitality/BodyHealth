@@ -8,12 +8,12 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 public class BetterHud {
 
@@ -118,6 +118,7 @@ public class BetterHud {
         }
         config.set("default-hud", defaultHudList);
         config.save(configFile);
+
     }
 
     public static void add() throws IOException {
@@ -127,6 +128,27 @@ public class BetterHud {
         };
         copySpecificFiles(filesToCopy, BetterHudAPI.inst().bootstrap().dataFolder(), Main.getInstance());
         Debug.log("Files added successfully");
+        zip(); // Zip after adding required files
+    }
+
+    private static void zip() {
+        if (!Config.zip_betterhud_resourcepack) return;
+        Debug.log("Zipping BetterHud/build to BodyHealth/resource_pack.zip");
+
+        File betterHudBuildFolder = new File(BetterHudAPI.inst().bootstrap().dataFolder(), "build");
+        if (!betterHudBuildFolder.exists()) {
+            Debug.logErr("BetterHud build folder does not exist!");
+            return;
+        }
+
+        File zipFile = new File(Main.getInstance().getDataFolder(), "resource_pack.zip");
+        try (FileOutputStream fos = new FileOutputStream(zipFile);
+             ZipOutputStream zos = new ZipOutputStream(fos)) {
+            zipFolder(betterHudBuildFolder, "", zos);
+            Debug.log("Zipping complete! resource_pack.zip created at " + zipFile.getPath());
+        } catch (IOException e) {
+            Debug.log("Failed to create the zip file: " + e.getMessage());
+        }
     }
 
     private static void copySpecificFiles(String[] filesToCopy, File targetFolder, JavaPlugin instance) throws IOException {
@@ -161,6 +183,32 @@ public class BetterHud {
             if (!subDir.exists()) {
                 Debug.log("Creating directory: " + subDir.getAbsolutePath());
                 subDir.mkdirs();
+            }
+        }
+    }
+
+    private static void zipFolder(File folderToZip, String parentFolder, ZipOutputStream zos) throws IOException {
+        File[] files = folderToZip.listFiles();
+        if (files == null) {
+            return;
+        }
+
+        for (File file : files) {
+            if (file.isDirectory()) {
+                zipFolder(file, parentFolder.isEmpty() ? file.getName() : parentFolder + "/" + file.getName(), zos);
+                continue;
+            }
+            try (FileInputStream fis = new FileInputStream(file)) {
+                String zipEntryName = parentFolder.isEmpty() ? file.getName() : parentFolder + "/" + file.getName();
+                zos.putNextEntry(new ZipEntry(zipEntryName));
+
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = fis.read(buffer)) > 0) {
+                    zos.write(buffer, 0, length);
+                }
+
+                zos.closeEntry();
             }
         }
     }

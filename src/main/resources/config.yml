@@ -264,3 +264,10 @@ display:
       # Add an icon to BetterHuds output directory
       icon: true
       # ^ If both of the above options are set to true, you can directly use the output directory as resource pack
+
+    # Zip BetterHud assets to a usable resource pack located at BodyHealth/resource_pack.zip
+    # (For inexperienced users: leave the above add-options set to true when using this!)
+    zip: true
+
+    # IF YOU DON'T KNOW WHAT TO DO, USE LEAVE THE DISPLAY-SETTINGS UNTOUCHED AND USE THE RESOURCE PACK
+    # LOCATED AT "plugins/BodyHealth/resource_pack.zip" VISUALIZE YOUR HEALTH PER BODY PART IN GAME !!
