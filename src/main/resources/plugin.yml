@@ -5,7 +5,7 @@ api-version: '1.21'
 authors:
   - Mitality
 description: Minecraft Spigot Plugin to manage Health per BodyPart
-website: https://github.com/Mitality/BodyHealth (private for now)
+website: https://github.com/Mitality/BodyHealth
 softdepend:
   - PlaceholderAPI
   - BetterHud
