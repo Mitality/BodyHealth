@@ -8,7 +8,7 @@ release.properties
 
 # Gradle specific files
 .gradle/
-build/
+#build/
 out/
 
 # Ignore temporary and IDE specific files
