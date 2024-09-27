@@ -10,6 +10,9 @@ import java.util.UUID;
 
 public class HealthStorage {
 
+    /**
+     * Saves the current health per BodyPart for all BodyParts and all players
+     */
     public static void savePlayerHealthData() {
         FileConfiguration data = DataManager.getData();
 
@@ -25,6 +28,10 @@ public class HealthStorage {
         DataManager.saveData();
     }
 
+    /**
+     * Loads up the current health per BodyPart for all BodyParts and all players from the yaml storage system
+     * @return A number representing for how many players data was found and loaded
+     */
     public static int loadPlayerHealthData() {
         FileConfiguration data = DataManager.getData();
 

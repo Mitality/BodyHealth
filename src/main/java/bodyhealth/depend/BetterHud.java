@@ -17,6 +17,11 @@ import java.util.zip.ZipOutputStream;
 
 public class BetterHud {
 
+    /**
+     * Injects a working configuration into BetterHud to display health per BodyPart with a HUD
+     * Also disables BetterHuds default stuff unless specified otherwise in BodyHealth's config
+     * @throws IOException
+     */
     public static void inject() throws IOException {
         final JavaPlugin instance = Main.getInstance();
         final File betterHudDataFolder = BetterHudAPI.inst().bootstrap().dataFolder();
@@ -121,6 +126,11 @@ public class BetterHud {
 
     }
 
+    /**
+     * Adds necessary files to BetterHuds resource pack output folder to make it usable
+     * (Adds and icon and mcmeta file to specify the pack version)
+     * @throws IOException
+     */
     public static void add() throws IOException {
         String[] filesToCopy = {
             (Config.add_betterhud_mcmeta) ? "build/pack.mcmeta" : null,
@@ -131,6 +141,9 @@ public class BetterHud {
         zip(); // Zip after adding required files
     }
 
+    /**
+     * Zips the contents of BetterHuds resource pack folder to BodyHealth/resource_pack.zip
+     */
     private static void zip() {
         if (!Config.zip_betterhud_resourcepack) return;
         Debug.log("Zipping BetterHud/build to BodyHealth/resource_pack.zip");
@@ -151,6 +164,13 @@ public class BetterHud {
         }
     }
 
+    /**
+     * Utility method to copy specific files from one folder to another
+     * @param filesToCopy The files to copy
+     * @param targetFolder The folder into which the files should be copied to
+     * @param instance An instance of the BodyHealth plugin
+     * @throws IOException
+     */
     private static void copySpecificFiles(String[] filesToCopy, File targetFolder, JavaPlugin instance) throws IOException {
         if (!targetFolder.exists()) targetFolder.mkdirs();
 
@@ -176,7 +196,11 @@ public class BetterHud {
         }
     }
 
-    // Utility function to ensure subdirectories are created
+    /**
+     * Utility method to ensure that all used directories actually exist
+     * @param targetFolder The parent folder in which this should be done
+     * @param directories The directories that should be in said folder
+     */
     private static void ensureDirectoriesExist(File targetFolder, String... directories) {
         for (String dir : directories) {
             File subDir = new File(targetFolder, dir);
@@ -187,6 +211,13 @@ public class BetterHud {
         }
     }
 
+    /**
+     * Utility method to zip the contents of a folder to another folder
+     * @param folderToZip The folder of which the contents should be zipped
+     * @param parentFolder If this is "", the zip directly contains the files
+     * @param zos The ZipOutputStream to use
+     * @throws IOException
+     */
     private static void zipFolder(File folderToZip, String parentFolder, ZipOutputStream zos) throws IOException {
         File[] files = folderToZip.listFiles();
         if (files == null) {

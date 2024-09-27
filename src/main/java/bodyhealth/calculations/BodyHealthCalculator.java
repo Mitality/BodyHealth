@@ -15,10 +15,22 @@ import java.util.Objects;
 
 public class BodyHealthCalculator {
 
+    /**
+     * Calculates what BodyPart of a player was hit by an arrow
+     * @param player The player that was hit by an arrow
+     * @param arrow The arrow that hit the player
+     * @return The hit BodyPart
+     */
     public static BodyPart calculateHitByArrow(Player player, Arrow arrow) {
         return calculateHitByEntityLegacy(player, arrow); // Extremely precise for arrows
     }
 
+    /**
+     * Calculates what BodyPart of a player was hit by an entity via raytracing
+     * @param player The player that was hit by an entity
+     * @param entity The entity that hit the player
+     * @return The hit BodyPart
+     */
     public static BodyPart calculateHitByEntity(Player player, Entity entity) {
 
         if (!(entity instanceof LivingEntity)) {
@@ -58,6 +70,12 @@ public class BodyHealthCalculator {
 
     }
 
+    /**
+     * Calculates what BodyPart of a player was hit by an entity via vector calculations
+     * @param player The player that was hit by an entity
+     * @param entity The entity that hit the player
+     * @return The hit BodyPart
+     */
     public static BodyPart calculateHitByEntityLegacy(Player player, Entity entity) {
         AttributeInstance scaleAttribute = player.getAttribute(Attribute.GENERIC_SCALE);
         double scale = (scaleAttribute != null) ? scaleAttribute.getValue() : 1.0;
@@ -66,6 +84,12 @@ public class BodyHealthCalculator {
         return getHitBodyPart(relativeHitY, relativeYaw, scale);
     }
 
+    /**
+     * Calculates what BodyPart(s) of a player were hit by a block (e.g. cactus)
+     * @param player The player that was hit by a block
+     * @param block The block that hit the player
+     * @return The hit BodyPart(s)
+     */
     public static BodyPart[] calculateHitByBlock(Player player, Block block) {
         AttributeInstance scaleAttribute = player.getAttribute(Attribute.GENERIC_SCALE);
         double scale = (scaleAttribute != null) ? scaleAttribute.getValue() : 1.0;
@@ -74,6 +98,13 @@ public class BodyHealthCalculator {
         return determineHitParts(relativeYaw, yDiff, scale);
     }
 
+    /**
+     * Utility method to determine what BodyPart(s) were hit by a block
+     * @param relativeYaw The relative yaw between player and damager
+     * @param yDiff The height difference between player and damager
+     * @param scale The scale of the player
+     * @return The hit BodyParts
+     */
     private static BodyPart[] determineHitParts(double relativeYaw, double yDiff, double scale) {
         Debug.logDev("Relative yaw: " + relativeYaw + ", Height difference: " + yDiff + ", Scale: " + scale);
         if (relativeYaw <= 45 || relativeYaw >= 315) {
@@ -107,6 +138,12 @@ public class BodyHealthCalculator {
         }
     }
 
+    /**
+     * Utility method to calculate the relative yaw between an entity and a location
+     * @param entity The entity to calculate the relative yaw to a location for
+     * @param location The location to which the relative yaw should be calculated
+     * @return The relative yaw between the entity and the location
+     */
     private static double getRelativeYaw(Entity entity, Location location) {
         float playerYaw = entity.getLocation().getYaw();
         Vector locationVector = location.toVector();
@@ -118,6 +155,13 @@ public class BodyHealthCalculator {
         return relativeYaw;
     }
 
+    /**
+     * Utility method to determine what BodyPart(s) were hit by an entity
+     * @param relativeHitY The height difference between the player and the damaging entity
+     * @param relativeYaw The relative yaw between the player and the damaging entity
+     * @param scale The scale of the player
+     * @return
+     */
     private static BodyPart getHitBodyPart(double relativeHitY, double relativeYaw, double scale) {
         Debug.logDev("Relative hit height: " + relativeHitY + ", Relative yaw: " + relativeYaw + ", Scale: " + scale);
 
@@ -142,6 +186,14 @@ public class BodyHealthCalculator {
         }
     }
 
+    /**
+     * Utility method to trace a ray from the damaging entities eyes to the damaged player
+     * @param start The location where the ray to trace should start (e.g. the damaging entities eyes)
+     * @param direction A Vector representing the direction in which the damaging entity is looking
+     * @param player The player that was hit by the damaging entity
+     * @param scale The scale of the player that was hit
+     * @return The location where the traced ray collides with the hit players hitbox
+     */
     public static Location traceRay(Location start, Vector direction, Player player, double scale) {
         for (double i = 0; i < Config.raytracing_max_distance; i += Config.raytracing_step_size) {
             Location currentPosition = start.clone().add(direction.clone().multiply(i));
@@ -152,6 +204,13 @@ public class BodyHealthCalculator {
         return null;
     }
 
+    /**
+     * Utility method to check if a location is within a players hitbox
+     * @param location The location that potentially is within the players hitbox
+     * @param player The player of which the hitbox should be calculated
+     * @param scale The scale of the player
+     * @return A boolean representing if the given location is within the given players hitbox
+     */
     public static boolean isWithinPlayerHitbox(Location location, Player player, double scale) {
         double playerMinX = player.getLocation().getX() - 0.3 * scale;
         double playerMaxX = player.getLocation().getX() + 0.3 * scale;

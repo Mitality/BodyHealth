@@ -14,6 +14,9 @@ public class DataManager {
     private static File file;
     private static FileConfiguration data;
 
+    /**
+     * Sets up the plugins yaml data storage system
+     */
     public static void setup() {
         // Create the file or get the existing one
         file = new File(Main.getInstance().getDataFolder(), "data.yml");
@@ -27,6 +30,9 @@ public class DataManager {
         data = YamlConfiguration.loadConfiguration(file);
     }
 
+    /**
+     * Saves the current data to the data.yml file
+     */
     public static void saveData() {
         try {
             data.save(file);
@@ -35,6 +41,10 @@ public class DataManager {
         }
     }
 
+    /**
+     * Retrieves the currently stored data
+     * @return A FileConfiguration representing the currently stored data
+     */
     public static FileConfiguration getData() {
         return data;
     }

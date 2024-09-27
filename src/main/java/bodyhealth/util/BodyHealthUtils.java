@@ -25,6 +25,10 @@ import java.util.List;
 import java.util.Map;
 
 public class BodyHealthUtils {
+
+    /**
+     * Reloads the plugin
+     */
     public static void reloadSystem() {
 
         for (Player player : Bukkit.getOnlinePlayers()) {
@@ -49,16 +53,34 @@ public class BodyHealthUtils {
         }
     }
 
+    /**
+     * Retrieves a given players BodyHealth object
+     * @param player The player of which the BodyHealth object should be retrieved
+     * @return The given players BodyHealth object
+     */
     public static BodyHealth getBodyHealth(Player player) {
         return Main.playerBodyHealthMap.computeIfAbsent(player.getUniqueId(), p -> new BodyHealth(player.getUniqueId()));
     }
 
+    /**
+     * Applies damage to all BodyParts for a BodyHealth object while taking the fine-tuning section of BodyHealth's config into account
+     * @param bodyHealth The BodyHealth object to which the damage should be applied to
+     * @param cause The DamageCause that caused the player to take damage
+     * @param damage The final amount of damage the player took
+     */
     public static void applyDamageWithConfig(BodyHealth bodyHealth, EntityDamageEvent.DamageCause cause, double damage) {
         for (BodyPart part : BodyPart.values()) {
             applyDamageWithConfig(bodyHealth, cause, damage, part);
         }
     }
 
+    /**
+     * Applies damage to a specific BodyPart for a BodyHealth object while taking the fine-tuning section of BodyHealth's config into account
+     * @param bodyHealth The BodyHealth object to which the damage should be applied to
+     * @param cause The DamageCause that caused the player to take damage
+     * @param damage The final amount of damage the player took
+     * @param part The BodyPart to which the damage should be applied
+     */
     public static void applyDamageWithConfig(BodyHealth bodyHealth, EntityDamageEvent.DamageCause cause, double damage, BodyPart part) {
         ConfigurationSection config = Config.body_damage;
         if (config.getKeys(false).contains(part.name())) {
@@ -79,6 +101,13 @@ public class BodyHealthUtils {
         }
     }
 
+
+    /**
+     * Calculates the current BodyPartState for a given Part in a given BodyHealth object
+     * @param bodyHealth The BodyHealth object to get the parts health from
+     * @param part The BodyPart from which the BodyPartState should be calculated
+     * @return The current BodyHealthState of the given BodyPart
+     */
     public static BodyPartState getBodyHealthState(BodyHealth bodyHealth, BodyPart part) {
         double currentHealth = bodyHealth.getHealth(part);
         if (currentHealth == 0) {
@@ -94,6 +123,12 @@ public class BodyHealthUtils {
         }
     }
 
+    /**
+     * Calculates the maximum amount of health that a players BodyPart should be able to have
+     * @param part The BodyPart to calculate the maximum amount of health for
+     * @param player The player to which the BodyPart belongs
+     * @return The maximum amount of health for the given BodyPart
+     */
     public static double getMaxHealth(BodyPart part, Player player) {
         double maxHealth = -1;
 
@@ -118,6 +153,11 @@ public class BodyHealthUtils {
         return player.getMaxHealth() / 2; // Default
     }
 
+    /**
+     * Utility method to evaluate a mathematical expression
+     * @param expression The expression to evaluate
+     * @return The result of the evaluation
+     */
     private static double evaluateExpression(String expression) {
         try {
             Expression e = new ExpressionBuilder(expression).build();
@@ -128,6 +168,11 @@ public class BodyHealthUtils {
         }
     }
 
+    /**
+     * Utility method to check if a player should be able to sprint
+     * @param player The player to calculate this for
+     * @return A boolean representing if the player should currently be able to sprint normally
+     */
     public static boolean canPlayerSprint(Player player) {
         BodyHealth bodyHealth = getBodyHealth(player);
         if (bodyHealth.getOngoingEffects().isEmpty()) return true;
@@ -141,6 +186,11 @@ public class BodyHealthUtils {
         return true;
     }
 
+    /**
+     * Utility method to check if a player should be able to walk
+     * @param player The player to calculate this for
+     * @return A boolean representing if the player should currently be able to walk
+     */
     public static boolean canPlayerWalk(Player player) {
         BodyHealth bodyHealth = getBodyHealth(player);
         if (bodyHealth.getOngoingEffects().isEmpty()) return true;
@@ -154,6 +204,11 @@ public class BodyHealthUtils {
         return true;
     }
 
+    /**
+     * Utility method to check if a player should be able to jump
+     * @param player The player to calculate this for
+     * @return A boolean representing if the player should currently be able to jump
+     */
     public static boolean canPlayerJump(Player player) {
         BodyHealth bodyHealth = getBodyHealth(player);
         if (bodyHealth.getOngoingEffects().isEmpty()) return true;
@@ -167,6 +222,12 @@ public class BodyHealthUtils {
         return true;
     }
 
+    /**
+     * Utility method to check if a player should be able to interact with something
+     * @param player The player to calculate this for
+     * @param hand The equipment slot to calculate this for
+     * @return A boolean representing if the player should currently be able to interact with something
+     */
     public static boolean canPlayerInteract(Player player, EquipmentSlot hand) {
         BodyHealth bodyHealth = getBodyHealth(player);
         if (bodyHealth.getOngoingEffects().isEmpty()) return true;
@@ -180,6 +241,12 @@ public class BodyHealthUtils {
         return true;
     }
 
+    /**
+     * Utility method to check if a player currently has a specific potion effect type
+     * @param player The player to calculate this for
+     * @param effect The effect type to check for
+     * @return A boolean representing if the player currently has the given potion effect type
+     */
     public static boolean hasPlayerPotionEffect(Player player, PotionEffectType effect) {
         BodyHealth bodyHealth = getBodyHealth(player);
         if (bodyHealth.getOngoingEffects().isEmpty()) return false;
@@ -193,6 +260,12 @@ public class BodyHealthUtils {
         return false;
     }
 
+    /**
+     * Utility method to retrieve the highest amplifier of a potion effect that a player should currently have
+     * @param player The player to calculate this for
+     * @param effect The effect to calculate this for
+     * @return The highest amplifier of thew given potion effect that the given player should currently have
+     */
     public static int getHighestPotionEffectAmplifier(Player player, PotionEffectType effect) {
         BodyHealth bodyHealth = getBodyHealth(player);
         if (bodyHealth.getOngoingEffects().isEmpty()) return -1;
@@ -209,7 +282,6 @@ public class BodyHealthUtils {
         }
         return highestAmplifier;
     }
-
 
     /**
      * Unnecessary method to remove invalid (leftover) effects from a players BodyHealth -> ongoingEffects.

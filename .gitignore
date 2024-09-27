@@ -6,11 +6,6 @@ pom.xml.versionsBackup
 pom.xml.next
 release.properties
 
-# Gradle specific files
-.gradle/
-#build/
-out/
-
 # Ignore temporary and IDE specific files
 *.log
 *.tmp

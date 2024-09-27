@@ -11,6 +11,12 @@ import java.util.List;
 import java.util.Map;
 
 public class MessageUtils {
+
+    /**
+     * Notifies the given player via chat, title, or actionbar
+     * @param player The player that should be notofied
+     * @param message The message to send to the player
+     */
     public static void notifyPlayer(Player player, String message) {
 
         if (message.trim().toUpperCase().startsWith("ACTIONBAR:")) {
@@ -31,6 +37,11 @@ public class MessageUtils {
         }
     }
 
+    /**
+     * Sends optional messages that come with specific effects
+     * @param player The player to send the message to
+     * @param effect The effect to send the message for
+     */
     public static void sendEffectMessages(Player player, String effect) {
         BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(player);
         if (bodyHealth.getOngoingEffects().isEmpty()) return;

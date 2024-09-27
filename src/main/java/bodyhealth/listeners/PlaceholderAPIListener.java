@@ -29,6 +29,9 @@ public class PlaceholderAPIListener implements Listener {
         }.runTaskLater(Main.getInstance(), 20); // Honestly, I have no idea why this is needed
     }
 
+    /**
+     * Ensures that the "Player" expansion of PlaceholderAPI is installed at all times (needed for HUD conditions)
+     */
     public static void ensurePlayerExpansion() {
         PlaceholderAPIPlugin placeholderAPIPlugin = (PlaceholderAPIPlugin) Bukkit.getPluginManager().getPlugin("PlaceholderAPI");
 
