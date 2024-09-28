@@ -270,5 +270,6 @@ display:
     # (For inexperienced users: leave the above add-options set to true when using this!)
     zip: true
 
-    # IF YOU DON'T KNOW WHAT TO DO, USE LEAVE THE DISPLAY-SETTINGS UNTOUCHED AND USE THE RESOURCE PACK
-    # LOCATED AT "plugins/BodyHealth/resource_pack.zip" VISUALIZE YOUR HEALTH PER BODY PART IN GAME !!
+    # IF YOU DON'T KNOW WHAT TO DO, LEAVE THE DISPLAY-SETTINGS UNTOUCHED AND USE THE RESOURCE PACK
+    # LOCATED AT "plugins/BodyHealth/resource_pack.zip" VISUALIZE YOUR HEALTH PER BODY PART IN GAME
+    # (YOU STILL NEED TO DOWNLOAD BOTH DEPENDENCIES FOR THIS TO WORK)
