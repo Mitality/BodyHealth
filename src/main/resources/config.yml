@@ -146,7 +146,7 @@ body-damage:
 #
 #   Effects (<> = required, [] = optional):
 #
-#      POTION_EFFECT / <EFFECT> / [AMPLIFIER]   ...apply a specific potion effect (amplifier defaults to 0 if not specified)
+#      POTION_EFFECT / <EFFECT> / [AMPLIFIER]   ...apply a specific potion effect (amplifier defaults to 1 if not specified)
 #      PREVENT_INTERACT / <HAND> / [MESSAGE]    ...prevent the player from interacting with a given hand (HAND / OFF_HAND)
 #      PREVENT_SPRINT / [MESSAGE]               ...prevent the player from sprinting (sets sprint speed to walk speed)
 #      PREVENT_WALK                             ...prevent the player from walking at all (player can still be knocked back)
@@ -154,7 +154,7 @@ body-damage:
 #      COMMAND / cmd args[...]                  ...execute a command (can use %PlayerName% and %PlayerUUID% as placeholders)
 #      COMMAND_UNDO / cmd args[...]             ...execute a command when the condition is no longer met (to undo stuff)
 #      KILL_PLAYER                              ...you guessed it, this kills the player when the condition is met
-#      SEND_MESSAGE / <MESSAGE>                      ...send a message to the player to notify them of their status
+#      SEND_MESSAGE / <MESSAGE>                 ...send a message to the player to notify them of their status
 #
 #   <MESSAGE> (or [MESSAGE]) can be the following:
 #

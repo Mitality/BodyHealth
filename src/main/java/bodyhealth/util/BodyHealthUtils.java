@@ -29,28 +29,40 @@ public class BodyHealthUtils {
     /**
      * Reloads the plugin
      */
-    public static void reloadSystem() {
+    public static boolean reloadSystem() {
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             BodyHealthEffects.removeEffectsFromPlayer(player);
         }
 
-        // Reload and update config.yml
-        Main.getInstance().saveDefaultConfig();
-        File configFile = new File(Main.getInstance().getDataFolder(), "config.yml");
         try {
-            ConfigUpdater.update(Main.getInstance(), "config.yml", configFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Main.getInstance().reloadConfig();
 
-        // Load configuration internally
-        Config.load(Main.getInstance().getConfig());
+            // Reload and update config.yml
+            Main.getInstance().saveDefaultConfig();
+            File configFile = new File(Main.getInstance().getDataFolder(), "config.yml");
+            try {
+                ConfigUpdater.update(Main.getInstance(), "config.yml", configFile);
+            } catch (IOException e) {
+                Debug.logErr("Could not update your configuration: " + e.getMessage());
+                //e.printStackTrace();
+                return false;
+            }
+            Main.getInstance().reloadConfig();
+
+            // Load configuration internally
+            Config.load(Main.getInstance().getConfig());
+
+        } catch (Exception e) {
+            Debug.logErr("Could not reload your configuration!");
+            //e.printStackTrace();
+            return false;
+        }
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             BodyHealthEffects.addEffectsToPlayer(player);
         }
+
+        return true;
     }
 
     /**
@@ -144,7 +156,7 @@ public class BodyHealthUtils {
             maxHealth = evaluateExpression(expression);
 
             if (maxHealth == -1) {
-                Debug.logErr("Invalid maxHealth expression: " + expression + " !");
+                Debug.logErr("Invalid maxHealth expression: \"" + expression + "\" ! Defaulting to '%PlayerMaxHealth% / 2'");
                 return player.getMaxHealth() / 2; // Default
             }
         }
@@ -163,7 +175,7 @@ public class BodyHealthUtils {
             Expression e = new ExpressionBuilder(expression).build();
             return e.evaluate();
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return -1;
         }
     }

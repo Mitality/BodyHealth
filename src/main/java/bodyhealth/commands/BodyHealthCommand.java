@@ -26,8 +26,8 @@ public class BodyHealthCommand implements CommandExecutor {
                 sender.sendMessage(Config.prefix + "§cYou do not have permission to use this command");
                 return true;
             }
-            BodyHealthUtils.reloadSystem();
-            sender.sendMessage(Config.prefix + "§aConfiguration reloaded.");
+            if (BodyHealthUtils.reloadSystem()) sender.sendMessage(Config.prefix + "§aConfiguration reloaded.");
+            else sender.sendMessage(Config.prefix + "§cConfiguration could not be reloaded.");
             return true;
         }
 
