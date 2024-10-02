@@ -37,3 +37,8 @@ commands:
           bodyhealth.heal: true
           bodyhealth.get: true
           bodyhealth.set: true
+
+permissions:
+  bodyhealth.update-notify:
+    description: Notifies the player when the plugin has an update available.
+    default: op

@@ -6,7 +6,7 @@
 
     <groupId>mitality</groupId>
     <artifactId>BodyHealth</artifactId>
-    <version>1.3.3</version>
+    <version>1.3.4</version>
     <packaging>jar</packaging>
 
     <name>BodyHealth</name>
@@ -36,7 +36,15 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
+                <version>3.3.0</version>
+                <configuration>
+                    <relocations>
+                        <relocation>
+                            <pattern>com.jeff_media.updatechecker</pattern>
+                            <shadedPattern>bodyhealth.updatechecker</shadedPattern>
+                        </relocation>
+                    </relocations>
+                </configuration>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -68,6 +76,12 @@
         <repository>
             <id>maven-central</id>
             <url>https://oss.sonatype.org/content/groups/public</url>
+        </repository>
+
+        <!-- Jeff Media -->
+        <repository>
+            <id>jeff-media-public</id>
+            <url>https://repo.jeff-media.com/public/</url>
         </repository>
 
         <!-- PlaceholderAPI -->
@@ -106,6 +120,14 @@
             <groupId>com.tchristofferson</groupId>
             <artifactId>ConfigUpdater</artifactId>
             <version>2.1-SNAPSHOT</version>
+        </dependency>
+
+        <!-- Update Checker -->
+        <dependency>
+            <groupId>com.jeff_media</groupId>
+            <artifactId>SpigotUpdateChecker</artifactId>
+            <version>3.0.3</version>
+            <scope>compile</scope>
         </dependency>
 
         <!-- PlaceholderAPI -->

@@ -13,6 +13,9 @@ import bodyhealth.core.BodyHealth;
 import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
 import bodyhealth.listeners.PlaceholderAPIListener;
+import com.jeff_media.updatechecker.UpdateCheckSource;
+import com.jeff_media.updatechecker.UpdateChecker;
+import com.jeff_media.updatechecker.UserAgentBuilder;
 import com.tchristofferson.configupdater.ConfigUpdater;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -26,6 +29,7 @@ import java.util.*;
 
 public final class Main extends JavaPlugin {
     private static Main instance;
+    private static String SPIGOT_RESOURCE_ID;
     public static Map<UUID, BodyHealth> playerBodyHealthMap;
     public static PlaceholderAPI placeholderAPIexpansion;
     public static long validationTimestamp;
@@ -34,6 +38,7 @@ public final class Main extends JavaPlugin {
     public void onEnable() {
         instance = this;
         validationTimestamp = 0;
+        SPIGOT_RESOURCE_ID = "119966";
 
         Debug.log("Initializing...");
 
@@ -97,7 +102,17 @@ public final class Main extends JavaPlugin {
         if (count > 0) Debug.log(count == 1 ? "Loaded data for 1 existing player" : "Loaded data for " + count + " existing players");
         else Debug.log("No existing data was found");
 
+        // Check for updates
+        new UpdateChecker(this, UpdateCheckSource.SPIGOT, SPIGOT_RESOURCE_ID)
+                .setDownloadLink("https://www.spigotmc.org/resources/bodyhealth.119966/")
+                .setDonationLink("https://paypal.me/mitality")
+                .setChangelogLink("https://www.spigotmc.org/resources/bodyhealth.119966/updates")
+                .setNotifyByPermissionOnJoin("bodyhealth.update-notify")
+                .setUserAgent(new UserAgentBuilder().addPluginNameAndVersion())
+                .checkEveryXHours(1).checkNow();
+
         Debug.log("System initialized");
+
     }
 
     @Override
