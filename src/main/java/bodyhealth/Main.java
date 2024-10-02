@@ -2,9 +2,9 @@ package bodyhealth;
 
 import bodyhealth.commands.BodyHealthCommand;
 import bodyhealth.commands.BodyHealthTAB;
+import bodyhealth.config.Lang;
 import bodyhealth.data.DataManager;
 import bodyhealth.data.HealthStorage;
-import bodyhealth.depend.BetterHud;
 import bodyhealth.depend.PlaceholderAPI;
 import bodyhealth.effects.BodyHealthEffects;
 import bodyhealth.listeners.BetterHudListener;
@@ -14,20 +14,15 @@ import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
 import bodyhealth.listeners.PlaceholderAPIListener;
 import com.tchristofferson.configupdater.ConfigUpdater;
-import me.clip.placeholderapi.PlaceholderAPIPlugin;
-import me.clip.placeholderapi.configuration.PlaceholderAPIConfig;
-import me.clip.placeholderapi.expansion.cloud.CloudExpansion;
-import me.clip.placeholderapi.expansion.manager.CloudExpansionManager;
-import me.clip.placeholderapi.expansion.manager.LocalExpansionManager;
 import org.bukkit.Bukkit;
-import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
 
 public final class Main extends JavaPlugin {
     private static Main instance;
@@ -42,18 +37,24 @@ public final class Main extends JavaPlugin {
 
         Debug.log("Initializing...");
 
-        // Reload and update config.yml
+        // Reload and update config and language
         saveDefaultConfig();
         File configFile = new File(getDataFolder(), "config.yml");
+        File languageFile = new File(getDataFolder(), "language.yml");
+        if (!languageFile.exists()) saveResource("language.yml", false);
         try {
             ConfigUpdater.update(this, "config.yml", configFile);
+            ConfigUpdater.update(this, "language.yml", languageFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
         reloadConfig();
 
-        // Load configuration internally
+        FileConfiguration languageConfig = YamlConfiguration.loadConfiguration(languageFile);
+
+        // Load config and language internally
         Config.load(getConfig());
+        Lang.load(languageConfig);
         Debug.log("Configuration loaded successfully");
 
         // Initialize BodyHealthMap

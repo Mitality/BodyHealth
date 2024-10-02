@@ -1,0 +1,27 @@
+commands:
+
+  bodyhealth:
+
+    usage: '&bUsage: /bodyhealth <get/set/heal/reload> <player> <bodypart> [value]'
+    invalid: '&cInvalid action. Use ''get'', ''set'', ''heal'', or ''reload''.'
+    player-not-found: '&cPlayer {Player} not found.'
+    invalid-part: '&cInvalid body part. Valid parts: HEAD, BODY, ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, FOOT_LEFT, FOOT_RIGHT.'
+
+    reload:
+      success: '&aConfiguration reloaded.'
+      fail: '&cConfiguration could not be reloaded.'
+      not-permitted: '&cYou do not have permission to use this command.'
+
+    get:
+      not-permitted: '&cYou do not have permission to use this command.'
+      success: '&a{Player}''s {Part} health: {Health}%'
+
+    set:
+      not-permitted: '&cYou do not have permission to use this command.'
+      missing-value: '&ePlease specify a value.'
+      invalid-value: '&cInvalid health value.'
+      success: '&a{Player}''s {Part} health set to {Health}%'
+
+    heal:
+      not-permitted: '&cYou do not have permission to use this command.'
+      success: '&a{Player} has been fully healed.'

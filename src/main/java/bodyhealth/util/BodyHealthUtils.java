@@ -2,6 +2,7 @@ package bodyhealth.util;
 
 import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
+import bodyhealth.config.Lang;
 import bodyhealth.effects.BodyHealthEffects;
 import bodyhealth.core.BodyHealth;
 import bodyhealth.Main;
@@ -12,6 +13,8 @@ import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -37,11 +40,14 @@ public class BodyHealthUtils {
 
         try {
 
-            // Reload and update config.yml
+            // Reload and update config and language
             Main.getInstance().saveDefaultConfig();
             File configFile = new File(Main.getInstance().getDataFolder(), "config.yml");
+            File languageFile = new File(Main.getInstance().getDataFolder(), "language.yml");
+            if (!languageFile.exists()) Main.getInstance().saveResource("language.yml", false);
             try {
                 ConfigUpdater.update(Main.getInstance(), "config.yml", configFile);
+                ConfigUpdater.update(Main.getInstance(), "language.yml", languageFile);
             } catch (IOException e) {
                 Debug.logErr("Could not update your configuration: " + e.getMessage());
                 //e.printStackTrace();
@@ -49,8 +55,11 @@ public class BodyHealthUtils {
             }
             Main.getInstance().reloadConfig();
 
-            // Load configuration internally
+            FileConfiguration languageConfig = YamlConfiguration.loadConfiguration(languageFile);
+
+            // Load config and language internally
             Config.load(Main.getInstance().getConfig());
+            Lang.load(languageConfig);
 
         } catch (Exception e) {
             Debug.logErr("Could not reload your configuration!");
