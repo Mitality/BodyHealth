@@ -16,10 +16,11 @@
 
 #   Permissions:
 #
-#      bodyhealth.reload   ...allows reloading the system
-#      bodyhealth.heal     ...allows using the heal command
-#      bodyhealth.get      ...allows using the get command
-#      bodyhealth.set      ...allows using the set command
+#      bodyhealth.update-notify   ...notifications upon new updates
+#      bodyhealth.reload          ...allows reloading the system
+#      bodyhealth.heal            ...allows using the heal command
+#      bodyhealth.get             ...allows using the get command
+#      bodyhealth.set             ...allows using the set command
 #
 #   wildcard: bodyhealth.*
 
