@@ -11,6 +11,7 @@ public class Config {
     public static boolean debug_mode;
     public static boolean development_mode;
     public static boolean error_logging;
+    public static boolean metrics;
     public static boolean self_harm;
     public static boolean always_allow_eating;
     public static boolean raytracing_enabled;
@@ -37,6 +38,7 @@ public class Config {
         debug_mode = config.getBoolean("debug-mode", false);
         development_mode = config.getBoolean("development-mode", false);
         error_logging = config.getBoolean("error-logging", true);
+        metrics = config.getBoolean("metrics", true);
         self_harm = config.getBoolean("self-harm", false);
         always_allow_eating = config.getBoolean("always-allow-eating", true);
         raytracing_enabled = config.getBoolean("raytracing.enabled", true);

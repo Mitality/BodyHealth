@@ -47,6 +47,10 @@ development-mode: false
 # DO NOT REQUEST SUPPORT IF THIS IS SET TO FALSE
 error-logging: true
 
+# Share anonymous data to improve the plugin's development
+# Recommended to keep enabled for more relevant updates
+metrics: true
+
 # Should we apply damage to body parts, when the
 # source of the damage is the player itself?
 self-harm: false

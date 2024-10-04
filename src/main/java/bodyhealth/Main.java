@@ -17,6 +17,7 @@ import com.jeff_media.updatechecker.UpdateCheckSource;
 import com.jeff_media.updatechecker.UpdateChecker;
 import com.jeff_media.updatechecker.UserAgentBuilder;
 import com.tchristofferson.configupdater.ConfigUpdater;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -110,6 +111,13 @@ public final class Main extends JavaPlugin {
                 .setNotifyByPermissionOnJoin("bodyhealth.update-notify")
                 .setUserAgent(new UserAgentBuilder().addPluginNameAndVersion())
                 .checkEveryXHours(1).checkNow();
+
+        // Metrics
+        if (Config.metrics) {
+            Metrics metrics = new Metrics(this, 23538);
+            Debug.log("Metrics enabled");
+            // TODO: Custom charts
+        }
 
         Debug.log("System initialized");
 

@@ -79,7 +79,7 @@ public class BodyHealthCommand implements CommandExecutor {
             sender.sendMessage(Config.prefix + Lang.bodyhealth_get_success
                     .replace("{Player}", targetPlayer.getName())
                     .replace("{Part}", part.name())
-                    .replace("{Health}", String.valueOf(partHealth))
+                    .replace("{Health}", String.format("%.2f", partHealth))
             );
         }
 
@@ -99,7 +99,7 @@ public class BodyHealthCommand implements CommandExecutor {
                 sender.sendMessage(Config.prefix + Lang.bodyhealth_set_success
                         .replace("{Player}", targetPlayer.getName())
                         .replace("{Part}", part.name())
-                        .replace("{Health}", String.valueOf(newHealth))
+                        .replace("{Health}", String.format("%.2f", newHealth))
                 );
             } catch (NumberFormatException e) {
                 sender.sendMessage(Config.prefix + Lang.bodyhealth_set_invalid_value);

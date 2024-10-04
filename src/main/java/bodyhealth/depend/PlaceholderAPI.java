@@ -1,6 +1,5 @@
 package bodyhealth.depend;
 
-import bodyhealth.config.Debug;
 import bodyhealth.core.BodyHealth;
 import bodyhealth.util.BodyHealthUtils;
 import bodyhealth.core.BodyPart;
