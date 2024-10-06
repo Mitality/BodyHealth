@@ -19,6 +19,7 @@ import com.jeff_media.updatechecker.UserAgentBuilder;
 import com.tchristofferson.configupdater.ConfigUpdater;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -82,6 +83,10 @@ public final class Main extends JavaPlugin {
             if (Bukkit.getPluginManager().getPlugin("BetterHud") != null && Bukkit.getPluginManager().getPlugin("BetterHud").isEnabled()) {
                 Debug.log("BetterHud detected, enabling BetterHud integration...");
                 Bukkit.getPluginManager().registerEvents(new BetterHudListener(), this);
+                Bukkit.getScheduler().runTaskLater(Main.getInstance(), () -> { // TODO: This can lead to double reloads
+                    ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
+                    Bukkit.dispatchCommand(console, "betterhud reload");
+                }, 60L); // Ensure BetterHud reloads its pack after the integration is enabled
                 Debug.log("BetterHud integration enabled");
 
                 Debug.log("The BetterHud integration requires the PlaceholderAPI expansion 'Player' to be installed. Setting up a Listener to ensure it is present at all times.");

@@ -255,7 +255,7 @@ display:
   betterhud:
     # Automatically configure BetterHud to display body health
     inject-config: true
-    # Show the body health hud to all players in survival mode as default
+    # Show the body health hud to all players **IN SURVIVAL MODE** as default
     as-default: true
     # Disable parts of BetterHuds default configuration that could get annoying
     disable:
@@ -278,3 +278,16 @@ display:
     # IF YOU DON'T KNOW WHAT TO DO, LEAVE THE DISPLAY-SETTINGS UNTOUCHED AND USE THE RESOURCE PACK
     # LOCATED AT "plugins/BodyHealth/resource_pack.zip" TO VISUALIZE YOUR HEALTH PER BODY PART IN GAME
     # (YOU STILL NEED TO DOWNLOAD BOTH DEPENDENCIES FOR THIS TO WORK)
+
+    # !!! ItemsAdder users read here !!!
+    # ItemsAdder interferes with BetterHud on default settings. If you can't see the display
+    # in game,  try adjusting the following settings as shown in your ItemsAdder config.yml:
+    #
+    #   effects:
+    #      hide-scoreboard-numbers: false
+    #      hide-scoreboard-numbers-old-clients: false
+    #      text-effects:
+    #         enabled: false
+    #
+    #   custom-font:
+    #      enabled: false
