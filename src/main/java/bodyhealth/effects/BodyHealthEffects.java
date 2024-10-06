@@ -11,7 +11,6 @@ import bodyhealth.util.MessageUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.potion.PotionEffect;
@@ -161,7 +160,7 @@ public class BodyHealthEffects {
 
         // KILL_PLAYER
         else if (effectParts[0].trim().equalsIgnoreCase("KILL_PLAYER")) {
-            if (!player.isDead()) player.setHealth(0.0);
+            if (!player.isDead()) player.damage(Double.MAX_VALUE, player); //player.setHealth(0.0);
             Debug.log("(" + part.name() +") Killed player " + player.getName());
         }
 

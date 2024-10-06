@@ -5,6 +5,8 @@
 #   |____/ \___/ \__,_|\__, |_| |_|\___|\__,_|_|\__|_| |_|
 #      Version ${project.version}   |___/  Manage health per BodyPart
 
+#   IN THE NAME OF ALL THAT IS HOLY, PLEASE READ THROUGH THIS FILE BEFORE REQUESTING SUPPORT, THANK YOU!
+
 #   Commands:
 #
 #      /bodyhealth reload                             ...reloads the plugins configuration, including effects
@@ -22,7 +24,16 @@
 #      bodyhealth.get             ...allows using the get command
 #      bodyhealth.set             ...allows using the set command
 #
-#   wildcard: bodyhealth.*
+#   wildcard: bodyhealth.* (Does NOT include bypass permissions!)
+
+#   Bypass Permissions:
+#
+#      bodyhealth.bypass.regen.<BodyPart>    ...bypass all regeneration for a specific body part
+#      bodyhealth.bypass.damage.<BodyPart>   ...bypass all damage to a specific body part
+#      bodyhealth.bypass.regen.*             ...bypass all regeneration to all body parts
+#      bodyhealth.bypass.damage.*            ...bypass all damage to all body parts
+#
+#   wildcard: bodyhealth.bypass.*   <-- SET THIS PERMISSION TO 'FALSE' FOR ALL PLAYERS/GROUPS WITH THE '*' PERMISSION, OR THEY WON'T TAKE DAMAGE TO BODY PARTS !!!
 
 #   PlaceholderAPI Placeholders:
 #
@@ -59,6 +70,18 @@ self-harm: false
 # via the effects section. If this is done, should we ensure
 # that all players are still able to eat to heal back up?
 always-allow-eating: true
+
+# World Blacklist/Whitelist settings:
+world-blacklist:
+  # If false, body health will NOT be enabled in listed worlds
+  # If true, body health will be enabled ONLY in listed worlds
+  whitelist-mode: false
+  # List worlds where body health should/shouldn't be enabled
+  worlds:
+    - disabledworld1
+    - disabledworld2
+# You can also disable body health in specific regions by
+# installing WorldGuard and setting the 'bodyhealth' flag
 
 # Raytracing settings - Don't touch unless you know what you're doing
 raytracing:
@@ -247,9 +270,9 @@ display:
 
   #   Use BetterHud to display your body health in game:
   #
-  #      To make this wok, you need to install two plugins, if you don't have them already:
-  #      PlaceholderAPI -> https://www.spigotmc.org/resources/placeholderapi.6245/
-  #      ...and obviously BetterHud -> https://modrinth.com/plugin/betterhud2
+  #      To make this wok, you need to install two plugins, if you don't have them already:        <--
+  #      PlaceholderAPI -> https://www.spigotmc.org/resources/placeholderapi.6245/               <-- DON'T OVERLOOK THIS PART
+  #      ...and obviously BetterHud -> https://modrinth.com/plugin/betterhud2                      <--
   #
   #   When both plugins are installed, the following options activate:
   betterhud:
@@ -275,9 +298,10 @@ display:
     # (For inexperienced users: leave the above add-options set to true when using this!)
     zip: true
 
-    # IF YOU DON'T KNOW WHAT TO DO, LEAVE THE DISPLAY-SETTINGS UNTOUCHED AND USE THE RESOURCE PACK
+    # ^ IF YOU DON'T KNOW WHAT TO DO, LEAVE THE DISPLAY-SETTINGS UNTOUCHED AND USE THE RESOURCE PACK
     # LOCATED AT "plugins/BodyHealth/resource_pack.zip" TO VISUALIZE YOUR HEALTH PER BODY PART IN GAME
     # (YOU STILL NEED TO DOWNLOAD BOTH DEPENDENCIES FOR THIS TO WORK)
+
 
     # !!! ItemsAdder users read here !!!
     # ItemsAdder interferes with BetterHud on default settings. If you can't see the display

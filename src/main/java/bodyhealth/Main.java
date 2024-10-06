@@ -6,6 +6,7 @@ import bodyhealth.config.Lang;
 import bodyhealth.data.DataManager;
 import bodyhealth.data.HealthStorage;
 import bodyhealth.depend.PlaceholderAPI;
+import bodyhealth.depend.WorldGuard;
 import bodyhealth.effects.BodyHealthEffects;
 import bodyhealth.listeners.BetterHudListener;
 import bodyhealth.listeners.BodyHealthListener;
@@ -37,10 +38,15 @@ public final class Main extends JavaPlugin {
     public static long validationTimestamp;
 
     @Override
-    public void onEnable() {
+    public void onLoad() {
         instance = this;
         validationTimestamp = 0;
         SPIGOT_RESOURCE_ID = "119966";
+        if (Bukkit.getPluginManager().getPlugin("WorldGuard") != null)  WorldGuard.initialize();
+    }
+
+    @Override
+    public void onEnable() {
 
         Debug.log("Initializing...");
 

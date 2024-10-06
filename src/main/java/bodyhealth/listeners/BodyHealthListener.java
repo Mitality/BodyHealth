@@ -1,6 +1,7 @@
 package bodyhealth.listeners;
 
 import bodyhealth.core.BodyPart;
+import bodyhealth.depend.WorldGuard;
 import bodyhealth.effects.BodyHealthEffects;
 import bodyhealth.core.BodyHealth;
 import bodyhealth.calculations.BodyHealthCalculator;
@@ -10,8 +11,6 @@ import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
 import bodyhealth.util.MessageUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -176,13 +175,24 @@ public class BodyHealthListener implements Listener {
     }
 
     @EventHandler
+    public void onPlayerChangeWorld(PlayerChangedWorldEvent event) {
+        boolean isEnabledInFrom = BodyHealthUtils.isSystemEnabled(event.getFrom());
+        boolean isEnabledInTo = WorldGuard.isSystemEnabled(event.getPlayer());
+        if (!isEnabledInFrom && isEnabledInTo) BodyHealthEffects.addEffectsToPlayer(event.getPlayer());
+        else if (isEnabledInFrom && !isEnabledInTo) {
+            if (BodyHealthUtils.getBodyHealth(event.getPlayer()).getOngoingEffects().isEmpty()) return;
+            BodyHealthEffects.removeEffectsFromPlayer(event.getPlayer());
+        }
+    }
+
+    @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        BodyHealthEffects.addEffectsToPlayer(event.getPlayer());
+        if (WorldGuard.isSystemEnabled(event.getPlayer())) BodyHealthEffects.addEffectsToPlayer(event.getPlayer());
     }
 
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent event) {
-        BodyHealthEffects.removeEffectsFromPlayer(event.getPlayer());
+        if (WorldGuard.isSystemEnabled(event.getPlayer())) BodyHealthEffects.removeEffectsFromPlayer(event.getPlayer());
     }
 
     private void checkHealthDelayed(Player player, double health) {
@@ -191,8 +201,12 @@ public class BodyHealthListener implements Listener {
             public void run() {
                 if (player.getHealth() == player.getMaxHealth()) {
                     BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(player);
-                    bodyHealth.regenerateHealth(Integer.MAX_VALUE);
-                    //Debug.log("Healed all BodyParts for player " + player.getName() + " due to them having full health. This should prevent inconsistencies with dynamically updating maxHealth per part.");
+                    boolean alreadyFullyHealed = true;
+                    for (BodyPart part : BodyPart.values()) {
+                        if (bodyHealth.getHealth(part) < 100) alreadyFullyHealed = false;
+                    } // We don't want to do system checks for every single interaction
+                    if (!alreadyFullyHealed) bodyHealth.regenerateHealth(Integer.MAX_VALUE);
+                    //Debug.log("Healed all BodyParts for player " + player.getName() + " due to them having full health. This should prevent inconsistencies with dynamically updating maxHealth per part."); <-SPAM
                 }
                 else if (player.getHealth() > health) {
                     BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(player);

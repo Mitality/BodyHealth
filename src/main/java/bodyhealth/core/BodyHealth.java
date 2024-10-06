@@ -1,6 +1,7 @@
 package bodyhealth.core;
 
 import bodyhealth.config.Debug;
+import bodyhealth.depend.WorldGuard;
 import bodyhealth.effects.BodyHealthEffects;
 import bodyhealth.util.BodyHealthUtils;
 import org.bukkit.Bukkit;
@@ -32,6 +33,8 @@ public class BodyHealth {
     public void applyDamage(BodyPart part, double damage) {
         Player player = Bukkit.getPlayer(playerUUID);
         if (player != null) {
+            if (!WorldGuard.isSystemEnabled(player)) return;
+            if (player.hasPermission("bodyhealth.bypass.damage." + part.name().toLowerCase())) return;
             double currentHealth = healthMap.get(part);
             BodyPartState oldState = BodyHealthUtils.getBodyHealthState(this, part);
             double damagePercent = damage / BodyHealthUtils.getMaxHealth(part, player) * 100;
@@ -49,7 +52,9 @@ public class BodyHealth {
     public void regenerateHealth(double regenAmount) {
         Player player = Bukkit.getPlayer(playerUUID);
         if (player != null) {
+            if (!WorldGuard.isSystemEnabled(player)) return;
             for (BodyPart part : BodyPart.values()) {
+                if (player.hasPermission("bodyhealth.bypass.regen." + part.name().toLowerCase())) return;
                 double currentHealth = healthMap.get(part);
                 if (currentHealth < 100) {
                     BodyPartState oldState = BodyHealthUtils.getBodyHealthState(this, part);
@@ -82,6 +87,7 @@ public class BodyHealth {
         healthMap.put(part, Math.min(100, Math.max(0, newHealth))); // Keep health between 0 and 100
         Player player = Bukkit.getPlayer(playerUUID);
         if (player != null) {
+            if (!WorldGuard.isSystemEnabled(player)) return;
             BodyHealthEffects.onBodyPartStateChange(player, part, oldState, BodyHealthUtils.getBodyHealthState(this, part));
         }
     }

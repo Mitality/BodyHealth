@@ -4,6 +4,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Config {
 
     public static String prefix;
@@ -14,6 +17,7 @@ public class Config {
     public static boolean metrics;
     public static boolean self_harm;
     public static boolean always_allow_eating;
+    public static boolean wold_blacklist_whitelist_mode;
     public static boolean raytracing_enabled;
     public static boolean inject_betterhud_config;
     public static boolean inject_betterhud_config_as_default;
@@ -25,6 +29,8 @@ public class Config {
 
     public static double raytracing_max_distance;
     public static double raytracing_step_size;
+
+    public static List<String> world_blacklist_worlds = new ArrayList<>();
 
     public static ConfigurationSection body_health;
     public static ConfigurationSection body_damage;
@@ -41,6 +47,7 @@ public class Config {
         metrics = config.getBoolean("metrics", true);
         self_harm = config.getBoolean("self-harm", false);
         always_allow_eating = config.getBoolean("always-allow-eating", true);
+        wold_blacklist_whitelist_mode = config.getBoolean("world-blacklist.whitelist-mode", false);
         raytracing_enabled = config.getBoolean("raytracing.enabled", true);
         inject_betterhud_config = config.getBoolean("display.betterhud.inject-config", true);
         inject_betterhud_config_as_default = config.getBoolean("display.betterhud.as-default", true);
@@ -52,6 +59,8 @@ public class Config {
 
         raytracing_max_distance = config.getDouble("raytracing.max-distance", 10.0);
         raytracing_step_size = config.getDouble("raytracing.step-size", 0.1);
+
+        world_blacklist_worlds = config.getStringList("world-blacklist.worlds");
 
         body_health = config.getConfigurationSection("body-health");
         body_damage = config.getConfigurationSection("body-damage");

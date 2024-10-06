@@ -12,6 +12,7 @@ import com.tchristofferson.configupdater.ConfigUpdater;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -72,6 +73,16 @@ public class BodyHealthUtils {
         }
 
         return true;
+    }
+
+    /**
+     * Checks if BodyHealth should be enabled in a given world
+     * @param world The world for which to check if BodyHealth should be enabled
+     * @return A boolean representing if BodyHealth should be enabled in the given world
+     */
+    public static boolean isSystemEnabled(World world) {
+        if (world == null) return false; // Shouldn't ever happen
+        return Config.wold_blacklist_whitelist_mode == Config.world_blacklist_worlds.contains(world.getName());
     }
 
     /**

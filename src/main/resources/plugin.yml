@@ -9,6 +9,7 @@ website: https://github.com/Mitality/BodyHealth
 softdepend:
   - PlaceholderAPI
   - BetterHud
+  - WorldGuard
 
 commands:
 
@@ -39,6 +40,90 @@ commands:
           bodyhealth.set: true
 
 permissions:
+
   bodyhealth.update-notify:
     description: Notifies the player when the plugin has an update available.
     default: op
+
+  bodyhealth.bypass.damage.head:
+    description: Players with this permission bypass damage to their head
+    default: false
+  bodyhealth.bypass.damage.body:
+    description: Players with this permission bypass damage to their body
+    default: false
+  bodyhealth.bypass.damage.arm_left:
+    description: Players with this permission bypass damage to their left arm
+    default: false
+  bodyhealth.bypass.damage.arm_right:
+    description: Players with this permission bypass damage to their right arm
+    default: false
+  bodyhealth.bypass.damage.leg_left:
+    description: Players with this permission bypass damage to their left leg
+    default: false
+  bodyhealth.bypass.damage.leg_right:
+    description: Players with this permission bypass damage to their right leg
+    default: false
+  bodyhealth.bypass.damage.foot_left:
+    description: Players with this permission bypass damage to their left foot
+    default: false
+  bodyhealth.bypass.damage.foot_right:
+    description: Players with this permission bypass damage to their right foot
+    default: false
+
+  bodyhealth.bypass.regen.head:
+    description: Players with this permission bypass regeneration on their head
+    default: false
+  bodyhealth.bypass.regen.body:
+    description: Players with this permission bypass regeneration on their body
+    default: false
+  bodyhealth.bypass.regen.arm_left:
+    description: Players with this permission bypass regeneration on their left arm
+    default: false
+  bodyhealth.bypass.regen.arm_right:
+    description: Players with this permission bypass regeneration on their right arm
+    default: false
+  bodyhealth.bypass.regen.leg_left:
+    description: Players with this permission bypass regeneration on their left leg
+    default: false
+  bodyhealth.bypass.regen.leg_right:
+    description: Players with this permission bypass regeneration on their right leg
+    default: false
+  bodyhealth.bypass.regen.foot_left:
+    description: Players with this permission bypass regeneration on their left foot
+    default: false
+  bodyhealth.bypass.regen.foot_right:
+    description: Players with this permission bypass regeneration on their right foot
+    default: false
+
+  bodyhealth.bypass.damage.*:
+    description: Players with this permission bypass damage to all body parts
+    default: false
+    children:
+      bodyhealth.bypass.damage.head: true
+      bodyhealth.bypass.damage.body: true
+      bodyhealth.bypass.damage.arm_left: true
+      bodyhealth.bypass.damage.arm_right: true
+      bodyhealth.bypass.damage.leg_left: true
+      bodyhealth.bypass.damage.leg_right: true
+      bodyhealth.bypass.damage.foot_left: true
+      bodyhealth.bypass.damage.foot_right: true
+
+  bodyhealth.bypass.regen.*:
+    description: Players with this permission bypass regeneration on all body parts
+    default: false
+    children:
+      bodyhealth.bypass.regen.head: true
+      bodyhealth.bypass.regen.body: true
+      bodyhealth.bypass.regen.arm_left: true
+      bodyhealth.bypass.regen.arm_right: true
+      bodyhealth.bypass.regen.leg_left: true
+      bodyhealth.bypass.regen.leg_right: true
+      bodyhealth.bypass.regen.foot_left: true
+      bodyhealth.bypass.regen.foot_right: true
+
+  bodyhealth.bypass.*:
+    description: Players with this permission bypass all damage and regeneration effects to all body parts
+    default: false
+    children:
+      bodyhealth.bypass.damage.*: true
+      bodyhealth.bypass.regen.*: true
