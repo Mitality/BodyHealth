@@ -1,7 +1,6 @@
 package bodyhealth.depend;
 
 import bodyhealth.config.Debug;
-import bodyhealth.util.BodyHealthUtils;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldguard.LocalPlayer;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
@@ -27,13 +26,6 @@ public class WorldGuard {
     }
 
     public static boolean isSystemEnabled(Player player) {
-        Debug.logDev("Checking if system is enabled for player " + player.getName());
-
-        if (!BodyHealthUtils.isSystemEnabled(player.getWorld())) {
-            Debug.logDev("System disabled via world-blacklist");
-            return false;
-        }
-
         if (BODY_HEALTH_FLAG == null) {
             Debug.logDev("Flag 'bodyhealth' not found (is null)");
             return true;

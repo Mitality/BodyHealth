@@ -89,7 +89,7 @@ public final class Main extends JavaPlugin {
             if (Bukkit.getPluginManager().getPlugin("BetterHud") != null && Bukkit.getPluginManager().getPlugin("BetterHud").isEnabled()) {
                 Debug.log("BetterHud detected, enabling BetterHud integration...");
                 Bukkit.getPluginManager().registerEvents(new BetterHudListener(), this);
-                Bukkit.getScheduler().runTaskLater(Main.getInstance(), () -> { // TODO: This can lead to double reloads
+                Bukkit.getScheduler().runTaskLater(Main.getInstance(), () -> { // FIXME: This can lead to double reloads
                     ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
                     Bukkit.dispatchCommand(console, "betterhud reload");
                 }, 60L); // Ensure BetterHud reloads its pack after the integration is enabled

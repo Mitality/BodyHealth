@@ -177,7 +177,7 @@ public class BodyHealthListener implements Listener {
     @EventHandler
     public void onPlayerChangeWorld(PlayerChangedWorldEvent event) {
         boolean isEnabledInFrom = BodyHealthUtils.isSystemEnabled(event.getFrom());
-        boolean isEnabledInTo = WorldGuard.isSystemEnabled(event.getPlayer());
+        boolean isEnabledInTo = BodyHealthUtils.isSystemEnabled(event.getPlayer());
         if (!isEnabledInFrom && isEnabledInTo) BodyHealthEffects.addEffectsToPlayer(event.getPlayer());
         else if (isEnabledInFrom && !isEnabledInTo) {
             if (BodyHealthUtils.getBodyHealth(event.getPlayer()).getOngoingEffects().isEmpty()) return;
@@ -187,12 +187,12 @@ public class BodyHealthListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        if (WorldGuard.isSystemEnabled(event.getPlayer())) BodyHealthEffects.addEffectsToPlayer(event.getPlayer());
+        if (BodyHealthUtils.isSystemEnabled(event.getPlayer())) BodyHealthEffects.addEffectsToPlayer(event.getPlayer());
     }
 
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent event) {
-        if (WorldGuard.isSystemEnabled(event.getPlayer())) BodyHealthEffects.removeEffectsFromPlayer(event.getPlayer());
+        if (BodyHealthUtils.isSystemEnabled(event.getPlayer())) BodyHealthEffects.removeEffectsFromPlayer(event.getPlayer());
     }
 
     private void checkHealthDelayed(Player player, double health) {

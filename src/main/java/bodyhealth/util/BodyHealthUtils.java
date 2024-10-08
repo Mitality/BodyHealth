@@ -3,6 +3,7 @@ package bodyhealth.util;
 import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
 import bodyhealth.config.Lang;
+import bodyhealth.depend.WorldGuard;
 import bodyhealth.effects.BodyHealthEffects;
 import bodyhealth.core.BodyHealth;
 import bodyhealth.Main;
@@ -72,6 +73,19 @@ public class BodyHealthUtils {
             BodyHealthEffects.addEffectsToPlayer(player);
         }
 
+        return true;
+    }
+
+    /**
+     * Checks if BodyHealth should be enabled for a given player
+     * @param player The player for which to check if BodyHealth should be enabled
+     * @return A boolean representing if BodyHealth should be enabled for the given player
+     */
+    public static boolean isSystemEnabled(Player player) {
+        if (!isSystemEnabled(player.getWorld())) return false;
+        if (Bukkit.getPluginManager().getPlugin("WorldGuard") != null
+                && Bukkit.getPluginManager().getPlugin("WorldGuard").isEnabled())
+            return WorldGuard.isSystemEnabled(player);
         return true;
     }
 
