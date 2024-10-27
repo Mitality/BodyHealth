@@ -39,8 +39,12 @@ public class BodyHealthCommand implements CommandExecutor {
 
         Player targetPlayer = Bukkit.getPlayer(args[1]);
         if (targetPlayer == null) {
-            sender.sendMessage(Config.prefix + Lang.bodyhealth_player_not_found.replace("{Player}", args[1]));
-            return true;
+            if (action.equalsIgnoreCase("heal") && sender instanceof Player) {
+                targetPlayer = (Player) sender;
+            } else {
+                sender.sendMessage(Config.prefix + Lang.bodyhealth_player_not_found.replace("{Player}", args[1]));
+                return true;
+            }
         }
 
         BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(targetPlayer);

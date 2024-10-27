@@ -1,7 +1,7 @@
 package bodyhealth.core;
 
+import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
-import bodyhealth.depend.WorldGuard;
 import bodyhealth.effects.BodyHealthEffects;
 import bodyhealth.util.BodyHealthUtils;
 import org.bukkit.Bukkit;
@@ -11,6 +11,7 @@ import java.util.*;
 
 public class BodyHealth {
 
+    private final Map<BodyPart, Long> command_timestamps;
     private final Map<BodyPart, List<String[]>> ongoingEffects;
 
     private final EnumMap<BodyPart, Double> healthMap;
@@ -19,6 +20,7 @@ public class BodyHealth {
     public BodyHealth(UUID uuid) {
         playerUUID = uuid;
         healthMap = new EnumMap<>(BodyPart.class);
+        command_timestamps = new EnumMap<>(BodyPart.class);
         ongoingEffects = new HashMap<>();
         for (BodyPart part : BodyPart.values()) {
             healthMap.put(part, 100.0); // Initialize all parts with 100 health (100%)
@@ -33,6 +35,7 @@ public class BodyHealth {
     public void applyDamage(BodyPart part, double damage) {
         Player player = Bukkit.getPlayer(playerUUID);
         if (player != null) {
+            if (command_timestamps.containsKey(part) && ((System.currentTimeMillis() - command_timestamps.get(part)) < Config.force_keep_time * 1000L)) return;
             if (!BodyHealthUtils.isSystemEnabled(player)) return;
             if (player.hasPermission("bodyhealth.bypass.damage." + part.name().toLowerCase())) return;
             double currentHealth = healthMap.get(part);
@@ -54,6 +57,7 @@ public class BodyHealth {
         if (player != null) {
             if (!BodyHealthUtils.isSystemEnabled(player)) return;
             for (BodyPart part : BodyPart.values()) {
+                if (command_timestamps.containsKey(part) && ((System.currentTimeMillis() - command_timestamps.get(part)) < Config.force_keep_time * 1000L)) return;
                 if (player.hasPermission("bodyhealth.bypass.regen." + part.name().toLowerCase())) return;
                 double currentHealth = healthMap.get(part);
                 if (currentHealth < 100) {
@@ -89,6 +93,7 @@ public class BodyHealth {
         if (player != null) {
             if (!BodyHealthUtils.isSystemEnabled(player)) return;
             BodyHealthEffects.onBodyPartStateChange(player, part, oldState, BodyHealthUtils.getBodyHealthState(this, part));
+            command_timestamps.put(part, System.currentTimeMillis());
         }
     }
 

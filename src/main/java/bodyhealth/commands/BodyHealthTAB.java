@@ -31,9 +31,12 @@ public class BodyHealthTAB implements TabCompleter {
         }
 
         if (args.length == 3 && (args[0].equalsIgnoreCase("get") || args[0].equalsIgnoreCase("set"))) {
+            String partialInput = args[2].toUpperCase();
             List<String> bodyParts = new ArrayList<>();
             for (BodyPart part : BodyPart.values()) {
-                bodyParts.add(part.name());
+                if (part.name().startsWith(partialInput)) {
+                    bodyParts.add(part.name());
+                }
             }
             return bodyParts;
         }

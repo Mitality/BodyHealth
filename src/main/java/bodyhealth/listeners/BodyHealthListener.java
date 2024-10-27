@@ -1,7 +1,6 @@
 package bodyhealth.listeners;
 
 import bodyhealth.core.BodyPart;
-import bodyhealth.depend.WorldGuard;
 import bodyhealth.effects.BodyHealthEffects;
 import bodyhealth.core.BodyHealth;
 import bodyhealth.calculations.BodyHealthCalculator;
@@ -27,6 +26,8 @@ public class BodyHealthListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerDamage(EntityDamageEvent event) {
+
+        if (event.isCancelled()) return;
         if (!(event.getEntity() instanceof Player)) return;
 
         Player player = (Player) event.getEntity();
@@ -214,7 +215,7 @@ public class BodyHealthListener implements Listener {
                     Debug.log("Player " + player.getName() + " regenerated " + (player.getHealth() - health) + " HP");
                 }
             }
-        }.runTaskLaterAsynchronously(Main.getPlugin(Main.class), 2);
+        }.runTaskLater(Main.getPlugin(Main.class), 2);
     }
 
 }
