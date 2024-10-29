@@ -1,6 +1,7 @@
 package bodyhealth.effects;
 
 import bodyhealth.Main;
+import bodyhealth.api.events.BodyPartStateChangeEvent;
 import bodyhealth.core.BodyHealth;
 import bodyhealth.core.BodyPart;
 import bodyhealth.core.BodyPartState;
@@ -33,6 +34,7 @@ public class BodyHealthEffects {
      * @param newState The new state of the BodyPart
      */
     public static void onBodyPartStateChange(Player player, BodyPart part, @Nullable BodyPartState oldState, @Nullable BodyPartState newState) {
+        if (oldState != newState) Bukkit.getPluginManager().callEvent(new BodyPartStateChangeEvent(player, part, oldState, newState));
         if (Config.effects == null) {
             Debug.logErr("The effects section of your configuration is missing! What on earth did you do!?");
             return;

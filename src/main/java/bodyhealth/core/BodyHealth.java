@@ -1,5 +1,6 @@
 package bodyhealth.core;
 
+import bodyhealth.api.events.BodyPartHealthChangeEvent;
 import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
 import bodyhealth.effects.BodyHealthEffects;
@@ -28,6 +29,21 @@ public class BodyHealth {
     }
 
     /**
+     * Applies damage to all BodyParts
+     * @param damage The amount of damage to apply
+     */
+    public void applyDamage(double damage) {
+        Player player = Bukkit.getPlayer(playerUUID);
+        if (player != null) {
+            for (BodyPart part : BodyPart.values()) {
+                applyDamage(player, part, damage);
+            }
+        } else {
+            Debug.logErr("Tried to modify data of a player that isn't online. This should never happen automatically and is a bug!");
+        }
+    }
+
+    /**
      * Applies damage to a given BodyPart
      * @param part The BodyPart to apply damage to
      * @param damage The amount of damage to apply
@@ -35,16 +51,31 @@ public class BodyHealth {
     public void applyDamage(BodyPart part, double damage) {
         Player player = Bukkit.getPlayer(playerUUID);
         if (player != null) {
-            if (command_timestamps.containsKey(part) && ((System.currentTimeMillis() - command_timestamps.get(part)) < Config.force_keep_time * 1000L)) return;
-            if (!BodyHealthUtils.isSystemEnabled(player)) return;
-            if (player.hasPermission("bodyhealth.bypass.damage." + part.name().toLowerCase())) return;
-            double currentHealth = healthMap.get(part);
-            BodyPartState oldState = BodyHealthUtils.getBodyHealthState(this, part);
-            double damagePercent = damage / BodyHealthUtils.getMaxHealth(part, player) * 100;
-            healthMap.put(part, Math.max(0, currentHealth - damagePercent)); // Ensure health never goes below 0
-            BodyHealthEffects.onBodyPartStateChange(player, part, oldState, BodyHealthUtils.getBodyHealthState(this, part));
+            applyDamage(player, part, damage);
         } else {
             Debug.logErr("Tried to modify data of a player that isn't online. This should never happen automatically and is a bug!");
+        }
+    }
+
+    /**
+     * Util method to apply damage to a specific BodyPart of a player that has already been retrieved
+     * @param player The already retrieved and online Player
+     * @param part The BodyPart to apply damage to
+     * @param damage The amount of damage to apply
+     */
+    private void applyDamage(Player player, BodyPart part, double damage) {
+        if (command_timestamps.containsKey(part) && ((System.currentTimeMillis() - command_timestamps.get(part)) < Config.force_keep_time * 1000L)) return;
+        if (!BodyHealthUtils.isSystemEnabled(player)) return;
+        if (player.hasPermission("bodyhealth.bypass.damage." + part.name().toLowerCase())) return;
+        double currentHealth = healthMap.get(part);
+        if (currentHealth > 0) {
+            BodyPartState oldState = BodyHealthUtils.getBodyHealthState(this, part);
+            double damagePercent = damage / BodyHealthUtils.getMaxHealth(part, player) * 100;
+            BodyPartHealthChangeEvent event = new BodyPartHealthChangeEvent(player, part, currentHealth, Math.max(0, currentHealth - damagePercent));
+            Bukkit.getPluginManager().callEvent(event);
+            if (event.isCancelled()) return;
+            healthMap.put(part, Math.min(100, Math.max(0, event.getNewHealth()))); // Ensure health stays between 0 and 100
+            BodyHealthEffects.onBodyPartStateChange(player, part, oldState, BodyHealthUtils.getBodyHealthState(this, part));
         }
     }
 
@@ -55,20 +86,46 @@ public class BodyHealth {
     public void regenerateHealth(double regenAmount) {
         Player player = Bukkit.getPlayer(playerUUID);
         if (player != null) {
-            if (!BodyHealthUtils.isSystemEnabled(player)) return;
             for (BodyPart part : BodyPart.values()) {
-                if (command_timestamps.containsKey(part) && ((System.currentTimeMillis() - command_timestamps.get(part)) < Config.force_keep_time * 1000L)) return;
-                if (player.hasPermission("bodyhealth.bypass.regen." + part.name().toLowerCase())) return;
-                double currentHealth = healthMap.get(part);
-                if (currentHealth < 100) {
-                    BodyPartState oldState = BodyHealthUtils.getBodyHealthState(this, part);
-                    double regenAmountPercent = regenAmount / BodyHealthUtils.getMaxHealth(part, player) * 100;
-                    healthMap.put(part, Math.min(100, currentHealth + regenAmountPercent)); // Ensure health does not exceed max health
-                    BodyHealthEffects.onBodyPartStateChange(player, part, oldState, BodyHealthUtils.getBodyHealthState(this, part));
-                }
+                regenerateHealth(player, part, regenAmount);
             }
         } else {
             Debug.logErr("Tried to modify data of a player that isn't online. This should never happen automatically and is a bug!");
+        }
+    }
+
+    /**
+     * Regenerate health a specific BodyPart
+     * @param regenAmount The amount of health to regenerate
+     * @param part The part to regenerate health for
+     */
+    public void regenerateHealth(double regenAmount, BodyPart part) {
+        Player player = Bukkit.getPlayer(playerUUID);
+        if (player != null) {
+            regenerateHealth(player, part, regenAmount);
+        } else {
+            Debug.logErr("Tried to modify data of a player that isn't online. This should never happen automatically and is a bug!");
+        }
+    }
+
+    /**
+     * Util method to apply damage to a specific BodyPart of a player that has already been retrieved
+     * @param player The already retrieved and online Player
+     * @param part The BodyPart to regenerate health for
+     * @param regenAmount The amount of health to regenerate
+     */
+    private void regenerateHealth(Player player, BodyPart part, double regenAmount) {
+        if (!BodyHealthUtils.isSystemEnabled(player)) return;
+        if (command_timestamps.containsKey(part) && ((System.currentTimeMillis() - command_timestamps.get(part)) < Config.force_keep_time * 1000L)) return;
+        if (player.hasPermission("bodyhealth.bypass.regen." + part.name().toLowerCase())) return;
+        double currentHealth = healthMap.get(part);
+        if (currentHealth < 100) {
+            BodyPartState oldState = BodyHealthUtils.getBodyHealthState(this, part);
+            double regenAmountPercent = regenAmount / BodyHealthUtils.getMaxHealth(part, player) * 100;
+            BodyPartHealthChangeEvent event = new BodyPartHealthChangeEvent(player, part, currentHealth, Math.min(100, currentHealth + regenAmountPercent));
+            Bukkit.getPluginManager().callEvent(event);
+            healthMap.put(part, Math.min(100, Math.max(0, event.getNewHealth()))); // Ensure health stays between 0 and 100
+            BodyHealthEffects.onBodyPartStateChange(player, part, oldState, BodyHealthUtils.getBodyHealthState(this, part));
         }
     }
 
@@ -82,18 +139,31 @@ public class BodyHealth {
     }
 
     /**
+     * Sets the health (in percent) for all BodyParts to a given number
+     * @param newHealth The amount of health to set the BodyPart to
+     */
+    public void setHealth(double newHealth) {
+        for (BodyPart part : BodyPart.values()) {
+            setHealth(part, newHealth);
+        }
+    }
+
+    /**
      * Sets the health (in percent) for a given BodyPart to a given number
      * @param part The BodyPart to set the health for
      * @param newHealth The amount of health to set the BodyPart to
      */
     public void setHealth(BodyPart part, double newHealth) {
         BodyPartState oldState = BodyHealthUtils.getBodyHealthState(this, part);
-        healthMap.put(part, Math.min(100, Math.max(0, newHealth))); // Keep health between 0 and 100
         Player player = Bukkit.getPlayer(playerUUID);
         if (player != null) {
+            BodyPartHealthChangeEvent event = new BodyPartHealthChangeEvent(player, part, healthMap.get(part), Math.min(100, Math.max(0, newHealth)));
+            Bukkit.getPluginManager().callEvent(event);
+            if (event.isCancelled()) return;
+            healthMap.put(part, Math.min(100, Math.max(0, event.getNewHealth()))); // Ensure health stays between 0 and 100
+            command_timestamps.put(part, System.currentTimeMillis());
             if (!BodyHealthUtils.isSystemEnabled(player)) return;
             BodyHealthEffects.onBodyPartStateChange(player, part, oldState, BodyHealthUtils.getBodyHealthState(this, part));
-            command_timestamps.put(part, System.currentTimeMillis());
         }
     }
 

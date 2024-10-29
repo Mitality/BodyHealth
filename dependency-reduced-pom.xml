@@ -4,7 +4,7 @@
   <groupId>mitality</groupId>
   <artifactId>BodyHealth</artifactId>
   <name>BodyHealth</name>
-  <version>1.4.3</version>
+  <version>1.5.0</version>
   <description>description</description>
   <url>website</url>
   <build>
@@ -45,6 +45,14 @@
               <shadedPattern>bodyhealth</shadedPattern>
             </relocation>
           </relocations>
+          <filters>
+            <filter>
+              <artifact>*:*</artifact>
+              <excludes>
+                <exclude>META-INF/MANIFEST.MF</exclude>
+              </excludes>
+            </filter>
+          </filters>
         </configuration>
       </plugin>
     </plugins>

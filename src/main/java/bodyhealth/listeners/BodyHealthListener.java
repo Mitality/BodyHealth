@@ -43,28 +43,28 @@ public class BodyHealthListener implements Listener {
                 Arrow arrow = (Arrow) damager;
                 BodyPart hitBodyPart = BodyHealthCalculator.calculateHitByArrow(player, arrow);
                 BodyHealthUtils.applyDamageWithConfig(bodyHealth, cause, damage, hitBodyPart);
-                Debug.log("Player " + player.getName() + " was hit by an arrow on " + hitBodyPart.name() + " with " + damage + " damage.");
+                Debug.log("Player " + player.getName() + " was hit by an arrow on " + hitBodyPart.name() + " with " + String.format("%.2f", damage) + " damage.");
             }
 
             else if (damager.getType() == EntityType.CREEPER || damager.getType() == EntityType.TNT || damager.getType() == EntityType.TNT_MINECART || damager.getType() == EntityType.LIGHTNING_BOLT) {
-                Debug.log("Player " + player.getName() + " was hit by " + damager.getType().name() + " with " + damage + " damage.");
+                Debug.log("Player " + player.getName() + " was hit by " + damager.getType().name() + " with " + String.format("%.2f", damage) + " damage.");
                 BodyHealthUtils.applyDamageWithConfig(bodyHealth, cause, damage);
             }
 
             else if (damager instanceof Player && damager == player) {
                 if (Config.self_harm) BodyHealthUtils.applyDamageWithConfig(bodyHealth, cause, damage);
-                if (Config.self_harm) Debug.log("Player " + player.getName() + " was hit by itself with " + damage + " damage.");
+                if (Config.self_harm) Debug.log("Player " + player.getName() + " was hit by itself with " + String.format("%.2f", damage) + " damage.");
             }
 
             else {
                 BodyPart hitBodyPart = BodyHealthCalculator.calculateHitByEntity(player, damager);
                 if (hitBodyPart != null) {
                     BodyHealthUtils.applyDamageWithConfig(bodyHealth, cause, damage, hitBodyPart);
-                    Debug.log("Player " + player.getName() + " was hit by an entity (" + damager.getType().name() + ") on " + hitBodyPart.name() + " with " + damage + " damage.");
+                    Debug.log("Player " + player.getName() + " was hit by an entity (" + damager.getType().name() + ") on " + hitBodyPart.name() + " with " + String.format("%.2f", damage) + " damage.");
                 }
                 else {
                     BodyHealthUtils.applyDamageWithConfig(bodyHealth, cause, damage);
-                    Debug.log("Player " + player.getName() + " was hit by a non-living entity (" + damager.getType().name() + ") with " + damage + " damage.");
+                    Debug.log("Player " + player.getName() + " was hit by a non-living entity (" + damager.getType().name() + ") with " + String.format("%.2f", damage) + " damage.");
                 }
             }
 
@@ -79,11 +79,11 @@ public class BodyHealthListener implements Listener {
                 BodyHealthUtils.applyDamageWithConfig(bodyHealth, cause, damage, bodyPart);
                 hitBodyPartsString.append(bodyPart.name()).append(", ");
             }
-            Debug.log("Player " + player.getName() + " was hit by a block (" + blockDamageEvent.getDamager().getType().name() + ") on " + hitBodyPartsString.substring(0, hitBodyPartsString.length() - 1) + "with " + damage + "damage.");
+            Debug.log("Player " + player.getName() + " was hit by a block (" + blockDamageEvent.getDamager().getType().name() + ") on " + hitBodyPartsString.substring(0, hitBodyPartsString.length() - 1) + "with " + String.format("%.2f", damage) + "damage.");
         }
 
         else {
-            Debug.log("Player " + player.getName() + " was hit by an uncategorized damage source (" + cause.name() + ") with " + damage + " damage.");
+            Debug.log("Player " + player.getName() + " was hit by an uncategorized damage source (" + cause.name() + ") with " + String.format("%.2f", damage) + " damage.");
             BodyHealthUtils.applyDamageWithConfig(bodyHealth, cause, damage);
         }
 
@@ -99,7 +99,7 @@ public class BodyHealthListener implements Listener {
         BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(player);
         bodyHealth.regenerateHealth(regenAmount);
 
-        Debug.log("Player " + player.getName() + " regenerated " + regenAmount + " HP");
+        Debug.log("Player " + player.getName() + " regenerated " + String.format("%.2f", regenAmount) + " HP");
 
         if (player.getHealth() == player.getMaxHealth()) {
             bodyHealth.regenerateHealth(Integer.MAX_VALUE);
@@ -212,7 +212,7 @@ public class BodyHealthListener implements Listener {
                 else if (player.getHealth() > health) {
                     BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(player);
                     bodyHealth.regenerateHealth(player.getHealth() - health);
-                    Debug.log("Player " + player.getName() + " regenerated " + (player.getHealth() - health) + " HP");
+                    Debug.log("Player " + player.getName() + " regenerated " + String.format("%.2f", (player.getHealth() - health)) + " HP");
                 }
             }
         }.runTaskLater(Main.getPlugin(Main.class), 2);
