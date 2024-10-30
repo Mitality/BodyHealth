@@ -180,7 +180,7 @@ public class BetterHud {
             if (fileName == null) continue;
 
             File targetFile = new File(targetFolder, fileName);
-            Debug.log("Validating File: " + targetFile.getAbsolutePath());
+            Debug.logDev("Validating File: " + targetFile.getAbsolutePath());
 
             try (InputStream resourceStream = instance.getResource("BetterHudConfig" + "/" + fileName)) {
                 if (resourceStream == null) {

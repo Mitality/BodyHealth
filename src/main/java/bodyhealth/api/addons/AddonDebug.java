@@ -10,7 +10,7 @@ public class AddonDebug {
     private final String addonName;
 
     public AddonDebug(Class<? extends BodyHealthAddon> clazz) {
-        this.addonName = clazz.getSimpleName();
+        this.addonName = clazz.getAnnotation(AddonInfo.class).name();
     }
 
     /**

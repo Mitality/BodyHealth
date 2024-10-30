@@ -69,6 +69,9 @@ public class BodyHealthUtils {
             return false;
         }
 
+        // Reload addons
+        Main.getAddonManager().reloadAddons();
+
         for (Player player : Bukkit.getOnlinePlayers()) {
             BodyHealthEffects.addEffectsToPlayer(player);
         }

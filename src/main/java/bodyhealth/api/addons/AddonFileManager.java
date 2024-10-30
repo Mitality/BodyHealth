@@ -27,7 +27,7 @@ public class AddonFileManager {
 
     public AddonFileManager(BodyHealthAddon addon, File jarFile) {
         this.addon = addon;
-        this.addonName = addon.getClass().getSimpleName();
+        this.addonName = extractAddonName(jarFile.getName());
         this.addonDir = new File(main.getDataFolder().getAbsolutePath() + File.separator + "addons" + File.separator + addonName);
         this.jarFile = jarFile;
         this.debug = addon.getAddonDebug();
@@ -156,6 +156,23 @@ public class AddonFileManager {
      */
     private void createAddonFolder() {
         if (!addonDir.exists()) addonDir.mkdirs();
+    }
+
+    /**
+     * Extracts the addon name from the jar file name, removing any version information.
+     * Assumes that the version is appended with a '-' and contains numbers, dots, and possibly other characters.
+     */
+    private String extractAddonName(String jarFileName) {
+        // Remove ".jar" at the end if present
+        if (jarFileName.endsWith(".jar")) {
+            jarFileName = jarFileName.substring(0, jarFileName.length() - 4);
+        }
+        // Split at the first hyphen "-" to remove version information if present
+        int hyphenIndex = jarFileName.indexOf('-');
+        if (hyphenIndex != -1) {
+            return jarFileName.substring(0, hyphenIndex);
+        }
+        return jarFileName; // Return the full name if no version pattern is found
     }
 
 }

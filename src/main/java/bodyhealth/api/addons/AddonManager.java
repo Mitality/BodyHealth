@@ -1,6 +1,7 @@
 package bodyhealth.api.addons;
 
 import bodyhealth.Main;
+import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -9,6 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
@@ -20,13 +22,10 @@ import java.util.jar.JarInputStream;
 
 public class AddonManager extends ClassLoader {
 
-    private final Main main;
     private final File addonsDir;
     private final static List<BodyHealthAddon> addons = new ArrayList<>();
-    private final static List<AddonCommand> addonCommands = new ArrayList<>();
 
     public AddonManager(Main main) {
-        this.main = main;
         this.addonsDir = new File(main.getDataFolder(), "addons");
         if (!addonsDir.exists()) addonsDir.mkdirs();
     }
@@ -117,26 +116,28 @@ public class AddonManager extends ClassLoader {
             List<Class<?>> classes = loadAllClassesFromJar(file);
 
             for (Class<?> clazz : classes) {
-                if (!BodyHealthAddon.class.isAssignableFrom(clazz)) {
-                    continue;
+
+                // Check if the class is a concrete subclass of BodyHealthAddon
+                if (!BodyHealthAddon.class.isAssignableFrom(clazz) || clazz.isInterface() || Modifier.isAbstract(clazz.getModifiers())) {
+                    continue; // Skip interfaces and abstract classes
                 }
+
                 Class<? extends BodyHealthAddon> addonClass = clazz.asSubclass(BodyHealthAddon.class);
                 try {
                     BodyHealthAddon addon = addonClass.getConstructor().newInstance();
-                    Class<BodyHealthAddon> breweryAddonClass = BodyHealthAddon.class;
-                    // Set the logger and file manager
-                    Field loggerField = breweryAddonClass.getDeclaredField("logger");
-                    Field fileManagerField = breweryAddonClass.getDeclaredField("addonFileManager");
-                    Field infoField = breweryAddonClass.getDeclaredField("addonInfo");
-                    Field managerField = breweryAddonClass.getDeclaredField("addonManager");
+                    Class<BodyHealthAddon> bodyHealthAddonClass = BodyHealthAddon.class;
+                    // Set the debug class and file manager
+                    Field debugField = bodyHealthAddonClass.getDeclaredField("debug");
+                    Field fileManagerField = bodyHealthAddonClass.getDeclaredField("fileManager");
+                    Field infoField = bodyHealthAddonClass.getDeclaredField("addonInfo");
+                    Field managerField = bodyHealthAddonClass.getDeclaredField("addonManager");
 
-
-                    loggerField.setAccessible(true);
+                    debugField.setAccessible(true);
                     fileManagerField.setAccessible(true);
                     infoField.setAccessible(true);
                     managerField.setAccessible(true);
 
-                    loggerField.set(addon, new AddonDebug(addonClass));
+                    debugField.set(addon, new AddonDebug(addonClass));
                     fileManagerField.set(addon, new AddonFileManager(addon, file));
                     infoField.set(addon, addonClass.getAnnotation(AddonInfo.class));
                     managerField.set(addon, this);
@@ -152,11 +153,13 @@ public class AddonManager extends ClassLoader {
                     addons.add(addon);
                     addon.onAddonPreEnable();
                 } catch (Exception e) {
-                    Debug.logErr("Failed to load addon class " + clazz.getSimpleName() + ": " + e.getMessage());
+                    Debug.logErr("Failed to load addon class " + clazz + ": " + e.getMessage());
+                    if (Config.development_mode) e.printStackTrace();
                 }
             }
         } catch (Throwable t) {
             Debug.logErr("Failed to load addon classes from jar " + file.getName() + ": " + t.getMessage());
+            if (Config.development_mode) t.printStackTrace();
         }
     }
 

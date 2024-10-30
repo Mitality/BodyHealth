@@ -1,5 +1,7 @@
 package bodyhealth;
 
+import bodyhealth.api.addons.AddonFileManager;
+import bodyhealth.api.addons.AddonManager;
 import bodyhealth.commands.CommandManager;
 import bodyhealth.config.Lang;
 import bodyhealth.data.DataManager;
@@ -35,6 +37,7 @@ public final class Main extends JavaPlugin {
     public static Map<UUID, BodyHealth> playerBodyHealthMap;
     public static PlaceholderAPI placeholderAPIexpansion;
     public static long validationTimestamp;
+    private static AddonManager addonManager;
 
     @Override
     public void onLoad() {
@@ -68,6 +71,10 @@ public final class Main extends JavaPlugin {
         Config.load(getConfig());
         Lang.load(languageConfig);
         Debug.log("Configuration loaded successfully");
+
+        // Load addons
+        addonManager = new AddonManager(this);
+        addonManager.loadAddons();
 
         // Initialize BodyHealthMap
         playerBodyHealthMap = new HashMap<>();
@@ -138,6 +145,7 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        addonManager.unloadAddons();
         Debug.log("Disabling System...");
         for (Player player : Bukkit.getOnlinePlayers()) {
             BodyHealthEffects.removeEffectsFromPlayer(player); // Ensure that all effects are removed
@@ -149,6 +157,10 @@ public final class Main extends JavaPlugin {
 
     public static Main getInstance() {
         return instance;
+    }
+
+    public static AddonManager getAddonManager() {
+        return addonManager;
     }
 
 }
