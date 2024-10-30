@@ -9,6 +9,7 @@ import java.util.List;
 
 public class Config {
 
+    public static String language;
     public static String prefix;
 
     public static boolean debug_mode;
@@ -40,6 +41,7 @@ public class Config {
 
     public static void load(FileConfiguration config) {
 
+        language = config.getString("language", "en-us");
         prefix = ChatColor.translateAlternateColorCodes('&',
                 config.getString("prefix", "&8&l[&e&lBodyHealth&8&l] "));
 

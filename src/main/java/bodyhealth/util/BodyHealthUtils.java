@@ -42,30 +42,47 @@ public class BodyHealthUtils {
 
         try {
 
-            // Reload and update config and language
+            // Reload and update config
             Main.getInstance().saveDefaultConfig();
             File configFile = new File(Main.getInstance().getDataFolder(), "config.yml");
-            File languageFile = new File(Main.getInstance().getDataFolder(), "language.yml");
-            if (!languageFile.exists()) Main.getInstance().saveResource("language.yml", false);
             try {
                 ConfigUpdater.update(Main.getInstance(), "config.yml", configFile);
-                ConfigUpdater.update(Main.getInstance(), "language.yml", languageFile);
             } catch (IOException e) {
                 Debug.logErr("Could not update your configuration: " + e.getMessage());
-                //e.printStackTrace();
                 return false;
             }
             Main.getInstance().reloadConfig();
 
+            // Load config internally
+            Config.load(Main.getInstance().getConfig());
+
+            // Ensure language directory exists
+            File languageDir = new File(Main.getInstance().getDataFolder(), "language");
+            if (!languageDir.exists()) languageDir.mkdirs();
+
+            // Get the selected language file from the loaded config
+            File languageFile = new File(languageDir, Config.language + ".yml");
+            if (!languageFile.exists()) {
+                Debug.logErr("Language " + Config.language + " doesn't exist in your language folder! Defaulting to en-us");
+                languageFile = new File(languageDir, "en-us.yml");
+                if (!languageFile.exists()) Main.getInstance().saveResource("language/en-us.yml", false);
+            }
+
+            // Update builtin language files
+            try {
+                ConfigUpdater.update(Main.getInstance(), "language/en-us.yml", languageFile);
+            } catch (IOException e) {
+                return false;
+            }
+
+            // Load language configuration
             FileConfiguration languageConfig = YamlConfiguration.loadConfiguration(languageFile);
 
-            // Load config and language internally
-            Config.load(Main.getInstance().getConfig());
+            // Load language internally
             Lang.load(languageConfig);
 
         } catch (Exception e) {
             Debug.logErr("Could not reload your configuration!");
-            //e.printStackTrace();
             return false;
         }
 

@@ -52,24 +52,44 @@ public final class Main extends JavaPlugin {
 
         Debug.log("Initializing...");
 
-        // Reload and update config and language
+        // Reload and update config
         saveDefaultConfig();
         File configFile = new File(getDataFolder(), "config.yml");
-        File languageFile = new File(getDataFolder(), "language.yml");
-        if (!languageFile.exists()) saveResource("language.yml", false);
         try {
             ConfigUpdater.update(this, "config.yml", configFile);
-            ConfigUpdater.update(this, "language.yml", languageFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
         reloadConfig();
 
+        // Load config internally
+        Config.load(getConfig());
+
+        // Ensure language directory exists
+        File languageDir = new File(getDataFolder(), "language");
+        if (!languageDir.exists()) languageDir.mkdirs();
+
+        // Get the selected language file from the loaded config
+        File languageFile = new File(languageDir, Config.language + ".yml");
+        if (!languageFile.exists()) {
+            if (!Config.language.equals("en-us")) Debug.logErr("Language " + Config.language + " doesn't exist in your language folder! Defaulting to en-us");
+            languageFile = new File(languageDir, "en-us.yml");
+            if (!languageFile.exists()) saveResource("language/en-us.yml", false);
+        }
+
+        // Update builtin language files
+        try {
+            ConfigUpdater.update(this, "language/en-us.yml", languageFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Load language configuration
         FileConfiguration languageConfig = YamlConfiguration.loadConfiguration(languageFile);
 
-        // Load config and language internally
-        Config.load(getConfig());
+        // Load language internally
         Lang.load(languageConfig);
+
         Debug.log("Configuration loaded successfully");
 
         // Load addons

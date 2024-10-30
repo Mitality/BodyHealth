@@ -4,9 +4,7 @@ import bodyhealth.Main;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class DataManager {
@@ -15,11 +13,18 @@ public class DataManager {
     private static FileConfiguration data;
 
     /**
-     * Sets up the plugins yaml data storage system
+     * Sets up the plugin's yaml data storage system
      */
     public static void setup() {
-        // Create the file or get the existing one
-        file = new File(Main.getInstance().getDataFolder(), "data.yml");
+
+        // Create the data folder if it doesn't exist yet
+        File dataFolder = new File(Main.getInstance().getDataFolder(), "data");
+        if (!dataFolder.exists()) {
+            dataFolder.mkdirs();
+        }
+
+        // Create the data.yml file in the data folder or get the existing one
+        file = new File(dataFolder, "bodyHealth.yml");
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -48,4 +53,5 @@ public class DataManager {
     public static FileConfiguration getData() {
         return data;
     }
+
 }

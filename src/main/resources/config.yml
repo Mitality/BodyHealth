@@ -43,6 +43,10 @@
 #
 #   <BodyPart> can be HEAD, BODY, ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, FOOT_LEFT, FOOT_RIGHT
 
+# Set a language file to use from plugins/BodyHealth/language
+# You may define your own and set it here without the '.yml'
+language: en-us
+
 # Set a prefix to be prepended to all plugin messages
 prefix: "&8&l[&e&lBodyHealth&8&l] "
 

@@ -2,28 +2,61 @@ commands:
 
   bodyhealth:
 
+    # Message shown for incorrect command usage
     usage: '&bUsage: /bodyhealth <get/set/heal/reload> <player> <bodypart> [value]'
+
+    # Message shown for invalid subcommands
     invalid: '&cInvalid action. Use ''get'', ''set'', ''heal'', or ''reload''.'
+
+    # Message shown if the specified player is offline
     player-not-found: '&cPlayer {Player} not found.'
+
+    # Message shown if the specified body part is invalid
     invalid-part: '&cInvalid body part. Valid parts: HEAD, BODY, ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, FOOT_LEFT, FOOT_RIGHT.'
+
+    # Message shown if the player lacks permission for a command
     not-permitted: '&cYou do not have permission to use this command.'
+
+    # Message shown if a command is player-only but used from the console
     player-only: '&cThis subcommand may only be executed by players.'
 
     reload:
+
+      # Message shown on successful configuration reload
       success: '&aConfiguration reloaded.'
+
+      # Message shown if reload fails
       fail: '&cConfiguration could not be reloaded.'
+
+      # Message shown if the player lacks permission to reload
       not-permitted: '&cYou do not have permission to use this command.'
 
     get:
+
+      # Message shown if the player lacks permission for "get"
       not-permitted: '&cYou do not have permission to use this command.'
+
+      # Message shown with health details for the requested body part
       success: '&a{Player}''s {Part} health: {Health}%'
 
     set:
+
+      # Message shown if the player lacks permission for "set"
       not-permitted: '&cYou do not have permission to use this command.'
+
+      # Message shown if a value is missing
       missing-value: '&ePlease specify a value.'
+
+      # Message shown if the value provided is invalid
       invalid-value: '&cInvalid health value.'
+
+      # Message shown on successful health update
       success: '&a{Player}''s {Part} health set to {Health}%'
 
     heal:
+
+      # Message shown if the player lacks permission for "heal"
       not-permitted: '&cYou do not have permission to use this command.'
+
+      # Message shown on successful healing
       success: '&a{Player} has been fully healed.'
