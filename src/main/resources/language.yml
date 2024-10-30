@@ -6,6 +6,8 @@ commands:
     invalid: '&cInvalid action. Use ''get'', ''set'', ''heal'', or ''reload''.'
     player-not-found: '&cPlayer {Player} not found.'
     invalid-part: '&cInvalid body part. Valid parts: HEAD, BODY, ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, FOOT_LEFT, FOOT_RIGHT.'
+    not-permitted: '&cYou do not have permission to use this command.'
+    player-only: '&cThis subcommand may only be executed by players.'
 
     reload:
       success: '&aConfiguration reloaded.'

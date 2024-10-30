@@ -1,7 +1,6 @@
 package bodyhealth;
 
-import bodyhealth.commands.BodyHealthCommand;
-import bodyhealth.commands.BodyHealthTAB;
+import bodyhealth.commands.CommandManager;
 import bodyhealth.config.Lang;
 import bodyhealth.data.DataManager;
 import bodyhealth.data.HealthStorage;
@@ -75,8 +74,11 @@ public final class Main extends JavaPlugin {
 
         // Commands and Listeners
         Bukkit.getPluginManager().registerEvents(new BodyHealthListener(), this);
+        /*
         Objects.requireNonNull(Main.getPlugin(Main.class).getCommand("bodyhealth")).setExecutor(new BodyHealthCommand());
         Objects.requireNonNull(Main.getPlugin(Main.class).getCommand("bodyhealth")).setTabCompleter(new BodyHealthTAB());
+        */
+        Objects.requireNonNull(getCommand("bodyhealth")).setExecutor(new CommandManager());
         Debug.log("Registered Commands and Listeners");
 
         // Register Placeholders

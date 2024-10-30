@@ -9,6 +9,8 @@ public class Lang {
     public static String bodyhealth_invalid;
     public static String bodyhealth_player_not_found;
     public static String bodyhealth_invalid_part;
+    public static String bodyhealth_not_permitted;
+    public static String bodyhealth_player_only;
 
     public static String bodyhealth_reload_success;
     public static String bodyhealth_reload_fail;
@@ -35,6 +37,10 @@ public class Lang {
                 config.getString("commands.bodyhealth.player-not-found", "&cPlayer {Player} not found."));
         bodyhealth_invalid_part = ChatColor.translateAlternateColorCodes('&',
                 config.getString("commands.bodyhealth.invalid-part", "&cInvalid body part. Valid parts: HEAD, BODY, ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, FOOT_LEFT, FOOT_RIGHT."));
+        bodyhealth_not_permitted = ChatColor.translateAlternateColorCodes('&',
+                config.getString("commands.bodyhealth.not-permitted", "&cYou do not have permission to use this command."));
+        bodyhealth_player_only = ChatColor.translateAlternateColorCodes('&',
+                config.getString("commands.bodyhealth.player-only", "&cThis subcommand may only be executed by players."));
 
         bodyhealth_reload_success = ChatColor.translateAlternateColorCodes('&',
                 config.getString("commands.bodyhealth.reload.success", "&aConfiguration reloaded."));

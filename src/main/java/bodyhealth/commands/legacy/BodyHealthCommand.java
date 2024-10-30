@@ -1,4 +1,4 @@
-package bodyhealth.commands;
+package bodyhealth.commands.legacy;
 
 import bodyhealth.config.Lang;
 import bodyhealth.core.BodyHealth;
