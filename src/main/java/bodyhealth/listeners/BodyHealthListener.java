@@ -72,7 +72,6 @@ public class BodyHealthListener implements Listener {
 
         else if (event instanceof EntityDamageByBlockEvent) {
             EntityDamageByBlockEvent blockDamageEvent = (EntityDamageByBlockEvent) event;
-            //if (blockDamageEvent.getDamager().getType() == Material.SWEET_BERRY_BUSH) blockLocation.subtract(0.0, 0.5, 0.0); // TODO: Why tf is this needed!?
             BodyPart[] hitBodyParts = BodyHealthCalculator.calculateHitByBlock(player, Objects.requireNonNull(blockDamageEvent.getDamager()));
             StringBuilder hitBodyPartsString = new StringBuilder();
             for (BodyPart bodyPart : hitBodyParts) {
@@ -121,7 +120,9 @@ public class BodyHealthListener implements Listener {
     @EventHandler (priority = EventPriority.MONITOR)
     public void onPlayerRespawn(PlayerRespawnEvent event) {
         BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(event.getPlayer());
-        bodyHealth.regenerateHealth(Integer.MAX_VALUE);
+        Bukkit.getScheduler().runTaskLater(Main.getInstance(), () -> {
+            bodyHealth.regenerateHealth(Integer.MAX_VALUE);
+        }, 3L);
     }
 
     @EventHandler (priority = EventPriority.MONITOR)

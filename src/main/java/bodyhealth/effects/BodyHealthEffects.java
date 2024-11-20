@@ -170,8 +170,8 @@ public class BodyHealthEffects {
         else if (effectParts[0].trim().equalsIgnoreCase("COMMAND")) {
             Bukkit.getScheduler().runTask(Main.getInstance(), () -> { // Dispatch command synchronously
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), effectParts[1].trim()
-                        .replaceAll("%PlayerName%", player.getName())
-                        .replaceAll("%PlayerUUID%", player.getUniqueId().toString()));
+                    .replaceAll("%PlayerName%", player.getName())
+                    .replaceAll("%PlayerUUID%", player.getUniqueId().toString()));
                 Debug.log("(" + part.name() +") Dispatched command: /" + effectParts[1].trim());
             });
         }
@@ -282,12 +282,10 @@ public class BodyHealthEffects {
 
         // COMMAND_UNDO / cmd args[...]
         else if (effectParts[0].trim().equalsIgnoreCase("COMMAND_UNDO")) {
-            Bukkit.getScheduler().runTaskLater(Main.getInstance(), () -> { // Dispatch command synchronously and ensure the player has already respawned
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), effectParts[1].trim()
-                        .replaceAll("%PlayerName%", player.getName())
-                        .replaceAll("%PlayerUUID%", player.getUniqueId().toString()));
-                Debug.log("(" + part.name() +") Dispatched command: /" + effectParts[1].trim());
-            }, 10L);
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), effectParts[1].trim()
+                .replaceAll("%PlayerName%", player.getName())
+                .replaceAll("%PlayerUUID%", player.getUniqueId().toString()));
+            Debug.log("(" + part.name() +") Dispatched command: /" + effectParts[1].trim());
         }
 
         // KILL_PLAYER
