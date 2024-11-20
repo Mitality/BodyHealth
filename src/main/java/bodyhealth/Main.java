@@ -117,11 +117,18 @@ public final class Main extends JavaPlugin {
             // BetterHud integration - Only works with PAPI installed
             if (Bukkit.getPluginManager().getPlugin("BetterHud") != null && Bukkit.getPluginManager().getPlugin("BetterHud").isEnabled()) {
                 Debug.log("BetterHud detected, enabling BetterHud integration...");
-                Bukkit.getPluginManager().registerEvents(new BetterHudListener(), this);
-                Bukkit.getScheduler().runTaskLater(Main.getInstance(), () -> { // FIXME: This can lead to double reloads
-                    ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-                    Bukkit.dispatchCommand(console, "betterhud reload");
-                }, 60L); // Ensure BetterHud reloads its pack after the integration is enabled
+                BetterHudListener bhl = new BetterHudListener();
+                Bukkit.getPluginManager().registerEvents(bhl, this);
+
+                /*
+                 * BetterHud loads its pack asynchronously, meaning it may not be finished
+                 * doing that by this point. We therefore wait another three seconds before
+                 * simulating a reload to trigger BodyHealth's file validation process there
+                 */
+                Bukkit.getScheduler().runTaskLater(Main.getInstance(), () -> {
+                    bhl.onBetterHudReloaded(null);
+                }, 60L);
+
                 Debug.log("BetterHud integration enabled");
 
                 Debug.log("The BetterHud integration requires the PlaceholderAPI expansion 'Player' to be installed. Setting up a Listener to ensure it is present at all times.");
