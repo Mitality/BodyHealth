@@ -1,0 +1,62 @@
+commands:
+
+  bodyhealth:
+
+    # Message shown for incorrect command usage
+    usage: '&bKäyttö: /bodyhealth <get/set/heal/reload> <player> <bodypart> [value]'
+
+    # Message shown for invalid subcommands
+    invalid: '&cVirheellinen toiminto. Käytä ''get'', ''set'', ''heal'' tai ''reload''.'
+
+    # Message shown if the specified player is offline
+    player-not-found: '&cPelaajaa {Player} ei löytynyt.'
+
+    # Message shown if the specified body part is invalid
+    invalid-part: '&cVirheellinen kehonosa. Hyväksytyt osat: HEAD, BODY, ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, FOOT_LEFT, FOOT_RIGHT.'
+
+    # Message shown if the player lacks permission for a command
+    not-permitted: '&cSinulla ei ole oikeuksia käyttää tätä komentoa.'
+
+    # Message shown if a command is player-only but used from the console
+    player-only: '&cTätä alikomentoa voi käyttää vain pelaajat.'
+
+    reload:
+
+      # Message shown on successful configuration reload
+      success: '&aMääritykset ladattiin onnistuneesti.'
+
+      # Message shown if reload fails
+      fail: '&cMäärityksiä ei voitu ladata.'
+
+      # Message shown if the player lacks permission to reload
+      not-permitted: '&cSinulla ei ole oikeuksia käyttää tätä komentoa.'
+
+    get:
+
+      # Message shown if the player lacks permission for "get"
+      not-permitted: '&cSinulla ei ole oikeuksia käyttää tätä komentoa.'
+
+      # Message shown with health details for the requested body part
+      success: '&a{Player}n {Part}-terveys: {Health}%'
+
+    set:
+
+      # Message shown if the player lacks permission for "set"
+      not-permitted: '&cSinulla ei ole oikeuksia käyttää tätä komentoa.'
+
+      # Message shown if a value is missing
+      missing-value: '&eOle hyvä ja määritä arvo.'
+
+      # Message shown if the value provided is invalid
+      invalid-value: '&cVirheellinen terveysarvo.'
+
+      # Message shown on successful health update
+      success: '&a{Player}n {Part}-terveys asetettiin arvoon {Health}%'
+
+    heal:
+
+      # Message shown if the player lacks permission for "heal"
+      not-permitted: '&cSinulla ei ole oikeuksia käyttää tätä komentoa.'
+
+      # Message shown on successful healing
+      success: '&a{Player} on parannettu täysin.'

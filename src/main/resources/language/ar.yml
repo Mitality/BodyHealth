@@ -1,0 +1,62 @@
+commands:
+
+  bodyhealth:
+
+    # Message shown for incorrect command usage
+    usage: '&bالاستخدام: /bodyhealth <get/set/heal/reload> <player> <bodypart> [value]'
+
+    # Message shown for invalid subcommands
+    invalid: '&cإجراء غير صالح. استخدم ''get''، ''set''، ''heal''، أو ''reload''.'
+
+    # Message shown if the specified player is offline
+    player-not-found: '&cاللاعب {Player} غير موجود.'
+
+    # Message shown if the specified body part is invalid
+    invalid-part: '&cجزء غير صالح من الجسم. الأجزاء الصالحة: HEAD, BODY, ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, FOOT_LEFT, FOOT_RIGHT.'
+
+    # Message shown if the player lacks permission for a command
+    not-permitted: '&cليس لديك إذن لاستخدام هذا الأمر.'
+
+    # Message shown if a command is player-only but used from the console
+    player-only: '&cيمكن تنفيذ هذا الأمر الفرعي فقط من قبل اللاعبين.'
+
+    reload:
+
+      # Message shown on successful configuration reload
+      success: '&aتم إعادة تحميل التكوين بنجاح.'
+
+      # Message shown if reload fails
+      fail: '&cتعذر إعادة تحميل التكوين.'
+
+      # Message shown if the player lacks permission to reload
+      not-permitted: '&cليس لديك إذن لاستخدام هذا الأمر.'
+
+    get:
+
+      # Message shown if the player lacks permission for "get"
+      not-permitted: '&cليس لديك إذن لاستخدام هذا الأمر.'
+
+      # Message shown with health details for the requested body part
+      success: '&aصحة {Part} الخاصة بـ {Player}: {Health}%'
+
+    set:
+
+      # Message shown if the player lacks permission for "set"
+      not-permitted: '&cليس لديك إذن لاستخدام هذا الأمر.'
+
+      # Message shown if a value is missing
+      missing-value: '&eيرجى تحديد قيمة.'
+
+      # Message shown if the value provided is invalid
+      invalid-value: '&cقيمة الصحة غير صالحة.'
+
+      # Message shown on successful health update
+      success: '&aتم تعيين صحة {Part} الخاصة بـ {Player} إلى {Health}%'
+
+    heal:
+
+      # Message shown if the player lacks permission for "heal"
+      not-permitted: '&cليس لديك إذن لاستخدام هذا الأمر.'
+
+      # Message shown on successful healing
+      success: '&aتم شفاء {Player} بالكامل.'

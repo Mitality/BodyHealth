@@ -24,10 +24,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class BodyHealthUtils {
 
@@ -60,19 +57,18 @@ public class BodyHealthUtils {
             File languageDir = new File(Main.getInstance().getDataFolder(), "language");
             if (!languageDir.exists()) languageDir.mkdirs();
 
-            // Get the selected language file from the loaded config
-            File languageFile = new File(languageDir, Config.language + ".yml");
-            if (!languageFile.exists()) {
-                Debug.logErr("Language " + Config.language + " doesn't exist in your language folder! Defaulting to en-us");
-                languageFile = new File(languageDir, "en-us.yml");
-                if (!languageFile.exists()) Main.getInstance().saveResource("language/en-us.yml", false);
+            // Save and update language files
+            for (String langFileName : Main.getLanguages()) {
+                if (!new File(languageDir, langFileName).exists()) Main.getInstance().saveResource("language/" + langFileName, false);
+                ConfigUpdater.update(Main.getInstance(), "language/" + langFileName, new File(languageDir, langFileName));
             }
 
-            // Update builtin language files
-            try {
-                ConfigUpdater.update(Main.getInstance(), "language/en-us.yml", languageFile);
-            } catch (IOException e) {
-                return false;
+            // Get the selected language file
+            File languageFile = new File(languageDir, Config.language + ".yml");
+            if (!languageFile.exists()) {
+                Debug.logErr("Language " + Config.language + " doesn't exist in your language folder! Defaulting to English (en).");
+                languageFile = new File(languageDir, "en.yml");
+                if (!languageFile.exists()) Main.getInstance().saveResource("language/en.yml", false); // Should not be necessary
             }
 
             // Load language configuration
@@ -83,6 +79,7 @@ public class BodyHealthUtils {
 
         } catch (Exception e) {
             Debug.logErr("Could not reload your configuration!");
+            if (Config.development_mode) e.printStackTrace();
             return false;
         }
 

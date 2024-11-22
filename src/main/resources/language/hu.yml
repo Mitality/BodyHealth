@@ -1,0 +1,62 @@
+commands:
+
+  bodyhealth:
+
+    # Message shown for incorrect command usage
+    usage: '&bHasználat: /bodyhealth <get/set/heal/reload> <player> <bodypart> [value]'
+
+    # Message shown for invalid subcommands
+    invalid: '&cÉrvénytelen művelet. Használj ''get'', ''set'', ''heal'' vagy ''reload''.'
+
+    # Message shown if the specified player is offline
+    player-not-found: '&cA {Player} játékos nem található.'
+
+    # Message shown if the specified body part is invalid
+    invalid-part: '&cÉrvénytelen testrész. Érvényes részek: HEAD, BODY, ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, FOOT_LEFT, FOOT_RIGHT.'
+
+    # Message shown if the player lacks permission for a command
+    not-permitted: '&cNincs engedélyed ezt a parancsot használni.'
+
+    # Message shown if a command is player-only but used from the console
+    player-only: '&cEz az alparancs csak játékosok által futtatható.'
+
+    reload:
+
+      # Message shown on successful configuration reload
+      success: '&aA konfiguráció sikeresen újratöltve.'
+
+      # Message shown if reload fails
+      fail: '&cNem sikerült újratölteni a konfigurációt.'
+
+      # Message shown if the player lacks permission to reload
+      not-permitted: '&cNincs engedélyed ezt a parancsot használni.'
+
+    get:
+
+      # Message shown if the player lacks permission for "get"
+      not-permitted: '&cNincs engedélyed ezt a parancsot használni.'
+
+      # Message shown with health details for the requested body part
+      success: '&a{Player} {Part} egészsége: {Health}%'
+
+    set:
+
+      # Message shown if the player lacks permission for "set"
+      not-permitted: '&cNincs engedélyed ezt a parancsot használni.'
+
+      # Message shown if a value is missing
+      missing-value: '&eKérlek, adj meg egy értéket.'
+
+      # Message shown if the value provided is invalid
+      invalid-value: '&cÉrvénytelen egészségérték.'
+
+      # Message shown on successful health update
+      success: '&a{Player} {Part} egészsége {Health}%-ra állítva'
+
+    heal:
+
+      # Message shown if the player lacks permission for "heal"
+      not-permitted: '&cNincs engedélyed ezt a parancsot használni.'
+
+      # Message shown on successful healing
+      success: '&a{Player} teljesen meggyógyult.'

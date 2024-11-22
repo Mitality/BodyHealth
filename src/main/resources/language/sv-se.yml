@@ -1,0 +1,62 @@
+commands:
+
+  bodyhealth:
+
+    # Message shown for incorrect command usage
+    usage: '&bAnvändning: /bodyhealth <get/set/heal/reload> <player> <bodypart> [value]'
+
+    # Message shown for invalid subcommands
+    invalid: '&cOgiltig åtgärd. Använd ''get'', ''set'', ''heal'' eller ''reload''.'
+
+    # Message shown if the specified player is offline
+    player-not-found: '&cSpelare {Player} hittades inte.'
+
+    # Message shown if the specified body part is invalid
+    invalid-part: '&cOgiltig kroppsdel. Giltiga delar: HEAD, BODY, ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, FOOT_LEFT, FOOT_RIGHT.'
+
+    # Message shown if the player lacks permission for a command
+    not-permitted: '&cDu har inte behörighet att använda detta kommando.'
+
+    # Message shown if a command is player-only but used from the console
+    player-only: '&cDenna subkommando kan endast utföras av spelare.'
+
+    reload:
+
+      # Message shown on successful configuration reload
+      success: '&aKonfigurationen har laddats om.'
+
+      # Message shown if reload fails
+      fail: '&cKonfigurationen kunde inte laddas om.'
+
+      # Message shown if the player lacks permission to reload
+      not-permitted: '&cDu har inte behörighet att använda detta kommando.'
+
+    get:
+
+      # Message shown if the player lacks permission for "get"
+      not-permitted: '&cDu har inte behörighet att använda detta kommando.'
+
+      # Message shown with health details for the requested body part
+      success: '&a{Player} hälsa i {Part}: {Health}%'
+
+    set:
+
+      # Message shown if the player lacks permission for "set"
+      not-permitted: '&cDu har inte behörighet att använda detta kommando.'
+
+      # Message shown if a value is missing
+      missing-value: '&eVänligen ange ett värde.'
+
+      # Message shown if the value provided is invalid
+      invalid-value: '&cOgiltigt hälsovärde.'
+
+      # Message shown on successful health update
+      success: '&a{Player} hälsa i {Part} har satts till {Health}%'
+
+    heal:
+
+      # Message shown if the player lacks permission for "heal"
+      not-permitted: '&cDu har inte behörighet att använda detta kommando.'
+
+      # Message shown on successful healing
+      success: '&a{Player} har blivit fullständigt läkt.'

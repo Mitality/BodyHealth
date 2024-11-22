@@ -1,6 +1,5 @@
 package bodyhealth;
 
-import bodyhealth.api.addons.AddonFileManager;
 import bodyhealth.api.addons.AddonManager;
 import bodyhealth.commands.CommandManager;
 import bodyhealth.config.Lang;
@@ -21,7 +20,6 @@ import com.jeff_media.updatechecker.UserAgentBuilder;
 import com.tchristofferson.configupdater.ConfigUpdater;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -30,9 +28,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 public final class Main extends JavaPlugin {
     private static Main instance;
+    private static List<String> languages;
     private static String SPIGOT_RESOURCE_ID;
     public static Map<UUID, BodyHealth> playerBodyHealthMap;
     public static PlaceholderAPI placeholderAPIexpansion;
@@ -44,13 +45,12 @@ public final class Main extends JavaPlugin {
         instance = this;
         validationTimestamp = 0;
         SPIGOT_RESOURCE_ID = "119966";
+        languages = new ArrayList<>();
         if (Bukkit.getPluginManager().getPlugin("WorldGuard") != null)  WorldGuard.initialize();
     }
 
     @Override
     public void onEnable() {
-
-        Debug.log("Initializing...");
 
         // Reload and update config
         saveDefaultConfig();
@@ -69,19 +69,33 @@ public final class Main extends JavaPlugin {
         File languageDir = new File(getDataFolder(), "language");
         if (!languageDir.exists()) languageDir.mkdirs();
 
-        // Get the selected language file from the loaded config
-        File languageFile = new File(languageDir, Config.language + ".yml");
-        if (!languageFile.exists()) {
-            if (!Config.language.equals("en-us")) Debug.logErr("Language " + Config.language + " doesn't exist in your language folder! Defaulting to en-us");
-            languageFile = new File(languageDir, "en-us.yml");
-            if (!languageFile.exists()) saveResource("language/en-us.yml", false);
+        // Filter out language files from the plugins JarFile
+        try (JarFile jar = new JarFile(getFile())) {
+            Enumeration<JarEntry> entries = jar.entries();
+            Debug.log("Loading language files...");
+            while (entries.hasMoreElements()) {
+                JarEntry entry = entries.nextElement();
+                if (entry.getName().startsWith("language/") && entry.getName().endsWith(".yml")) {
+                    String langFileName = entry.getName().replace("language/", "");
+                    Debug.log("Loading language file: " + langFileName);
+                    languages.add(langFileName);
+
+                    // Save and update language files
+                    if (!new File(languageDir, langFileName).exists()) saveResource("language/" + langFileName, false);
+                    ConfigUpdater.update(this, "language/" + langFileName, new File(languageDir, langFileName));
+                }
+            }
+        } catch (IOException e) {
+            Debug.logErr("Failed to update language files: " + e.getMessage());
+            if (Config.development_mode) e.printStackTrace();
         }
 
-        // Update builtin language files
-        try {
-            ConfigUpdater.update(this, "language/en-us.yml", languageFile);
-        } catch (IOException e) {
-            e.printStackTrace();
+        // Get the selected language file
+        File languageFile = new File(languageDir, Config.language + ".yml");
+        if (!languageFile.exists()) {
+            Debug.logErr("Language " + Config.language + " doesn't exist in your language folder! Defaulting to English (en).");
+            languageFile = new File(languageDir, "en.yml");
+            if (!languageFile.exists()) saveResource("language/en.yml", false); // Should not be necessary
         }
 
         // Load language configuration
@@ -188,6 +202,10 @@ public final class Main extends JavaPlugin {
 
     public static AddonManager getAddonManager() {
         return addonManager;
+    }
+
+    public static List<String> getLanguages() {
+        return languages;
     }
 
 }

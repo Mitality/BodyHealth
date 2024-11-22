@@ -1,0 +1,62 @@
+commands:
+
+  bodyhealth:
+
+    # Message shown for incorrect command usage
+    usage: '&b사용법: /bodyhealth <get/set/heal/reload> <player> <bodypart> [value]'
+
+    # Message shown for invalid subcommands
+    invalid: '&c잘못된 동작입니다. ''get'', ''set'', ''heal'', 또는 ''reload''를 사용하세요.'
+
+    # Message shown if the specified player is offline
+    player-not-found: '&c플레이어 {Player}를 찾을 수 없습니다.'
+
+    # Message shown if the specified body part is invalid
+    invalid-part: '&c잘못된 신체 부위입니다. 유효한 부위: HEAD, BODY, ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, FOOT_LEFT, FOOT_RIGHT.'
+
+    # Message shown if the player lacks permission for a command
+    not-permitted: '&c이 명령어를 사용할 권한이 없습니다.'
+
+    # Message shown if a command is player-only but used from the console
+    player-only: '&c이 하위 명령어는 플레이어만 실행할 수 있습니다.'
+
+    reload:
+
+      # Message shown on successful configuration reload
+      success: '&a설정이 성공적으로 다시 로드되었습니다.'
+
+      # Message shown if reload fails
+      fail: '&c설정 다시 로드를 실패했습니다.'
+
+      # Message shown if the player lacks permission to reload
+      not-permitted: '&c이 명령어를 사용할 권한이 없습니다.'
+
+    get:
+
+      # Message shown if the player lacks permission for "get"
+      not-permitted: '&c이 명령어를 사용할 권한이 없습니다.'
+
+      # Message shown with health details for the requested body part
+      success: '&a{Player}의 {Part} 건강 상태: {Health}%'
+
+    set:
+
+      # Message shown if the player lacks permission for "set"
+      not-permitted: '&c이 명령어를 사용할 권한이 없습니다.'
+
+      # Message shown if a value is missing
+      missing-value: '&e값을 지정해주세요.'
+
+      # Message shown if the value provided is invalid
+      invalid-value: '&c잘못된 건강 값입니다.'
+
+      # Message shown on successful health update
+      success: '&a{Player}의 {Part} 건강 상태가 {Health}%로 설정되었습니다.'
+
+    heal:
+
+      # Message shown if the player lacks permission for "heal"
+      not-permitted: '&c이 명령어를 사용할 권한이 없습니다.'
+
+      # Message shown on successful healing
+      success: '&a{Player}가 완전히 회복되었습니다.'

@@ -1,0 +1,62 @@
+commands:
+
+  bodyhealth:
+
+    # Message shown for incorrect command usage
+    usage: '&bUpotreba: /bodyhealth <get/set/heal/reload> <player> <bodypart> [value]'
+
+    # Message shown for invalid subcommands
+    invalid: '&cNevažeća akcija. Koristite ''get'', ''set'', ''heal'' ili ''reload''.'
+
+    # Message shown if the specified player is offline
+    player-not-found: '&cIgrač {Player} nije pronađen.'
+
+    # Message shown if the specified body part is invalid
+    invalid-part: '&cNevažeći deo tela. Važeći delovi: HEAD, BODY, ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, FOOT_LEFT, FOOT_RIGHT.'
+
+    # Message shown if the player lacks permission for a command
+    not-permitted: '&cNemate dozvolu za korišćenje ove komande.'
+
+    # Message shown if a command is player-only but used from the console
+    player-only: '&cOva podkomanda može se izvršiti samo od strane igrača.'
+
+    reload:
+
+      # Message shown on successful configuration reload
+      success: '&aKonfiguracija je uspešno ponovo učitana.'
+
+      # Message shown if reload fails
+      fail: '&cNije bilo moguće ponovo učitati konfiguraciju.'
+
+      # Message shown if the player lacks permission to reload
+      not-permitted: '&cNemate dozvolu za korišćenje ove komande.'
+
+    get:
+
+      # Message shown if the player lacks permission for "get"
+      not-permitted: '&cNemate dozvolu za korišćenje ove komande.'
+
+      # Message shown with health details for the requested body part
+      success: '&aZdravlje {Player} u delu {Part}: {Health}%'
+
+    set:
+
+      # Message shown if the player lacks permission for "set"
+      not-permitted: '&cNemate dozvolu za korišćenje ove komande.'
+
+      # Message shown if a value is missing
+      missing-value: '&eMolimo vas da navedete vrednost.'
+
+      # Message shown if the value provided is invalid
+      invalid-value: '&cNevažeća vrednost zdravlja.'
+
+      # Message shown on successful health update
+      success: '&aZdravlje {Player} u delu {Part} postavljeno je na {Health}%'
+
+    heal:
+
+      # Message shown if the player lacks permission for "heal"
+      not-permitted: '&cNemate dozvolu za korišćenje ove komande.'
+
+      # Message shown on successful healing
+      success: '&a{Player} je potpuno izlečen.'

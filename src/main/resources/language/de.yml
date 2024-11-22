@@ -1,0 +1,62 @@
+commands:
+
+  bodyhealth:
+
+    # Message shown for incorrect command usage
+    usage: '&bVerwendung: /bodyhealth <get/set/heal/reload> <player> <bodypart> [value]'
+
+    # Message shown for invalid subcommands
+    invalid: '&cUngültige Aktion. Verwende ''get'', ''set'', ''heal'' oder ''reload''.'
+
+    # Message shown if the specified player is offline
+    player-not-found: '&cSpieler {Player} wurde nicht gefunden.'
+
+    # Message shown if the specified body part is invalid
+    invalid-part: '&cUngültiger Körperteil. Gültige Teile: HEAD, BODY, ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, FOOT_LEFT, FOOT_RIGHT.'
+
+    # Message shown if the player lacks permission for a command
+    not-permitted: '&cDu hast keine Berechtigung, diesen Befehl zu verwenden.'
+
+    # Message shown if a command is player-only but used from the console
+    player-only: '&cDieser Unterbefehl kann nur von Spielern ausgeführt werden.'
+
+    reload:
+
+      # Message shown on successful configuration reload
+      success: '&aKonfiguration erfolgreich neu geladen.'
+
+      # Message shown if reload fails
+      fail: '&cDie Konfiguration konnte nicht neu geladen werden.'
+
+      # Message shown if the player lacks permission to reload
+      not-permitted: '&cDu hast keine Berechtigung, diesen Befehl zu verwenden.'
+
+    get:
+
+      # Message shown if the player lacks permission for "get"
+      not-permitted: '&cDu hast keine Berechtigung, diesen Befehl zu verwenden.'
+
+      # Message shown with health details for the requested body part
+      success: '&a{Player}s {Part} Gesundheit: {Health}%'
+
+    set:
+
+      # Message shown if the player lacks permission for "set"
+      not-permitted: '&cDu hast keine Berechtigung, diesen Befehl zu verwenden.'
+
+      # Message shown if a value is missing
+      missing-value: '&eBitte gib einen Wert an.'
+
+      # Message shown if the value provided is invalid
+      invalid-value: '&cUngültiger Gesundheitswert.'
+
+      # Message shown on successful health update
+      success: '&a{Player}s {Part} Gesundheit wurde auf {Health}% gesetzt.'
+
+    heal:
+
+      # Message shown if the player lacks permission for "heal"
+      not-permitted: '&cDu hast keine Berechtigung, diesen Befehl zu verwenden.'
+
+      # Message shown on successful healing
+      success: '&a{Player} wurde vollständig geheilt.'

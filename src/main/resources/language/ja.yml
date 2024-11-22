@@ -1,0 +1,62 @@
+commands:
+
+  bodyhealth:
+
+    # Message shown for incorrect command usage
+    usage: '&b使い方: /bodyhealth <get/set/heal/reload> <player> <bodypart> [value]'
+
+    # Message shown for invalid subcommands
+    invalid: '&c無効なアクションです。''get''、''set''、''heal''、または''reload''を使用してください。'
+
+    # Message shown if the specified player is offline
+    player-not-found: '&cプレイヤー{Player}が見つかりませんでした。'
+
+    # Message shown if the specified body part is invalid
+    invalid-part: '&c無効な体の部分です。有効な部分: HEAD, BODY, ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, FOOT_LEFT, FOOT_RIGHT。'
+
+    # Message shown if the player lacks permission for a command
+    not-permitted: '&cこのコマンドを実行する権限がありません。'
+
+    # Message shown if a command is player-only but used from the console
+    player-only: '&cこのサブコマンドはプレイヤーのみ実行できます。'
+
+    reload:
+
+      # Message shown on successful configuration reload
+      success: '&a設定が正常にリロードされました。'
+
+      # Message shown if reload fails
+      fail: '&c設定のリロードに失敗しました。'
+
+      # Message shown if the player lacks permission to reload
+      not-permitted: '&cこのコマンドを実行する権限がありません。'
+
+    get:
+
+      # Message shown if the player lacks permission for "get"
+      not-permitted: '&cこのコマンドを実行する権限がありません。'
+
+      # Message shown with health details for the requested body part
+      success: '&a{Player}の{Part}の健康状態: {Health}%'
+
+    set:
+
+      # Message shown if the player lacks permission for "set"
+      not-permitted: '&cこのコマンドを実行する権限がありません。'
+
+      # Message shown if a value is missing
+      missing-value: '&e値を指定してください。'
+
+      # Message shown if the value provided is invalid
+      invalid-value: '&c無効な健康値です。'
+
+      # Message shown on successful health update
+      success: '&a{Player}の{Part}の健康状態が{Health}%に設定されました。'
+
+    heal:
+
+      # Message shown if the player lacks permission for "heal"
+      not-permitted: '&cこのコマンドを実行する権限がありません。'
+
+      # Message shown on successful healing
+      success: '&a{Player}は完全に回復しました。'

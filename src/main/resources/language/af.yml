@@ -1,0 +1,62 @@
+commands:
+
+  bodyhealth:
+
+    # Message shown for incorrect command usage
+    usage: '&bGebruik: /bodyhealth <get/set/heal/reload> <player> <bodypart> [value]'
+
+    # Message shown for invalid subcommands
+    invalid: '&cOngeldige aksie. Gebruik ''get'', ''set'', ''heal'', of ''reload''.'
+
+    # Message shown if the specified player is offline
+    player-not-found: '&cSpeler {Player} kon nie gevind word nie.'
+
+    # Message shown if the specified body part is invalid
+    invalid-part: '&cOngeldige liggaamsdeel. Geldige dele: HEAD, BODY, ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, FOOT_LEFT, FOOT_RIGHT.'
+
+    # Message shown if the player lacks permission for a command
+    not-permitted: '&cJy het nie toestemming om hierdie opdrag te gebruik nie.'
+
+    # Message shown if a command is player-only but used from the console
+    player-only: '&cHierdie sub-opdrag kan slegs deur spelers uitgevoer word.'
+
+    reload:
+
+      # Message shown on successful configuration reload
+      success: '&aKonfigurasie herlaai.'
+
+      # Message shown if reload fails
+      fail: '&cKonfigurasie kon nie herlaai word nie.'
+
+      # Message shown if the player lacks permission to reload
+      not-permitted: '&cJy het nie toestemming om hierdie opdrag te gebruik nie.'
+
+    get:
+
+      # Message shown if the player lacks permission for "get"
+      not-permitted: '&cJy het nie toestemming om hierdie opdrag te gebruik nie.'
+
+      # Message shown with health details for the requested body part
+      success: '&a{Player} se {Part} gesondheid: {Health}%'
+
+    set:
+
+      # Message shown if the player lacks permission for "set"
+      not-permitted: '&cJy het nie toestemming om hierdie opdrag te gebruik nie.'
+
+      # Message shown if a value is missing
+      missing-value: '&eSpesifiseer asseblief ''n waarde.'
+
+      # Message shown if the value provided is invalid
+      invalid-value: '&cOngeldige gesondheidswaarde.'
+
+      # Message shown on successful health update
+      success: '&a{Player} se {Part} gesondheid is gestel op {Health}%'
+
+    heal:
+
+      # Message shown if the player lacks permission for "heal"
+      not-permitted: '&cJy het nie toestemming om hierdie opdrag te gebruik nie.'
+
+      # Message shown on successful healing
+      success: '&a{Player} is volledig genees.'

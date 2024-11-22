@@ -1,0 +1,62 @@
+commands:
+
+  bodyhealth:
+
+    # Message shown for incorrect command usage
+    usage: '&bCách sử dụng: /bodyhealth <get/set/heal/reload> <player> <bodypart> [value]'
+
+    # Message shown for invalid subcommands
+    invalid: '&cHành động không hợp lệ. Sử dụng ''get'', ''set'', ''heal'' hoặc ''reload''.'
+
+    # Message shown if the specified player is offline
+    player-not-found: '&cKhông tìm thấy người chơi {Player}.'
+
+    # Message shown if the specified body part is invalid
+    invalid-part: '&cPhần cơ thể không hợp lệ. Các phần hợp lệ: HEAD, BODY, ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, FOOT_LEFT, FOOT_RIGHT.'
+
+    # Message shown if the player lacks permission for a command
+    not-permitted: '&cBạn không có quyền sử dụng lệnh này.'
+
+    # Message shown if a command is player-only but used from the console
+    player-only: '&cLệnh con này chỉ có thể thực thi bởi người chơi.'
+
+    reload:
+
+      # Message shown on successful configuration reload
+      success: '&aCấu hình đã được tải lại thành công.'
+
+      # Message shown if reload fails
+      fail: '&cKhông thể tải lại cấu hình.'
+
+      # Message shown if the player lacks permission to reload
+      not-permitted: '&cBạn không có quyền sử dụng lệnh này.'
+
+    get:
+
+      # Message shown if the player lacks permission for "get"
+      not-permitted: '&cBạn không có quyền sử dụng lệnh này.'
+
+      # Message shown with health details for the requested body part
+      success: '&aSức khỏe của {Player} ở {Part}: {Health}%'
+
+    set:
+
+      # Message shown if the player lacks permission for "set"
+      not-permitted: '&cBạn không có quyền sử dụng lệnh này.'
+
+      # Message shown if a value is missing
+      missing-value: '&eVui lòng chỉ định giá trị.'
+
+      # Message shown if the value provided is invalid
+      invalid-value: '&cGiá trị sức khỏe không hợp lệ.'
+
+      # Message shown on successful health update
+      success: '&aSức khỏe của {Player} ở {Part} đã được thiết lập là {Health}%'
+
+    heal:
+
+      # Message shown if the player lacks permission for "heal"
+      not-permitted: '&cBạn không có quyền sử dụng lệnh này.'
+
+      # Message shown on successful healing
+      success: '&a{Player} đã được hồi phục hoàn toàn.'

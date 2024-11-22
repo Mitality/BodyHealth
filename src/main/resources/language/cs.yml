@@ -1,0 +1,62 @@
+commands:
+
+  bodyhealth:
+
+    # Message shown for incorrect command usage
+    usage: '&bPoužití: /bodyhealth <get/set/heal/reload> <player> <bodypart> [value]'
+
+    # Message shown for invalid subcommands
+    invalid: '&cNeplatná akce. Použijte ''get'', ''set'', ''heal'' nebo ''reload''.'
+
+    # Message shown if the specified player is offline
+    player-not-found: '&cHráč {Player} nebyl nalezen.'
+
+    # Message shown if the specified body part is invalid
+    invalid-part: '&cNeplatná část těla. Platné části: HEAD, BODY, ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, FOOT_LEFT, FOOT_RIGHT.'
+
+    # Message shown if the player lacks permission for a command
+    not-permitted: '&cNemáte oprávnění k použití tohoto příkazu.'
+
+    # Message shown if a command is player-only but used from the console
+    player-only: '&cTento podpříkaz lze provést pouze hráči.'
+
+    reload:
+
+      # Message shown on successful configuration reload
+      success: '&aKonfigurace byla úspěšně znovu načtena.'
+
+      # Message shown if reload fails
+      fail: '&cKonfiguraci se nepodařilo znovu načíst.'
+
+      # Message shown if the player lacks permission to reload
+      not-permitted: '&cNemáte oprávnění k použití tohoto příkazu.'
+
+    get:
+
+      # Message shown if the player lacks permission for "get"
+      not-permitted: '&cNemáte oprávnění k použití tohoto příkazu.'
+
+      # Message shown with health details for the requested body part
+      success: '&aZdraví {Part} hráče {Player}: {Health}%'
+
+    set:
+
+      # Message shown if the player lacks permission for "set"
+      not-permitted: '&cNemáte oprávnění k použití tohoto příkazu.'
+
+      # Message shown if a value is missing
+      missing-value: '&eZadejte prosím hodnotu.'
+
+      # Message shown if the value provided is invalid
+      invalid-value: '&cNeplatná hodnota zdraví.'
+
+      # Message shown on successful health update
+      success: '&aZdraví {Part} hráče {Player} bylo nastaveno na {Health}%'
+
+    heal:
+
+      # Message shown if the player lacks permission for "heal"
+      not-permitted: '&cNemáte oprávnění k použití tohoto příkazu.'
+
+      # Message shown on successful healing
+      success: '&aHráč {Player} byl kompletně vyléčen.'
