@@ -34,10 +34,11 @@ public class BodyHealthEffects {
      * @param newState The new state of the BodyPart
      */
     public static void onBodyPartStateChange(Player player, BodyPart part, @Nullable BodyPartState oldState, @Nullable BodyPartState newState) {
-        if (oldState != newState) Bukkit.getPluginManager().callEvent(new BodyPartStateChangeEvent(player, part, oldState, newState));
+        if (oldState == newState) return; // Only calculate effects when necessary
+        Bukkit.getPluginManager().callEvent(new BodyPartStateChangeEvent(player, part, oldState, newState));
         if (Config.effects == null) {
             Debug.logErr("The effects section of your configuration is missing! What on earth did you do!?");
-            return;
+            return; // Should not be possible to accomplish, but let's leave this here just in case
         }
         if (!Config.effects.getKeys(false).contains(part.name())) return; // Nothing configured for this BodyPart
         if (oldState != null && Objects.requireNonNull(Config.effects.getConfigurationSection(part.name())).getKeys(false).contains(oldState.name())) removeEffects(player, part, oldState);
