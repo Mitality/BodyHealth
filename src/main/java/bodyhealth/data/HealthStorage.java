@@ -39,12 +39,15 @@ public class HealthStorage {
             int counter = 0;
             for (String playerUUID : data.getConfigurationSection("players").getKeys(false)) {
 
-                BodyHealth bodyHealth = new BodyHealth(UUID.fromString(playerUUID));
-
-                for (BodyPart part : BodyPart.values()) {
-                    double health = data.getDouble("players." + playerUUID + ".health." + part.name());
-                    bodyHealth.setHealth(part, health);
-                }
+                double head = data.getDouble("players." + playerUUID + ".health." + BodyPart.HEAD.name());
+                double body = data.getDouble("players." + playerUUID + ".health." + BodyPart.BODY.name());
+                double arm_left = data.getDouble("players." + playerUUID + ".health." + BodyPart.ARM_LEFT.name());
+                double arm_right = data.getDouble("players." + playerUUID + ".health." + BodyPart.ARM_RIGHT.name());
+                double leg_left = data.getDouble("players." + playerUUID + ".health." + BodyPart.LEG_LEFT.name());
+                double leg_right = data.getDouble("players." + playerUUID + ".health." + BodyPart.LEG_RIGHT.name());
+                double foot_left = data.getDouble("players." + playerUUID + ".health." + BodyPart.FOOT_LEFT.name());
+                double foot_right = data.getDouble("players." + playerUUID + ".health." + BodyPart.FOOT_RIGHT.name());
+                BodyHealth bodyHealth = new BodyHealth(UUID.fromString(playerUUID), head, body, arm_left, arm_right, leg_left, leg_right, foot_left, foot_right);
 
                 Main.playerBodyHealthMap.put(UUID.fromString(playerUUID), bodyHealth);
                 counter++;
