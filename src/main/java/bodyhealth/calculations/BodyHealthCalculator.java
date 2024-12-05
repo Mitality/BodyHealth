@@ -156,7 +156,7 @@ public class BodyHealthCalculator {
     }
 
     /**
-     * Utility method to determine what BodyPart(s) were hit by an entity
+     * Utility method to determine what BodyPart was hit by an entity based on relative positioning
      * @param relativeHitY The height difference between the player and the damaging entity
      * @param relativeYaw The relative yaw between the player and the damaging entity
      * @param scale The scale of the player
