@@ -200,7 +200,7 @@ body-damage:
 #
 #   All message variants can use colorcodes like &c (=red).
 #
-#   FULL » Health is at maximumx
+#   FULL » Health is at maximum
 #   NEARLYFULL » Health is between 50% and full
 #   INTERMEDIATE » Health is between 25% and 50%
 #   DAMAGED » Health is below 25%
