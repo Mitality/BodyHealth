@@ -24,6 +24,12 @@ public class Lang {
     public static String bodyhealth_set_invalid_value;
     public static String bodyhealth_set_success;
 
+    public static String bodyhealth_add_no_player = "bodyhealth_add_no_player";
+    public static String bodyhealth_add_invalid_value = "bodyhealth_add_invalid_value";
+    public static String bodyhealth_add_success_all = "bodyhealth_add_success_all";
+    public static String bodyhealth_add_success_single = "bodyhealth_add_success_single";
+    public static String bodyhealth_add_usage = "bodyhealth_add_usage";
+
     public static String bodyhealth_heal_not_permitted;
     public static String bodyhealth_heal_success;
 

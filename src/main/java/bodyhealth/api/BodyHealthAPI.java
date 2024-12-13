@@ -108,7 +108,7 @@ public class BodyHealthAPI {
      * @param health the new health value
      */
     public static void setHealth(@NotNull Player player, double health) {
-        BodyHealthUtils.getBodyHealth(player).setHealth(health);
+        BodyHealthUtils.getBodyHealth(player).setHealth(health, true);
     }
 
     /**
@@ -118,7 +118,7 @@ public class BodyHealthAPI {
      * @param part the body part to set the health for
      */
     public static void setHealth(@NotNull Player player, double health, @NotNull BodyPart part) {
-        BodyHealthUtils.getBodyHealth(player).setHealth(part, health);
+        BodyHealthUtils.getBodyHealth(player).setHealth(part, health, true);
     }
 
     /**

@@ -48,7 +48,7 @@
 language: en
 
 # Set a prefix to be prepended to all plugin messages
-prefix: "&8&l[&e&lBodyHealth&8&l] "
+prefix: "&8&l[&e&lBodyHealth&8&l] &r"
 
 # Enable this to see what the plugin is doing in your console
 debug-mode: false
@@ -78,6 +78,10 @@ always-allow-eating: true
 # Force keep body parts that have been modified by a command
 # at their modified state for the given amount of seconds
 force-keep-time: 10
+
+# Also force keep body parts that have been modified relatively
+# For example through the use of the "/bodyhealth add" command
+force-keep-relative: false
 
 # World Blacklist/Whitelist settings:
 world-blacklist:

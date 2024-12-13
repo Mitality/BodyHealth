@@ -18,6 +18,7 @@ public class Config {
     public static boolean metrics;
     public static boolean self_harm;
     public static boolean always_allow_eating;
+    public static boolean force_keep_relative;
     public static boolean wold_blacklist_whitelist_mode;
     public static boolean raytracing_enabled;
     public static boolean inject_betterhud_config;
@@ -51,6 +52,7 @@ public class Config {
         metrics = config.getBoolean("metrics", true);
         self_harm = config.getBoolean("self-harm", false);
         always_allow_eating = config.getBoolean("always-allow-eating", true);
+        force_keep_relative = config.getBoolean("force-keep-relative", false);
         wold_blacklist_whitelist_mode = config.getBoolean("world-blacklist.whitelist-mode", false);
         raytracing_enabled = config.getBoolean("raytracing.enabled", true);
         inject_betterhud_config = config.getBoolean("display.betterhud.inject-config", true);

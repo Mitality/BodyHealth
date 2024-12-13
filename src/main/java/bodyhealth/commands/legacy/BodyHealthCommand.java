@@ -55,7 +55,7 @@ public class BodyHealthCommand implements CommandExecutor {
                 return true;
             }
             for (BodyPart part : BodyPart.values()) {
-                bodyHealth.setHealth(part, 100);
+                bodyHealth.setHealth(part, 100, false);
             }
             sender.sendMessage(Config.prefix + Lang.bodyhealth_heal_success.replace("{Player}", targetPlayer.getName()));
             return true;
@@ -99,7 +99,7 @@ public class BodyHealthCommand implements CommandExecutor {
 
             try {
                 double newHealth = Math.min(100, Math.max(0, Double.parseDouble(args[3]))); // Keep health between 0 and 100
-                bodyHealth.setHealth(part, newHealth);
+                bodyHealth.setHealth(part, newHealth, true);
                 sender.sendMessage(Config.prefix + Lang.bodyhealth_set_success
                         .replace("{Player}", targetPlayer.getName())
                         .replace("{Part}", part.name())

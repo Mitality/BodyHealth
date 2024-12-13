@@ -31,7 +31,7 @@ public class HealCommand implements SubCommand {
 
         BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(targetPlayer);
         for (BodyPart part : BodyPart.values()) {
-            bodyHealth.setHealth(part, 100);
+            bodyHealth.setHealth(part, 100, false);
         }
 
         sender.sendMessage(Config.prefix + Lang.bodyhealth_heal_success.replace("{Player}", targetPlayer.getName()));

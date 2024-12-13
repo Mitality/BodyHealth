@@ -187,6 +187,20 @@ public class BodyHealthUtils {
     }
 
     /**
+     * Checks if the given value represents a valid BodyPart
+     * @param value The value to analyze - who could have thought
+     * @return A Boolean representing if the given value represents a valid BodyPart
+     */
+    public static boolean isValidBodyPart(String value) {
+        for (BodyPart part : BodyPart.values()) {
+            if (part.name().equalsIgnoreCase(value)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Calculates the maximum amount of health that a players BodyPart should be able to have
      * @param part The BodyPart to calculate the maximum amount of health for
      * @param player The player to which the BodyPart belongs

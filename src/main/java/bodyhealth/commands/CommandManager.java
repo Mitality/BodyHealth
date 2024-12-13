@@ -1,9 +1,6 @@
 package bodyhealth.commands;
 
-import bodyhealth.commands.subcommands.GetCommand;
-import bodyhealth.commands.subcommands.HealCommand;
-import bodyhealth.commands.subcommands.ReloadCommand;
-import bodyhealth.commands.subcommands.SetCommand;
+import bodyhealth.commands.subcommands.*;
 import bodyhealth.config.Config;
 import bodyhealth.config.Lang;
 import org.bukkit.command.Command;
@@ -27,6 +24,7 @@ public class CommandManager implements TabExecutor {
         subCommands.put("heal", new HealCommand());
         subCommands.put("get", new GetCommand());
         subCommands.put("set", new SetCommand());
+        subCommands.put("add", new AddCommand());
     }
 
     @Override
