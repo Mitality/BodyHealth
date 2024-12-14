@@ -118,7 +118,7 @@ public class SetCommand implements SubCommand {
 
         if (args.length == 3) {
 
-            if (args[2].matches("\\d+%?")) return List.of();
+            if (args[1].matches("\\d+%?")) return List.of();
             if (Bukkit.getPlayer(args[1]) == null && args[2].isEmpty()) return List.of("value");
 
             if (args[2].isEmpty()) {
@@ -135,7 +135,7 @@ public class SetCommand implements SubCommand {
         }
 
         if (args.length == 4) {
-            if (args[2].matches("\\d+%?") || args[3].matches("\\d+%?")) return List.of();
+            if (args[1].matches("\\d+%?") || args[2].matches("\\d+%?")) return List.of();
             if (args[3].isEmpty()) return List.of("value");
             if (args[3].matches("\\d+")) return List.of(args[3] + "%");
         }
