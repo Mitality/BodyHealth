@@ -190,6 +190,14 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- Premium/Super-Vanish -->
+        <dependency>
+            <groupId>com.github.LeonMangler</groupId>
+            <artifactId>SuperVanish</artifactId>
+            <version>6.2.18-3</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- math expressions -->
         <dependency>
             <groupId>net.objecthunter</groupId>

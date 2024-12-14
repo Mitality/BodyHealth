@@ -12,13 +12,11 @@ public class ReloadCommand implements SubCommand {
 
     @Override
     public boolean execute(CommandSender sender, String[] args) {
-        if (!sender.hasPermission("bodyhealth.reload")) {
-            sender.sendMessage(Config.prefix + Lang.bodyhealth_reload_not_permitted);
-            return true;
-        }
+
         if (BodyHealthUtils.reloadSystem()) sender.sendMessage(Config.prefix + Lang.bodyhealth_reload_success);
         else sender.sendMessage(Config.prefix + Lang.bodyhealth_reload_fail);
         return true;
+
     }
 
     @Override

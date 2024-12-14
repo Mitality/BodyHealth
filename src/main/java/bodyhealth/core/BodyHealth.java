@@ -176,7 +176,7 @@ public class BodyHealth {
             Bukkit.getPluginManager().callEvent(event);
             if (event.isCancelled()) return;
             healthMap.put(part, Math.min(100, Math.max(0, event.getNewHealth()))); // Ensure health stays between 0 and 100
-            if (force_keep || Config.force_keep_relative) command_timestamps.put(part, System.currentTimeMillis());
+            if (force_keep) command_timestamps.put(part, System.currentTimeMillis());
             if (!BodyHealthUtils.isSystemEnabled(player)) return;
             BodyHealthEffects.onBodyPartStateChange(player, part, oldState, BodyHealthUtils.getBodyHealthState(this, part));
         }

@@ -5,6 +5,7 @@ import bodyhealth.config.Config;
 import bodyhealth.config.Lang;
 import bodyhealth.core.BodyHealth;
 import bodyhealth.core.BodyPart;
+import bodyhealth.depend.VanishPlugins;
 import bodyhealth.util.BodyHealthUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -14,77 +15,123 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SetCommand implements SubCommand {
+
+    // bodyhealth set [player] [body part] <value>
+
     @Override
     public boolean execute(CommandSender sender, String[] args) {
 
-        if (!sender.hasPermission("bodyhealth.set")) {
-            sender.sendMessage(Config.prefix + Lang.bodyhealth_set_not_permitted);
-            return true;
-        }
-
-        if (args.length < 3) {
-            sender.sendMessage(Config.prefix + Lang.bodyhealth_usage);
-            return true;
-        }
-
-        Player targetPlayer = Bukkit.getPlayer(args[1]);
-        if (targetPlayer == null) {
-            sender.sendMessage(Config.prefix + Lang.bodyhealth_player_not_found.replace("{Player}", args[1]));
-            return true;
-        }
-
-        BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(targetPlayer);
-
-        BodyPart part;
         try {
-            part = BodyPart.valueOf(args[2].toUpperCase());
-        } catch (IllegalArgumentException e) {
-            sender.sendMessage(Config.prefix + Lang.bodyhealth_invalid_part);
+
+            boolean percent = false;
+            Player target = null;
+            BodyPart part = null;
+            double value = 0;
+            int index = 1;
+
+            if (Bukkit.getPlayer(args[index]) != null) {
+                target = Bukkit.getPlayer(args[index]);
+                index++;
+            } else if (sender instanceof Player) {
+                target = ((Player) sender).getPlayer();
+            } else {
+                sender.sendMessage(Config.prefix + Lang.bodyhealth_set_no_target);
+                return true;
+            }
+
+            if (BodyHealthUtils.isValidBodyPart(args[index])) {
+                part = BodyPart.valueOf(args[index]);
+                index++;
+            }
+
+            if (args[index].endsWith("%")) {
+                args[index] = args[index].substring(0, args[index].length() - 1);
+                percent = true;
+            }
+
+            try {
+                value = Double.parseDouble(args[index]);
+            } catch (NumberFormatException e) {
+                sender.sendMessage(Config.prefix + Lang.bodyhealth_set_invalid_value
+                        .replace("{Value}", args[index])
+                );
+                return true;
+            }
+
+            BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(target);
+
+            if (part == null) {
+
+                for (BodyPart p : BodyPart.values()) {
+                    double setValue = percent ? value : value / BodyHealthUtils.getMaxHealth(p, target) * 100;
+                    bodyHealth.setHealth(p, setValue, Config.force_keep_relative);
+                }
+
+                sender.sendMessage(Config.prefix + Lang.bodyhealth_set_success_all
+                        .replace("{Player}", target.getName())
+                        .replace("{Value}", args[index] + (percent ? "%" : " HP"))
+                );
+                return true;
+
+            } else {
+
+                double setValue = percent ? value : value / BodyHealthUtils.getMaxHealth(part, target) * 100;
+                bodyHealth.setHealth(part, setValue, Config.force_keep_relative);
+
+                sender.sendMessage(Config.prefix + Lang.bodyhealth_set_success_single
+                        .replace("{Player}", target.getName())
+                        .replace("{Part}", part.name())
+                        .replace("{Value}", args[index] + (percent ? "%" : " HP"))
+                );
+                return true;
+
+            }
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+            sender.sendMessage(Config.prefix + Lang.bodyhealth_set_usage);
             return true;
         }
 
-        if (args.length < 4) {
-            sender.sendMessage(Config.prefix + Lang.bodyhealth_set_missing_value);
-            return true;
-        }
-
-        try {
-            double newHealth = Math.min(100, Math.max(0, Double.parseDouble(args[3]))); // Keep health between 0 and 100
-            bodyHealth.setHealth(part, newHealth, true);
-            sender.sendMessage(Config.prefix + Lang.bodyhealth_set_success
-                    .replace("{Player}", targetPlayer.getName())
-                    .replace("{Part}", part.name())
-                    .replace("{Health}", String.format("%.2f", newHealth))
-            );
-        } catch (NumberFormatException e) {
-            sender.sendMessage(Config.prefix + Lang.bodyhealth_set_invalid_value);
-        }
-
-        return true;
     }
 
     @Override
     public List<String> tabComplete(CommandSender sender, String[] args) {
 
         if (args.length == 2) {
-            List<String> playerNames = new ArrayList<>();
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                playerNames.add(player.getName());
+            if (args[1].isEmpty()) {
+                return List.of("player / body part / value");
+            } else {
+                String partialInput = args[1].toUpperCase();
+                List<String> result = new ArrayList<>();
+                for (Player player : Bukkit.getOnlinePlayers()) {
+                    if (player.getName().toUpperCase().startsWith(partialInput)
+                            && !VanishPlugins.isVanished(player)
+                    ) result.add(player.getName());
+                }
+                for (BodyPart part : BodyPart.values()) {
+                    if (part.name().startsWith(partialInput)) result.add(part.name());
+                }
+                return result;
             }
-            return playerNames;
         }
 
         if (args.length == 3) {
-            String partialInput = args[2].toUpperCase();
-            List<String> bodyParts = new ArrayList<>();
-            for (BodyPart part : BodyPart.values()) {
-                if (part.name().startsWith(partialInput)) {
-                    bodyParts.add(part.name());
+
+            if (Bukkit.getPlayer(args[1]) == null) return List.of("value");
+
+            if (args[2].isEmpty()) {
+                return List.of("body part / value");
+            } else {
+                String partialInput = args[2].toUpperCase();
+                List<String> result = new ArrayList<>();
+                for (BodyPart part : BodyPart.values()) {
+                    if (part.name().startsWith(partialInput)) result.add(part.name());
                 }
+                return result;
             }
-            return bodyParts;
         }
 
+        if (args.length == 4 && args[3].isEmpty()) return List.of("value");
         return List.of();
     }
 

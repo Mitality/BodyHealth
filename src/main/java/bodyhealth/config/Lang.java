@@ -5,74 +5,123 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 public class Lang {
 
+    // Body Parts
+    public static String HEAD;
+    public static String BODY;
+    public static String ARM_LEFT;
+    public static String ARM_RIGHT;
+    public static String LEG_LEFT;
+    public static String LEG_RIGHT;
+    public static String FOOT_LEFT;
+    public static String FOOT_RIGHT;
+
+    // Command Manager
     public static String bodyhealth_usage;
     public static String bodyhealth_invalid;
-    public static String bodyhealth_player_not_found;
-    public static String bodyhealth_invalid_part;
-    public static String bodyhealth_not_permitted;
     public static String bodyhealth_player_only;
+    public static String bodyhealth_not_permitted;
 
+    // Add Command
+    public static String bodyhealth_add_usage;
+    public static String bodyhealth_add_no_target;
+    public static String bodyhealth_add_invalid_value;
+    public static String bodyhealth_add_success_all;
+    public static String bodyhealth_add_success_single;
+
+    // Get Command
+    public static String bodyhealth_get_usage;
+    public static String bodyhealth_get_no_target;
+    public static String bodyhealth_get_success_all;
+    public static String bodyhealth_get_success_single;
+
+    // Heal Command
+    public static String bodyhealth_heal_usage;
+    public static String bodyhealth_heal_no_target;
+    public static String bodyhealth_heal_success_all;
+    public static String bodyhealth_heal_success_single;
+
+    // Reload Command
     public static String bodyhealth_reload_success;
     public static String bodyhealth_reload_fail;
-    public static String bodyhealth_reload_not_permitted;
 
-    public static String bodyhealth_get_not_permitted;
-    public static String bodyhealth_get_success;
-
-    public static String bodyhealth_set_not_permitted;
-    public static String bodyhealth_set_missing_value;
+    // Set Command
+    public static String bodyhealth_set_usage;
+    public static String bodyhealth_set_no_target;
     public static String bodyhealth_set_invalid_value;
-    public static String bodyhealth_set_success;
-
-    public static String bodyhealth_add_no_player = "bodyhealth_add_no_player";
-    public static String bodyhealth_add_invalid_value = "bodyhealth_add_invalid_value";
-    public static String bodyhealth_add_success_all = "bodyhealth_add_success_all";
-    public static String bodyhealth_add_success_single = "bodyhealth_add_success_single";
-    public static String bodyhealth_add_usage = "bodyhealth_add_usage";
-
-    public static String bodyhealth_heal_not_permitted;
-    public static String bodyhealth_heal_success;
+    public static String bodyhealth_set_success_all;
+    public static String bodyhealth_set_success_single;
 
     public static void load(FileConfiguration config) {
 
+        // Body Parts
+        HEAD = config.getString("definitions.body-parts.HEAD", "HEAD");
+        BODY = config.getString("definitions.body-parts.BODY", "BODY");
+        ARM_LEFT = config.getString("definitions.body-parts.ARM_LEFT", "ARM_LEFT");
+        ARM_RIGHT = config.getString("definitions.body-parts.ARM_RIGHT", "ARM_RIGHT");
+        LEG_LEFT = config.getString("definitions.body-parts.LEG_LEFT", "LEG_LEFT");
+        LEG_RIGHT = config.getString("definitions.body-parts.LEG_RIGHT", "LEG_RIGHT");
+        FOOT_LEFT = config.getString("definitions.body-parts.FOOT_LEFT", "FOOT_LEFT");
+        FOOT_RIGHT = config.getString("definitions.body-parts.FOOT_RIGHT", "FOOT_RIGHT");
+
+        // Command Manager
         bodyhealth_usage = ChatColor.translateAlternateColorCodes('&',
-                config.getString("commands.bodyhealth.usage", "&bUsage: /bodyhealth <get/set/heal/reload> <player> <bodypart> [value]"));
+                config.getString("commands.bodyhealth.usage", "bodyhealth_usage"));
         bodyhealth_invalid = ChatColor.translateAlternateColorCodes('&',
-                config.getString("commands.bodyhealth.invalid", "&cInvalid action. Use 'get', 'set', 'heal', or 'reload'."));
-        bodyhealth_player_not_found = ChatColor.translateAlternateColorCodes('&',
-                config.getString("commands.bodyhealth.player-not-found", "&cPlayer {Player} not found."));
-        bodyhealth_invalid_part = ChatColor.translateAlternateColorCodes('&',
-                config.getString("commands.bodyhealth.invalid-part", "&cInvalid body part. Valid parts: HEAD, BODY, ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, FOOT_LEFT, FOOT_RIGHT."));
-        bodyhealth_not_permitted = ChatColor.translateAlternateColorCodes('&',
-                config.getString("commands.bodyhealth.not-permitted", "&cYou do not have permission to use this command."));
+                config.getString("commands.bodyhealth.invalid", "bodyhealth_invalid"));
         bodyhealth_player_only = ChatColor.translateAlternateColorCodes('&',
-                config.getString("commands.bodyhealth.player-only", "&cThis subcommand may only be executed by players."));
+                config.getString("commands.bodyhealth.player-only", "bodyhealth_player_only"));
+        bodyhealth_not_permitted = ChatColor.translateAlternateColorCodes('&',
+                config.getString("commands.bodyhealth.not-permitted", "bodyhealth_not_permitted"));
 
+        // Add Command
+        bodyhealth_add_usage = ChatColor.translateAlternateColorCodes('&',
+                config.getString("commands.bodyhealth.add.usage", "bodyhealth_add_usage"));
+        bodyhealth_add_no_target = ChatColor.translateAlternateColorCodes('&',
+                config.getString("commands.bodyhealth.add.no-target", "bodyhealth_add_no_target"));
+        bodyhealth_add_invalid_value = ChatColor.translateAlternateColorCodes('&',
+                config.getString("commands.bodyhealth.add.invalid-value", "bodyhealth_add_invalid_value"));
+        bodyhealth_add_success_all = ChatColor.translateAlternateColorCodes('&',
+                config.getString("commands.bodyhealth.add.success-all", "bodyhealth_add_success_all"));
+        bodyhealth_get_success_single = ChatColor.translateAlternateColorCodes('&',
+                config.getString("commands.bodyhealth.add.success-single", "bodyhealth_get_success_single"));
+
+        // Get Command
+        bodyhealth_get_usage = ChatColor.translateAlternateColorCodes('&',
+                config.getString("commands.bodyhealth.get.usage", "bodyhealth_get_usage"));
+        bodyhealth_get_no_target = ChatColor.translateAlternateColorCodes('&',
+                config.getString("commands.bodyhealth.get.no-target", "bodyhealth_get_no_target"));
+        bodyhealth_get_success_all = ChatColor.translateAlternateColorCodes('&',
+                config.getString("commands.bodyhealth.get.success-all", "bodyhealth_get_success_all"));
+        bodyhealth_get_success_single = ChatColor.translateAlternateColorCodes('&',
+                config.getString("commands.bodyhealth.get.success-single", "bodyhealth_get_success_single"));
+
+        // Heal Command
+        bodyhealth_heal_usage = ChatColor.translateAlternateColorCodes('&',
+                config.getString("commands.bodyhealth.heal.usage", "bodyhealth_heal_usage"));
+        bodyhealth_heal_no_target = ChatColor.translateAlternateColorCodes('&',
+                config.getString("commands.bodyhealth.heal.no-target", "bodyhealth_heal_no_target"));
+        bodyhealth_heal_success_all = ChatColor.translateAlternateColorCodes('&',
+                config.getString("commands.bodyhealth.heal.success-all", "bodyhealth_heal_success_all"));
+        bodyhealth_heal_success_single = ChatColor.translateAlternateColorCodes('&',
+                config.getString("commands.bodyhealth.heal.success-single", "bodyhealth_heal_success_single"));
+
+        // Reload Command
         bodyhealth_reload_success = ChatColor.translateAlternateColorCodes('&',
-                config.getString("commands.bodyhealth.reload.success", "&aConfiguration reloaded."));
+                config.getString("commands.bodyhealth.reload.success", "bodyhealth_reload_success"));
         bodyhealth_reload_fail = ChatColor.translateAlternateColorCodes('&',
-                config.getString("commands.bodyhealth.reload.fail", "&cConfiguration could not be reloaded."));
-        bodyhealth_reload_not_permitted = ChatColor.translateAlternateColorCodes('&',
-                config.getString("commands.bodyhealth.reload.not-permitted", "&cYou do not have permission to use this command."));
+                config.getString("commands.bodyhealth.reload.fail", "bodyhealth_reload_fail"));
 
-        bodyhealth_get_not_permitted = ChatColor.translateAlternateColorCodes('&',
-                config.getString("commands.bodyhealth.get.not-permitted", "&cYou do not have permission to use this command."));
-        bodyhealth_get_success = ChatColor.translateAlternateColorCodes('&',
-                config.getString("commands.bodyhealth.get.success", "&a{Player}'s {Part} health: {Health}%"));
-
-        bodyhealth_set_not_permitted = ChatColor.translateAlternateColorCodes('&',
-                config.getString("commands.bodyhealth.set.not-permitted", "&cYou do not have permission to use this command."));
-        bodyhealth_set_missing_value = ChatColor.translateAlternateColorCodes('&',
-                config.getString("commands.bodyhealth.set.missing-value", "&ePlease specify a value."));
+        // Set Command
+        bodyhealth_set_usage = ChatColor.translateAlternateColorCodes('&',
+                config.getString("commands.bodyhealth.set.usage", "bodyhealth_set_usage"));
+        bodyhealth_set_no_target = ChatColor.translateAlternateColorCodes('&',
+                config.getString("commands.bodyhealth.set.no-target", "bodyhealth_set_no_target"));
         bodyhealth_set_invalid_value = ChatColor.translateAlternateColorCodes('&',
-                config.getString("commands.bodyhealth.set.invalid-value", "&cInvalid health value."));
-        bodyhealth_set_success = ChatColor.translateAlternateColorCodes('&',
-                config.getString("commands.bodyhealth.set.success", "&a{Player}'s {Part} health: {Health}%"));
-
-        bodyhealth_heal_not_permitted = ChatColor.translateAlternateColorCodes('&',
-                config.getString("commands.bodyhealth.heal.not-permitted", "&cYou do not have permission to use this command."));
-        bodyhealth_heal_success = ChatColor.translateAlternateColorCodes('&',
-                config.getString("commands.bodyhealth.heal.success", "&a%Player% has been fully healed."));
+                config.getString("commands.bodyhealth.set.invalid-value", "bodyhealth_set_invalid_value"));
+        bodyhealth_set_success_all = ChatColor.translateAlternateColorCodes('&',
+                config.getString("commands.bodyhealth.set.success-all", "bodyhealth_set_success_all"));
+        bodyhealth_set_success_single = ChatColor.translateAlternateColorCodes('&',
+                config.getString("commands.bodyhealth.set.success-single", "bodyhealth_set_success_single"));
 
     }
 }
