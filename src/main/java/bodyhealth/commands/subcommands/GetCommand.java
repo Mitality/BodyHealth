@@ -62,7 +62,7 @@ public class GetCommand implements SubCommand {
 
                 sender.sendMessage(Config.prefix + Lang.bodyhealth_get_success_single
                         .replace("{Player}", target.getName())
-                        .replace("{Part}", part.name())
+                        .replace("{Part}", Lang.partName(part))
                         .replace("{Health}", String.format("%.2f", bodyHealth.getHealth(part)))
                 );
                 return true;

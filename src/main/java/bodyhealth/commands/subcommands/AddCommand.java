@@ -80,7 +80,7 @@ public class AddCommand implements SubCommand {
 
                 sender.sendMessage(Config.prefix + Lang.bodyhealth_add_success_single
                         .replace("{Player}", target.getName())
-                        .replace("{Part}", part.name())
+                        .replace("{Part}", Lang.partName(part))
                         .replace("{Value}", args[index] + (percent ? "%" : " HP"))
                 );
                 return true;

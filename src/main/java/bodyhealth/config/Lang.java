@@ -1,5 +1,6 @@
 package bodyhealth.config;
 
+import bodyhealth.core.BodyPart;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -123,5 +124,19 @@ public class Lang {
         bodyhealth_set_success_single = ChatColor.translateAlternateColorCodes('&',
                 config.getString("commands.bodyhealth.set.success-single", "bodyhealth_set_success_single"));
 
+    }
+
+    // If someone's got a better approach, let me know
+    public static String partName(BodyPart bodyPart) {
+        return switch (bodyPart) {
+            case HEAD -> HEAD;
+            case BODY -> BODY;
+            case ARM_LEFT -> ARM_LEFT;
+            case ARM_RIGHT -> ARM_RIGHT;
+            case LEG_LEFT -> LEG_LEFT;
+            case LEG_RIGHT -> LEG_RIGHT;
+            case FOOT_LEFT -> FOOT_LEFT;
+            case FOOT_RIGHT -> FOOT_RIGHT;
+        };
     }
 }

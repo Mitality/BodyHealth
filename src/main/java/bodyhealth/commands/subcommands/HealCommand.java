@@ -58,7 +58,7 @@ public class HealCommand implements SubCommand {
 
                 sender.sendMessage(Config.prefix + Lang.bodyhealth_heal_success_single
                         .replace("{Player}", target.getName())
-                        .replace("{Part}", part.name())
+                        .replace("{Part}", Lang.partName(part))
                 );
                 return true;
 
