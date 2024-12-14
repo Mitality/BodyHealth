@@ -1,24 +1,77 @@
+definitions:
+
+  body-parts:
+
+    # Used in command responses ({Part})
+    HEAD: 'голова'
+    BODY: 'тіло'
+    ARM_LEFT: 'ліва рука'
+    ARM_RIGHT: 'права рука'
+    LEG_LEFT: 'ліва нога'
+    LEG_RIGHT: 'права нога'
+    FOOT_LEFT: 'ліва стопа'
+    FOOT_RIGHT: 'права стопа'
+
 commands:
 
   bodyhealth:
 
     # Message shown for incorrect command usage
-    usage: '&bВикористання: /bodyhealth <get/set/heal/reload> <player> <bodypart> [value]'
+    usage: '&bВикористання: /bodyhealth <команда>'
 
     # Message shown for invalid subcommands
-    invalid: '&cНевірна дія. Використовуйте ''get'', ''set'', ''heal'' або ''reload''.'
-
-    # Message shown if the specified player is offline
-    player-not-found: '&cГравець {Player} не знайдений.'
-
-    # Message shown if the specified body part is invalid
-    invalid-part: '&cНевірна частина тіла. Доступні частини: HEAD, BODY, ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, FOOT_LEFT, FOOT_RIGHT.'
-
-    # Message shown if the player lacks permission for a command
-    not-permitted: '&cУ вас немає дозволу на використання цієї команди.'
+    invalid: '&cНевірна дія. Будь ласка, використовуйте дійсну команду.'
 
     # Message shown if a command is player-only but used from the console
-    player-only: '&cЦю підкоманду може виконувати лише гравець.'
+    player-only: '&cЦю команду можуть використовувати тільки гравці.'
+
+    # Message shown if the player lacks permission for a command
+    not-permitted: '&cУ вас немає дозволу використовувати цю команду.'
+
+    add:
+
+      # Message shown for incorrect command usage
+      usage: '&bВикористання: /bodyhealth add [гравець] [частина тіла] <значення>'
+
+      # Message shown when no valid target player could be retrieved
+      no-target: '&cБудь ласка, вкажіть гравця, коли виконуєте цю команду з консолі.'
+
+      # Message shown if the value provided is invalid
+      invalid-value: '&cНевірне значення здоров’я: "{Value}".'
+
+      # Message shown on successful health update (all parts)
+      success-all: '&aУспішно додано {Value} до всіх частин тіла для {Player}.'
+
+      # Message shown on successful health update (given part)
+      success-single: '&aУспішно додано {Value} до {Part} гравця {Player}.'
+
+    get:
+
+      # Message shown for incorrect command usage
+      usage: '&bВикористання: /bodyhealth get [гравець] [частина тіла]'
+
+      # Message shown when no valid target player could be retrieved
+      no-target: '&cБудь ласка, вкажіть гравця, коли виконуєте цю команду з консолі.'
+
+      # Message shown on successful health retrieval (all parts)
+      success-all: "&aЗдоров'я тіла гравця {Player}:\n&e&lГолова &8&l» &a{Health_HEAD}%\n&e&lТіло &8&l» &a{Health_BODY}%\n&e&lЛіва рука &8&l» &a{Health_ARM_LEFT}%\n&e&lПрава рука &8&l» &a{Health_ARM_RIGHT}%\n&e&lЛіва нога &8&l» &a{Health_LEG_LEFT}%\n&e&lПрава нога &8&l» &a{Health_LEG_RIGHT}%\n&e&lЛіва стопа &8&l» &a{Health_FOOT_LEFT}%\n&e&lПрава стопа &8&l» &a{Health_FOOT_RIGHT}%"
+
+      # Message shown on successful health retrieval (given part)
+      success-single: '&aЗдоров’я {Part} гравця {Player} становить {Health}%.'
+
+    heal:
+
+      # Message shown for incorrect command usage
+      usage: '&bВикористання: /bodyhealth set [гравець] [частина тіла] <значення>'
+
+      # Message shown when no valid target player could be retrieved
+      no-target: '&cБудь ласка, вкажіть гравця, коли виконуєте цю команду з консолі.'
+
+      # Message shown on successful healing
+      success-all: '&a{Player} був повністю вилікуваний.'
+
+      # Message shown on successful healing
+      success-single: '&a{Player}''s {Part} був повністю вилікуваний.'
 
     reload:
 
@@ -28,35 +81,19 @@ commands:
       # Message shown if reload fails
       fail: '&cНе вдалося перезавантажити конфігурацію.'
 
-      # Message shown if the player lacks permission to reload
-      not-permitted: '&cУ вас немає дозволу на використання цієї команди.'
-
-    get:
-
-      # Message shown if the player lacks permission for "get"
-      not-permitted: '&cУ вас немає дозволу на використання цієї команди.'
-
-      # Message shown with health details for the requested body part
-      success: '&aЗдоров''я {Player} у частині {Part}: {Health}%'
-
     set:
 
-      # Message shown if the player lacks permission for "set"
-      not-permitted: '&cУ вас немає дозволу на використання цієї команди.'
+      # Message shown for incorrect command usage
+      usage: '&bВикористання: /bodyhealth set [гравець] [частина тіла] <значення>'
 
-      # Message shown if a value is missing
-      missing-value: '&eБудь ласка, вкажіть значення.'
+      # Message shown when no valid target player could be retrieved
+      no-target: '&cБудь ласка, вкажіть гравця, коли виконуєте цю команду з консолі.'
 
       # Message shown if the value provided is invalid
-      invalid-value: '&cНевірне значення здоров''я.'
+      invalid-value: '&cНевірне значення здоров’я: "{Value}".'
 
-      # Message shown on successful health update
-      success: '&aЗдоров''я {Player} у частині {Part} встановлено на {Health}%'
+      # Message shown on successful health update (all parts)
+      success-all: '&aВсі частини тіла гравця {Player} були успішно встановлені на {Value}.'
 
-    heal:
-
-      # Message shown if the player lacks permission for "heal"
-      not-permitted: '&cУ вас немає дозволу на використання цієї команди.'
-
-      # Message shown on successful healing
-      success: '&a{Player} був повністю вилікуваний.'
+      # Message shown on successful health update (given part)
+      success-single: '&aЧастина тіла {Part} гравця {Player} була успішно встановлена на {Value}.'

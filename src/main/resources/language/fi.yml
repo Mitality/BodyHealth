@@ -1,62 +1,99 @@
+definitions:
+
+  body-parts:
+
+    # Used in command responses ({Part})
+    HEAD: 'pää'
+    BODY: 'keho'
+    ARM_LEFT: 'vasen käsi'
+    ARM_RIGHT: 'oikea käsi'
+    LEG_LEFT: 'vasen jalka'
+    LEG_RIGHT: 'oikea jalka'
+    FOOT_LEFT: 'vasen jalka'
+    FOOT_RIGHT: 'oikea jalka'
+
 commands:
 
   bodyhealth:
 
     # Message shown for incorrect command usage
-    usage: '&bKäyttö: /bodyhealth <get/set/heal/reload> <player> <bodypart> [value]'
+    usage: '&bKäyttö: /bodyhealth <alamääräys>'
 
     # Message shown for invalid subcommands
-    invalid: '&cVirheellinen toiminto. Käytä ''get'', ''set'', ''heal'' tai ''reload''.'
+    invalid: '&cVirheellinen toiminto. Käytä oikeaa alamääräystä.'
 
-    # Message shown if the specified player is offline
-    player-not-found: '&cPelaajaa {Player} ei löytynyt.'
-
-    # Message shown if the specified body part is invalid
-    invalid-part: '&cVirheellinen kehonosa. Hyväksytyt osat: HEAD, BODY, ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, FOOT_LEFT, FOOT_RIGHT.'
+    # Message shown if a command is player-only but used from the console
+    player-only: '&cTätä alamääräystä voi käyttää vain pelaajat.'
 
     # Message shown if the player lacks permission for a command
     not-permitted: '&cSinulla ei ole oikeuksia käyttää tätä komentoa.'
 
-    # Message shown if a command is player-only but used from the console
-    player-only: '&cTätä alikomentoa voi käyttää vain pelaajat.'
+    add:
+
+      # Message shown for incorrect command usage
+      usage: '&bKäyttö: /bodyhealth add [pelaaja] [kehon osa] <arvo>'
+
+      # Message shown when no valid target player could be retrieved
+      no-target: '&cAnna pelaaja, kun käytät tätä komentoa konsolista.'
+
+      # Message shown if the value provided is invalid
+      invalid-value: '&cVirheellinen terveysarvo: "{Value}".'
+
+      # Message shown on successful health update (all parts)
+      success-all: '&a{Player}:n kehon kaikille osille lisättiin onnistuneesti {Value}.'
+
+      # Message shown on successful health update (given part)
+      success-single: '&a{Player}:n {Part}:iin lisättiin onnistuneesti {Value}.'
+
+    get:
+
+      # Message shown for incorrect command usage
+      usage: '&bKäyttö: /bodyhealth get [pelaaja] [kehon osa]'
+
+      # Message shown when no valid target player could be retrieved
+      no-target: '&cAnna pelaaja, kun käytät tätä komentoa konsolista.'
+
+      # Message shown on successful health retrieval (all parts)
+      success-all: "&a{Player}:n kehon terveys:\n&e&lPää &8&l» &a{Health_HEAD}%\n&e&lKeho &8&l» &a{Health_BODY}%\n&e&lVasen käsi &8&l» &a{Health_ARM_LEFT}%\n&e&lOikea käsi &8&l» &a{Health_ARM_RIGHT}%\n&e&lVasen jalka &8&l» &a{Health_LEG_LEFT}%\n&e&lOikea jalka &8&l» &a{Health_LEG_RIGHT}%\n&e&lVasen jalka &8&l» &a{Health_FOOT_LEFT}%\n&e&lOikea jalka &8&l» &a{Health_FOOT_RIGHT}%"
+
+      # Message shown on successful health retrieval (given part)
+      success-single: '&a{Player}:n {Part}:ssa on {Health}%.'
+
+    heal:
+
+      # Message shown for incorrect command usage
+      usage: '&bKäyttö: /bodyhealth set [pelaaja] [kehon osa] <arvo>'
+
+      # Message shown when no valid target player could be retrieved
+      no-target: '&cAnna pelaaja, kun käytät tätä komentoa konsolista.'
+
+      # Message shown on successful healing
+      success-all: '&a{Player} on parannettu täysin.'
+
+      # Message shown on successful healing
+      success-single: '&a{Player}:n {Part} on parannettu täysin.'
 
     reload:
 
       # Message shown on successful configuration reload
-      success: '&aMääritykset ladattiin onnistuneesti.'
+      success: '&aKonfiguraatio on ladattu uudelleen.'
 
       # Message shown if reload fails
-      fail: '&cMäärityksiä ei voitu ladata.'
-
-      # Message shown if the player lacks permission to reload
-      not-permitted: '&cSinulla ei ole oikeuksia käyttää tätä komentoa.'
-
-    get:
-
-      # Message shown if the player lacks permission for "get"
-      not-permitted: '&cSinulla ei ole oikeuksia käyttää tätä komentoa.'
-
-      # Message shown with health details for the requested body part
-      success: '&a{Player}n {Part}-terveys: {Health}%'
+      fail: '&cKonfiguraation uudelleenlataus epäonnistui.'
 
     set:
 
-      # Message shown if the player lacks permission for "set"
-      not-permitted: '&cSinulla ei ole oikeuksia käyttää tätä komentoa.'
+      # Message shown for incorrect command usage
+      usage: '&bKäyttö: /bodyhealth set [pelaaja] [kehon osa] <arvo>'
 
-      # Message shown if a value is missing
-      missing-value: '&eOle hyvä ja määritä arvo.'
+      # Message shown when no valid target player could be retrieved
+      no-target: '&cAnna pelaaja, kun käytät tätä komentoa konsolista.'
 
       # Message shown if the value provided is invalid
-      invalid-value: '&cVirheellinen terveysarvo.'
+      invalid-value: '&cVirheellinen terveysarvo: "{Value}".'
 
-      # Message shown on successful health update
-      success: '&a{Player}n {Part}-terveys asetettiin arvoon {Health}%'
+      # Message shown on successful health update (all parts)
+      success-all: '&aKaikkien kehon osien arvot on asetettu onnistuneesti {Value}:ksi {Player}:lle.'
 
-    heal:
-
-      # Message shown if the player lacks permission for "heal"
-      not-permitted: '&cSinulla ei ole oikeuksia käyttää tätä komentoa.'
-
-      # Message shown on successful healing
-      success: '&a{Player} on parannettu täysin.'
+      # Message shown on successful health update (given part)
+      success-single: '&a{Player}:n {Part} on asetettu onnistuneesti {Value}:ksi.'

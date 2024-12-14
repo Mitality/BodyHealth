@@ -1,62 +1,99 @@
+definitions:
+
+  body-parts:
+
+    # Used in command responses ({Part})
+    HEAD: '頭'
+    BODY: '体'
+    ARM_LEFT: '左腕'
+    ARM_RIGHT: '右腕'
+    LEG_LEFT: '左足'
+    LEG_RIGHT: '右足'
+    FOOT_LEFT: '左足元'
+    FOOT_RIGHT: '右足元'
+
 commands:
 
   bodyhealth:
 
     # Message shown for incorrect command usage
-    usage: '&b使い方: /bodyhealth <get/set/heal/reload> <player> <bodypart> [value]'
+    usage: '&b使用法: /bodyhealth <コマンド>'
 
     # Message shown for invalid subcommands
-    invalid: '&c無効なアクションです。''get''、''set''、''heal''、または''reload''を使用してください。'
-
-    # Message shown if the specified player is offline
-    player-not-found: '&cプレイヤー{Player}が見つかりませんでした。'
-
-    # Message shown if the specified body part is invalid
-    invalid-part: '&c無効な体の部分です。有効な部分: HEAD, BODY, ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, FOOT_LEFT, FOOT_RIGHT。'
-
-    # Message shown if the player lacks permission for a command
-    not-permitted: '&cこのコマンドを実行する権限がありません。'
+    invalid: '&c無効なコマンドです。有効なコマンドを使用してください。'
 
     # Message shown if a command is player-only but used from the console
-    player-only: '&cこのサブコマンドはプレイヤーのみ実行できます。'
+    player-only: '&cこのコマンドはプレイヤーのみに使用できます。'
+
+    # Message shown if the player lacks permission for a command
+    not-permitted: '&cこのコマンドを使用する権限がありません。'
+
+    add:
+
+      # Message shown for incorrect command usage
+      usage: '&b使用法: /bodyhealth add [プレイヤー] [体の部位] <値>'
+
+      # Message shown when no valid target player could be retrieved
+      no-target: '&cコンソールから実行する場合はプレイヤーを指定してください。'
+
+      # Message shown if the value provided is invalid
+      invalid-value: '&c無効な健康値: "{Value}"。'
+
+      # Message shown on successful health update (all parts)
+      success-all: '&a{Player}の全ての体の部位に{Value}を追加しました。'
+
+      # Message shown on successful health update (given part)
+      success-single: '&a{Player}の{Part}に{Value}を追加しました。'
+
+    get:
+
+      # Message shown for incorrect command usage
+      usage: '&b使用法: /bodyhealth get [プレイヤー] [体の部位]'
+
+      # Message shown when no valid target player could be retrieved
+      no-target: '&cコンソールから実行する場合はプレイヤーを指定してください。'
+
+      # Message shown on successful health retrieval (all parts)
+      success-all: "&a{Player}の体の健康状態:\n&e&l頭 &8&l» &a{Health_HEAD}%\n&e&l体 &8&l» &a{Health_BODY}%\n&e&l左腕 &8&l» &a{Health_ARM_LEFT}%\n&e&l右腕 &8&l» &a{Health_ARM_RIGHT}%\n&e&l左足 &8&l» &a{Health_LEG_LEFT}%\n&e&l右足 &8&l» &a{Health_LEG_RIGHT}%\n&e&l左足元 &8&l» &a{Health_FOOT_LEFT}%\n&e&l右足元 &8&l» &a{Health_FOOT_RIGHT}%"
+
+      # Message shown on successful health retrieval (given part)
+      success-single: '&a{Player}の{Part}は{Health}%です。'
+
+    heal:
+
+      # Message shown for incorrect command usage
+      usage: '&b使用法: /bodyhealth set [プレイヤー] [体の部位] <値>'
+
+      # Message shown when no valid target player could be retrieved
+      no-target: '&cコンソールから実行する場合はプレイヤーを指定してください。'
+
+      # Message shown on successful healing
+      success-all: '&a{Player}は完全に回復しました。'
+
+      # Message shown on successful healing
+      success-single: '&a{Player}の{Part}は完全に回復しました。'
 
     reload:
 
       # Message shown on successful configuration reload
-      success: '&a設定が正常にリロードされました。'
+      success: '&a設定が正常に再読み込みされました。'
 
       # Message shown if reload fails
-      fail: '&c設定のリロードに失敗しました。'
-
-      # Message shown if the player lacks permission to reload
-      not-permitted: '&cこのコマンドを実行する権限がありません。'
-
-    get:
-
-      # Message shown if the player lacks permission for "get"
-      not-permitted: '&cこのコマンドを実行する権限がありません。'
-
-      # Message shown with health details for the requested body part
-      success: '&a{Player}の{Part}の健康状態: {Health}%'
+      fail: '&c設定の再読み込みに失敗しました。'
 
     set:
 
-      # Message shown if the player lacks permission for "set"
-      not-permitted: '&cこのコマンドを実行する権限がありません。'
+      # Message shown for incorrect command usage
+      usage: '&b使用法: /bodyhealth set [プレイヤー] [体の部位] <値>'
 
-      # Message shown if a value is missing
-      missing-value: '&e値を指定してください。'
+      # Message shown when no valid target player could be retrieved
+      no-target: '&cコンソールから実行する場合はプレイヤーを指定してください。'
 
       # Message shown if the value provided is invalid
-      invalid-value: '&c無効な健康値です。'
+      invalid-value: '&c無効な健康値: "{Value}"。'
 
-      # Message shown on successful health update
-      success: '&a{Player}の{Part}の健康状態が{Health}%に設定されました。'
+      # Message shown on successful health update (all parts)
+      success-all: '&a{Player}の全ての体の部位が{Value}に設定されました。'
 
-    heal:
-
-      # Message shown if the player lacks permission for "heal"
-      not-permitted: '&cこのコマンドを実行する権限がありません。'
-
-      # Message shown on successful healing
-      success: '&a{Player}は完全に回復しました。'
+      # Message shown on successful health update (given part)
+      success-single: '&a{Player}の{Part}が{Value}に設定されました。'

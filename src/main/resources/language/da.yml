@@ -1,62 +1,99 @@
+definitions:
+
+  body-parts:
+
+    # Used in command responses ({Part})
+    HEAD: 'hoved'
+    BODY: 'krop'
+    ARM_LEFT: 'venstre arm'
+    ARM_RIGHT: 'højre arm'
+    LEG_LEFT: 'venstre ben'
+    LEG_RIGHT: 'højre ben'
+    FOOT_LEFT: 'venstre fod'
+    FOOT_RIGHT: 'højre fod'
+
 commands:
 
   bodyhealth:
 
     # Message shown for incorrect command usage
-    usage: '&bBrug: /bodyhealth <get/set/heal/reload> <player> <bodypart> [value]'
+    usage: '&bBrug: /bodyhealth <subkommando>'
 
     # Message shown for invalid subcommands
-    invalid: '&cUgyldig handling. Brug ''get'', ''set'', ''heal'' eller ''reload''.'
+    invalid: '&cUgyldig handling. Brug venligst en gyldig subkommando.'
 
-    # Message shown if the specified player is offline
-    player-not-found: '&cSpilleren {Player} blev ikke fundet.'
-
-    # Message shown if the specified body part is invalid
-    invalid-part: '&cUgyldig kropsdel. Gyldige dele: HEAD, BODY, ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, FOOT_LEFT, FOOT_RIGHT.'
+    # Message shown if a command is player-only but used from the console
+    player-only: '&cDenne subkommando kan kun udføres af spillere.'
 
     # Message shown if the player lacks permission for a command
     not-permitted: '&cDu har ikke tilladelse til at bruge denne kommando.'
 
-    # Message shown if a command is player-only but used from the console
-    player-only: '&cDenne underkommando kan kun udføres af spillere.'
+    add:
+
+      # Message shown for incorrect command usage
+      usage: '&bBrug: /bodyhealth add [spiller] [kroppens del] <værdi>'
+
+      # Message shown when no valid target player could be retrieved
+      no-target: '&cAngiv venligst en spiller, når du kører denne kommando fra konsollen.'
+
+      # Message shown if the value provided is invalid
+      invalid-value: '&cUgyldig sundhedsværdi: "{Value}".'
+
+      # Message shown on successful health update (all parts)
+      success-all: '&aSuccesfuldt tilføjet {Value} til alle kroppens dele for {Player}.'
+
+      # Message shown on successful health update (given part)
+      success-single: '&aSuccesfuldt tilføjet {Value} til {Player}''s {Part}.'
+
+    get:
+
+      # Message shown for incorrect command usage
+      usage: '&bBrug: /bodyhealth get [spiller] [kroppens del]'
+
+      # Message shown when no valid target player could be retrieved
+      no-target: '&cAngiv venligst en spiller, når du kører denne kommando fra konsollen.'
+
+      # Message shown on successful health retrieval (all parts)
+      success-all: "&a{Player}'s kroppens sundhed:\n&e&lHoved &8&l» &a{Health_HEAD}%\n&e&lKrop &8&l» &a{Health_BODY}%\n&e&lVenstre arm &8&l» &a{Health_ARM_LEFT}%\n&e&lHøjre arm &8&l» &a{Health_ARM_RIGHT}%\n&e&lVenstre ben &8&l» &a{Health_LEG_LEFT}%\n&e&lHøjre ben &8&l» &a{Health_LEG_RIGHT}%\n&e&lVenstre fod &8&l» &a{Health_FOOT_LEFT}%\n&e&lHøjre fod &8&l» &a{Health_FOOT_RIGHT}%"
+
+      # Message shown on successful health retrieval (given part)
+      success-single: '&a{Player}''s {Part} er på {Health}%.'
+
+    heal:
+
+      # Message shown for incorrect command usage
+      usage: '&bBrug: /bodyhealth set [spiller] [kroppens del] <værdi>'
+
+      # Message shown when no valid target player could be retrieved
+      no-target: '&cAngiv venligst en spiller, når du kører denne kommando fra konsollen.'
+
+      # Message shown on successful healing
+      success-all: '&a{Player} er blevet helt helet.'
+
+      # Message shown on successful healing
+      success-single: '&a{Player}''s {Part} er blevet helt helet.'
 
     reload:
 
       # Message shown on successful configuration reload
-      success: '&aKonfigurationen blev genindlæst.'
+      success: '&aKonfigurationen er blevet genindlæst.'
 
       # Message shown if reload fails
       fail: '&cKonfigurationen kunne ikke genindlæses.'
 
-      # Message shown if the player lacks permission to reload
-      not-permitted: '&cDu har ikke tilladelse til at bruge denne kommando.'
-
-    get:
-
-      # Message shown if the player lacks permission for "get"
-      not-permitted: '&cDu har ikke tilladelse til at bruge denne kommando.'
-
-      # Message shown with health details for the requested body part
-      success: '&a{Player}s {Part}-sundhed: {Health}%'
-
     set:
 
-      # Message shown if the player lacks permission for "set"
-      not-permitted: '&cDu har ikke tilladelse til at bruge denne kommando.'
+      # Message shown for incorrect command usage
+      usage: '&bBrug: /bodyhealth set [spiller] [kroppens del] <værdi>'
 
-      # Message shown if a value is missing
-      missing-value: '&eAngiv venligst en værdi.'
+      # Message shown when no valid target player could be retrieved
+      no-target: '&cAngiv venligst en spiller, når du kører denne kommando fra konsollen.'
 
       # Message shown if the value provided is invalid
-      invalid-value: '&cUgyldig sundhedsværdi.'
+      invalid-value: '&cUgyldig sundhedsværdi: "{Value}".'
 
-      # Message shown on successful health update
-      success: '&a{Player}s {Part}-sundhed er sat til {Health}%'
+      # Message shown on successful health update (all parts)
+      success-all: '&aSuccesfuldt sat alle kroppens dele til {Value} for {Player}.'
 
-    heal:
-
-      # Message shown if the player lacks permission for "heal"
-      not-permitted: '&cDu har ikke tilladelse til at bruge denne kommando.'
-
-      # Message shown on successful healing
-      success: '&a{Player} er blevet helbredt fuldstændigt.'
+      # Message shown on successful health update (given part)
+      success-single: '&aSuccesfuldt sat {Player}''s {Part} til {Value}.'
