@@ -9,10 +9,13 @@
 
 #   Commands:
 #
-#      /bodyhealth reload                             ...reloads the plugins configuration, including effects
-#      /bodyhealth heal <player>                      ...heal all BodyParts for a given player (sets health to 100%)
-#      /bodyhealth get <player> <BodyPart>            ...retrieve a players health for a specific BodyPart in percent
-#      /bodyhealth set <player> <BodyPart> <health>   ...set a players health for a specific BodyPart in percent
+#      /bodyhealth reload                              ...reloads the plugins configuration, including effects and language files
+#      /bodyhealth heal [player] [body part]           ...heal a player (sets the health value of all affected body parts to 100%)
+#      /bodyhealth get [player] [body part]            ...retrieve a player's health (in percent) for a specific body part, or all
+#      /bodyhealth set [player] [body part] <health>   ...set a player's health for a specific body part (or all if not specified)
+#      /bodyhealth add [player] [body part] <health>   ...add health to all parts or the given one for a given player or yourself
+#
+#      <health> value can end with a '%' sign to modify health directly in percent
 #
 #   alias: /bh
 
@@ -23,6 +26,7 @@
 #      bodyhealth.heal            ...allows using the heal command
 #      bodyhealth.get             ...allows using the get command
 #      bodyhealth.set             ...allows using the set command
+#      bodyhealth.add             ...allows using the add command
 #
 #   wildcard: bodyhealth.* (Does NOT include bypass permissions!)
 

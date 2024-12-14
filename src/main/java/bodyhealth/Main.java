@@ -77,7 +77,7 @@ public final class Main extends JavaPlugin {
                 JarEntry entry = entries.nextElement();
                 if (entry.getName().startsWith("language/") && entry.getName().endsWith(".yml")) {
                     String langFileName = entry.getName().replace("language/", "");
-                    Debug.log("Loading language file: " + langFileName);
+                    Debug.logDev("Loading language file: " + langFileName);
                     languages.add(langFileName);
 
                     // Save and update language files

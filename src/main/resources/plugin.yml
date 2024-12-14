@@ -30,6 +30,9 @@ commands:
       bodyhealth.set:
         description: Allows using the set command
         default: op
+      bodyhealth.add:
+        description: Allows using the set command
+        default: op
       bodyhealth.*:
         description: Allows managing body health
         default: op
@@ -38,6 +41,7 @@ commands:
           bodyhealth.heal: true
           bodyhealth.get: true
           bodyhealth.set: true
+          bodyhealth.add: true
 
 permissions:
 

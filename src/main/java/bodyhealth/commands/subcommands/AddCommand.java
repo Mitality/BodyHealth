@@ -103,6 +103,7 @@ public class AddCommand implements SubCommand {
             } else {
                 String partialInput = args[1].toUpperCase();
                 List<String> result = new ArrayList<>();
+                if (partialInput.matches("\\d+")) result.add(partialInput + "%");
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     if (player.getName().toUpperCase().startsWith(partialInput)
                             && !VanishPlugins.isVanished(player)
@@ -117,13 +118,15 @@ public class AddCommand implements SubCommand {
 
         if (args.length == 3) {
 
-            if (Bukkit.getPlayer(args[1]) == null) return List.of("value");
+            if (args[2].matches("\\d+%?")) return List.of();
+            if (Bukkit.getPlayer(args[1]) == null && args[2].isEmpty()) return List.of("value");
 
             if (args[2].isEmpty()) {
                 return List.of("body part / value");
             } else {
                 String partialInput = args[2].toUpperCase();
                 List<String> result = new ArrayList<>();
+                if (partialInput.matches("\\d+")) result.add(partialInput + "%");
                 for (BodyPart part : BodyPart.values()) {
                     if (part.name().startsWith(partialInput)) result.add(part.name());
                 }
@@ -131,7 +134,11 @@ public class AddCommand implements SubCommand {
             }
         }
 
-        if (args.length == 4 && args[3].isEmpty()) return List.of("value");
+        if (args.length == 4) {
+            if (args[2].matches("\\d+%?") || args[3].matches("\\d+%?")) return List.of();
+            if (args[3].isEmpty()) return List.of("value");
+            if (args[3].matches("\\d+")) return List.of(args[3] + "%");
+        }
         return List.of();
     }
 
