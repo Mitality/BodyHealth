@@ -29,7 +29,7 @@ public class AddCommand implements SubCommand {
             double value = 0;
             int index = 1;
 
-            if (Bukkit.getPlayer(args[index]) != null) {
+            if (args.length > index && Bukkit.getPlayer(args[index]) != null) {
                 target = Bukkit.getPlayer(args[index]);
                 index++;
             } else if (sender instanceof Player) {
@@ -39,7 +39,7 @@ public class AddCommand implements SubCommand {
                 return true;
             }
 
-            if (BodyHealthUtils.isValidBodyPart(args[index])) {
+            if (args.length > index && BodyHealthUtils.isValidBodyPart(args[index])) {
                 part = BodyPart.valueOf(args[index]);
                 index++;
             }

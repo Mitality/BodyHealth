@@ -29,7 +29,7 @@ public class SetCommand implements SubCommand {
             double value = 0;
             int index = 1;
 
-            if (Bukkit.getPlayer(args[index]) != null) {
+            if (args.length > index && Bukkit.getPlayer(args[index]) != null) {
                 target = Bukkit.getPlayer(args[index]);
                 index++;
             } else if (sender instanceof Player) {
@@ -39,7 +39,7 @@ public class SetCommand implements SubCommand {
                 return true;
             }
 
-            if (BodyHealthUtils.isValidBodyPart(args[index])) {
+            if (args.length > index && BodyHealthUtils.isValidBodyPart(args[index])) {
                 part = BodyPart.valueOf(args[index]);
                 index++;
             }
@@ -64,7 +64,7 @@ public class SetCommand implements SubCommand {
 
                 for (BodyPart p : BodyPart.values()) {
                     double setValue = percent ? value : value / BodyHealthUtils.getMaxHealth(p, target) * 100;
-                    bodyHealth.setHealth(p, setValue, Config.force_keep_relative);
+                    bodyHealth.setHealth(p, setValue, true);
                 }
 
                 sender.sendMessage(Config.prefix + Lang.bodyhealth_set_success_all
@@ -76,7 +76,7 @@ public class SetCommand implements SubCommand {
             } else {
 
                 double setValue = percent ? value : value / BodyHealthUtils.getMaxHealth(part, target) * 100;
-                bodyHealth.setHealth(part, setValue, Config.force_keep_relative);
+                bodyHealth.setHealth(part, setValue, true);
 
                 sender.sendMessage(Config.prefix + Lang.bodyhealth_set_success_single
                         .replace("{Player}", target.getName())
