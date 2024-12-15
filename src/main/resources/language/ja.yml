@@ -7,26 +7,26 @@ definitions:
     BODY: '体'
     ARM_LEFT: '左腕'
     ARM_RIGHT: '右腕'
-    LEG_LEFT: '左足'
-    LEG_RIGHT: '右足'
-    FOOT_LEFT: '左足元'
-    FOOT_RIGHT: '右足元'
+    LEG_LEFT: '左脚'
+    LEG_RIGHT: '右脚'
+    FOOT_LEFT: '左足'
+    FOOT_RIGHT: '右足'
 
 commands:
 
   bodyhealth:
 
     # Message shown for incorrect command usage
-    usage: '&b使用法: /bodyhealth <コマンド>'
+    usage: '&b使い方: /bodyhealth <get/set/add/heal/reload> <player> <bodypart> [value]'
 
     # Message shown for invalid subcommands
-    invalid: '&c無効なコマンドです。有効なコマンドを使用してください。'
+    invalid: '&c無効なアクションです。''get''、''set''、''add''、''heal''、または''reload''を使用してください。'
 
     # Message shown if a command is player-only but used from the console
-    player-only: '&cこのコマンドはプレイヤーのみに使用できます。'
+    player-only: '&cこのサブコマンドはプレイヤーのみ実行できます。'
 
     # Message shown if the player lacks permission for a command
-    not-permitted: '&cこのコマンドを使用する権限がありません。'
+    not-permitted: '&cこのコマンドを実行する権限がありません。'
 
     add:
 
@@ -54,7 +54,7 @@ commands:
       no-target: '&cコンソールから実行する場合はプレイヤーを指定してください。'
 
       # Message shown on successful health retrieval (all parts)
-      success-all: "&a{Player}の体の健康状態:\n&e&l頭 &8&l» &a{Health_HEAD}%\n&e&l体 &8&l» &a{Health_BODY}%\n&e&l左腕 &8&l» &a{Health_ARM_LEFT}%\n&e&l右腕 &8&l» &a{Health_ARM_RIGHT}%\n&e&l左足 &8&l» &a{Health_LEG_LEFT}%\n&e&l右足 &8&l» &a{Health_LEG_RIGHT}%\n&e&l左足元 &8&l» &a{Health_FOOT_LEFT}%\n&e&l右足元 &8&l» &a{Health_FOOT_RIGHT}%"
+      success-all: "&a{Player}の体の健康状態:\n&e&l頭 &8&l» &a{Health_HEAD}%\n&e&l体 &8&l» &a{Health_BODY}%\n&e&l左腕 &8&l» &a{Health_ARM_LEFT}%\n&e&l右腕 &8&l» &a{Health_ARM_RIGHT}%\n&e&l右腕 &8&l» &a{Health_LEG_LEFT}%\n&e&l右脚 &8&l» &a{Health_LEG_RIGHT}%\n&e&l左足 &8&l» &a{Health_FOOT_LEFT}%\n&e&l右足 &8&l» &a{Health_FOOT_RIGHT}%"
 
       # Message shown on successful health retrieval (given part)
       success-single: '&a{Player}の{Part}は{Health}%です。'
@@ -76,10 +76,10 @@ commands:
     reload:
 
       # Message shown on successful configuration reload
-      success: '&a設定が正常に再読み込みされました。'
+      success: '&a設定が正常にリロードされました。'
 
       # Message shown if reload fails
-      fail: '&c設定の再読み込みに失敗しました。'
+      fail: '&c設定のリロードに失敗しました。'
 
     set:
 
@@ -90,7 +90,7 @@ commands:
       no-target: '&cコンソールから実行する場合はプレイヤーを指定してください。'
 
       # Message shown if the value provided is invalid
-      invalid-value: '&c無効な健康値: "{Value}"。'
+      invalid-value: '&c無効な健康値です。'
 
       # Message shown on successful health update (all parts)
       success-all: '&a{Player}の全ての体の部位が{Value}に設定されました。'

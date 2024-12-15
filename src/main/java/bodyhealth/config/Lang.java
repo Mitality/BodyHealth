@@ -83,8 +83,8 @@ public class Lang {
                 config.getString("commands.bodyhealth.add.invalid-value", "bodyhealth_add_invalid_value"));
         bodyhealth_add_success_all = ChatColor.translateAlternateColorCodes('&',
                 config.getString("commands.bodyhealth.add.success-all", "bodyhealth_add_success_all"));
-        bodyhealth_get_success_single = ChatColor.translateAlternateColorCodes('&',
-                config.getString("commands.bodyhealth.add.success-single", "bodyhealth_get_success_single"));
+        bodyhealth_add_success_single = ChatColor.translateAlternateColorCodes('&',
+                config.getString("commands.bodyhealth.add.success-single", "bodyhealth_add_success_single"));
 
         // Get Command
         bodyhealth_get_usage = ChatColor.translateAlternateColorCodes('&',
