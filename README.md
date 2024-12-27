@@ -1,3 +1,5 @@
+[![CodeFactor](https://www.codefactor.io/repository/github/mitality/bodyhealth/badge)](https://www.codefactor.io/repository/github/mitality/bodyhealth)
+
 ### Introducing BodyHealth - A system that manages health per body part!
 
 This was meant to be part of a private plugin of mine, but things escalated and here we are.
