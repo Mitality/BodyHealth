@@ -28,58 +28,64 @@ public class PlaceholderAPI extends PlaceholderExpansion {
     @Override
     public String onRequest(OfflinePlayer player, @NotNull String params) {
 
-        if (params.startsWith("health_")) {
-            String[] splitParams = params.split("_");
+        if (params.startsWith("health_")) return getHealthPlaceholder(player, params);
+        if (params.startsWith("state_")) return getStatePlaceholder(player, params);
 
-            if (splitParams.length >= 2) {
-                StringBuilder bodyPartNameBuilder = new StringBuilder();
+        return null;
+    }
 
-                for (int i = 1; i < splitParams.length; i++) {
-                    if (splitParams[i].equalsIgnoreCase("rounded")) {
-                        break;
-                    }
-                    if (i > 1) bodyPartNameBuilder.append("_");
-                    bodyPartNameBuilder.append(splitParams[i].toUpperCase());
-                }
+    private static String getHealthPlaceholder(OfflinePlayer player, @NotNull String params) {
 
-                String bodyPartName = bodyPartNameBuilder.toString();
-                BodyPart bodyPart;
-                try {
-                    bodyPart = BodyPart.valueOf(bodyPartName);
-                } catch (IllegalArgumentException e) {
-                    return "Invalid body part: " + bodyPartName;
-                }
-                if (player.isOnline()) {
-                    Player onlinePlayer = player.getPlayer();
-                    if (onlinePlayer != null) {
-                        BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(onlinePlayer);
-                        double partHealth = bodyHealth.getHealth(bodyPart);
-                        if (splitParams[splitParams.length - 1].equalsIgnoreCase("rounded")) return String.valueOf((int) Math.round(partHealth));
-                        return String.format("%.2f", partHealth); // Return health as a formatted string
-                    }
-                }
-            }
+        String[] splitParams = params.split("_");
+        if (splitParams.length < 2) return null;
+
+        StringBuilder bodyPartNameBuilder = new StringBuilder();
+
+        for (int i = 1; i < splitParams.length; i++) {
+            if (splitParams[i].equalsIgnoreCase("rounded")) break;
+            if (i > 1) bodyPartNameBuilder.append("_");
+            bodyPartNameBuilder.append(splitParams[i].toUpperCase());
         }
-        if (params.startsWith("state_")) {
 
-            String[] splitParams = params.split("_");
-            if (splitParams.length > 1) {
+        String bodyPartName = bodyPartNameBuilder.toString();
+        BodyPart bodyPart;
 
-                String bodyPartName = splitParams.length == 2 ? splitParams[1].toUpperCase() : splitParams[1].toUpperCase() + "_" + splitParams[2].toUpperCase();
+        try {
+            bodyPart = BodyPart.valueOf(bodyPartName);
+        } catch (IllegalArgumentException e) {
+            return "Invalid body part: " + bodyPartName;
+        }
 
-                BodyPart bodyPart;
-                try {
-                    bodyPart = BodyPart.valueOf(bodyPartName);
-                } catch (IllegalArgumentException e) {
-                    return "Invalid body part: " + bodyPartName;
-                }
+        if (!player.isOnline()) return null;
+        Player onlinePlayer = player.getPlayer();
+        if (onlinePlayer != null) {
+            BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(onlinePlayer);
+            double partHealth = bodyHealth.getHealth(bodyPart);
+            if (splitParams[splitParams.length - 1].equalsIgnoreCase("rounded")) return String.valueOf((int) Math.round(partHealth));
+            return String.format("%.2f", partHealth); // Return health as a formatted string
+        }
 
-                if (player.isOnline()) {
-                    Player onlinePlayer = player.getPlayer();
-                    if (onlinePlayer != null) {
-                        return BodyHealthUtils.getBodyHealthState(BodyHealthUtils.getBodyHealth(onlinePlayer), bodyPart).name();
-                    }
-                }
+        return null;
+    }
+
+    private static String getStatePlaceholder(OfflinePlayer player, @NotNull String params) {
+
+        String[] splitParams = params.split("_");
+        if (splitParams.length < 2) return null;
+
+        String bodyPartName = splitParams.length == 2 ? splitParams[1].toUpperCase() : splitParams[1].toUpperCase() + "_" + splitParams[2].toUpperCase();
+        BodyPart bodyPart;
+
+        try {
+            bodyPart = BodyPart.valueOf(bodyPartName);
+        } catch (IllegalArgumentException e) {
+            return "Invalid body part: " + bodyPartName;
+        }
+
+        if (player.isOnline()) {
+            Player onlinePlayer = player.getPlayer();
+            if (onlinePlayer != null) {
+                return BodyHealthUtils.getBodyHealthState(BodyHealthUtils.getBodyHealth(onlinePlayer), bodyPart).name();
             }
         }
 
