@@ -4,7 +4,7 @@ import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
 import bodyhealth.config.Lang;
 import bodyhealth.depend.WorldGuard;
-import bodyhealth.effects.BodyHealthEffects;
+import bodyhealth.effects.EffectHandler;
 import bodyhealth.core.BodyHealth;
 import bodyhealth.Main;
 import bodyhealth.core.BodyPart;
@@ -34,7 +34,7 @@ public class BodyHealthUtils {
     public static boolean reloadSystem() {
 
         for (Player player : Bukkit.getOnlinePlayers()) {
-            BodyHealthEffects.removeEffectsFromPlayer(player);
+            EffectHandler.removeEffectsFromPlayer(player);
         }
 
         try {
@@ -87,7 +87,7 @@ public class BodyHealthUtils {
         Main.getAddonManager().reloadAddons();
 
         for (Player player : Bukkit.getOnlinePlayers()) {
-            BodyHealthEffects.addEffectsToPlayer(player);
+            EffectHandler.addEffectsToPlayer(player);
         }
 
         return true;

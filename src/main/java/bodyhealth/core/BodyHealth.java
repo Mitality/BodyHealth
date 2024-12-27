@@ -3,7 +3,7 @@ package bodyhealth.core;
 import bodyhealth.api.events.BodyPartHealthChangeEvent;
 import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
-import bodyhealth.effects.BodyHealthEffects;
+import bodyhealth.effects.EffectHandler;
 import bodyhealth.util.BodyHealthUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -90,7 +90,7 @@ public class BodyHealth {
             Bukkit.getPluginManager().callEvent(event);
             if (event.isCancelled()) return;
             healthMap.put(part, Math.min(100, Math.max(0, event.getNewHealth()))); // Ensure health stays between 0 and 100
-            BodyHealthEffects.onBodyPartStateChange(player, part, oldState, BodyHealthUtils.getBodyHealthState(this, part));
+            EffectHandler.onBodyPartStateChange(player, part, oldState, BodyHealthUtils.getBodyHealthState(this, part));
         }
     }
 
@@ -140,7 +140,7 @@ public class BodyHealth {
             BodyPartHealthChangeEvent event = new BodyPartHealthChangeEvent(player, part, currentHealth, Math.min(100, currentHealth + regenAmountPercent));
             Bukkit.getPluginManager().callEvent(event);
             healthMap.put(part, Math.min(100, Math.max(0, event.getNewHealth()))); // Ensure health stays between 0 and 100
-            BodyHealthEffects.onBodyPartStateChange(player, part, oldState, BodyHealthUtils.getBodyHealthState(this, part));
+            EffectHandler.onBodyPartStateChange(player, part, oldState, BodyHealthUtils.getBodyHealthState(this, part));
         }
     }
 
@@ -178,7 +178,7 @@ public class BodyHealth {
             healthMap.put(part, Math.min(100, Math.max(0, event.getNewHealth()))); // Ensure health stays between 0 and 100
             if (force_keep) command_timestamps.put(part, System.currentTimeMillis());
             if (!BodyHealthUtils.isSystemEnabled(player)) return;
-            BodyHealthEffects.onBodyPartStateChange(player, part, oldState, BodyHealthUtils.getBodyHealthState(this, part));
+            EffectHandler.onBodyPartStateChange(player, part, oldState, BodyHealthUtils.getBodyHealthState(this, part));
         }
     }
 

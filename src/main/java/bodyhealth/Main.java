@@ -7,7 +7,7 @@ import bodyhealth.data.DataManager;
 import bodyhealth.data.HealthStorage;
 import bodyhealth.depend.PlaceholderAPI;
 import bodyhealth.depend.WorldGuard;
-import bodyhealth.effects.BodyHealthEffects;
+import bodyhealth.effects.EffectHandler;
 import bodyhealth.listeners.BetterHudListener;
 import bodyhealth.listeners.BodyHealthListener;
 import bodyhealth.core.BodyHealth;
@@ -32,6 +32,7 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 public final class Main extends JavaPlugin {
+
     private static Main instance;
     private static List<String> languages;
     private static String SPIGOT_RESOURCE_ID;
@@ -115,10 +116,6 @@ public final class Main extends JavaPlugin {
 
         // Commands and Listeners
         Bukkit.getPluginManager().registerEvents(new BodyHealthListener(), this);
-        /*
-        Objects.requireNonNull(Main.getPlugin(Main.class).getCommand("bodyhealth")).setExecutor(new BodyHealthCommand());
-        Objects.requireNonNull(Main.getPlugin(Main.class).getCommand("bodyhealth")).setTabCompleter(new BodyHealthTAB());
-        */
         Objects.requireNonNull(getCommand("bodyhealth")).setExecutor(new CommandManager());
         Debug.log("Registered Commands and Listeners");
 
@@ -189,7 +186,7 @@ public final class Main extends JavaPlugin {
         addonManager.unloadAddons();
         Debug.log("Disabling System...");
         for (Player player : Bukkit.getOnlinePlayers()) {
-            BodyHealthEffects.removeEffectsFromPlayer(player); // Ensure that all effects are removed
+            EffectHandler.removeEffectsFromPlayer(player); // Ensure that all effects are removed
         }
         Debug.log("Saving data...");
         HealthStorage.savePlayerHealthData(); // Save data to storage

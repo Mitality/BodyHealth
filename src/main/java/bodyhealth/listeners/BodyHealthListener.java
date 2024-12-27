@@ -1,7 +1,7 @@
 package bodyhealth.listeners;
 
 import bodyhealth.core.BodyPart;
-import bodyhealth.effects.BodyHealthEffects;
+import bodyhealth.effects.EffectHandler;
 import bodyhealth.core.BodyHealth;
 import bodyhealth.calculations.BodyHealthCalculator;
 import bodyhealth.util.BodyHealthUtils;
@@ -161,17 +161,17 @@ public class BodyHealthListener implements Listener {
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
         if (event.getPlayer().isSprinting()) {
-            if (BodyHealthEffects.preventSprint.contains(event.getPlayer())) return; // Player is already slowed down
+            if (EffectHandler.preventSprint.contains(event.getPlayer())) return; // Player is already slowed down
             //if (event.getFrom().getBlockX() == event.getTo().getBlockX() && event.getFrom().getBlockZ() != event.getTo().getBlockZ()) return; // Player hasn't moved a block yet (possible optimization for the line below)
             if (BodyHealthUtils.canPlayerSprint(event.getPlayer())) return; // Player is allowed to sprint
-            BodyHealthEffects.preventSprint.add(event.getPlayer());
-            Objects.requireNonNull(event.getPlayer().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).addModifier(BodyHealthEffects.getSpeedReductionModifier());
+            EffectHandler.preventSprint.add(event.getPlayer());
+            Objects.requireNonNull(event.getPlayer().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).addModifier(EffectHandler.getSpeedReductionModifier());
             Debug.log("Adding SpeedReductionModifier to player " + event.getPlayer().getName());
             MessageUtils.sendEffectMessages(event.getPlayer(), "PREVENT_SPRINT");
         } else {
-            if (!BodyHealthEffects.preventSprint.contains(event.getPlayer())) return; // Player isn't slowed down
-            BodyHealthEffects.preventSprint.remove(event.getPlayer());
-            Objects.requireNonNull(event.getPlayer().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).removeModifier(BodyHealthEffects.getSpeedReductionModifier());
+            if (!EffectHandler.preventSprint.contains(event.getPlayer())) return; // Player isn't slowed down
+            EffectHandler.preventSprint.remove(event.getPlayer());
+            Objects.requireNonNull(event.getPlayer().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).removeModifier(EffectHandler.getSpeedReductionModifier());
             Debug.log("Removing SpeedReductionModifier from player " + event.getPlayer().getName());
         }
     }
@@ -180,21 +180,21 @@ public class BodyHealthListener implements Listener {
     public void onPlayerChangeWorld(PlayerChangedWorldEvent event) {
         boolean isEnabledInFrom = BodyHealthUtils.isSystemEnabled(event.getFrom());
         boolean isEnabledInTo = BodyHealthUtils.isSystemEnabled(event.getPlayer());
-        if (!isEnabledInFrom && isEnabledInTo) BodyHealthEffects.addEffectsToPlayer(event.getPlayer());
+        if (!isEnabledInFrom && isEnabledInTo) EffectHandler.addEffectsToPlayer(event.getPlayer());
         else if (isEnabledInFrom && !isEnabledInTo) {
             if (BodyHealthUtils.getBodyHealth(event.getPlayer()).getOngoingEffects().isEmpty()) return;
-            BodyHealthEffects.removeEffectsFromPlayer(event.getPlayer());
+            EffectHandler.removeEffectsFromPlayer(event.getPlayer());
         }
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        if (BodyHealthUtils.isSystemEnabled(event.getPlayer())) BodyHealthEffects.addEffectsToPlayer(event.getPlayer());
+        if (BodyHealthUtils.isSystemEnabled(event.getPlayer())) EffectHandler.addEffectsToPlayer(event.getPlayer());
     }
 
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent event) {
-        if (BodyHealthUtils.isSystemEnabled(event.getPlayer())) BodyHealthEffects.removeEffectsFromPlayer(event.getPlayer());
+        if (BodyHealthUtils.isSystemEnabled(event.getPlayer())) EffectHandler.removeEffectsFromPlayer(event.getPlayer());
     }
 
     private void checkHealthDelayed(Player player, double health) {
