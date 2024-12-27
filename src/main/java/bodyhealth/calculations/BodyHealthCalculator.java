@@ -107,35 +107,54 @@ public class BodyHealthCalculator {
      */
     private static BodyPart[] determineHitParts(double relativeYaw, double yDiff, double scale) {
         Debug.logDev("Relative yaw: " + relativeYaw + ", Height difference: " + yDiff + ", Scale: " + scale);
-        if (relativeYaw <= 45 || relativeYaw >= 315) {
-            return yDiff >= 2.4 * scale ? new BodyPart[]{BodyPart.HEAD} :
-                    yDiff >= 1.7 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.BODY} :
-                            yDiff >= 1.4 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.BODY, BodyPart.LEG_LEFT, BodyPart.LEG_RIGHT} :
-                                    yDiff >= 1.25 * scale ? new BodyPart[]{BodyPart.BODY, BodyPart.LEG_LEFT, BodyPart.LEG_RIGHT} :
-                                            yDiff >= 0.25 * scale ? new BodyPart[]{BodyPart.LEG_LEFT, BodyPart.LEG_RIGHT, BodyPart.FOOT_LEFT, BodyPart.FOOT_RIGHT} :
-                                                    new BodyPart[]{BodyPart.FOOT_LEFT, BodyPart.FOOT_RIGHT};
-        } else if (relativeYaw >= 135 && relativeYaw <= 225) {
-            return yDiff >= 2.4 * scale ? new BodyPart[]{BodyPart.HEAD} :
-                    yDiff >= 1.7 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.BODY} :
-                            yDiff >= 1.4 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.BODY, BodyPart.LEG_LEFT, BodyPart.LEG_RIGHT} :
-                                    yDiff >= 1.25 * scale ? new BodyPart[]{BodyPart.BODY, BodyPart.LEG_LEFT, BodyPart.LEG_RIGHT} :
-                                            yDiff >= 0.25 * scale ? new BodyPart[]{BodyPart.LEG_LEFT, BodyPart.LEG_RIGHT, BodyPart.FOOT_LEFT, BodyPart.FOOT_RIGHT} :
-                                                    new BodyPart[]{BodyPart.FOOT_LEFT, BodyPart.FOOT_RIGHT};
-        } else if (relativeYaw > 45 && relativeYaw < 135) {
-            return yDiff >= 2.4 * scale ? new BodyPart[]{BodyPart.HEAD} :
-                    yDiff >= 1.7 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.ARM_LEFT} :
-                            yDiff >= 1.4 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.ARM_LEFT, BodyPart.LEG_LEFT} :
-                                    yDiff >= 1.25 * scale ? new BodyPart[]{BodyPart.ARM_LEFT, BodyPart.LEG_LEFT} :
-                                            yDiff >= 0.25 * scale ? new BodyPart[]{BodyPart.LEG_LEFT, BodyPart.FOOT_LEFT} :
-                                                    new BodyPart[]{BodyPart.FOOT_LEFT};
-        } else {
-            return yDiff >= 2.4 * scale ? new BodyPart[]{BodyPart.HEAD} :
-                    yDiff >= 1.7 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.ARM_RIGHT} :
-                            yDiff >= 1.4 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.ARM_RIGHT, BodyPart.LEG_RIGHT} :
-                                    yDiff >= 1.25 * scale ? new BodyPart[]{BodyPart.ARM_RIGHT, BodyPart.LEG_RIGHT} :
-                                            yDiff >= 0.25 * scale ? new BodyPart[]{BodyPart.LEG_RIGHT, BodyPart.FOOT_RIGHT} :
-                                                    new BodyPart[]{BodyPart.FOOT_RIGHT};
-        }
+        if (relativeYaw <= 45 || relativeYaw >= 315 || relativeYaw >= 135 && relativeYaw <= 225) return calculateHitPartsCentered(yDiff, scale);
+        else if (relativeYaw > 45 && relativeYaw < 135) return calculateHitPartsLeftSide(yDiff, scale);
+        else return calculateHitPartsRightSide(yDiff, scale);
+    }
+
+    /**
+     * Utility method to determine what BodyPart(s) were hit by a block (front or back)
+     * @param yDiff The height difference between player and damager
+     * @param scale The scale of the player
+     * @return The hit BodyParts
+     */
+    private static BodyPart[] calculateHitPartsCentered(double yDiff, double scale) {
+        return yDiff >= 2.4 * scale ? new BodyPart[]{BodyPart.HEAD} :
+                yDiff >= 1.7 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.BODY} :
+                yDiff >= 1.4 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.BODY, BodyPart.LEG_LEFT, BodyPart.LEG_RIGHT} :
+                yDiff >= 1.25 * scale ? new BodyPart[]{BodyPart.BODY, BodyPart.LEG_LEFT, BodyPart.LEG_RIGHT} :
+                yDiff >= 0.25 * scale ? new BodyPart[]{BodyPart.LEG_LEFT, BodyPart.LEG_RIGHT, BodyPart.FOOT_LEFT, BodyPart.FOOT_RIGHT} :
+                                        new BodyPart[]{BodyPart.FOOT_LEFT, BodyPart.FOOT_RIGHT};
+    }
+
+    /**
+     * Utility method to determine what BodyPart(s) were hit by a block (left side)
+     * @param yDiff The height difference between player and damager
+     * @param scale The scale of the player
+     * @return The hit BodyParts
+     */
+    private static BodyPart[] calculateHitPartsLeftSide(double yDiff, double scale) {
+        return yDiff >= 2.4 * scale ? new BodyPart[]{BodyPart.HEAD} :
+                yDiff >= 1.7 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.ARM_LEFT} :
+                yDiff >= 1.4 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.ARM_LEFT, BodyPart.LEG_LEFT} :
+                yDiff >= 1.25 * scale ? new BodyPart[]{BodyPart.ARM_LEFT, BodyPart.LEG_LEFT} :
+                yDiff >= 0.25 * scale ? new BodyPart[]{BodyPart.LEG_LEFT, BodyPart.FOOT_LEFT} :
+                                        new BodyPart[]{BodyPart.FOOT_LEFT};
+    }
+
+    /**
+     * Utility method to determine what BodyPart(s) were hit by a block (right side)
+     * @param yDiff The height difference between player and damager
+     * @param scale The scale of the player
+     * @return The hit BodyParts
+     */
+    private static BodyPart[] calculateHitPartsRightSide(double yDiff, double scale) {
+        return yDiff >= 2.4 * scale ? new BodyPart[]{BodyPart.HEAD} :
+                yDiff >= 1.7 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.ARM_RIGHT} :
+                yDiff >= 1.4 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.ARM_RIGHT, BodyPart.LEG_RIGHT} :
+                yDiff >= 1.25 * scale ? new BodyPart[]{BodyPart.ARM_RIGHT, BodyPart.LEG_RIGHT} :
+                yDiff >= 0.25 * scale ? new BodyPart[]{BodyPart.LEG_RIGHT, BodyPart.FOOT_RIGHT} :
+                                        new BodyPart[]{BodyPart.FOOT_RIGHT};
     }
 
     /**
