@@ -174,7 +174,6 @@ public final class Main extends JavaPlugin {
         if (Config.metrics) {
             Metrics metrics = new Metrics(this, 23538);
             Debug.log("Metrics enabled");
-            // TODO: Custom charts
         }
 
         Debug.log("System initialized");
