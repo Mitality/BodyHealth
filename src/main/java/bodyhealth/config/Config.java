@@ -29,6 +29,7 @@ public class Config {
     public static boolean add_betterhud_icon;
     public static boolean zip_betterhud_resourcepack;
 
+    public static int update_check_interval;
     public static int force_keep_time;
 
     public static double raytracing_max_distance;
@@ -63,6 +64,7 @@ public class Config {
         add_betterhud_icon = config.getBoolean("display.betterhud.add.icon", true);
         zip_betterhud_resourcepack = config.getBoolean("display.betterhud.zip", true);
 
+        update_check_interval = config.getInt("update-check-interval", 12);
         force_keep_time = config.getInt("force-keep-time", 10);
 
         raytracing_max_distance = config.getDouble("raytracing.max-distance", 10.0);

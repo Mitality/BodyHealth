@@ -128,6 +128,7 @@ public class BodyHealthListener implements Listener {
     @EventHandler (priority = EventPriority.MONITOR)
     public void onPlayerInteract(PlayerInteractEvent event) {
         checkHealthDelayed(event.getPlayer(), event.getPlayer().getHealth()); // Other plugins could heal the player here -> check delayed
+        if (event.getHand() == null) return; // Turns out PlayerInteractEvent covers way more than I thought it would
         if (!Config.always_allow_eating || event.getItem() == null || event.getItem().getItemMeta() == null || !event.getItem().getItemMeta().hasFood()) {
             if (BodyHealthUtils.canPlayerInteract(event.getPlayer(), event.getHand())) return;
             MessageUtils.sendEffectMessages(event.getPlayer(), "PREVENT_INTERACT");

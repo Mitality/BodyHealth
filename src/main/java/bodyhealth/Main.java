@@ -162,13 +162,14 @@ public final class Main extends JavaPlugin {
         else Debug.log("No existing data was found");
 
         // Check for updates
-        new UpdateChecker(this, UpdateCheckSource.SPIGOT, SPIGOT_RESOURCE_ID)
-                .setDownloadLink("https://www.spigotmc.org/resources/bodyhealth.119966/")
-                .setDonationLink("https://paypal.me/mitality")
-                .setChangelogLink("https://www.spigotmc.org/resources/bodyhealth.119966/updates")
-                .setNotifyByPermissionOnJoin("bodyhealth.update-notify")
-                .setUserAgent(new UserAgentBuilder().addPluginNameAndVersion())
-                .checkEveryXHours(1).checkNow();
+        UpdateChecker updateChecker = new UpdateChecker(this, UpdateCheckSource.SPIGOT, SPIGOT_RESOURCE_ID)
+            .setDownloadLink("https://www.spigotmc.org/resources/bodyhealth.119966/")
+            .setDonationLink("https://paypal.me/mitality")
+            .setChangelogLink("https://www.spigotmc.org/resources/bodyhealth.119966/updates")
+            .setNotifyByPermissionOnJoin("bodyhealth.update-notify")
+            .setUserAgent(new UserAgentBuilder().addPluginNameAndVersion());
+        if (Config.update_check_interval > 0) updateChecker.checkEveryXHours(Config.update_check_interval);
+        updateChecker.checkNow();
 
         // Metrics
         if (Config.metrics) {

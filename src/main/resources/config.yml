@@ -59,12 +59,17 @@ debug-mode: false
 
 # This enables additional information about internal calculations
 # and variables. Also enables visual indicators in game such as
-# displaying raytracing lines with small flame particles.
+# displaying raytracing lines with small flame particles
 development-mode: false
 
 # You can disable all handled error messages here
 # DO NOT REQUEST SUPPORT IF THIS IS SET TO FALSE
 error-logging: true
+
+# BodyHealth always checks for updates once on startup
+# A check is then carried out at the specified interval
+# [hours] When set to 0, no further checks are scheduled
+update-check-interval: 12
 
 # Share anonymous data to improve the plugin's development
 # Recommended to keep enabled for more relevant updates
