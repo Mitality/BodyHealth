@@ -1,3 +1,5 @@
+[![codefactor](https://www.codefactor.io/repository/github/mitality/bodyhealth/badge)](https://www.codefactor.io/repository/github/mitality/bodyhealth) [![release](https://img.shields.io/github/v/release/mitality/bodyhealth)](https://github.com/mitality/bodyhealth/releases/latest) [![license](https://img.shields.io/badge/license-custom-%23A60CBF)](https://github.com/Mitality/BodyHealth?tab=License-1-ov-file)
+
 ### Introducing BodyHealth - A system that manages health per body part!
 
 This was meant to be part of a private plugin of mine, but things escalated and here we are.
