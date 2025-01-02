@@ -2,6 +2,8 @@
 
 ### Introducing BodyHealth - A system that manages health per body part!
 
+### [[Spigot Page](https://www.spigotmc.org/resources/bodyhealth.119966/)]  [[Config](https://github.com/Mitality/BodyHealth/blob/main/src/main/resources/config.yml)]  [[Setup Guide](https://github.com/Mitality/BodyHealth/wiki/Setup)]
+
 This was meant to be part of a private plugin of mine, but things escalated and here we are.
 
 This plugin is capable of determining where players were hit by using a combination of vector
