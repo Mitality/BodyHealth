@@ -26,6 +26,11 @@ public class PlaceholderAPI extends PlaceholderExpansion {
     }
 
     @Override
+    public boolean persist() {
+        return true;
+    }
+
+    @Override
     public String onRequest(OfflinePlayer player, @NotNull String params) {
 
         if (params.startsWith("health_")) return getHealthPlaceholder(player, params);
