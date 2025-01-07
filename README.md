@@ -22,4 +22,6 @@ To display health per body part in game, BodyHealth uses [BetterHud](https://www
 in survival mode at the bottom right corner of their screen. You can disable this behaviour and customize BetterHud and PAPI
  yourself though, if you want to implement your own display.
 
+**For the best experience, use this plugin together with [Realistic Survival](https://www.spigotmc.org/resources/realistic-survival.93795/) from Val_Mobile.**
+
 **If you just see a yellow bossbar with weird rectangle characters above, you need to use "plugins/BetterHud/build" as a resource pack! An icon and mcmeta file for said pack will be automatically generated and added by BodyHealth. If you don't manage to do that, open a [question ticket](https://github.com/Mitality/BodyHealth/issues/new?assignees=&labels=question&projects=&template=question.yml) or say something in [discussions](https://github.com/Mitality/BodyHealth/discussions/categories/general), thak you.**
