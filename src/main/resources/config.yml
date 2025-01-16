@@ -203,7 +203,7 @@ body-damage:
 #      COMMAND / cmd args[...]                  ...execute a command (can use %PlayerName% and %PlayerUUID% as placeholders)
 #      COMMAND_UNDO / cmd args[...]             ...execute a command when the condition is no longer met (to undo stuff)
 #      KILL_PLAYER                              ...you guessed it, this kills the player when the condition is met
-#      SEND_MESSAGE / <MESSAGE>                 ...send a message to the player to notify them of their status
+#      MESSAGE / <MESSAGE>                      ...send a message to the player to notify them of their status
 #
 #   <MESSAGE> (or [MESSAGE]) can be the following:
 #
@@ -226,7 +226,7 @@ effects:
     NEARLYFULL: []
     INTERMEDIATE: []
     DAMAGED:
-      - SEND_MESSAGE / TITLE:&4Caution!;&cYou are about to die # Warn players with a title when their health gets below 25%
+      - MESSAGE / TITLE:&4Caution!;&cYou are about to die # Warn players with a title when their health gets below 25%
     BROKEN:
       - KILL_PLAYER # Kill the player when their head reaches 0 HP
   BODY:
@@ -234,7 +234,7 @@ effects:
     NEARLYFULL: []
     INTERMEDIATE: []
     DAMAGED:
-      - SEND_MESSAGE / &cYour body is now below 25% health # Send a normal chat message to the player, informing them of their body health state
+      - MESSAGE / &cYour body is now below 25% health # Send a normal chat message to the player, informing them of their body health state
     BROKEN:
       - COMMAND / attribute %PlayerName% minecraft:generic.scale base set 2 # Make the player two times as tall when their body reaches 0 HP
       - COMMAND_UNDO / attribute %PlayerName% minecraft:generic.scale base set 1 # Set the players scale back to normal when their body recovers
