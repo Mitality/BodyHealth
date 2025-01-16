@@ -11,6 +11,8 @@ import bodyhealth.config.Debug;
 import bodyhealth.util.MessageUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandMap;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -20,6 +22,7 @@ import org.bukkit.event.player.*;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
+import java.lang.reflect.Field;
 import java.util.Objects;
 
 public class BodyHealthListener implements Listener {
@@ -140,20 +143,11 @@ public class BodyHealthListener implements Listener {
     public void onPlayerCommand(PlayerCommandPreprocessEvent event) {
         String command = event.getMessage().toLowerCase();
 
-        if (command.startsWith("/heal")) { // Compatibility for a potential heal command
-            Player player = event.getPlayer();
-            if (command.equals("/heal")) {
-                BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(player);
-                bodyHealth.regenerateHealth(Integer.MAX_VALUE);
-            } else if (command.startsWith("/heal ")) {
-                String[] parts = command.split(" ");
-                if (parts.length == 2) {
-                    Player target = Bukkit.getPlayer(parts[1]);
-                    if (target != null) {
-                        BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(target);
-                        bodyHealth.regenerateHealth(Integer.MAX_VALUE);
-                    }
-                }
+        if (command.startsWith("/heal ")) { // Compatibility for a potential heal command
+            String[] parts = command.split(" ");
+            if (parts.length > 1) {
+                Player target = Bukkit.getPlayer(parts[1]);
+                if (target != null) checkHealthDelayed(target, target.getHealth());
             }
         }
         checkHealthDelayed(event.getPlayer(), event.getPlayer().getHealth());
