@@ -31,7 +31,7 @@ public class BodyHealthAPI {
      * @param player the player to heal
      */
     public static void healPlayer(@NotNull Player player) {
-        BodyHealthUtils.getBodyHealth(player).regenerateHealth(Double.MAX_VALUE);
+        BodyHealthUtils.getBodyHealth(player).regenerateHealth(Double.MAX_VALUE, false);
     }
 
     /**
@@ -40,7 +40,7 @@ public class BodyHealthAPI {
      * @param amount the amount of health to restore
      */
     public static void healPlayer(@NotNull Player player, int amount) {
-        BodyHealthUtils.getBodyHealth(player).regenerateHealth(amount);
+        BodyHealthUtils.getBodyHealth(player).regenerateHealth(amount, false);
     }
 
     /**
@@ -49,7 +49,7 @@ public class BodyHealthAPI {
      * @param part the specific body part to heal
      */
     public static void healPlayer(@NotNull Player player, @NotNull BodyPart part) {
-        BodyHealthUtils.getBodyHealth(player).regenerateHealth(Double.MAX_VALUE, part);
+        BodyHealthUtils.getBodyHealth(player).regenerateHealth(Double.MAX_VALUE, part, false);
     }
 
     /**
@@ -59,7 +59,7 @@ public class BodyHealthAPI {
      * @param amount the amount of health to restore
      */
     public static void healPlayer(@NotNull Player player, @NotNull BodyPart part, int amount) {
-        BodyHealthUtils.getBodyHealth(player).regenerateHealth(amount, part);
+        BodyHealthUtils.getBodyHealth(player).regenerateHealth(amount, part, false);
     }
 
     /**
@@ -69,7 +69,7 @@ public class BodyHealthAPI {
      * @param amount the amount of damage to apply
      */
     public static void damagePlayerWithConfig(@NotNull Player player, @NotNull EntityDamageEvent.DamageCause cause, double amount) {
-        BodyHealthUtils.applyDamageWithConfig(BodyHealthUtils.getBodyHealth(player), cause, amount);
+        BodyHealthUtils.applyDamageWithConfig(BodyHealthUtils.getBodyHealth(player), cause, amount, false);
     }
 
     /**
@@ -80,7 +80,7 @@ public class BodyHealthAPI {
      * @param part the body part to damage
      */
     public static void damagePlayerWithConfig(@NotNull Player player, @NotNull EntityDamageEvent.DamageCause cause, double amount, @NotNull BodyPart part) {
-        BodyHealthUtils.applyDamageWithConfig(BodyHealthUtils.getBodyHealth(player), cause, amount, part);
+        BodyHealthUtils.applyDamageWithConfig(BodyHealthUtils.getBodyHealth(player), cause, amount, part, false);
     }
 
     /**
@@ -89,7 +89,7 @@ public class BodyHealthAPI {
      * @param amount the amount of damage to apply
      */
     public static void damagePlayerDirectly(@NotNull Player player, double amount) {
-        BodyHealthUtils.getBodyHealth(player).applyDamage(amount);
+        BodyHealthUtils.getBodyHealth(player).applyDamage(amount, false);
     }
 
     /**
@@ -99,7 +99,7 @@ public class BodyHealthAPI {
      * @param part the body part to damage
      */
     public static void damagePlayerDirectly(@NotNull Player player, double amount, @NotNull BodyPart part) {
-        BodyHealthUtils.getBodyHealth(player).applyDamage(part, amount);
+        BodyHealthUtils.getBodyHealth(player).applyDamage(part, amount, false);
     }
 
     /**

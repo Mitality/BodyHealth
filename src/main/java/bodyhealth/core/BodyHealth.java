@@ -47,11 +47,11 @@ public class BodyHealth {
      * Applies damage to all BodyParts
      * @param damage The amount of damage to apply
      */
-    public void applyDamage(double damage) {
+    public void applyDamage(double damage, boolean force) {
         Player player = Bukkit.getPlayer(playerUUID);
         if (player != null) {
             for (BodyPart part : BodyPart.values()) {
-                applyDamage(player, part, damage);
+                applyDamage(player, part, damage, force);
             }
         } else {
             Debug.logErr("Tried to modify data of a player that isn't online. This should never happen automatically and is a bug!");
@@ -63,10 +63,10 @@ public class BodyHealth {
      * @param part The BodyPart to apply damage to
      * @param damage The amount of damage to apply
      */
-    public void applyDamage(BodyPart part, double damage) {
+    public void applyDamage(BodyPart part, double damage, boolean force) {
         Player player = Bukkit.getPlayer(playerUUID);
         if (player != null) {
-            applyDamage(player, part, damage);
+            applyDamage(player, part, damage, force);
         } else {
             Debug.logErr("Tried to modify data of a player that isn't online. This should never happen automatically and is a bug!");
         }
@@ -78,9 +78,9 @@ public class BodyHealth {
      * @param part The BodyPart to apply damage to
      * @param damage The amount of damage to apply
      */
-    private void applyDamage(Player player, BodyPart part, double damage) {
-        if (command_timestamps.containsKey(part) && ((System.currentTimeMillis() - command_timestamps.get(part)) < Config.force_keep_time * 1000L)) return;
-        if (!BodyHealthUtils.isSystemEnabled(player)) return;
+    private void applyDamage(Player player, BodyPart part, double damage, boolean force) {
+        if (command_timestamps.containsKey(part) && ((System.currentTimeMillis() - command_timestamps.get(part)) < Config.force_keep_time * 1000L) && !force) return;
+        if (!BodyHealthUtils.isSystemEnabled(player) && !force) return;
         if (player.hasPermission("bodyhealth.bypass.damage." + part.name().toLowerCase())) return;
         double currentHealth = healthMap.get(part);
         if (currentHealth > 0) {
@@ -98,11 +98,11 @@ public class BodyHealth {
      * Regenerate health for all BodyParts
      * @param regenAmount The amount of health to regenerate
      */
-    public void regenerateHealth(double regenAmount) {
+    public void regenerateHealth(double regenAmount, boolean force) {
         Player player = Bukkit.getPlayer(playerUUID);
         if (player != null) {
             for (BodyPart part : BodyPart.values()) {
-                regenerateHealth(player, part, regenAmount);
+                regenerateHealth(player, part, regenAmount, force);
             }
         } else {
             Debug.logErr("Tried to modify data of a player that isn't online. This should never happen automatically and is a bug!");
@@ -114,10 +114,10 @@ public class BodyHealth {
      * @param regenAmount The amount of health to regenerate
      * @param part The part to regenerate health for
      */
-    public void regenerateHealth(double regenAmount, BodyPart part) {
+    public void regenerateHealth(double regenAmount, BodyPart part, boolean force) {
         Player player = Bukkit.getPlayer(playerUUID);
         if (player != null) {
-            regenerateHealth(player, part, regenAmount);
+            regenerateHealth(player, part, regenAmount, force);
         } else {
             Debug.logErr("Tried to modify data of a player that isn't online. This should never happen automatically and is a bug!");
         }
@@ -129,9 +129,9 @@ public class BodyHealth {
      * @param part The BodyPart to regenerate health for
      * @param regenAmount The amount of health to regenerate
      */
-    private void regenerateHealth(Player player, BodyPart part, double regenAmount) {
-        if (!BodyHealthUtils.isSystemEnabled(player)) return;
-        if (command_timestamps.containsKey(part) && ((System.currentTimeMillis() - command_timestamps.get(part)) < Config.force_keep_time * 1000L)) return;
+    private void regenerateHealth(Player player, BodyPart part, double regenAmount, boolean force) {
+        if (!BodyHealthUtils.isSystemEnabled(player) && !force) return;
+        if (command_timestamps.containsKey(part) && ((System.currentTimeMillis() - command_timestamps.get(part)) < Config.force_keep_time * 1000L) && !force) return;
         if (player.hasPermission("bodyhealth.bypass.regen." + part.name().toLowerCase())) return;
         double currentHealth = healthMap.get(part);
         if (currentHealth < 100) {

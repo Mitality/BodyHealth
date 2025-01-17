@@ -131,9 +131,9 @@ public class BodyHealthUtils {
      * @param cause The DamageCause that caused the player to take damage
      * @param damage The final amount of damage the player took
      */
-    public static void applyDamageWithConfig(BodyHealth bodyHealth, EntityDamageEvent.DamageCause cause, double damage) {
+    public static void applyDamageWithConfig(BodyHealth bodyHealth, EntityDamageEvent.DamageCause cause, double damage, boolean force) {
         for (BodyPart part : BodyPart.values()) {
-            applyDamageWithConfig(bodyHealth, cause, damage, part);
+            applyDamageWithConfig(bodyHealth, cause, damage, part, force);
         }
     }
 
@@ -144,7 +144,7 @@ public class BodyHealthUtils {
      * @param damage The final amount of damage the player took
      * @param part The BodyPart to which the damage should be applied
      */
-    public static void applyDamageWithConfig(BodyHealth bodyHealth, EntityDamageEvent.DamageCause cause, double damage, BodyPart part) {
+    public static void applyDamageWithConfig(BodyHealth bodyHealth, EntityDamageEvent.DamageCause cause, double damage, BodyPart part, boolean force) {
         ConfigurationSection config = Config.body_damage;
         if (config.getKeys(false).contains(part.name())) {
             for (String entry : config.getStringList(part.name())) {
@@ -154,11 +154,11 @@ public class BodyHealthUtils {
                 double percentage = Double.parseDouble(data[1].replace("%", ""));
                 if (percentage == -1) continue; // Invalid percentage
                 if (cause.name().equalsIgnoreCase(damageType)) {
-                    bodyHealth.applyDamage(part, damage * (percentage / 100.0));
+                    bodyHealth.applyDamage(part, damage * (percentage / 100.0), force);
                     return;
                 }
             }
-            bodyHealth.applyDamage(part, damage); // Not configured - default to 100%
+            bodyHealth.applyDamage(part, damage, force); // Not configured - default to 100%
         } else {
             Debug.logErr("body_damage isn't configured for " + part.name() + "!");
         }
