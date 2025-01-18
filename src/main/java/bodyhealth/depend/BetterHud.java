@@ -84,7 +84,7 @@ public class BetterHud {
 
                 "assets/bodyhealth/bodyhealth_damaged.png",
                 "images/bodyhealth.yml",
-                "layouts/bodyhealth.yml",
+                (Config.betterhud_fix_height) ? "layoutsfix/bodyhealth.yml" : "layouts/bodyhealth.yml",
                 "huds/bodyhealth.yml",
 
                 //(Config.add_betterhud_mcmeta) ? "build/pack.mcmeta" : null,

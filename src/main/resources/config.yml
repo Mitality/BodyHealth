@@ -319,6 +319,10 @@ display:
     # (For inexperienced users: leave the above add-options set to true when using this!)
     zip: true
 
+    # When using multiple HUDs simultaneously, one HUD can get pushed down. If BodyHealth's HUD is pushed down,
+    # set this option to "true" and either restart your server or reload first BodyHealth and then BetterHud.
+    fix-height: false
+
     # ^ IF YOU DON'T KNOW WHAT TO DO, LEAVE THE DISPLAY-SETTINGS UNTOUCHED AND USE THE RESOURCE PACK
     # LOCATED AT "plugins/BodyHealth/resource_pack.zip" TO VISUALIZE YOUR HEALTH PER BODY PART IN GAME
     # (YOU STILL NEED TO DOWNLOAD BOTH DEPENDENCIES FOR THIS TO WORK)

@@ -72,6 +72,16 @@ public class BodyHealthListener implements Listener {
 
         else if (event instanceof EntityDamageByBlockEvent) {
             EntityDamageByBlockEvent blockDamageEvent = (EntityDamageByBlockEvent) event;
+
+            // 1.21.3+ bug
+            if (blockDamageEvent.getDamager() == null) {
+                for (BodyPart bodyPart : BodyPart.values()) {
+                    BodyHealthUtils.applyDamageWithConfig(bodyHealth, cause, damage, bodyPart, false);
+                }
+                Debug.log("Player " + player.getName() + " was hit by a block that couldn't be retrieved because of a bug in your server software (https://github.com/PaperMC/Paper/issues/11984) applying " + String.format("%.2f", damage) + " damage to all body parts.");
+                return;
+            }
+
             BodyPart[] hitBodyParts = BodyHealthCalculator.calculateHitByBlock(player, Objects.requireNonNull(blockDamageEvent.getDamager()));
             StringBuilder hitBodyPartsString = new StringBuilder();
             for (BodyPart bodyPart : hitBodyParts) {

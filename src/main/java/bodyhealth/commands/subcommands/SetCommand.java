@@ -39,8 +39,8 @@ public class SetCommand implements SubCommand {
                 return true;
             }
 
-            if (args.length > index && BodyHealthUtils.isValidBodyPart(args[index])) {
-                part = BodyPart.valueOf(args[index]);
+            if (args.length > index && BodyHealthUtils.isValidBodyPart(args[index].toUpperCase())) {
+                part = BodyPart.valueOf(args[index].toUpperCase());
                 index++;
             }
 

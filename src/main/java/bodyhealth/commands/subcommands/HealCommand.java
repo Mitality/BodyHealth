@@ -37,8 +37,8 @@ public class HealCommand implements SubCommand {
                 return true;
             }
 
-            if (args.length > index && BodyHealthUtils.isValidBodyPart(args[index])) {
-                part = BodyPart.valueOf(args[index]);
+            if (args.length > index && BodyHealthUtils.isValidBodyPart(args[index].toUpperCase())) {
+                part = BodyPart.valueOf(args[index].toUpperCase());
             }
 
             BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(target);

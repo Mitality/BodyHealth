@@ -28,6 +28,7 @@ public class Config {
     public static boolean add_betterhud_mcmeta;
     public static boolean add_betterhud_icon;
     public static boolean zip_betterhud_resourcepack;
+    public static boolean betterhud_fix_height;
 
     public static int update_check_interval;
     public static int force_keep_time;
@@ -63,6 +64,7 @@ public class Config {
         add_betterhud_mcmeta = config.getBoolean("display.betterhud.add.mcmeta", true);
         add_betterhud_icon = config.getBoolean("display.betterhud.add.icon", true);
         zip_betterhud_resourcepack = config.getBoolean("display.betterhud.zip", true);
+        betterhud_fix_height = config.getBoolean("display.betterhud.fix-height", false);
 
         update_check_interval = config.getInt("update-check-interval", 12);
         force_keep_time = config.getInt("force-keep-time", 10);
