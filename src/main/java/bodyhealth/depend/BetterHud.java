@@ -179,9 +179,7 @@ public class BetterHud {
         for (String fileName : filesToCopy) {
             if (fileName == null) continue;
 
-            fileName = fileName.replaceAll("fix", "");
-
-            File targetFile = new File(targetFolder, fileName);
+            File targetFile = new File(targetFolder, fileName.replaceAll("fix", ""));
             Debug.logDev("Validating File: " + targetFile.getAbsolutePath());
 
             try (InputStream resourceStream = instance.getResource("BetterHudConfig" + "/" + fileName)) {
