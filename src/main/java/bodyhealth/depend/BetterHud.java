@@ -179,6 +179,8 @@ public class BetterHud {
         for (String fileName : filesToCopy) {
             if (fileName == null) continue;
 
+            fileName = fileName.replaceAll("fix", "");
+
             File targetFile = new File(targetFolder, fileName);
             Debug.logDev("Validating File: " + targetFile.getAbsolutePath());
 
