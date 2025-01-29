@@ -11,6 +11,7 @@ public class Config {
 
     public static String language;
     public static String prefix;
+    public static String betterhud_zip_filename;
 
     public static boolean debug_mode;
     public static boolean development_mode;
@@ -47,6 +48,7 @@ public class Config {
         language = config.getString("language", "en-us");
         prefix = ChatColor.translateAlternateColorCodes('&',
                 config.getString("prefix", "&8&l[&e&lBodyHealth&8&l] "));
+        betterhud_zip_filename = config.getString("display.betterhud.package.filename", "resource_pack");
 
         debug_mode = config.getBoolean("debug-mode", false);
         development_mode = config.getBoolean("development-mode", false);
@@ -63,7 +65,7 @@ public class Config {
         disable_betterhud_compass = config.getBoolean("display.betterhud.disable.compass", true);
         add_betterhud_mcmeta = config.getBoolean("display.betterhud.add.mcmeta", true);
         add_betterhud_icon = config.getBoolean("display.betterhud.add.icon", true);
-        zip_betterhud_resourcepack = config.getBoolean("display.betterhud.zip", true);
+        zip_betterhud_resourcepack = config.getBoolean("display.betterhud.package.compress", true);
         betterhud_fix_height = config.getBoolean("display.betterhud.fix-height", false);
 
         update_check_interval = config.getInt("update-check-interval", 12);

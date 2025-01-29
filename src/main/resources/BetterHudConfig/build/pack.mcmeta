@@ -1,6 +1,14 @@
 {
     "pack": {
-        "pack_format": 34,
-        "description": "BodyHealth"
+        "pack_format": 33,
+        "supported_formats": [33, 99],
+        "description": [
+            {"text": "Bo", "color": "#C41A05"},
+            {"text": "dy", "color": "#CC8F16"},
+            {"text": "He", "color": "#E9BA10"},
+            {"text": "al", "color": "#98BF03"},
+            {"text": "th", "color": "#37AC04"},
+            {"text": "\nby Mitality", "color": "#AAAAAA"}
+        ]
     }
 }

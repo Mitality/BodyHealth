@@ -146,7 +146,9 @@ public class BetterHud {
      */
     private static void zip() {
         if (!Config.zip_betterhud_resourcepack) return;
-        Debug.log("Zipping BetterHud/build to BodyHealth/resource_pack.zip");
+
+        String filename = Config.betterhud_zip_filename;
+        Debug.log("Zipping BetterHud/build to plugins/BodyHealth/output/" + filename + ".zip");
 
         File betterHudBuildFolder = new File(BetterHudAPI.inst().bootstrap().dataFolder(), "build");
         if (!betterHudBuildFolder.exists()) {
@@ -154,7 +156,10 @@ public class BetterHud {
             return;
         }
 
-        File zipFile = new File(Main.getInstance().getDataFolder(), "resource_pack.zip");
+        File outputDir = new File(Main.getInstance().getDataFolder(), "output");
+        if (!outputDir.exists()) outputDir.mkdirs();
+
+        File zipFile = new File(outputDir, filename + ".zip");
         try (FileOutputStream fos = new FileOutputStream(zipFile);
              ZipOutputStream zos = new ZipOutputStream(fos)) {
             zipFolder(betterHudBuildFolder, "", zos);

@@ -313,18 +313,19 @@ display:
       mcmeta: true
       # Add an icon to BetterHuds output directory
       icon: true
-      # ^ If both of the above options are set to true, you can directly use the output directory as resource pack
-
-    # Zip BetterHud assets to a usable resource pack located at BodyHealth/resource_pack.zip
-    # (For inexperienced users: leave the above add-options set to true when using this!)
-    zip: true
+    # Leave the above add-options set to true when using the zip option below!
+    package:
+      # Zip BetterHud assets to a usable resource pack located at plugins/BodyHealth/output/<name>.zip
+      compress: true
+      # Customize how the file should be named (without the .zip, that will be added automatically)
+      filename: resource_pack
 
     # When using multiple HUDs simultaneously, one HUD can get pushed down. If BodyHealth's HUD is pushed down,
     # set this option to "true" and either restart your server or reload first BodyHealth and then BetterHud.
     fix-height: false
 
     # ^ IF YOU DON'T KNOW WHAT TO DO, LEAVE THE DISPLAY-SETTINGS UNTOUCHED AND USE THE RESOURCE PACK
-    # LOCATED AT "plugins/BodyHealth/resource_pack.zip" TO VISUALIZE YOUR HEALTH PER BODY PART IN GAME
+    # LOCATED AT "plugins/BodyHealth/output/resource_pack.zip" TO VISUALIZE HEALTH PER BODY PART
     # (YOU STILL NEED TO DOWNLOAD BOTH DEPENDENCIES FOR THIS TO WORK)
 
 
