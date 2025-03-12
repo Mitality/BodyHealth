@@ -79,9 +79,11 @@ public class BodyHealth {
      * @param damage The amount of damage to apply
      */
     private void applyDamage(Player player, BodyPart part, double damage, boolean force) {
-        if (command_timestamps.containsKey(part) && ((System.currentTimeMillis() - command_timestamps.get(part)) < Config.force_keep_time * 1000L) && !force) return;
-        if (!BodyHealthUtils.isSystemEnabled(player) && !force) return;
-        if (player.hasPermission("bodyhealth.bypass.damage." + part.name().toLowerCase())) return;
+        if (!force) {
+            if (command_timestamps.containsKey(part) && ((System.currentTimeMillis() - command_timestamps.get(part)) < Config.force_keep_time * 1000L)) return;
+            if (player.hasPermission("bodyhealth.bypass.damage." + part.name().toLowerCase())) return;
+            if (!BodyHealthUtils.isSystemEnabled(player)) return;
+        }
         double currentHealth = healthMap.get(part);
         if (currentHealth > 0) {
             BodyPartState oldState = BodyHealthUtils.getBodyHealthState(this, part);
@@ -130,9 +132,11 @@ public class BodyHealth {
      * @param regenAmount The amount of health to regenerate
      */
     private void regenerateHealth(Player player, BodyPart part, double regenAmount, boolean force) {
-        if (!BodyHealthUtils.isSystemEnabled(player) && !force) return;
-        if (command_timestamps.containsKey(part) && ((System.currentTimeMillis() - command_timestamps.get(part)) < Config.force_keep_time * 1000L) && !force) return;
-        if (player.hasPermission("bodyhealth.bypass.regen." + part.name().toLowerCase())) return;
+        if (!force) {
+            if (command_timestamps.containsKey(part) && ((System.currentTimeMillis() - command_timestamps.get(part)) < Config.force_keep_time * 1000L)) return;
+            if (player.hasPermission("bodyhealth.bypass.regen." + part.name().toLowerCase())) return;
+            if (!BodyHealthUtils.isSystemEnabled(player)) return;
+        }
         double currentHealth = healthMap.get(part);
         if (currentHealth < 100) {
             BodyPartState oldState = BodyHealthUtils.getBodyHealthState(this, part);

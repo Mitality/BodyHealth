@@ -299,7 +299,7 @@ display:
   betterhud:
     # Automatically configure BetterHud to display body health
     inject-config: true
-    # Show the body health hud to all players **IN SURVIVAL MODE** as default
+    # Show the body health hud to all players **IN SURVIVAL/ADVENTURE MODE**
     as-default: true
     # Disable parts of BetterHuds default configuration that could get annoying
     disable:

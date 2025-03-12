@@ -84,16 +84,16 @@ public class BetterHud {
 
                 "assets/bodyhealth/bodyhealth_damaged.png",
                 "images/bodyhealth.yml",
-                (Config.betterhud_fix_height) ? "layoutsfix/bodyhealth.yml" : "layouts/bodyhealth.yml",
+                (Config.display_betterhud_fix_height) ? "layoutsfix/bodyhealth.yml" : "layouts/bodyhealth.yml",
                 "huds/bodyhealth.yml",
 
-                //(Config.add_betterhud_mcmeta) ? "build/pack.mcmeta" : null,
-                //(Config.add_betterhud_icon) ? "build/pack.png" : null
+                //(Config.display_betterhud_add_mcmeta) ? "build/pack.mcmeta" : null,
+                //(Config.display_betterhud_add_icon) ? "build/pack.png" : null
         };
 
         copySpecificFiles(filesToCopy, betterHudDataFolder, instance);
 
-        if (Config.disable_betterhud_compass) {
+        if (Config.display_betterhud_disable_compass) {
             File compassFile = new File(betterHudDataFolder, "compasses/default_compass.yml");
             if (compassFile.exists()) {
                 FileConfiguration compassConfig = YamlConfiguration.loadConfiguration(compassFile);
@@ -106,18 +106,18 @@ public class BetterHud {
             }
         }
 
-        if (!Config.inject_betterhud_config_as_default && !Config.disable_betterhud_default_hud) return;
+        if (!Config.display_betterhud_as_default && !Config.display_betterhud_disable_default_hud) return;
         File configFile = new File(betterHudDataFolder, "config.yml");
         if (!configFile.exists()) {
             throw new IOException("BetterHud config.yml not found in " + betterHudDataFolder.getAbsolutePath());
         }
         FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
         List<String> defaultHudList = config.getStringList("default-hud");
-        if (!defaultHudList.contains("bodyhealth") && Config.inject_betterhud_config_as_default) {
+        if (!defaultHudList.contains("bodyhealth") && Config.display_betterhud_as_default) {
             Debug.log("Added the bodyhealth hud as a default hud to BetterHud");
             defaultHudList.add("bodyhealth");
         }
-        if (defaultHudList.contains("test_hud") && Config.disable_betterhud_default_hud) {
+        if (defaultHudList.contains("test_hud") && Config.display_betterhud_disable_default_hud) {
             Debug.log("Disabled BetterHuds default hud");
             defaultHudList.remove("test_hud");
         }
@@ -133,8 +133,8 @@ public class BetterHud {
      */
     public static void add() throws IOException {
         String[] filesToCopy = {
-            (Config.add_betterhud_mcmeta) ? "build/pack.mcmeta" : null,
-            (Config.add_betterhud_icon) ? "build/pack.png" : null
+            (Config.display_betterhud_add_mcmeta) ? "build/pack.mcmeta" : null,
+            (Config.display_betterhud_add_icon) ? "build/pack.png" : null
         };
         copySpecificFiles(filesToCopy, BetterHudAPI.inst().bootstrap().dataFolder(), Main.getInstance());
         Debug.log("Files added successfully");
@@ -145,9 +145,9 @@ public class BetterHud {
      * Zips the contents of BetterHuds resource pack folder to BodyHealth/resource_pack.zip
      */
     private static void zip() {
-        if (!Config.zip_betterhud_resourcepack) return;
+        if (!Config.display_betterhud_package_compress) return;
 
-        String filename = Config.betterhud_zip_filename;
+        String filename = Config.display_betterhud_package_filename;
         Debug.log("Zipping BetterHud/build to plugins/BodyHealth/output/" + filename + ".zip");
 
         File betterHudBuildFolder = new File(BetterHudAPI.inst().bootstrap().dataFolder(), "build");

@@ -18,7 +18,7 @@ public class BetterHudListener implements Listener {
     @EventHandler
     public void onBetterHudReloaded(PluginReloadedEvent event) {
         if (System.currentTimeMillis() - Main.validationTimestamp < 10000) return; // Don't validate over and over again
-        if (Config.inject_betterhud_config) {
+        if (Config.display_betterhud_inject_config) {
             Debug.log("BetterHud (re)loaded, validating configuration...");
             Main.validationTimestamp = System.currentTimeMillis();
             try {

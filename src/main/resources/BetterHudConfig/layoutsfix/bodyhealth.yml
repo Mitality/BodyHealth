@@ -7,8 +7,12 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
+        2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
 
     2:
       name: broken_head
@@ -17,9 +21,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_head
           second: "'BROKEN'"
           operation: '=='
@@ -30,9 +38,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_body
           second: "'BROKEN'"
           operation: '=='
@@ -43,9 +55,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_arm_left
           second: "'BROKEN'"
           operation: '=='
@@ -56,9 +72,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_arm_right
           second: "'BROKEN'"
           operation: '=='
@@ -69,9 +89,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_leg_left
           second: "'BROKEN'"
           operation: '=='
@@ -82,9 +106,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_leg_right
           second: "'BROKEN'"
           operation: '=='
@@ -95,9 +123,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_foot_left
           second: "'BROKEN'"
           operation: '=='
@@ -108,9 +140,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_foot_right
           second: "'BROKEN'"
           operation: '=='
@@ -122,9 +158,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_head
           second: "'DAMAGED'"
           operation: '=='
@@ -135,9 +175,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_body
           second: "'DAMAGED'"
           operation: '=='
@@ -148,9 +192,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_arm_left
           second: "'DAMAGED'"
           operation: '=='
@@ -161,9 +209,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_arm_right
           second: "'DAMAGED'"
           operation: '=='
@@ -174,9 +226,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_leg_left
           second: "'DAMAGED'"
           operation: '=='
@@ -187,9 +243,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_leg_right
           second: "'DAMAGED'"
           operation: '=='
@@ -200,9 +260,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_foot_left
           second: "'DAMAGED'"
           operation: '=='
@@ -213,9 +277,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_foot_right
           second: "'DAMAGED'"
           operation: '=='
@@ -227,9 +295,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_head
           second: "'INTERMEDIATE'"
           operation: '=='
@@ -240,9 +312,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_body
           second: "'INTERMEDIATE'"
           operation: '=='
@@ -253,9 +329,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_arm_left
           second: "'INTERMEDIATE'"
           operation: '=='
@@ -266,9 +346,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_arm_right
           second: "'INTERMEDIATE'"
           operation: '=='
@@ -279,9 +363,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_leg_left
           second: "'INTERMEDIATE'"
           operation: '=='
@@ -292,9 +380,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_leg_right
           second: "'INTERMEDIATE'"
           operation: '=='
@@ -305,9 +397,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_foot_left
           second: "'INTERMEDIATE'"
           operation: '=='
@@ -318,9 +414,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_foot_right
           second: "'INTERMEDIATE'"
           operation: '=='
@@ -332,9 +432,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_head
           second: "'NEARLYFULL'"
           operation: '=='
@@ -345,9 +449,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_body
           second: "'NEARLYFULL'"
           operation: '=='
@@ -358,9 +466,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_arm_left
           second: "'NEARLYFULL'"
           operation: '=='
@@ -371,9 +483,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_arm_right
           second: "'NEARLYFULL'"
           operation: '=='
@@ -384,9 +500,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_leg_left
           second: "'NEARLYFULL'"
           operation: '=='
@@ -397,9 +517,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_leg_right
           second: "'NEARLYFULL'"
           operation: '=='
@@ -410,9 +534,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_foot_left
           second: "'NEARLYFULL'"
           operation: '=='
@@ -423,9 +551,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_foot_right
           second: "'NEARLYFULL'"
           operation: '=='
@@ -437,9 +569,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_head
           second: "'FULL'"
           operation: '=='
@@ -450,9 +586,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_body
           second: "'FULL'"
           operation: '=='
@@ -463,9 +603,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_arm_left
           second: "'FULL'"
           operation: '=='
@@ -476,9 +620,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_arm_right
           second: "'FULL'"
           operation: '=='
@@ -489,9 +637,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_leg_left
           second: "'FULL'"
           operation: '=='
@@ -502,9 +654,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_leg_right
           second: "'FULL'"
           operation: '=='
@@ -515,9 +671,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_foot_left
           second: "'FULL'"
           operation: '=='
@@ -528,9 +688,13 @@ bodyhealth:
       conditions:
         1:
           first: papi:player_gamemode
-          second: "'SURVIVAL'"
-          operation: '=='
+          second: "'SPECTATOR'"
+          operation: '!='
         2:
+          first: papi:player_gamemode
+          second: "'CREATIVE'"
+          operation: '!='
+        3:
           first: papi:bodyhealth_state_foot_right
           second: "'FULL'"
           operation: '=='

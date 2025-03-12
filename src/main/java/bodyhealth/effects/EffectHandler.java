@@ -1,6 +1,5 @@
 package bodyhealth.effects;
 
-import bodyhealth.Main;
 import bodyhealth.api.events.BodyPartStateChangeEvent;
 import bodyhealth.core.BodyHealth;
 import bodyhealth.core.BodyPart;
@@ -9,14 +8,10 @@ import bodyhealth.effects.effect.*;
 import bodyhealth.util.BodyHealthUtils;
 import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
-import bodyhealth.util.MessageUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 import javax.annotation.Nullable;
 import java.util.*;

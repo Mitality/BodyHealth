@@ -212,10 +212,10 @@ public class BodyHealthListener implements Listener {
                     if (!alreadyFullyHealed) bodyHealth.regenerateHealth(Integer.MAX_VALUE, false);
                     //Debug.log("Healed all BodyParts for player " + player.getName() + " due to them having full health. This should prevent inconsistencies with dynamically updating maxHealth per part."); <-SPAM
                 }
-                else if (player.getHealth() > health) {
+                else if ((player.getHealth() - health) >= 0.01) { // Significant health change
                     BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(player);
                     bodyHealth.regenerateHealth(player.getHealth() - health, false);
-                    Debug.log("Player " + player.getName() + " regenerated " + String.format("%.2f", (player.getHealth() - health)) + " HP");
+                    Debug.log("Player " + player.getName() + " regenerated " + String.format("%.2f", (player.getHealth() - health)) + " HP (custom)");
                 }
             }
         }.runTaskLater(Main.getPlugin(Main.class), 2L);
