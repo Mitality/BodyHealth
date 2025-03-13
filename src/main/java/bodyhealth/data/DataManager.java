@@ -1,57 +1,80 @@
 package bodyhealth.data;
 
 import bodyhealth.Main;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
+import bodyhealth.config.Config;
+import bodyhealth.config.Debug;
+import bodyhealth.core.BodyHealth;
+import bodyhealth.data.storage.MySQLStorage;
+import bodyhealth.data.storage.SQLiteStorage;
+import bodyhealth.data.storage.YAMLStorage;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class DataManager {
 
-    private static File file;
-    private static FileConfiguration data;
+    private static final Map<UUID, BodyHealth> bodyHealthMap = new HashMap<>();
+
+    private static File dataFolder;
+    private static Storage storage;
 
     /**
-     * Sets up the plugin's yaml data storage system
+     * Ensures data folder exists and loads selected storage type
      */
-    public static void setup() {
-
-        // Create the data folder if it doesn't exist yet
-        File dataFolder = new File(Main.getInstance().getDataFolder(), "data");
-        if (!dataFolder.exists()) {
-            dataFolder.mkdirs();
-        }
-
-        // Create the data.yml file in the data folder or get the existing one
-        file = new File(dataFolder, "bodyHealth.yml");
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        data = YamlConfiguration.loadConfiguration(file);
+    public static void load() {
+        dataFolder = new File(Main.getInstance().getDataFolder(), "data");
+        if (!dataFolder.exists()) dataFolder.mkdirs();
+        storage = switch (Config.storage_type) {
+            case SQLite -> new SQLiteStorage();
+            case MySQL -> new MySQLStorage();
+            case YAML -> new YAMLStorage();
+        };
     }
 
     /**
-     * Saves the current data to the data.yml file
+     * Retrieves BodyHealth's data folder
+     * @return BodyHealth's data folder
      */
-    public static void saveData() {
-        try {
-            data.save(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public static @NotNull File getDataFolder() {
+        return dataFolder;
     }
 
     /**
-     * Retrieves the currently stored data
-     * @return A FileConfiguration representing the currently stored data
+     * Retrieves the selected Storage
+     * @return The selected Storage
      */
-    public static FileConfiguration getData() {
-        return data;
+    public static @NotNull Storage getStorage() {
+        return storage;
+    }
+
+    /**
+     * Retrieves a players BodyHealth object,
+     * loading it from storage if necessary
+     * @param uuid UUID of the player
+     * @return The BodyHealth object
+     */
+    public static @NotNull BodyHealth getBodyHealth(@NotNull UUID uuid) {
+        if (bodyHealthMap.containsKey(uuid)) return bodyHealthMap.get(uuid);
+        Debug.log("Loading data for player with uuid " + uuid + "...");
+        BodyHealth bodyHealth = storage.loadBodyHealth(uuid);
+        bodyHealthMap.put(uuid, bodyHealth);
+        return bodyHealth;
+    }
+
+    /**
+     * Removes a players BodyHealth object from internal
+     * storage and saves it to the selected storage type
+     * @param uuid UUID of the player
+     */
+    public static void saveBodyHealth(@NotNull UUID uuid) {
+        if (bodyHealthMap.containsKey(uuid)) {
+            Debug.log("Saving data for player with uuid " + uuid + "...");
+            storage.saveBodyHealth(uuid, bodyHealthMap.get(uuid));
+            bodyHealthMap.remove(uuid);
+        }
     }
 
 }

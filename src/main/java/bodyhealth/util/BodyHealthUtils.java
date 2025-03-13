@@ -3,6 +3,7 @@ package bodyhealth.util;
 import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
 import bodyhealth.config.Lang;
+import bodyhealth.data.DataManager;
 import bodyhealth.depend.WorldGuard;
 import bodyhealth.effects.EffectHandler;
 import bodyhealth.core.BodyHealth;
@@ -77,9 +78,12 @@ public class BodyHealthUtils {
             // Load language internally
             Lang.load(languageConfig);
 
+            // Reload DataManager
+            DataManager.load();
+
         } catch (Exception e) {
             Debug.logErr("Could not reload your configuration!");
-            if (Config.development_mode) e.printStackTrace();
+            if (Config.error_logging) e.printStackTrace();
             return false;
         }
 
@@ -122,7 +126,7 @@ public class BodyHealthUtils {
      * @return The given players BodyHealth object
      */
     public static BodyHealth getBodyHealth(Player player) {
-        return Main.playerBodyHealthMap.computeIfAbsent(player.getUniqueId(), p -> new BodyHealth(player.getUniqueId()));
+        return DataManager.getBodyHealth(player.getUniqueId());
     }
 
     /**

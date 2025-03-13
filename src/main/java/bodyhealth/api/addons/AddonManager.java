@@ -154,12 +154,12 @@ public class AddonManager extends ClassLoader {
                     addon.onAddonPreEnable();
                 } catch (Exception e) {
                     Debug.logErr("Failed to load addon class " + clazz + ": " + e.getMessage());
-                    if (Config.development_mode) e.printStackTrace();
+                    if (Config.error_logging) e.printStackTrace();
                 }
             }
         } catch (Throwable t) {
             Debug.logErr("Failed to load addon classes from jar " + file.getName() + ": " + t.getMessage());
-            if (Config.development_mode) t.printStackTrace();
+            if (Config.error_logging) t.printStackTrace();
         }
     }
 

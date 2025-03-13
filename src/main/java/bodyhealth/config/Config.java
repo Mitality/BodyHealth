@@ -1,5 +1,6 @@
 package bodyhealth.config;
 
+import bodyhealth.data.StorageType;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -31,6 +32,15 @@ public class Config {
     public static boolean raytracing_enabled;
     public static double  raytracing_max_distance;
     public static double  raytracing_step_size;
+
+    public static StorageType storage_type;
+
+    public static String storage_mysql_host;
+    public static String storage_mysql_port;
+    public static String storage_mysql_user;
+    public static String storage_mysql_password;
+    public static String storage_mysql_database;
+    public static String storage_mysql_prefix;
 
     public static ConfigurationSection body_health;
     public static ConfigurationSection body_damage;
@@ -75,6 +85,15 @@ public class Config {
         raytracing_enabled = config.getBoolean("raytracing.enabled", true);
         raytracing_max_distance = config.getDouble("raytracing.max-distance", 10.0);
         raytracing_step_size = config.getDouble("raytracing.step-size", 0.1);
+
+        storage_type = StorageType.fromString(config.getString("storage.type", "sqlite"));
+
+        storage_mysql_host = config.getString("storage.mysql.host", "127.0.0.1");
+        storage_mysql_port = config.getString("storage.mysql.port", "3306");
+        storage_mysql_user = config.getString("storage.mysql.user", "bodyhealth");
+        storage_mysql_password = config.getString("storage.mysql.password", "supersafe");
+        storage_mysql_database = config.getString("storage.mysql.database", "bodyhealth");
+        storage_mysql_prefix = config.getString("storage.mysql.prefix", "bh_");
 
         body_health = config.getConfigurationSection("body-health");
         body_damage = config.getConfigurationSection("body-damage");

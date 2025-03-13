@@ -4,13 +4,11 @@ import bodyhealth.api.addons.AddonManager;
 import bodyhealth.commands.CommandManager;
 import bodyhealth.config.Lang;
 import bodyhealth.data.DataManager;
-import bodyhealth.data.HealthStorage;
 import bodyhealth.depend.PlaceholderAPI;
 import bodyhealth.depend.WorldGuard;
 import bodyhealth.effects.EffectHandler;
 import bodyhealth.listeners.BetterHudListener;
 import bodyhealth.listeners.BodyHealthListener;
-import bodyhealth.core.BodyHealth;
 import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
 import bodyhealth.listeners.PlaceholderAPIListener;
@@ -36,7 +34,6 @@ public final class Main extends JavaPlugin {
     private static Main instance;
     private static List<String> languages;
     private static String SPIGOT_RESOURCE_ID;
-    public static Map<UUID, BodyHealth> playerBodyHealthMap;
     public static PlaceholderAPI placeholderAPIexpansion;
     public static long validationTimestamp;
     private static AddonManager addonManager;
@@ -88,7 +85,7 @@ public final class Main extends JavaPlugin {
             }
         } catch (IOException e) {
             Debug.logErr("Failed to update language files: " + e.getMessage());
-            if (Config.development_mode) e.printStackTrace();
+            if (Config.error_logging) e.printStackTrace();
         }
 
         // Get the selected language file
@@ -110,9 +107,6 @@ public final class Main extends JavaPlugin {
         // Load addons
         addonManager = new AddonManager(this);
         addonManager.loadAddons();
-
-        // Initialize BodyHealthMap
-        playerBodyHealthMap = new HashMap<>();
 
         // Commands and Listeners
         Bukkit.getPluginManager().registerEvents(new BodyHealthListener(), this);
@@ -152,14 +146,7 @@ public final class Main extends JavaPlugin {
         else if (Bukkit.getPluginManager().getPlugin("BetterHud") != null) Debug.logErr("BetterHud integration requires PlaceholderAPI to be installed!");
 
         // Set up DataManager
-        DataManager.setup();
-
-        Debug.log("Scanning for existing data...");
-
-        // Load data from storage if available
-        int count = HealthStorage.loadPlayerHealthData();
-        if (count > 0) Debug.log(count == 1 ? "Loaded data for 1 existing player" : "Loaded data for " + count + " existing players");
-        else Debug.log("No existing data was found");
+        DataManager.load();
 
         // Check for updates
         UpdateChecker updateChecker = new UpdateChecker(this, UpdateCheckSource.SPIGOT, SPIGOT_RESOURCE_ID)
@@ -187,9 +174,8 @@ public final class Main extends JavaPlugin {
         Debug.log("Disabling System...");
         for (Player player : Bukkit.getOnlinePlayers()) {
             EffectHandler.removeEffectsFromPlayer(player); // Ensure that all effects are removed
+            DataManager.saveBodyHealth(player.getUniqueId());
         }
-        Debug.log("Saving data...");
-        HealthStorage.savePlayerHealthData(); // Save data to storage
         Debug.log("System disabled successfully");
     }
 

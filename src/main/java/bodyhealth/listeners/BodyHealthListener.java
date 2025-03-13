@@ -1,6 +1,7 @@
 package bodyhealth.listeners;
 
 import bodyhealth.core.BodyPart;
+import bodyhealth.data.DataManager;
 import bodyhealth.effects.EffectHandler;
 import bodyhealth.core.BodyHealth;
 import bodyhealth.calculations.BodyHealthCalculator;
@@ -197,6 +198,7 @@ public class BodyHealthListener implements Listener {
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent event) {
         if (BodyHealthUtils.isSystemEnabled(event.getPlayer())) EffectHandler.removeEffectsFromPlayer(event.getPlayer());
+        DataManager.saveBodyHealth(event.getPlayer().getUniqueId());
     }
 
     private void checkHealthDelayed(Player player, double health) {

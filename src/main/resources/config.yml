@@ -113,6 +113,34 @@ raytracing:
   # How precise should we trace rays (smaller number = more precision)
   step-size: 0.1
 
+# Storage settings - Don't touch unless you know what you're doing
+storage:
+
+  # Pick the storage method that suits you best:
+  #
+  #   SQLite -> Lightweight, best for single-server use (default)
+  #   MySQL -> Ideal for syncing across multiple servers
+  #   YAML -> Human-readable, great for debugging
+  #
+  # Leave at SQLite if unsure
+  type: SQLite
+
+  # MySQL-specific configuration settings
+  mysql:
+    # The IP address or hostname of your MySQL server
+    host: "localhost"
+    # The port number MySQL is listening on (default is 3306)
+    port: "3306"
+    # The username for connecting to the MySQL database
+    user: "bodyhealth"
+    # The password for the specified MySQL user
+    password: "supersafe"
+    # Name of the database to store bodyhealth data in
+    database: "bodyhealth"
+    # A prefix for table names to avoid conflicts
+    # with other plugins when sharing a database
+    prefix: "bh_"
+
 # Specify the maximum health for each body part
 # (can use %PlayerMaxHealth% as placeholder)
 body-health:
