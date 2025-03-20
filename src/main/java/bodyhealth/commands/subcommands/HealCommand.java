@@ -7,6 +7,7 @@ import bodyhealth.core.BodyHealth;
 import bodyhealth.core.BodyPart;
 import bodyhealth.depend.VanishPlugins;
 import bodyhealth.util.BodyHealthUtils;
+import bodyhealth.util.MessageUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -33,7 +34,7 @@ public class HealCommand implements SubCommand {
             } else if (sender instanceof Player) {
                 target = ((Player) sender).getPlayer();
             } else {
-                sender.sendMessage(Config.prefix + Lang.bodyhealth_heal_no_target);
+                MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_heal_no_target);
                 return true;
             }
 
@@ -47,7 +48,7 @@ public class HealCommand implements SubCommand {
 
                 bodyHealth.setHealth(100, false);
 
-                sender.sendMessage(Config.prefix + Lang.bodyhealth_heal_success_all
+                MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_heal_success_all
                         .replace("{Player}", target.getName())
                 );
                 return true;
@@ -56,7 +57,7 @@ public class HealCommand implements SubCommand {
 
                 bodyHealth.setHealth(part, 100, false);
 
-                sender.sendMessage(Config.prefix + Lang.bodyhealth_heal_success_single
+                MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_heal_success_single
                         .replace("{Player}", target.getName())
                         .replace("{Part}", Lang.partName(part))
                 );
@@ -65,7 +66,7 @@ public class HealCommand implements SubCommand {
             }
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            sender.sendMessage(Config.prefix + Lang.bodyhealth_heal_usage);
+            MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_heal_usage);
             return true;
         }
 

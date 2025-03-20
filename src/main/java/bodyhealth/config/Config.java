@@ -1,7 +1,6 @@
 package bodyhealth.config;
 
 import bodyhealth.data.StorageType;
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -63,8 +62,7 @@ public class Config {
     public static void load(FileConfiguration config) {
 
         language = config.getString("language", "en-us");
-        prefix = ChatColor.translateAlternateColorCodes('&',
-                config.getString("prefix", "&8&l[&e&lBodyHealth&8&l] "));
+        prefix = config.getString("prefix", "&8&l[&e&lBodyHealth&8&l] ");
 
         debug_mode = config.getBoolean("debug-mode", false);
         development_mode = config.getBoolean("development-mode", false);

@@ -45,13 +45,16 @@
 #      bodyhealth_health_<BodyPart>_rounded   ...same as the one above, just without decimal places
 #      bodyhealth_state_<BodyPart>   ...returns the current state of a body part (e.g. DAMAGED)
 #
-#   <BodyPart> can be HEAD, BODY, ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, FOOT_LEFT, FOOT_RIGHT
+#      <BodyPart> can be HEAD, BODY, ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, FOOT_LEFT, FOOT_RIGHT
+#
+#   You can use PlaceholderAPI placeholders everywhere in this plugin, including language files.
 
 # Set a language file to use from plugins/BodyHealth/language
 # You may define your own and set it here without the '.yml'
 language: en
 
 # Set a prefix to be prepended to all plugin messages
+# Can use MiniMessage and Legacy message formatting
 prefix: "&8&l[&e&lBodyHealth&8&l] &r"
 
 # Enable this to see what the plugin is doing in your console
@@ -73,6 +76,7 @@ update-check-interval: 12
 
 # Share anonymous data to improve the plugin's development
 # Recommended to keep enabled for more relevant updates
+# https://bstats.org/plugin/bukkit/BodyHealth/23538
 metrics: true
 
 # Should we apply damage to body parts, when the
@@ -239,7 +243,8 @@ body-damage:
 #      title:this is a title; this is a subtitle
 #      this is a normal chat message
 #
-#   All message variants can use colorcodes like &c (=red).
+#   All message variants can use MiniMessage formatting and legacy colorcodes like &c (=red).
+#   You may also use PlaceholderAPI placeholders everywhere in this plugin, including here.
 #
 #   FULL » Health is at maximum
 #   NEARLYFULL » Health is between 50% and full

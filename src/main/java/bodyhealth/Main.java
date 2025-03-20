@@ -16,12 +16,14 @@ import com.jeff_media.updatechecker.UpdateCheckSource;
 import com.jeff_media.updatechecker.UpdateChecker;
 import com.jeff_media.updatechecker.UserAgentBuilder;
 import com.tchristofferson.configupdater.ConfigUpdater;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,6 +37,7 @@ public final class Main extends JavaPlugin {
     private static List<String> languages;
     private static String SPIGOT_RESOURCE_ID;
     public static PlaceholderAPI placeholderAPIexpansion;
+    private static BukkitAudiences adventure;
     public static long validationTimestamp;
     private static AddonManager addonManager;
 
@@ -49,6 +52,9 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
+        // Load Adventure
+        adventure = BukkitAudiences.create(this);
 
         // Reload and update config
         saveDefaultConfig();
@@ -176,7 +182,16 @@ public final class Main extends JavaPlugin {
             EffectHandler.removeEffectsFromPlayer(player); // Ensure that all effects are removed
             DataManager.saveBodyHealth(player.getUniqueId());
         }
+        if(adventure != null) {
+            adventure.close();
+            adventure = null;
+        }
         Debug.log("System disabled successfully");
+    }
+
+    public static @NotNull BukkitAudiences getAdventure() {
+        if(adventure == null) throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
+        return adventure;
     }
 
     public static Main getInstance() {

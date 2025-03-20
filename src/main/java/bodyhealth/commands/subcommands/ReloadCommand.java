@@ -4,6 +4,7 @@ import bodyhealth.commands.SubCommand;
 import bodyhealth.config.Config;
 import bodyhealth.config.Lang;
 import bodyhealth.util.BodyHealthUtils;
+import bodyhealth.util.MessageUtils;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;
@@ -13,8 +14,8 @@ public class ReloadCommand implements SubCommand {
     @Override
     public boolean execute(CommandSender sender, String[] args) {
 
-        if (BodyHealthUtils.reloadSystem()) sender.sendMessage(Config.prefix + Lang.bodyhealth_reload_success);
-        else sender.sendMessage(Config.prefix + Lang.bodyhealth_reload_fail);
+        if (BodyHealthUtils.reloadSystem()) MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_reload_success);
+        else MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_reload_fail);
         return true;
 
     }

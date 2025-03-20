@@ -7,6 +7,7 @@ import bodyhealth.core.BodyHealth;
 import bodyhealth.core.BodyPart;
 import bodyhealth.depend.VanishPlugins;
 import bodyhealth.util.BodyHealthUtils;
+import bodyhealth.util.MessageUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -35,7 +36,7 @@ public class SetCommand implements SubCommand {
             } else if (sender instanceof Player) {
                 target = ((Player) sender).getPlayer();
             } else {
-                sender.sendMessage(Config.prefix + Lang.bodyhealth_set_no_target);
+                MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_set_no_target);
                 return true;
             }
 
@@ -52,7 +53,7 @@ public class SetCommand implements SubCommand {
             try {
                 value = Double.parseDouble(args[index]);
             } catch (NumberFormatException e) {
-                sender.sendMessage(Config.prefix + Lang.bodyhealth_set_invalid_value
+                MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_set_invalid_value
                         .replace("{Value}", args[index])
                 );
                 return true;
@@ -67,7 +68,7 @@ public class SetCommand implements SubCommand {
                     bodyHealth.setHealth(p, setValue, true);
                 }
 
-                sender.sendMessage(Config.prefix + Lang.bodyhealth_set_success_all
+                MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_set_success_all
                         .replace("{Player}", target.getName())
                         .replace("{Value}", args[index] + (percent ? "%" : " HP"))
                 );
@@ -78,7 +79,7 @@ public class SetCommand implements SubCommand {
                 double setValue = percent ? value : value / BodyHealthUtils.getMaxHealth(part, target) * 100;
                 bodyHealth.setHealth(part, setValue, true);
 
-                sender.sendMessage(Config.prefix + Lang.bodyhealth_set_success_single
+                MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_set_success_single
                         .replace("{Player}", target.getName())
                         .replace("{Part}", Lang.partName(part))
                         .replace("{Value}", args[index] + (percent ? "%" : " HP"))
@@ -88,7 +89,7 @@ public class SetCommand implements SubCommand {
             }
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            sender.sendMessage(Config.prefix + Lang.bodyhealth_set_usage);
+            MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_set_usage);
             return true;
         }
 

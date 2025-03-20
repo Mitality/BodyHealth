@@ -7,6 +7,7 @@ import bodyhealth.core.BodyHealth;
 import bodyhealth.core.BodyPart;
 import bodyhealth.depend.VanishPlugins;
 import bodyhealth.util.BodyHealthUtils;
+import bodyhealth.util.MessageUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -33,7 +34,7 @@ public class GetCommand implements SubCommand {
             } else if (sender instanceof Player) {
                 target = ((Player) sender).getPlayer();
             } else {
-                sender.sendMessage(Config.prefix + Lang.bodyhealth_get_no_target);
+                MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_get_no_target);
                 return true;
             }
 
@@ -45,7 +46,7 @@ public class GetCommand implements SubCommand {
 
             if (part == null) {
 
-                sender.sendMessage(Config.prefix + Lang.bodyhealth_get_success_all
+                MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_get_success_all
                         .replace("{Player}", target.getName())
                         .replace("{Health_HEAD}",  String.format("%.2f", bodyHealth.getHealth(BodyPart.HEAD)))
                         .replace("{Health_BODY}",  String.format("%.2f", bodyHealth.getHealth(BodyPart.BODY)))
@@ -60,7 +61,7 @@ public class GetCommand implements SubCommand {
 
             } else {
 
-                sender.sendMessage(Config.prefix + Lang.bodyhealth_get_success_single
+                MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_get_success_single
                         .replace("{Player}", target.getName())
                         .replace("{Part}", Lang.partName(part))
                         .replace("{Health}", String.format("%.2f", bodyHealth.getHealth(part)))
@@ -70,7 +71,7 @@ public class GetCommand implements SubCommand {
             }
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            sender.sendMessage(Config.prefix + Lang.bodyhealth_get_usage);
+            MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_get_usage);
             return true;
         }
 

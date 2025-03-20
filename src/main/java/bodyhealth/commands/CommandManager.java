@@ -3,6 +3,7 @@ package bodyhealth.commands;
 import bodyhealth.commands.subcommands.*;
 import bodyhealth.config.Config;
 import bodyhealth.config.Lang;
+import bodyhealth.util.MessageUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -31,13 +32,13 @@ public class CommandManager implements TabExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
 
         if (args.length < 1) {
-            sender.sendMessage(Config.prefix + Lang.bodyhealth_usage);
+            MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_usage);
             return true;
         }
 
         SubCommand subCommand = subCommands.get(args[0]);
         if (subCommand == null) {
-            sender.sendMessage(Config.prefix + Lang.bodyhealth_invalid);
+            MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_invalid);
             return true;
         }
 
@@ -45,10 +46,10 @@ public class CommandManager implements TabExecutor {
         String permission = subCommand.permission();
 
         if (playerOnly && !(sender instanceof Player)) {
-            sender.sendMessage(Config.prefix + Lang.bodyhealth_player_only);
+            MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_player_only);
             return true;
         } else if (permission != null && !sender.hasPermission(permission)) {
-            sender.sendMessage(Config.prefix + Lang.bodyhealth_not_permitted);
+            MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_not_permitted);
             return true;
         }
 
