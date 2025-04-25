@@ -112,7 +112,7 @@ public class BodyHealth {
     }
 
     /**
-     * Regenerate health a specific BodyPart
+     * Regenerate health for a specific BodyPart
      * @param regenAmount The amount of health to regenerate
      * @param part The part to regenerate health for
      */
@@ -126,7 +126,7 @@ public class BodyHealth {
     }
 
     /**
-     * Util method to apply damage to a specific BodyPart of a player that has already been retrieved
+     * Util method to regenerate health for a specific BodyPart of a player that has already been retrieved
      * @param player The already retrieved and online Player
      * @param part The BodyPart to regenerate health for
      * @param regenAmount The amount of health to regenerate

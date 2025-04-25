@@ -324,7 +324,7 @@ display:
 
   #   Use BetterHud to display your body health in game:
   #
-  #      To make this wok, you need to install two plugins, if you don't have them already:        <--
+  #      To make this work, you need to install two plugins, if you don't have them already:       <--
   #      PlaceholderAPI -> https://www.spigotmc.org/resources/placeholderapi.6245/               <-- DON'T OVERLOOK THIS PART
   #      ...and obviously BetterHud -> https://modrinth.com/plugin/betterhud2                      <--
   #

@@ -29,9 +29,9 @@ public class PREVENT_WALK implements BodyHealthEffect {
         Debug.log("(" + part.name() +") Preventing walk for player " + player.getName());
 
         if (!EffectHandler.preventWalk.contains(player)) {
-            EffectHandler.preventWalk.add(player);
+            Debug.log("Adding WalkDenialModifier to player " + player.getName());
             Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).addModifier(EffectHandler.getWalkDenialModifier());
-            Debug.log("Adding SpeedReductionModifier to player " + player.getName());
+            EffectHandler.preventWalk.add(player);
         }
 
     }
@@ -43,9 +43,12 @@ public class PREVENT_WALK implements BodyHealthEffect {
         Debug.log("(" + part.name() +") No longer preventing walk for player " + player.getName());
 
         if (BodyHealthUtils.canPlayerWalk(player) && EffectHandler.preventWalk.contains(player)) {
-            EffectHandler.preventWalk.remove(player);
-            Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).removeModifier(EffectHandler.getWalkDenialModifier());
             Debug.log("Removing WalkDenialModifier from player " + player.getName());
+            Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).removeModifier(EffectHandler.getWalkDenialModifier());
+            EffectHandler.preventWalk.remove(player);
+
+            Debug.log("Value: " + Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue());
+
         }
 
     }

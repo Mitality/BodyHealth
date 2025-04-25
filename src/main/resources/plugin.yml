@@ -16,7 +16,7 @@ commands:
   bodyhealth:
     aliases:
       - bh
-    description: Manage a player's body part health.
+    description: Allows managing bodyhealth and reloading the plugin
     permissions:
       bodyhealth.reload:
         description: Allows reloading the system
@@ -31,7 +31,7 @@ commands:
         description: Allows using the set command
         default: op
       bodyhealth.add:
-        description: Allows using the set command
+        description: Allows using the add command
         default: op
       bodyhealth.*:
         description: Allows managing body health

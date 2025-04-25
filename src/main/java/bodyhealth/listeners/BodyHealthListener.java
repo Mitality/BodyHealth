@@ -183,10 +183,16 @@ public class BodyHealthListener implements Listener {
     public void onPlayerChangeWorld(PlayerChangedWorldEvent event) {
         boolean isEnabledInFrom = BodyHealthUtils.isSystemEnabled(event.getFrom());
         boolean isEnabledInTo = BodyHealthUtils.isSystemEnabled(event.getPlayer());
-        if (!isEnabledInFrom && isEnabledInTo) EffectHandler.addEffectsToPlayer(event.getPlayer());
+        if (!isEnabledInFrom && isEnabledInTo) {
+            Bukkit.getScheduler().runTask(Main.getInstance(), () -> {
+                EffectHandler.addEffectsToPlayer(event.getPlayer());
+            });
+        }
         else if (isEnabledInFrom && !isEnabledInTo) {
             if (BodyHealthUtils.getBodyHealth(event.getPlayer()).getOngoingEffects().isEmpty()) return;
-            EffectHandler.removeEffectsFromPlayer(event.getPlayer());
+            Bukkit.getScheduler().runTask(Main.getInstance(), () -> {
+                EffectHandler.removeEffectsFromPlayer(event.getPlayer());
+            });
         }
     }
 

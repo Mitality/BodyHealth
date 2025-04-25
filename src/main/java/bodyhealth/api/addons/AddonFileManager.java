@@ -10,6 +10,8 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AddonFileManager {
 
@@ -163,16 +165,19 @@ public class AddonFileManager {
      * Assumes that the version is appended with a '-' and contains numbers, dots, and possibly other characters.
      */
     private String extractAddonName(String jarFileName) {
-        // Remove ".jar" at the end if present
         if (jarFileName.endsWith(".jar")) {
             jarFileName = jarFileName.substring(0, jarFileName.length() - 4);
         }
-        // Split at the first hyphen "-" to remove version information if present
-        int hyphenIndex = jarFileName.indexOf('-');
-        if (hyphenIndex != -1) {
-            return jarFileName.substring(0, hyphenIndex);
+
+        // matches a hyphen followed by something resembling a version at the end of the string
+        Pattern versionPattern = Pattern.compile("(.+)-v?\\d[\\w.\\-]*$");
+        Matcher matcher = versionPattern.matcher(jarFileName);
+
+        if (matcher.matches()) {
+            return matcher.group(1);
         }
-        return jarFileName; // Return the full name if no version pattern is found
+
+        return jarFileName;
     }
 
 }

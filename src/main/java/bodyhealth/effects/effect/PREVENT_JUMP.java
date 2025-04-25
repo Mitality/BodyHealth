@@ -29,9 +29,9 @@ public class PREVENT_JUMP implements BodyHealthEffect {
         Debug.log("(" + part.name() +") Preventing jump for player " + player.getName());
 
         if (!EffectHandler.preventJump.contains(player)) {
-            EffectHandler.preventJump.add(player);
-            Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_JUMP_STRENGTH)).addModifier(EffectHandler.getJumpDenialModifier());
             Debug.log("Adding JumpDenialModifier to player " + player.getName());
+            Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_JUMP_STRENGTH)).addModifier(EffectHandler.getJumpDenialModifier());
+            EffectHandler.preventJump.add(player);
         }
 
     }
@@ -43,9 +43,9 @@ public class PREVENT_JUMP implements BodyHealthEffect {
         Debug.log("(" + part.name() +") No longer preventing jump for player " + player.getName());
 
         if (BodyHealthUtils.canPlayerJump(player) && EffectHandler.preventJump.contains(player)) {
-            EffectHandler.preventJump.remove(player);
+            Debug.log("Removing JumpDenialModifier from player " + player.getName());
             Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_JUMP_STRENGTH)).removeModifier(EffectHandler.getJumpDenialModifier());
-            Debug.log("Removing WalkDenialModifier from player " + player.getName());
+            EffectHandler.preventJump.remove(player);
         }
 
     }
