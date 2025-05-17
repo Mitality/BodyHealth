@@ -20,7 +20,7 @@ public class KILL_PLAYER implements BodyHealthEffect {
     @Override
     public void onApply(Player player, BodyPart part, String[] args) {
 
-        if (!player.isDead()) player.damage(Double.MAX_VALUE, player); // player.setHealth(0.0) could cause issues
+        if (player.getHealth() > 0) player.setHealth(0); // TODO: Can this still lead to double death events?
         Debug.log("(" + part.name() +") Killed player " + player.getName());
 
     }
