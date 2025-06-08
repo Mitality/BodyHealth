@@ -4,6 +4,7 @@ import bodyhealth.Main;
 import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
 import kr.toxicity.hud.api.BetterHudAPI;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -84,7 +85,7 @@ public class BetterHud {
 
                 "assets/bodyhealth/bodyhealth_damaged.png",
                 "images/bodyhealth.yml",
-                (Config.display_betterhud_fix_height) ? "layoutsfix/bodyhealth.yml" : "layouts/bodyhealth.yml",
+                "layouts/bodyhealth.yml",
                 "huds/bodyhealth.yml",
 
                 //(Config.display_betterhud_add_mcmeta) ? "build/pack.mcmeta" : null,
@@ -92,35 +93,36 @@ public class BetterHud {
         };
 
         copySpecificFiles(filesToCopy, betterHudDataFolder, instance);
+        handleDefaultCompassToggle(betterHudDataFolder);
+        handleEntityPopupToggle(betterHudDataFolder);
 
-        if (Config.display_betterhud_disable_compass) {
-            File compassFile = new File(betterHudDataFolder, "compasses/default_compass.yml");
-            if (compassFile.exists()) {
-                FileConfiguration compassConfig = YamlConfiguration.loadConfiguration(compassFile);
-                boolean isDefault = compassConfig.getBoolean("default_compass.default", true); // Default to true if not set
-                if (isDefault) {
-                    compassConfig.set("default_compass.default", false);
-                    compassConfig.save(compassFile);
-                    Debug.log("Disabled BetterHuds default compass");
-                }
-            }
-        }
-
-        if (!Config.display_betterhud_as_default && !Config.display_betterhud_disable_default_hud) return;
         File configFile = new File(betterHudDataFolder, "config.yml");
         if (!configFile.exists()) {
             throw new IOException("BetterHud config.yml not found in " + betterHudDataFolder.getAbsolutePath());
         }
         FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
         List<String> defaultHudList = config.getStringList("default-hud");
+
+        // Handle as-default display option
         if (!defaultHudList.contains("bodyhealth") && Config.display_betterhud_as_default) {
-            Debug.log("Added the bodyhealth hud as a default hud to BetterHud");
+            Debug.log("Added BodyHealth's HUD as a default HUD to BetterHud");
             defaultHudList.add("bodyhealth");
         }
+        else if (defaultHudList.contains("bodyhealth") && !Config.display_betterhud_as_default) {
+            Debug.log("Removed BodyHealth's HUD from BetterHud's list of default HUDs");
+            defaultHudList.add("bodyhealth");
+        }
+
+        // Handle default HUD toggle
         if (defaultHudList.contains("test_hud") && Config.display_betterhud_disable_default_hud) {
-            Debug.log("Disabled BetterHuds default hud");
+            Debug.log("Disabled BetterHud's default hud");
             defaultHudList.remove("test_hud");
         }
+        else if (!defaultHudList.contains("test_hud") && !Config.display_betterhud_disable_default_hud) {
+            Debug.log("Re-enabled BetterHud's default hud");
+            defaultHudList.add("test_hud");
+        }
+
         config.set("default-hud", defaultHudList);
         config.save(configFile);
 
@@ -196,7 +198,23 @@ public class BetterHud {
                 File parent = targetFile.getParentFile();
                 if (!parent.exists()) parent.mkdirs();
 
-                Files.copy(resourceStream, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                // TODO: Move the below method part somewhere else and add more customization for other files
+                if (fileName.equals("layouts/bodyhealth.yml")) { // Apply offsets to layout file
+                    File tempFile = File.createTempFile("bodyhealth-layout", ".yml");
+                    Files.copy(resourceStream, tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    FileConfiguration layoutConfig = YamlConfiguration.loadConfiguration(tempFile);
+                    ConfigurationSection images = layoutConfig.getConfigurationSection("bodyhealth.images");
+                    if (images == null) { tempFile.delete(); continue; } // Should never happen
+                    for (String key : images.getKeys(false)) {
+                        ConfigurationSection image = images.getConfigurationSection(key); if (image == null) continue;
+                        image.set("x", image.getInt("x", 0) + Config.display_betterhud_position_horizontal_offset);
+                        image.set("y", image.getInt("y", 0) + Config.display_betterhud_position_vertical_offset);
+                    }
+                    layoutConfig.save(targetFile);
+                    tempFile.delete();
+                } else {
+                    Files.copy(resourceStream, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                }
             }
         }
     }
@@ -248,4 +266,67 @@ public class BetterHud {
             }
         }
     }
+
+    /**
+     * Handles the config toggle for BetterHud's entity popup feature
+     * @param betterHudDataFolder BetterHud's data folder as File object
+     */
+    private static void handleEntityPopupToggle(File betterHudDataFolder) {
+        File popupDir = new File(betterHudDataFolder, "popups");
+        File activeFile = new File(popupDir, "entity-popup.yml");
+        File disabledFile = new File(popupDir, "-entity-popup.yml");
+
+        if (Config.display_betterhud_disable_entity_popup) {
+            if (activeFile.exists()) {
+                boolean success = activeFile.renameTo(disabledFile);
+                if (success) {
+                    Debug.log("Renamed entity-popup.yml to -entity-popup.yml to disable it.");
+                } else {
+                    Debug.logErr("Failed to rename entity-popup.yml to -entity-popup.yml.");
+                }
+            }
+        } else {
+            if (disabledFile.exists()) {
+                boolean success = disabledFile.renameTo(activeFile);
+                if (success) {
+                    Debug.log("Renamed -entity-popup.yml back to entity-popup.yml to re-enable it.");
+                } else {
+                    Debug.logErr("Failed to rename -entity-popup.yml back to entity-popup.yml.");
+                }
+            }
+        }
+    }
+
+    /**
+     * Handles the config toggle for BetterHud's default compass
+     * @param betterHudDataFolder BetterHud's data folder as File object
+     */
+    private static void handleDefaultCompassToggle(File betterHudDataFolder) {
+        File compassFile = new File(betterHudDataFolder, "compasses/default_compass.yml");
+        if (!compassFile.exists()) {
+            Debug.log("Default compass config not found, skipping toggle.");
+            return;
+        }
+
+        FileConfiguration compassConfig = YamlConfiguration.loadConfiguration(compassFile);
+        boolean currentValue = compassConfig.getBoolean("default_compass.default", true);
+
+        if (Config.display_betterhud_disable_compass && currentValue) {
+            compassConfig.set("default_compass.default", false);
+            Debug.log("Disabled BetterHud's default compass.");
+        } else if (!Config.display_betterhud_disable_compass && !currentValue) {
+            compassConfig.set("default_compass.default", true);
+            Debug.log("Re-enabled BetterHud's default compass.");
+        } else {
+            return; // No change needed
+        }
+
+        try {
+            compassConfig.save(compassFile);
+        } catch (IOException e) {
+            Debug.logErr("Failed to save compass config: " + e.getMessage());
+        }
+    }
+
+
 }

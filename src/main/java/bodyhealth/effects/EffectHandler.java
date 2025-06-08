@@ -30,7 +30,8 @@ public class EffectHandler {
             "KILL_PLAYER", new KILL_PLAYER(),
             "COMMAND", new COMMAND(),
             "COMMAND_UNDO", new COMMAND_UNDO(),
-            "MESSAGE", new MESSAGE()
+            "MESSAGE", new MESSAGE(),
+            "SOUND", new SOUND()
     );
 
     public static List<Player> preventSprint = new ArrayList<>();
@@ -167,21 +168,13 @@ public class EffectHandler {
             EffectHandler.onBodyPartStateChange(player, part, BodyHealthUtils.getBodyHealthState(bodyHealth, part), null);
         }
         // Ensure that all attribute modifiers are removed
-        if (EffectHandler.preventSprint.contains(player)) {
-            EffectHandler.preventSprint.remove(player);
-            Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).removeModifier(EffectHandler.getSpeedReductionModifier());
-            Debug.log("Removing SpeedReductionModifier from player " + player.getName());
-        }
-        if (EffectHandler.preventWalk.contains(player)) {
-            EffectHandler.preventWalk.remove(player);
-            Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).removeModifier(EffectHandler.getWalkDenialModifier());
-            Debug.log("Removing WalkDenialModifier from player " + player.getName());
-        }
-        if (EffectHandler.preventJump.contains(player)) {
-            EffectHandler.preventJump.remove(player);
-            Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_JUMP_STRENGTH)).removeModifier(EffectHandler.getJumpDenialModifier());
-            Debug.log("Removing JumpDenialModifier from player " + player.getName());
-        }
+        Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).removeModifier(EffectHandler.getSpeedReductionModifier());
+        EffectHandler.preventSprint.remove(player);
+        Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).removeModifier(EffectHandler.getWalkDenialModifier());
+        EffectHandler.preventWalk.remove(player);
+        Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_JUMP_STRENGTH)).removeModifier(EffectHandler.getJumpDenialModifier());
+        EffectHandler.preventJump.remove(player);
+        // Remove invalid effects if present
         BodyHealthUtils.validateEffects(player);
     }
 

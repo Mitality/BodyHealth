@@ -3,7 +3,7 @@ bodyhealth:
     1:
       name: empty
       x: -18
-      y: -14
+      y: -67
       conditions:
         1:
           first: papi:player_gamemode
@@ -17,7 +17,7 @@ bodyhealth:
     2:
       name: broken_head
       x: -18
-      y: -14
+      y: -67
       conditions:
         1:
           first: papi:player_gamemode
@@ -34,7 +34,7 @@ bodyhealth:
     3:
       name: broken_body
       x: -18
-      y: 2
+      y: -51
       conditions:
         1:
           first: papi:player_gamemode
@@ -51,7 +51,7 @@ bodyhealth:
     4:
       name: broken_arm_left
       x: -18
-      y: 2
+      y: -51
       conditions:
         1:
           first: papi:player_gamemode
@@ -68,7 +68,7 @@ bodyhealth:
     5:
       name: broken_arm_right
       x: -18
-      y: 2
+      y: -51
       conditions:
         1:
           first: papi:player_gamemode
@@ -85,7 +85,7 @@ bodyhealth:
     6:
       name: broken_leg_left
       x: -18
-      y: 26
+      y: -27
       conditions:
         1:
           first: papi:player_gamemode
@@ -102,7 +102,7 @@ bodyhealth:
     7:
       name: broken_leg_right
       x: -18
-      y: 26
+      y: -27
       conditions:
         1:
           first: papi:player_gamemode
@@ -119,7 +119,7 @@ bodyhealth:
     8:
       name: broken_foot_left
       x: -18
-      y: 42
+      y: -11
       conditions:
         1:
           first: papi:player_gamemode
@@ -136,7 +136,7 @@ bodyhealth:
     9:
       name: broken_foot_right
       x: -18
-      y: 42
+      y: -11
       conditions:
         1:
           first: papi:player_gamemode
@@ -154,7 +154,7 @@ bodyhealth:
     10:
       name: damaged_head
       x: -18
-      y: -14
+      y: -67
       conditions:
         1:
           first: papi:player_gamemode
@@ -171,7 +171,7 @@ bodyhealth:
     11:
       name: damaged_body
       x: -18
-      y: 2
+      y: -51
       conditions:
         1:
           first: papi:player_gamemode
@@ -188,7 +188,7 @@ bodyhealth:
     12:
       name: damaged_arm_left
       x: -18
-      y: 2
+      y: -51
       conditions:
         1:
           first: papi:player_gamemode
@@ -205,7 +205,7 @@ bodyhealth:
     13:
       name: damaged_arm_right
       x: -18
-      y: 2
+      y: -51
       conditions:
         1:
           first: papi:player_gamemode
@@ -222,7 +222,7 @@ bodyhealth:
     14:
       name: damaged_leg_left
       x: -18
-      y: 26
+      y: -27
       conditions:
         1:
           first: papi:player_gamemode
@@ -239,7 +239,7 @@ bodyhealth:
     15:
       name: damaged_leg_right
       x: -18
-      y: 26
+      y: -27
       conditions:
         1:
           first: papi:player_gamemode
@@ -256,7 +256,7 @@ bodyhealth:
     16:
       name: damaged_foot_left
       x: -18
-      y: 42
+      y: -11
       conditions:
         1:
           first: papi:player_gamemode
@@ -273,7 +273,7 @@ bodyhealth:
     17:
       name: damaged_foot_right
       x: -18
-      y: 42
+      y: -11
       conditions:
         1:
           first: papi:player_gamemode
@@ -291,7 +291,7 @@ bodyhealth:
     18:
       name: intermediate_head
       x: -18
-      y: -14
+      y: -67
       conditions:
         1:
           first: papi:player_gamemode
@@ -308,7 +308,7 @@ bodyhealth:
     19:
       name: intermediate_body
       x: -18
-      y: 2
+      y: -51
       conditions:
         1:
           first: papi:player_gamemode
@@ -325,7 +325,7 @@ bodyhealth:
     20:
       name: intermediate_arm_left
       x: -18
-      y: 2
+      y: -51
       conditions:
         1:
           first: papi:player_gamemode
@@ -342,7 +342,7 @@ bodyhealth:
     21:
       name: intermediate_arm_right
       x: -18
-      y: 2
+      y: -51
       conditions:
         1:
           first: papi:player_gamemode
@@ -359,7 +359,7 @@ bodyhealth:
     22:
       name: intermediate_leg_left
       x: -18
-      y: 26
+      y: -27
       conditions:
         1:
           first: papi:player_gamemode
@@ -376,7 +376,7 @@ bodyhealth:
     23:
       name: intermediate_leg_right
       x: -18
-      y: 26
+      y: -27
       conditions:
         1:
           first: papi:player_gamemode
@@ -393,7 +393,7 @@ bodyhealth:
     24:
       name: intermediate_foot_left
       x: -18
-      y: 42
+      y: -11
       conditions:
         1:
           first: papi:player_gamemode
@@ -410,7 +410,7 @@ bodyhealth:
     25:
       name: intermediate_foot_right
       x: -18
-      y: 42
+      y: -11
       conditions:
         1:
           first: papi:player_gamemode
@@ -428,7 +428,7 @@ bodyhealth:
     26:
       name: nearlyfull_head
       x: -18
-      y: -14
+      y: -67
       conditions:
         1:
           first: papi:player_gamemode
@@ -445,7 +445,7 @@ bodyhealth:
     27:
       name: nearlyfull_body
       x: -18
-      y: 2
+      y: -51
       conditions:
         1:
           first: papi:player_gamemode
@@ -462,7 +462,7 @@ bodyhealth:
     28:
       name: nearlyfull_arm_left
       x: -18
-      y: 2
+      y: -51
       conditions:
         1:
           first: papi:player_gamemode
@@ -479,7 +479,7 @@ bodyhealth:
     29:
       name: nearlyfull_arm_right
       x: -18
-      y: 2
+      y: -51
       conditions:
         1:
           first: papi:player_gamemode
@@ -496,7 +496,7 @@ bodyhealth:
     30:
       name: nearlyfull_leg_left
       x: -18
-      y: 26
+      y: -27
       conditions:
         1:
           first: papi:player_gamemode
@@ -513,7 +513,7 @@ bodyhealth:
     31:
       name: nearlyfull_leg_right
       x: -18
-      y: 26
+      y: -27
       conditions:
         1:
           first: papi:player_gamemode
@@ -530,7 +530,7 @@ bodyhealth:
     32:
       name: nearlyfull_foot_left
       x: -18
-      y: 42
+      y: -11
       conditions:
         1:
           first: papi:player_gamemode
@@ -547,7 +547,7 @@ bodyhealth:
     33:
       name: nearlyfull_foot_right
       x: -18
-      y: 42
+      y: -11
       conditions:
         1:
           first: papi:player_gamemode
@@ -565,7 +565,7 @@ bodyhealth:
     34:
       name: full_head
       x: -18
-      y: -14
+      y: -67
       conditions:
         1:
           first: papi:player_gamemode
@@ -582,7 +582,7 @@ bodyhealth:
     35:
       name: full_body
       x: -18
-      y: 2
+      y: -51
       conditions:
         1:
           first: papi:player_gamemode
@@ -599,7 +599,7 @@ bodyhealth:
     36:
       name: full_arm_left
       x: -18
-      y: 2
+      y: -51
       conditions:
         1:
           first: papi:player_gamemode
@@ -616,7 +616,7 @@ bodyhealth:
     37:
       name: full_arm_right
       x: -18
-      y: 2
+      y: -51
       conditions:
         1:
           first: papi:player_gamemode
@@ -633,7 +633,7 @@ bodyhealth:
     38:
       name: full_leg_left
       x: -18
-      y: 26
+      y: -27
       conditions:
         1:
           first: papi:player_gamemode
@@ -650,7 +650,7 @@ bodyhealth:
     39:
       name: full_leg_right
       x: -18
-      y: 26
+      y: -27
       conditions:
         1:
           first: papi:player_gamemode
@@ -667,7 +667,7 @@ bodyhealth:
     40:
       name: full_foot_left
       x: -18
-      y: 42
+      y: -11
       conditions:
         1:
           first: papi:player_gamemode
@@ -684,7 +684,7 @@ bodyhealth:
     41:
       name: full_foot_right
       x: -18
-      y: 42
+      y: -11
       conditions:
         1:
           first: papi:player_gamemode

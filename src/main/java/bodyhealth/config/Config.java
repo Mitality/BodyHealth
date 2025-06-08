@@ -48,6 +48,10 @@ public class Config {
     public static boolean display_betterhud_inject_config;
     public static boolean display_betterhud_as_default;
 
+    public static int display_betterhud_position_horizontal_offset;
+    public static int display_betterhud_position_vertical_offset;
+
+    public static boolean display_betterhud_disable_entity_popup;
     public static boolean display_betterhud_disable_default_hud;
     public static boolean display_betterhud_disable_compass;
 
@@ -56,8 +60,6 @@ public class Config {
 
     public static boolean display_betterhud_package_compress;
     public static String  display_betterhud_package_filename;
-
-    public static boolean display_betterhud_fix_height;
 
     public static void load(FileConfiguration config) {
 
@@ -100,6 +102,10 @@ public class Config {
         display_betterhud_inject_config = config.getBoolean("display.betterhud.inject-config", true);
         display_betterhud_as_default = config.getBoolean("display.betterhud.as-default", true);
 
+        display_betterhud_position_horizontal_offset = config.getInt("display.betterhud.position.horizontal-offset", 0);
+        display_betterhud_position_vertical_offset = config.getInt("display.betterhud.position.vertical-offset", 0);
+
+        display_betterhud_disable_entity_popup = config.getBoolean("display.betterhud.disable.entity-popup", true);
         display_betterhud_disable_default_hud = config.getBoolean("display.betterhud.disable.default-hud", true);
         display_betterhud_disable_compass = config.getBoolean("display.betterhud.disable.compass", true);
 
@@ -108,8 +114,6 @@ public class Config {
 
         display_betterhud_package_compress = config.getBoolean("display.betterhud.package.compress", true);
         display_betterhud_package_filename = config.getString("display.betterhud.package.filename", "resource_pack");
-
-        display_betterhud_fix_height = config.getBoolean("display.betterhud.fix-height", false);
 
     }
 

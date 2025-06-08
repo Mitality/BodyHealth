@@ -45,7 +45,7 @@ public class BetterHudListener implements Listener {
                 Debug.logErr("Couldn't validate BetterHud config: " + e.getMessage());
             }
         } else {
-            Debug.log("BetterHud was reloaded, but you have disabled validation in BodyHealth's config.yml");
+            Debug.log("BetterHud was reloaded, but you have disabled injection & validation in BodyHealth's config.yml");
         }
     }
 
