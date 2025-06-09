@@ -6,9 +6,8 @@ import bodyhealth.effects.BodyHealthEffect;
 import bodyhealth.effects.EffectHandler;
 import bodyhealth.util.BodyHealthUtils;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Player;
-
-import java.util.Objects;
 
 public class PREVENT_JUMP implements BodyHealthEffect {
 
@@ -28,10 +27,10 @@ public class PREVENT_JUMP implements BodyHealthEffect {
         BodyHealthUtils.getBodyHealth(player).addToOngoingEffects(part, args);
         Debug.log("(" + part.name() +") Preventing jump for player " + player.getName());
 
-        if (!EffectHandler.preventJump.contains(player)) {
+        AttributeInstance jumpAttribute = player.getAttribute(Attribute.GENERIC_JUMP_STRENGTH);
+        if (jumpAttribute != null && jumpAttribute.getModifiers().stream().noneMatch(mod -> mod.getUniqueId().equals(EffectHandler.getJumpDenialModifier().getUniqueId()))) {
             Debug.log("Adding JumpDenialModifier to player " + player.getName());
-            Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_JUMP_STRENGTH)).addModifier(EffectHandler.getJumpDenialModifier());
-            EffectHandler.preventJump.add(player);
+            jumpAttribute.addModifier(EffectHandler.getJumpDenialModifier());
         }
 
     }
@@ -42,10 +41,12 @@ public class PREVENT_JUMP implements BodyHealthEffect {
         BodyHealthUtils.getBodyHealth(player).removeFromOngoingEffects(part, args);
         Debug.log("(" + part.name() +") No longer preventing jump for player " + player.getName());
 
-        if (BodyHealthUtils.canPlayerJump(player) && EffectHandler.preventJump.contains(player)) {
-            Debug.log("Removing JumpDenialModifier from player " + player.getName());
-            Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_JUMP_STRENGTH)).removeModifier(EffectHandler.getJumpDenialModifier());
-            EffectHandler.preventJump.remove(player);
+        AttributeInstance jumpAttribute = player.getAttribute(Attribute.GENERIC_JUMP_STRENGTH);
+        if (jumpAttribute != null && BodyHealthUtils.canPlayerJump(player)) {
+            if (jumpAttribute.getModifiers().stream().anyMatch(mod -> mod.getUniqueId().equals(EffectHandler.getJumpDenialModifier().getUniqueId()))) {
+                Debug.log("Removing JumpDenialModifier from player " + player.getName());
+                jumpAttribute.removeModifier(EffectHandler.getJumpDenialModifier());
+            }
         }
 
     }

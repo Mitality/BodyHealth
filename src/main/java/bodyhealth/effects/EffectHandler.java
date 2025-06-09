@@ -19,9 +19,7 @@ import java.util.*;
 public class EffectHandler {
 
     private static Map<String, BodyHealthEffect> effects = Map.of(
-
             // Built-in effects
-
             "POTION_EFFECT", new POTION_EFFECT(),
             "PREVENT_INTERACT", new PREVENT_INTERACT(),
             "PREVENT_SPRINT", new PREVENT_SPRINT(),
@@ -35,8 +33,6 @@ public class EffectHandler {
     );
 
     public static List<Player> preventSprint = new ArrayList<>();
-    public static List<Player> preventWalk = new ArrayList<>();
-    public static List<Player> preventJump = new ArrayList<>();
 
     /**
      * Calculate what should happen in terms of effects when the BodyPart of a player changes its state
@@ -168,12 +164,10 @@ public class EffectHandler {
             EffectHandler.onBodyPartStateChange(player, part, BodyHealthUtils.getBodyHealthState(bodyHealth, part), null);
         }
         // Ensure that all attribute modifiers are removed
-        Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).removeModifier(EffectHandler.getSpeedReductionModifier());
         EffectHandler.preventSprint.remove(player);
+        Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).removeModifier(EffectHandler.getSpeedReductionModifier());
         Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).removeModifier(EffectHandler.getWalkDenialModifier());
-        EffectHandler.preventWalk.remove(player);
         Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_JUMP_STRENGTH)).removeModifier(EffectHandler.getJumpDenialModifier());
-        EffectHandler.preventJump.remove(player);
         // Remove invalid effects if present
         BodyHealthUtils.validateEffects(player);
     }

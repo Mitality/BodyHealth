@@ -6,6 +6,7 @@ import bodyhealth.effects.BodyHealthEffect;
 import bodyhealth.effects.EffectHandler;
 import bodyhealth.util.BodyHealthUtils;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Player;
 
 import java.util.Objects;
@@ -28,10 +29,10 @@ public class PREVENT_WALK implements BodyHealthEffect {
         BodyHealthUtils.getBodyHealth(player).addToOngoingEffects(part, args);
         Debug.log("(" + part.name() +") Preventing walk for player " + player.getName());
 
-        if (!EffectHandler.preventWalk.contains(player)) {
+        AttributeInstance walkAttribute = player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED);
+        if (walkAttribute != null && walkAttribute.getModifiers().stream().noneMatch(mod -> mod.getUniqueId().equals(EffectHandler.getWalkDenialModifier().getUniqueId()))) {
             Debug.log("Adding WalkDenialModifier to player " + player.getName());
-            Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).addModifier(EffectHandler.getWalkDenialModifier());
-            EffectHandler.preventWalk.add(player);
+            walkAttribute.addModifier(EffectHandler.getWalkDenialModifier());
         }
 
     }
@@ -42,13 +43,12 @@ public class PREVENT_WALK implements BodyHealthEffect {
         BodyHealthUtils.getBodyHealth(player).removeFromOngoingEffects(part, args);
         Debug.log("(" + part.name() +") No longer preventing walk for player " + player.getName());
 
-        if (BodyHealthUtils.canPlayerWalk(player) && EffectHandler.preventWalk.contains(player)) {
-            Debug.log("Removing WalkDenialModifier from player " + player.getName());
-            Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).removeModifier(EffectHandler.getWalkDenialModifier());
-            EffectHandler.preventWalk.remove(player);
-
-            Debug.log("Value: " + Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue());
-
+        AttributeInstance walkAttribute = player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED);
+        if (walkAttribute != null && BodyHealthUtils.canPlayerWalk(player)) {
+            if (walkAttribute.getModifiers().stream().anyMatch(mod -> mod.getUniqueId().equals(EffectHandler.getWalkDenialModifier().getUniqueId()))) {
+                Debug.log("Removing WalkDenialModifier from player " + player.getName());
+                walkAttribute.removeModifier(EffectHandler.getWalkDenialModifier());
+            }
         }
 
     }
