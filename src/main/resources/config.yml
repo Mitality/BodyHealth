@@ -333,6 +333,8 @@ display:
   #
   #   When both plugins are installed, the following options activate:
   betterhud:
+    # Automatically reload BetterHud with BodyHealth to apply changes
+    auto-reload: true
     # Automatically configure BetterHud to display BodyHealth's HUD
     inject-config: true
     # Show BodyHealth's HUD to all players **IN SURVIVAL/ADVENTURE MODE**
