@@ -20,7 +20,7 @@ public class KILL_PLAYER implements BodyHealthEffect {
     @Override
     public void onApply(Player player, BodyPart part, String[] args) {
 
-        if (player.getHealth() > 0) player.setHealth(0); // TODO: Can this still lead to double death events?
+        if (player.getHealth() > 0) player.setHealth(0);
         Debug.log("(" + part.name() +") Killed player " + player.getName());
 
     }
