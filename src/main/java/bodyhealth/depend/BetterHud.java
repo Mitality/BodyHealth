@@ -198,25 +198,112 @@ public class BetterHud {
                 File parent = targetFile.getParentFile();
                 if (!parent.exists()) parent.mkdirs();
 
-                // TODO: Move the below method part somewhere else and add more customization for other files
-                if (fileName.equals("layouts/bodyhealth.yml")) { // Apply offsets to layout file
-                    File tempFile = File.createTempFile("bodyhealth-layout", ".yml");
-                    Files.copy(resourceStream, tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                    FileConfiguration layoutConfig = YamlConfiguration.loadConfiguration(tempFile);
-                    ConfigurationSection images = layoutConfig.getConfigurationSection("bodyhealth.images");
-                    if (images == null) { tempFile.delete(); continue; } // Should never happen
-                    for (String key : images.getKeys(false)) {
-                        ConfigurationSection image = images.getConfigurationSection(key); if (image == null) continue;
-                        image.set("x", image.getInt("x", 0) + Config.display_betterhud_position_horizontal_offset);
-                        image.set("y", image.getInt("y", 0) + Config.display_betterhud_position_vertical_offset);
-                    }
-                    layoutConfig.save(targetFile);
-                    tempFile.delete();
-                } else {
-                    Files.copy(resourceStream, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                }
+                if (fileName.equals("huds/bodyhealth.yml")) copyWithAnchorPointChange(resourceStream, targetFile);
+                else if (fileName.equals("layouts/bodyhealth.yml")) copyWithOffsets(resourceStream, targetFile);
+                else Files.copy(resourceStream, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
             }
         }
+    }
+
+    /**
+     * Copies a given HUD config file and applies the correct offsets
+     * @param resourceStream InputStream for the given HUD file
+     * @param targetFile Output file (where to copy it to)
+     * @throws IOException
+     */
+    private static void copyWithOffsets(InputStream resourceStream, File targetFile) throws IOException {
+        File tempFile = File.createTempFile("bodyhealth-layout", ".yml");
+        Files.copy(resourceStream, tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+        FileConfiguration layoutConfig = YamlConfiguration.loadConfiguration(tempFile);
+        ConfigurationSection images = layoutConfig.getConfigurationSection("bodyhealth.images");
+        if (images == null) {
+            tempFile.delete();
+            return;
+        }
+
+        String anchor = Config.display_betterhud_position_anchor_point.toUpperCase();
+        String vertical = "BOTTOM", horizontal = "RIGHT";
+
+        if (anchor.contains("_")) {
+            String[] parts = anchor.split("_");
+            if (parts.length >= 2) {
+                vertical = parts[0];
+                horizontal = parts[1];
+            }
+        }
+
+        int x = switch (horizontal) {
+            case "LEFT" -> 38;
+            case "CENTER" -> 19;
+            default -> 0;
+        };
+        int y = switch (vertical) {
+            case "TOP" -> 70;
+            case "MIDDLE" -> 35;
+            default -> 0;
+        };
+
+        for (String key : images.getKeys(false)) {
+            ConfigurationSection image = images.getConfigurationSection(key);
+            if (image == null) continue;
+
+            image.set("x", image.getInt("x", 0) + x + Config.display_betterhud_position_horizontal_offset);
+            image.set("y", image.getInt("y", 0) + y + Config.display_betterhud_position_vertical_offset);
+        }
+
+        layoutConfig.save(targetFile);
+        tempFile.delete();
+    }
+
+    /**
+     * Copies a given HUD config file and applies the correct anchor point
+     * @param resourceStream InputStream for the given HUD file
+     * @param targetFile Output file (where to copy it to)
+     * @throws IOException
+     */
+    private static void copyWithAnchorPointChange(InputStream resourceStream, File targetFile) throws IOException {
+        File tempFile = File.createTempFile("bodyhealth-hud", ".yml");
+        Files.copy(resourceStream, tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+        FileConfiguration hudConfig = YamlConfiguration.loadConfiguration(tempFile);
+        ConfigurationSection layouts = hudConfig.getConfigurationSection("bodyhealth.layouts");
+        if (layouts == null) {
+            tempFile.delete();
+            return;
+        }
+
+        String anchor = Config.display_betterhud_position_anchor_point.toUpperCase();
+        String vertical = "BOTTOM", horizontal = "RIGHT";
+
+        if (anchor.contains("_")) {
+            String[] parts = anchor.split("_");
+            if (parts.length >= 2) {
+                vertical = parts[0];
+                horizontal = parts[1];
+            }
+        }
+
+        int y = switch (vertical) {
+            case "TOP" -> 0;
+            case "MIDDLE" -> 50;
+            default -> 100;
+        };
+        int x = switch (horizontal) {
+            case "LEFT" -> 0;
+            case "CENTER" -> 50;
+            default -> 100;
+        };
+
+        for (String key : layouts.getKeys(false)) {
+            ConfigurationSection layout = layouts.getConfigurationSection(key);
+            if (layout == null) continue;
+            layout.set("x", x);
+            layout.set("y", y);
+        }
+
+        hudConfig.save(targetFile);
+        tempFile.delete();
     }
 
     /**

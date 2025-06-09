@@ -339,6 +339,8 @@ display:
     as-default: true
     # Position BodyHealth's HUD relative to its default position (REQUIRES REGENERATING THE RESOURCE PACK)
     position:
+      # Chose one of nine possible anchor points (TOP_, MIDDLE_, BOTTOM_ & _LEFT, _CENTER, _RIGHT)
+      anchor-point: BOTTOM_RIGHT
       # Horizontal shift from the default position (positive moves right, negative moves left)
       horizontal-offset: 0
       # Vertical shift from the default position (positive moves down, negative moves up)
