@@ -18,18 +18,19 @@ import java.util.*;
 
 public class EffectHandler {
 
-    private static Map<String, BodyHealthEffect> effects = Map.of(
-            // Built-in effects
-            "POTION_EFFECT", new POTION_EFFECT(),
-            "PREVENT_INTERACT", new PREVENT_INTERACT(),
-            "PREVENT_SPRINT", new PREVENT_SPRINT(),
-            "PREVENT_WALK", new PREVENT_WALK(),
-            "PREVENT_JUMP", new PREVENT_JUMP(),
-            "KILL_PLAYER", new KILL_PLAYER(),
-            "COMMAND", new COMMAND(),
-            "COMMAND_UNDO", new COMMAND_UNDO(),
-            "MESSAGE", new MESSAGE(),
-            "SOUND", new SOUND()
+    public static Map<String, BodyHealthEffect> effects = Map.ofEntries(
+            Map.entry("POTION_EFFECT", new POTION_EFFECT()),
+            Map.entry("PREVENT_INTERACT", new PREVENT_INTERACT()),
+            Map.entry("PREVENT_SPRINT", new PREVENT_SPRINT()),
+            Map.entry("PREVENT_WALK", new PREVENT_WALK()),
+            Map.entry("PREVENT_JUMP", new PREVENT_JUMP()),
+            Map.entry("KILL_PLAYER", new KILL_PLAYER()),
+            Map.entry("COMMAND", new COMMAND()),
+            Map.entry("COMMAND_UNDO", new COMMAND_UNDO()),
+            Map.entry("MESSAGE", new MESSAGE()),
+            Map.entry("SOUND", new SOUND()),
+            Map.entry("WHEN_DAMAGED", new WHEN_DAMAGED()),
+            Map.entry("WHEN_HEALED", new WHEN_HEALED())
     );
 
     public static List<Player> preventSprint = new ArrayList<>();
@@ -49,8 +50,9 @@ public class EffectHandler {
             return; // Should not be possible to accomplish, but let's leave this here just in case
         }
         if (!Config.effects.getKeys(false).contains(part.name())) return; // Nothing configured for this BodyPart
-        if (oldState != null && Objects.requireNonNull(Config.effects.getConfigurationSection(part.name())).getKeys(false).contains(oldState.name())) removeEffects(player, part, oldState);
-        if (newState != null && Objects.requireNonNull(Config.effects.getConfigurationSection(part.name())).getKeys(false).contains(newState.name())) applyEffects(player, part, newState);
+        boolean isRecovery = oldState != null && newState != null && newState.ordinal() < oldState.ordinal();
+        if (oldState != null && Objects.requireNonNull(Config.effects.getConfigurationSection(part.name())).getKeys(false).contains(oldState.name())) removeEffects(player, part, oldState, isRecovery);
+        if (newState != null && Objects.requireNonNull(Config.effects.getConfigurationSection(part.name())).getKeys(false).contains(newState.name())) applyEffects(player, part, newState, isRecovery);
     }
 
     /**
@@ -59,11 +61,11 @@ public class EffectHandler {
      * @param part The BodyPart to calculate the effects for
      * @param state The BodyPartState to calculate the effects for
      */
-    private static void applyEffects(Player player, BodyPart part, BodyPartState state) {
+    private static void applyEffects(Player player, BodyPart part, BodyPartState state, boolean isRecovery) {
         try {
             List<String> effects = Objects.requireNonNull(Config.effects.getConfigurationSection(part.name())).getStringList(state.name());
             for (String effect : effects) {
-                applyEffect(player, part, effect);
+                applyEffect(player, part, effect, isRecovery);
             }
         } catch (NullPointerException e) {
             Debug.logErr("Effects for state " + state.name() + " of part " + part.name() + " are not configured!");
@@ -76,11 +78,11 @@ public class EffectHandler {
      * @param part The BodyPart to remove the effects from
      * @param state The BodyPartState to remove the effects from
      */
-    private static void removeEffects(Player player, BodyPart part, BodyPartState state) {
+    private static void removeEffects(Player player, BodyPart part, BodyPartState state, boolean isRecovery) {
         try {
             List<String> effects = Objects.requireNonNull(Config.effects.getConfigurationSection(part.name())).getStringList(state.name());
             for (String effect : effects) {
-                removeEffect(player, part, effect);
+                removeEffect(player, part, effect, isRecovery);
             }
         } catch (NullPointerException e) {
             Debug.logErr("Effects for state " + state.name() + " of part " + part.name() + " are not configured!");
@@ -93,18 +95,18 @@ public class EffectHandler {
      * @param part The BodyPart because of which the effect should be applied
      * @param effect The effect to apply to the given player
      */
-    private static void applyEffect(Player player, BodyPart part, String effect) {
+    private static void applyEffect(Player player, BodyPart part, String effect, boolean isRecovery) {
 
         String[] effectParts = effect.split("/");
         String effectIdentifier = effectParts[0].trim();
 
-        if (!effects.containsKey(effectIdentifier)) {
+        if (!effects.containsKey(effectIdentifier.toUpperCase())) {
             Debug.logErr("Effect " + effectParts[0].trim() + " is invalid, check syntax!");
             return;
         }
 
-        BodyHealthEffect effectObject = effects.get(effectIdentifier);
-        effectObject.onApply(player, part, effectParts);
+        BodyHealthEffect effectObject = effects.get(effectIdentifier.toUpperCase());
+        effectObject.onApply(player, part, effectParts, isRecovery);
 
     }
 
@@ -114,18 +116,18 @@ public class EffectHandler {
      * @param part The BodyPart because of which the effect should be removed
      * @param effect The effect to remove from the given player
      */
-    private static void removeEffect(Player player, BodyPart part, String effect) {
+    private static void removeEffect(Player player, BodyPart part, String effect, boolean isRecovery) {
 
         String[] effectParts = effect.split("/");
         String effectIdentifier = effectParts[0].trim();
 
-        if (!effects.containsKey(effectIdentifier)) {
+        if (!effects.containsKey(effectIdentifier.toUpperCase())) {
             Debug.logErr("Effect " + effectParts[0].trim() + " is invalid, check syntax!");
             return;
         }
 
-        BodyHealthEffect effectObject = effects.get(effectIdentifier);
-        effectObject.onRemove(player, part, effectParts);
+        BodyHealthEffect effectObject = effects.get(effectIdentifier.toUpperCase());
+        effectObject.onRemove(player, part, effectParts, isRecovery);
 
     }
 

@@ -3,6 +3,7 @@ package bodyhealth.effects.effect;
 import bodyhealth.config.Debug;
 import bodyhealth.core.BodyPart;
 import bodyhealth.effects.BodyHealthEffect;
+import bodyhealth.effects.EffectType;
 import bodyhealth.util.BodyHealthUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -11,6 +12,11 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.Objects;
 
 public class POTION_EFFECT implements BodyHealthEffect {
+
+    @Override
+    public EffectType getEffectType() {
+        return EffectType.PERSISTENT;
+    }
 
     @Override
     public String getIdentifier() {
@@ -23,7 +29,7 @@ public class POTION_EFFECT implements BodyHealthEffect {
     }
 
     @Override
-    public void onApply(Player player, BodyPart part, String[] args) {
+    public void onApply(Player player, BodyPart part, String[] args, boolean isRecovery) {
 
         if (args.length <= 1) {
             Debug.logErr("Effect \"" + args[0].trim() + "\" is missing arguments, check syntax!");
@@ -52,7 +58,7 @@ public class POTION_EFFECT implements BodyHealthEffect {
     }
 
     @Override
-    public void onRemove(Player player, BodyPart part, String[] args) {
+    public void onRemove(Player player, BodyPart part, String[] args, boolean isRecovery) {
 
         if (args.length <= 1) {
             Debug.logErr("Effect \"" + args[0].trim() + "\" is missing arguments, check syntax!");

@@ -3,9 +3,15 @@ package bodyhealth.effects.effect;
 import bodyhealth.config.Debug;
 import bodyhealth.core.BodyPart;
 import bodyhealth.effects.BodyHealthEffect;
+import bodyhealth.effects.EffectType;
 import org.bukkit.entity.Player;
 
 public class SOUND implements BodyHealthEffect {
+
+    @Override
+    public EffectType getEffectType() {
+        return EffectType.ONE_TIME;
+    }
 
     @Override
     public String getIdentifier() {
@@ -18,7 +24,7 @@ public class SOUND implements BodyHealthEffect {
     }
 
     @Override
-    public void onApply(Player player, BodyPart part, String[] args) {
+    public void onApply(Player player, BodyPart part, String[] args, boolean isRecovery) {
 
         if (args.length <= 1) {
             Debug.logErr("Effect \"" + args[0].trim() + "\" is missing arguments, check syntax!");
@@ -32,7 +38,7 @@ public class SOUND implements BodyHealthEffect {
     }
 
     @Override
-    public void onRemove(Player player, BodyPart part, String[] args) {
+    public void onRemove(Player player, BodyPart part, String[] args, boolean isRecovery) {
     }
 
     private float parseOrDefault(String input) {

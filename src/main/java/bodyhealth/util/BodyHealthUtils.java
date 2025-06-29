@@ -383,15 +383,22 @@ public class BodyHealthUtils {
             for (String healthState : bodyPartConfig.getKeys(false)) {
                 List<String> configEffects = bodyPartConfig.getStringList(healthState);
                 for (String effect : configEffects) {
-                    validEffects.add(effect.split("/"));
+                    validEffects.add(Arrays.stream(effect.split("/"))
+                        .map(String::trim)
+                        .map(String::toLowerCase)
+                        .toArray(String[]::new));
                 }
             }
 
-            for (String[] effectParts : effectsList) {
-                if (!validEffects.contains(effectParts)) {
-                    getBodyHealth(player).removeFromOngoingEffects(bodyPart, effectParts);
-                    if (Config.debug_mode) Debug.log("Removing invalid effect \"" + Arrays.toString(effectParts) + "\" from player " + player.getName() + " for body part " + bodyPart.name());
-                }
+            for (String[] effectParts : new ArrayList<>(effectsList)) {
+                String[] normalizedEffect = Arrays.stream(effectParts)
+                    .map(String::trim)
+                    .map(String::toLowerCase)
+                    .toArray(String[]::new);
+
+                if (validEffects.stream().anyMatch(valid -> Arrays.equals(valid, normalizedEffect))) continue;
+                getBodyHealth(player).removeFromOngoingEffects(bodyPart, effectParts);
+                Debug.log("Removing invalid effect \"" + Arrays.toString(effectParts) + "\" from player " + player.getName() + " for body part " + bodyPart.name());
             }
         }
     }

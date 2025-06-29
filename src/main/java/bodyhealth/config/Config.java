@@ -21,6 +21,7 @@ public class Config {
 
     public static boolean self_harm;
     public static boolean always_allow_eating;
+    public static boolean kill_with_command;
 
     public static int force_keep_time;
     public static boolean force_keep_relative;
@@ -77,6 +78,7 @@ public class Config {
 
         self_harm = config.getBoolean("self-harm", false);
         always_allow_eating = config.getBoolean("always-allow-eating", true);
+        kill_with_command = config.getBoolean("kill-with-command", true);
 
         force_keep_time = config.getInt("force-keep-time", 10);
         force_keep_relative = config.getBoolean("force-keep-relative", false);

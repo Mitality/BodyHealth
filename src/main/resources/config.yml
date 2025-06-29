@@ -88,6 +88,10 @@ self-harm: false
 # that all players are still able to eat to heal back up?
 always-allow-eating: true
 
+# Choose whether to use the /kill command to kill players instead of the API
+# Way more consistent across different server software, therefore recommended
+kill-with-command: false
+
 # Force keep body parts that have been modified by a command
 # at their modified state for the given amount of seconds
 force-keep-time: 10
@@ -227,16 +231,26 @@ body-damage:
 #
 #   Effects (<> = required, [] = optional):
 #
-#      POTION_EFFECT / <EFFECT> / [AMPLIFIER]   ...apply a specific potion effect (amplifier defaults to 1 if not specified)
-#      PREVENT_INTERACT / <HAND> / [MESSAGE]    ...prevent the player from interacting with a given hand (HAND / OFF_HAND)
-#      PREVENT_SPRINT / [MESSAGE]               ...prevent the player from sprinting (sets sprint speed to walk speed)
-#      PREVENT_WALK                             ...prevent the player from walking at all (player can still be knocked back)
-#      PREVENT_JUMP                             ...prevent the player from jumping (player can still climb stairs etc.)
-#      COMMAND / cmd args[...]                  ...execute a command (can use %PlayerName% and %PlayerUUID% as placeholders)
-#      COMMAND_UNDO / cmd args[...]             ...execute a command when the condition is no longer met (to undo stuff)
-#      SOUND / <ID> / [VOLUME] / [PITCH]        ...play a vanilla or custom sound (namespace optional) to only the player
-#      MESSAGE / <MESSAGE>                      ...send a message to the target player to notify them of their status
-#      KILL_PLAYER                              ...you guessed it, this kills the player when the condition is met
+#      Persistent effects (active as long as conditions are met):
+#
+#         POTION_EFFECT / <EFFECT> / [AMPLIFIER]   ...apply a specific potion effect (amplifier defaults to 1 if not specified)
+#         PREVENT_INTERACT / <HAND> / [MESSAGE]    ...prevent the player from interacting with a given hand (HAND / OFF_HAND)
+#         PREVENT_SPRINT / [MESSAGE]               ...prevent the player from sprinting (sets sprint speed to walk speed)
+#         PREVENT_WALK                             ...prevent the player from walking at all (player can still be knocked back)
+#         PREVENT_JUMP                             ...prevent the player from jumping (player can still climb stairs etc.)
+#
+#      One-time effects (activate once when conditions are met):
+#
+#         COMMAND / cmd args[...]                  ...execute a command (can use %PlayerName% and %PlayerUUID% as placeholders)
+#         COMMAND_UNDO / cmd args[...]             ...execute a command when the condition is no longer met (to undo stuff)
+#         SOUND / <ID> / [VOLUME] / [PITCH]        ...play a vanilla or custom sound (namespace optional) to only the player
+#         MESSAGE / <MESSAGE>                      ...send a message to the target player to notify them of their status
+#         KILL_PLAYER                              ...you guessed it, this kills the player when the condition is met
+#
+#      Meta effects (activate one-time effects conditionally):
+#
+#         WHEN_DAMAGED / <EFFECT[...]>             ...triggers effect when the condition is met due to taking damage
+#         WHEN_HEALED / <EFFECT[...]>              ...triggers effect when the condition is met due to regeneration
 #
 #   <MESSAGE> (or [MESSAGE]) can be the following:
 #
@@ -339,7 +353,7 @@ display:
     inject-config: true
     # Show BodyHealth's HUD to all players **IN SURVIVAL/ADVENTURE MODE**
     as-default: true
-    # Position BodyHealth's HUD relative to its default position (REQUIRES REGENERATING THE RESOURCE PACK)
+    # Position BodyHealth's HUD on your screen (REQUIRES REGENERATING THE RESOURCE PACK)
     position:
       # Chose one of nine possible anchor points (TOP_, MIDDLE_, BOTTOM_ & _LEFT, _CENTER, _RIGHT)
       anchor-point: BOTTOM_RIGHT
