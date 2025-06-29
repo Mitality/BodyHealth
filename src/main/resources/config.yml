@@ -90,7 +90,7 @@ always-allow-eating: true
 
 # Choose whether to use the /kill command to kill players instead of the API
 # Way more consistent across different server software, therefore recommended
-kill-with-command: false
+kill-with-command: true
 
 # Force keep body parts that have been modified by a command
 # at their modified state for the given amount of seconds
