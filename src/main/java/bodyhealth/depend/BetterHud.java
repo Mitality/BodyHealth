@@ -3,6 +3,7 @@ package bodyhealth.depend;
 import bodyhealth.Main;
 import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
+import com.google.gson.*;
 import kr.toxicity.hud.api.BetterHudAPI;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -13,6 +14,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -134,11 +136,43 @@ public class BetterHud {
      * @throws IOException
      */
     public static void add() throws IOException {
-        String[] filesToCopy = {
-            (Config.display_betterhud_add_mcmeta) ? "build/pack.mcmeta" : null,
-            (Config.display_betterhud_add_icon) ? "build/pack.png" : null
-        };
-        copySpecificFiles(filesToCopy, BetterHudAPI.inst().bootstrap().dataFolder(), Main.getInstance());
+        File destFolder = BetterHudAPI.inst().bootstrap().dataFolder();
+
+        if (Config.display_betterhud_add_mcmeta) {
+            File destMcmeta = new File(destFolder, "build/pack.mcmeta");
+
+            try (InputStream resourceStream = Main.getInstance().getResource("BetterHudConfig/build/pack.mcmeta")) {
+                if (resourceStream == null) {
+                    Debug.log("Resource not found: BetterHudConfig/build/pack.mcmeta");
+                } else {
+                    Debug.logDev("Validating File: " + destMcmeta.getAbsolutePath());
+                    JsonObject newJson = JsonParser.parseReader(new InputStreamReader(resourceStream)).getAsJsonObject();
+                    JsonObject finalJson;
+
+                    if (destMcmeta.exists()) {
+                        JsonObject existingJson = JsonParser.parseReader(new FileReader(destMcmeta)).getAsJsonObject();
+                        // Merge newJson into existingJson
+                        for (Map.Entry<String, JsonElement> entry : newJson.entrySet()) {
+                            existingJson.add(entry.getKey(), entry.getValue());
+                        }
+                        finalJson = existingJson;
+                    } else {
+                        finalJson = newJson;
+                    }
+
+                    destMcmeta.getParentFile().mkdirs();
+                    try (FileWriter writer = new FileWriter(destMcmeta)) {
+                        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                        gson.toJson(finalJson, writer);
+                    }
+                }
+            }
+        }
+
+        if (Config.display_betterhud_add_icon) {
+            copySpecificFiles(new String[] { "build/pack.png" }, destFolder, Main.getInstance());
+        }
+
         Debug.log("Files added successfully");
         zip(); // Zip after adding required files
     }
