@@ -46,6 +46,7 @@ public class BodyHealth {
     /**
      * Applies damage to all BodyParts
      * @param damage The amount of damage to apply
+     * @param force If damage should be forcefully applied
      */
     public void applyDamage(double damage, boolean force) {
         Player player = Bukkit.getPlayer(playerUUID);
@@ -62,6 +63,7 @@ public class BodyHealth {
      * Applies damage to a given BodyPart
      * @param part The BodyPart to apply damage to
      * @param damage The amount of damage to apply
+     * @param force If damage should be forcefully applied
      */
     public void applyDamage(BodyPart part, double damage, boolean force) {
         Player player = Bukkit.getPlayer(playerUUID);
@@ -77,6 +79,7 @@ public class BodyHealth {
      * @param player The already retrieved and online Player
      * @param part The BodyPart to apply damage to
      * @param damage The amount of damage to apply
+     * @param force If damage should be forcefully applied
      */
     private void applyDamage(Player player, BodyPart part, double damage, boolean force) {
         if (!force) {
@@ -99,6 +102,7 @@ public class BodyHealth {
     /**
      * Regenerate health for all BodyParts
      * @param regenAmount The amount of health to regenerate
+     * @param force If damage should be forcefully applied
      */
     public void regenerateHealth(double regenAmount, boolean force) {
         Player player = Bukkit.getPlayer(playerUUID);
@@ -115,6 +119,7 @@ public class BodyHealth {
      * Regenerate health for a specific BodyPart
      * @param regenAmount The amount of health to regenerate
      * @param part The part to regenerate health for
+     * @param force If damage should be forcefully applied
      */
     public void regenerateHealth(double regenAmount, BodyPart part, boolean force) {
         Player player = Bukkit.getPlayer(playerUUID);
@@ -130,6 +135,7 @@ public class BodyHealth {
      * @param player The already retrieved and online Player
      * @param part The BodyPart to regenerate health for
      * @param regenAmount The amount of health to regenerate
+     * @param force If damage should be forcefully applied
      */
     private void regenerateHealth(Player player, BodyPart part, double regenAmount, boolean force) {
         if (!force) {

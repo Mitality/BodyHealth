@@ -60,6 +60,7 @@ public class EffectHandler {
      * @param player The player to which the BodyPart belongs to
      * @param part The BodyPart to calculate the effects for
      * @param state The BodyPartState to calculate the effects for
+     * @param isRecovery If the BodyPartState was reached due to recovery
      */
     private static void applyEffects(Player player, BodyPart part, BodyPartState state, boolean isRecovery) {
         try {
@@ -77,6 +78,7 @@ public class EffectHandler {
      * @param player The player to which the BodyPart belongs to
      * @param part The BodyPart to remove the effects from
      * @param state The BodyPartState to remove the effects from
+     * @param isRecovery If the BodyPartState was reached due to recovery
      */
     private static void removeEffects(Player player, BodyPart part, BodyPartState state, boolean isRecovery) {
         try {
