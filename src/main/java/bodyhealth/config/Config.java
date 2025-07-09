@@ -66,7 +66,7 @@ public class Config {
 
     public static void load(FileConfiguration config) {
 
-        language = config.getString("language", "en-us");
+        language = config.getString("language", "en");
         prefix = config.getString("prefix", "&8&l[&e&lBodyHealth&8&l] ");
 
         debug_mode = config.getBoolean("debug-mode", false);
