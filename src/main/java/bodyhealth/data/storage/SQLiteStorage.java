@@ -24,18 +24,17 @@ public class SQLiteStorage implements Storage {
 
     private void setupDataSource() {
         if (dataSource != null && !dataSource.isClosed()) return;
+        HikariConfig config = new HikariConfig();
 
         File databaseFile = new File(DataManager.getDataFolder(), "bodyHealth.sqlite");
         String jdbcUrl = "jdbc:sqlite:" + databaseFile.getAbsolutePath();
-
-        HikariConfig config = new HikariConfig();
         config.setJdbcUrl(jdbcUrl);
+
         config.setMaximumPoolSize(1); // SQLite handles only one write at a time
-        config.setPoolName("SQLitePool");
         config.setIdleTimeout(60000); // 60s
         config.setMaxLifetime(300000); // 5m
-        config.setInitializationFailTimeout(-1);
 
+        config.setInitializationFailTimeout(-1);
         dataSource = new HikariDataSource(config);
     }
 
