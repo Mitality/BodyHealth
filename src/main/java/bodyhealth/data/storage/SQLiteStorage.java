@@ -74,14 +74,12 @@ public class SQLiteStorage implements Storage {
             PreparedStatement pstmt = conn.prepareStatement(sql)
         ) {
             pstmt.setString(1, uuid.toString());
-            pstmt.setDouble(2, bodyHealth.getHealth(BodyPart.HEAD));
-            pstmt.setDouble(3, bodyHealth.getHealth(BodyPart.BODY));
-            pstmt.setDouble(4, bodyHealth.getHealth(BodyPart.ARM_LEFT));
-            pstmt.setDouble(5, bodyHealth.getHealth(BodyPart.ARM_RIGHT));
-            pstmt.setDouble(6, bodyHealth.getHealth(BodyPart.LEG_LEFT));
-            pstmt.setDouble(7, bodyHealth.getHealth(BodyPart.LEG_RIGHT));
-            pstmt.setDouble(8, bodyHealth.getHealth(BodyPart.FOOT_LEFT));
-            pstmt.setDouble(9, bodyHealth.getHealth(BodyPart.FOOT_RIGHT));
+
+            int index = 2; // Should work, right?
+            for (BodyPart part : BodyPart.values()) {
+                pstmt.setDouble(index++, bodyHealth.getHealth(part));
+            }
+
             pstmt.executeUpdate();
         } catch (SQLException e) {
             if (Config.error_logging) e.printStackTrace();
