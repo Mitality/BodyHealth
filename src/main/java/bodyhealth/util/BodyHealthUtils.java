@@ -84,7 +84,7 @@ public class BodyHealthUtils {
 
         } catch (Exception e) {
             Debug.logErr("Could not reload your configuration!");
-            if (Config.error_logging) e.printStackTrace();
+            Debug.logErr(e);
             return false;
         }
 
@@ -245,7 +245,7 @@ public class BodyHealthUtils {
             Expression e = new ExpressionBuilder(expression).build();
             return e.evaluate();
         } catch (Exception e) {
-            //e.printStackTrace();
+            //Debug.logErr(e);
             return -1;
         }
     }

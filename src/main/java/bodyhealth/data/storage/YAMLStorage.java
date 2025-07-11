@@ -1,6 +1,5 @@
 package bodyhealth.data.storage;
 
-import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
 import bodyhealth.core.BodyHealth;
 import bodyhealth.core.BodyPart;
@@ -24,7 +23,7 @@ public class YAMLStorage implements Storage {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                if (Config.error_logging) e.printStackTrace();
+                Debug.logErr(e);
             }
         }
     }
@@ -41,7 +40,7 @@ public class YAMLStorage implements Storage {
         try {
             yaml.save(file);
         } catch (IOException e) {
-            if (Config.error_logging) e.printStackTrace();
+            Debug.logErr(e);
         }
     }
 

@@ -62,7 +62,7 @@ public final class Main extends JavaPlugin {
         try {
             ConfigUpdater.update(this, "config.yml", configFile);
         } catch (IOException e) {
-            e.printStackTrace();
+            Debug.logErr(e);
         }
         reloadConfig();
 
@@ -91,7 +91,7 @@ public final class Main extends JavaPlugin {
             }
         } catch (IOException e) {
             Debug.logErr("Failed to update language files: " + e.getMessage());
-            if (Config.error_logging) e.printStackTrace();
+            Debug.logErr(e);
         }
 
         // Get the selected language file

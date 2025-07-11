@@ -1,6 +1,6 @@
 package bodyhealth.data.storage;
 
-import bodyhealth.config.Config;
+import bodyhealth.config.Debug;
 import bodyhealth.core.BodyHealth;
 import bodyhealth.core.BodyPart;
 import bodyhealth.data.DataManager;
@@ -60,7 +60,7 @@ public class SQLiteStorage implements Storage {
         ) {
             stmt.execute(sql);
         } catch (SQLException e) {
-            if (Config.error_logging) e.printStackTrace();
+            Debug.logErr(e);
         }
     }
 
@@ -85,7 +85,7 @@ public class SQLiteStorage implements Storage {
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            if (Config.error_logging) e.printStackTrace();
+            Debug.logErr(e);
         }
     }
 
@@ -110,7 +110,7 @@ public class SQLiteStorage implements Storage {
                 rs.getDouble("foot_left"),
                 rs.getDouble("foot_right"));
         } catch (SQLException e) {
-            if (Config.error_logging) e.printStackTrace();
+            Debug.logErr(e);
         }
         return new BodyHealth(uuid);
     }
