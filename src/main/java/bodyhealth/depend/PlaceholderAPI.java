@@ -35,6 +35,7 @@ public class PlaceholderAPI extends PlaceholderExpansion {
 
         if (params.startsWith("health_")) return getHealthPlaceholder(player, params);
         if (params.startsWith("state_")) return getStatePlaceholder(player, params);
+        if (params.equals("enabled")) return getEnabledplaceholder(player);
 
         return null;
     }
@@ -95,6 +96,16 @@ public class PlaceholderAPI extends PlaceholderExpansion {
         }
 
         return null;
+    }
+
+    private static String getEnabledplaceholder(OfflinePlayer player) {
+
+        if (!player.isOnline()) return null;
+        Player onlinePlayer = player.getPlayer();
+        if (onlinePlayer == null) return null;
+
+        return String.valueOf(BodyHealthUtils
+                .isSystemEnabled(onlinePlayer));
     }
 
 }

@@ -41,9 +41,10 @@
 
 #   PlaceholderAPI Placeholders:
 #
-#      bodyhealth_health_<BodyPart>   ...returns the current amount of health for a body part in percent
-#      bodyhealth_health_<BodyPart>_rounded   ...same as the one above, just without decimal places
-#      bodyhealth_state_<BodyPart>   ...returns the current state of a body part (e.g. DAMAGED)
+#      %bodyhealth_health_<BodyPart>%   ...returns the current amount of health for a body part in percent
+#      %bodyhealth_health_<BodyPart>_rounded%   ...same as the one above, just without decimal places
+#      %bodyhealth_state_<BodyPart>%   ...returns the current state of a body part (e.g. DAMAGED)
+#      %bodyhealth_enabled%   ...returns whether the system is enabled at the players location
 #
 #      <BodyPart> can be HEAD, BODY, ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, FOOT_LEFT, FOOT_RIGHT
 #
