@@ -31,6 +31,9 @@ public class MySQLStorage implements Storage {
         config.setUsername(Config.storage_mysql_user);
         config.setPassword(Config.storage_mysql_password);
 
+        config.setPoolName("MySQLPool");
+        config.setConnectionTestQuery("SELECT 1");
+
         config.setMaximumPoolSize(10);
         config.setMinimumIdle(2);
 

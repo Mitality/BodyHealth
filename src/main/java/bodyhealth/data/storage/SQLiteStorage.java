@@ -30,7 +30,12 @@ public class SQLiteStorage implements Storage {
         String jdbcUrl = "jdbc:sqlite:" + databaseFile.getAbsolutePath();
         config.setJdbcUrl(jdbcUrl);
 
+        config.setPoolName("SQLitePool");
+        config.setConnectionTestQuery("SELECT 1");
+
         config.setMaximumPoolSize(1); // SQLite handles only one write at a time
+        config.setMinimumIdle(1);
+
         config.setIdleTimeout(60000); // 60s
         config.setMaxLifetime(300000); // 5m
 
