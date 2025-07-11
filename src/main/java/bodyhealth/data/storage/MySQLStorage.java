@@ -21,7 +21,7 @@ public class MySQLStorage implements Storage {
         createTable();
     }
 
-    private void setupDataSource() {
+    private synchronized void setupDataSource() {
         if (dataSource != null && !dataSource.isClosed()) return;
         HikariConfig config = new HikariConfig();
 
