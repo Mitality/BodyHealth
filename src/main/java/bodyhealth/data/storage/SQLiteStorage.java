@@ -36,10 +36,9 @@ public class SQLiteStorage implements Storage {
         config.setMaximumPoolSize(1); // SQLite handles only one write at a time
         config.setMinimumIdle(1);
 
-        config.setIdleTimeout(60000); // 60s
         config.setMaxLifetime(300000); // 5m
-
         config.setInitializationFailTimeout(-1);
+
         dataSource = new HikariDataSource(config);
     }
 
