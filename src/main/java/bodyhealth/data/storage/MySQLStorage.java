@@ -7,6 +7,9 @@ import bodyhealth.core.BodyPart;
 import bodyhealth.data.Storage;
 import org.jetbrains.annotations.NotNull;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
 import java.sql.*;
 import java.util.UUID;
 
@@ -22,8 +25,15 @@ public class MySQLStorage implements Storage {
     private void connect() {
         try {
             if (connection != null && !connection.isClosed()) return;
-            String url = "jdbc:mysql://" + Config.storage_mysql_host + ":" + Config.storage_mysql_port + "/" + Config.storage_mysql_database;
-            connection = DriverManager.getConnection(url, Config.storage_mysql_user, Config.storage_mysql_password);
+            HikariConfig config = new HikariConfig();
+            config.setJdbcUrl("jdbc:mysql://" + Config.storage_mysql_host + ":" + Config.storage_mysql_port + "/" + Config.storage_mysql_database);
+            config.setUsername(Config.storage_mysql_user);
+            config.setPassword(Config.storage_mysql_password);
+            
+            try (HikariDataSource dataSource = new HikariDataSource(config)) {
+                connection = dataSource.getConnection();
+            }
+
         } catch (SQLException e) {
             Debug.logErr(e.getMessage());
             if (Config.error_logging) e.printStackTrace();

@@ -247,5 +247,13 @@
             <scope>compile</scope>
         </dependency>
 
+        <!-- HikariCP -->
+         <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>6.3.0</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 </project>
