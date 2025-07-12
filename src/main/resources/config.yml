@@ -58,7 +58,9 @@ language: en
 # Can use MiniMessage and Legacy message formatting
 prefix: "&8&l[&e&lBodyHealth&8&l] &r"
 
-# Enable this to see what the plugin is doing in your console
+# Enable this to see what the plugin is doing in your console.
+# Includes the origin's class name and line of code for you to
+# easily trace back debug messages to see where they come from
 debug-mode: false
 
 # This enables additional information about internal calculations

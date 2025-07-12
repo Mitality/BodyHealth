@@ -74,7 +74,7 @@ public class BodyHealthListener implements Listener {
         else if (event instanceof EntityDamageByBlockEvent) {
             EntityDamageByBlockEvent blockDamageEvent = (EntityDamageByBlockEvent) event;
 
-            // 1.21.3+ bug
+            // 1.21.3 & 1.21.4 PaperMC bug
             if (blockDamageEvent.getDamager() == null) {
                 for (BodyPart bodyPart : BodyPart.values()) {
                     BodyHealthUtils.applyDamageWithConfig(bodyHealth, cause, damage, bodyPart, false);
