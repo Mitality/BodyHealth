@@ -2,7 +2,7 @@
 
 ### Introducing BodyHealth - A system that manages health per body part!
 
-### [[Spigot Page](https://www.spigotmc.org/resources/bodyhealth.119966/)]  [[Config](https://github.com/Mitality/BodyHealth/blob/main/src/main/resources/config.yml)]  [[Setup](https://github.com/Mitality/BodyHealth/wiki/Setup)]
+### [[Spigot Page](https://www.spigotmc.org/resources/bodyhealth.119966/)] [[Modrinth Page](https://modrinth.com/plugin/bodyhealth)] [[Config](https://github.com/Mitality/BodyHealth/blob/main/src/main/resources/config.yml)]  [[Setup](https://github.com/Mitality/BodyHealth/wiki/Setup)]
 
 This was meant to be part of a private plugin of mine, but things escalated and here we are.
 
