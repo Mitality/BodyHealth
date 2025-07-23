@@ -44,6 +44,14 @@ public class BodyHealth {
     }
 
     /**
+     * Retrieves the UUID of the player to which the BodyHealth object belongs to
+     * @return The UUID of the player to which the BodyHealth object belongs to
+     */
+    public UUID getPlayerUUID() {
+        return playerUUID;
+    }
+
+    /**
      * Applies damage to all BodyParts
      * @param damage The amount of damage to apply
      * @param force If damage should be forcefully applied

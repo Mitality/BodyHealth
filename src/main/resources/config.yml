@@ -103,6 +103,7 @@ force-keep-time: 10
 # For example through the use of the "/bodyhealth add" command
 force-keep-relative: false
 
+
 # World Blacklist/Whitelist settings:
 world-blacklist:
   # If false, body health will NOT be enabled in listed worlds
@@ -115,6 +116,7 @@ world-blacklist:
 # You can also disable body health in specific regions by
 # installing WorldGuard and setting the 'bodyhealth' flag
 
+
 # Raytracing settings - Don't touch unless you know what you're doing
 raytracing:
   # Should raytracing be used to determine what body part was hit?
@@ -123,6 +125,7 @@ raytracing:
   max-distance: 10.0
   # How precise should we trace rays (smaller number = more precision)
   step-size: 0.1
+
 
 # Storage settings - Don't touch unless you know what you're doing
 storage:
@@ -152,9 +155,12 @@ storage:
     # with other plugins when sharing a database
     prefix: "bh_"
 
+
 # Specify the maximum health for each body part
 # (can use %PlayerMaxHealth% as placeholder)
 body-health:
+
+  # Default health values
   HEAD: "%PlayerMaxHealth% * 0.5"
   BODY: "%PlayerMaxHealth% / 2"
   ARM_LEFT: 10.0
@@ -164,10 +170,29 @@ body-health:
   FOOT_LEFT: 5
   FOOT_RIGHT: 5
 
+  # Permission overrides
+  overrides:
+    - permission: bodyhealth.health.tough
+      HEAD: "%PlayerMaxHealth% * 0.75"
+      BODY: "%PlayerMaxHealth% * 0.75"
+      ARM_LEFT: 15
+      ARM_RIGHT: 15
+      LEG_LEFT: 10
+      LEG_RIGHT: 10
+      FOOT_LEFT: 7.5
+      FOOT_RIGHT: 7.5
+
+  # NOTE: Setting any part's max health to a higher value than the
+  # player's max health can make it impossible to fully break it.
+  # In vanilla Minecraft, a player has 20 HP (=20 half hearts).
+
+
 # You can fine-tune all kinds of damage per body-part and damage-cause here. Defaults to 100% if not specified otherwise.
 # Even if damage is only applied to specific body parts, the system still checks how much damage to deal with this list.
 # Available types: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/event/entity/EntityDamageEvent.DamageCause.html
 body-damage:
+
+  # Default damage values
   HEAD:
     - DROWN 90%
     - IN_FIRE 60%
@@ -229,6 +254,15 @@ body-damage:
     - FALLING_STALACTITE 0%
     - FLY_INTO_WALL 0%
     - MAGIC 50%
+
+  # Permission overrides
+  overrides:
+    - permission: bodyhealth.damage.helmet
+      HEAD:
+        - FALLING_BLOCK 0%
+        - FALLING_STALACTITE 0%
+        - FLY_INTO_WALL 0%
+
 
 # Configure effects per body part and body part state:
 #
@@ -339,6 +373,7 @@ effects:
     BROKEN:
       - PREVENT_WALK # Prevent the player from moving walking at all when right foot reaches 0 HP
       - SOUND / minecraft:entity.bogged.hurt # Mimic the sound of bones breaking
+
 
 display:
 

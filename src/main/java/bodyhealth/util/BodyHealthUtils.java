@@ -150,25 +150,63 @@ public class BodyHealthUtils {
      * @param part The BodyPart to which the damage should be applied
      */
     public static void applyDamageWithConfig(BodyHealth bodyHealth, EntityDamageEvent.DamageCause cause, double damage, BodyPart part, boolean force) {
+
+        Player player = Bukkit.getPlayer(bodyHealth.getPlayerUUID());
+        if (player == null) {
+            Debug.logErr("Tried to modify data of a player that isn't online. This should never happen automatically and is a bug!");
+            return;
+        }
+
         ConfigurationSection config = Config.body_damage;
-        if (config.getKeys(false).contains(part.name())) {
-            for (String entry : config.getStringList(part.name())) {
-                String[] data = entry.split(" ");
-                if (data.length < 2) continue; // Invalid entry
+        double finalPercentage = -1;
+
+        List<Map<?, ?>> overrides = config.getMapList("overrides");
+        for (Map<?, ?> override : overrides) {
+            String permission = (String) override.get("permission");
+            if (permission == null || !player.hasPermission(permission)) continue;
+
+            Object partEntries = override.get(part.name());
+            if (!(partEntries instanceof List<?> entries)) continue;
+
+            for (Object obj : entries) {
+                if (!(obj instanceof String)) continue;
+
+                String[] data = ((String) obj).split(" ");
+                if (data.length < 2) continue;
+
                 String damageType = data[0];
-                double percentage = Double.parseDouble(data[1].replace("%", ""));
-                if (percentage == -1) continue; // Invalid percentage
-                if (cause.name().equalsIgnoreCase(damageType)) {
-                    bodyHealth.applyDamage(part, damage * (percentage / 100.0), force);
-                    return;
+                if (!cause.name().equalsIgnoreCase(damageType)) continue;
+
+                try {
+                    finalPercentage = Double.parseDouble(data[1].replace("%", ""));
+                } catch (NumberFormatException e) {
+                    Debug.logErr("Invalid percentage in body-damage override: " + data[1]);
                 }
             }
-            bodyHealth.applyDamage(part, damage, force); // Not configured - default to 100%
+        }
+
+        if (finalPercentage == -1 && config.getKeys(false).contains(part.name())) {
+            for (String entry : config.getStringList(part.name())) {
+                String[] data = entry.split(" ");
+                if (data.length < 2) continue;
+
+                String damageType = data[0];
+                if (!cause.name().equalsIgnoreCase(damageType)) continue;
+
+                try {
+                    finalPercentage = Double.parseDouble(data[1].replace("%", ""));
+                } catch (NumberFormatException e) {
+                    Debug.logErr("Invalid percentage in body-damage default config: " + data[1]);
+                }
+            }
+        }
+
+        if (finalPercentage >= 0) {
+            bodyHealth.applyDamage(part, damage * (finalPercentage / 100.0), force);
         } else {
-            Debug.logErr("body_damage isn't configured for " + part.name() + "!");
+            bodyHealth.applyDamage(part, damage, force); // Not configured - default to 100%
         }
     }
-
 
     /**
      * Calculates the current BodyPartState for a given Part in a given BodyHealth object
@@ -214,25 +252,54 @@ public class BodyHealthUtils {
     public static double getMaxHealth(BodyPart part, Player player) {
         double maxHealth = -1;
 
-        if (Config.body_health.get(part.name()) instanceof Integer || Config.body_health.get(part.name()) instanceof Double) {
-            maxHealth = ((Number) Config.body_health.get(part.name())).doubleValue();
+        List<Map<?, ?>> overrides = Config.body_health.getMapList("overrides");
+        for (Map<?, ?> override : overrides) {
+
+            String permission = (String) override.get("permission");
+            if (permission == null || !player.hasPermission(permission)) continue;
+
+            Object overrideValue = override.get(part.name());
+            if (overrideValue == null) continue;
+
+            maxHealth = parseHealthExpression(player, overrideValue);
         }
-        else if (Config.body_health.get(part.name()) instanceof String) {
-            String expression = (String) Config.body_health.get(part.name());
 
-            expression = expression.replace("%PlayerMaxHealth%", String.valueOf(player.getMaxHealth()))
-                    .replace("%PlayerCurrentHealth%", String.valueOf(player.getHealth()));
-
-            maxHealth = evaluateExpression(expression);
-
-            if (maxHealth == -1) {
-                Debug.logErr("Invalid maxHealth expression: \"" + expression + "\" ! Defaulting to '%PlayerMaxHealth% / 2'");
-                return player.getMaxHealth() / 2; // Default
+        if (maxHealth == -1) {
+            Object defaultValue = Config.body_health.get(part.name());
+            if (defaultValue != null) {
+                maxHealth = parseHealthExpression(player, defaultValue);
             }
         }
+
         if (maxHealth > 0) return maxHealth;
-        Debug.logErr("Invalid maxHealth for part " + part.name() + ": " + maxHealth + "! Max health has to be greater than 0!");
-        return player.getMaxHealth() / 2; // Default
+        Debug.logErr("Invalid maxHealth for part " + part.name() + "! Defaulting to '%PlayerMaxHealth% / 2'");
+        return player.getMaxHealth() / 2;
+    }
+
+    /**
+     * Parses a health value from Integer/Double/String to a Double, evaluating expressions
+     * @param player The player to which the BodyPart belongs to which the health value belongs
+     * @param value The health value of a BodyPart in Integer, Double or String (expression) form
+     * @return A Double representing how much health a BodyPart should be able to have at best
+     */
+    public static double parseHealthExpression(Player player, Object value) {
+        if (value instanceof Number) {
+            return ((Number) value).doubleValue();
+        } else if (value instanceof String) {
+            String expression = ((String) value)
+                .replace("%PlayerMaxHealth%", String.valueOf(player.getMaxHealth()))
+                .replace("%PlayerCurrentHealth%", String.valueOf(player.getHealth()));
+                // Why on earth did I add %PlayerCurrentHealth%... Don't you dare, silly!
+
+            double result = evaluateExpression(expression);
+            if (result == -1) {
+                Debug.logErr("Invalid health expression: \"" + expression + "\". Defaulting to %PlayerMaxHealth% / 2");
+                return player.getMaxHealth() / 2;
+            }
+            return result;
+        } else {
+            return -1;
+        }
     }
 
     /**
@@ -240,7 +307,7 @@ public class BodyHealthUtils {
      * @param expression The expression to evaluate
      * @return The result of the evaluation
      */
-    private static double evaluateExpression(String expression) {
+    public static double evaluateExpression(String expression) {
         try {
             Expression e = new ExpressionBuilder(expression).build();
             return e.evaluate();
