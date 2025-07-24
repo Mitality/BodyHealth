@@ -31,7 +31,8 @@ import java.util.*;
 public class BodyHealthUtils {
 
     /**
-     * Reloads the plugin
+     * Reloads the plugin, momentarily removing all effects
+     * @return whether the reload was successful or not
      */
     public static boolean reloadSystem() {
 
