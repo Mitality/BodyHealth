@@ -7,6 +7,8 @@ import bodyhealth.effects.EffectHandler;
 import bodyhealth.util.BodyHealthUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -55,12 +57,13 @@ public class BodyHealth {
      * Applies damage to all BodyParts
      * @param damage The amount of damage to apply
      * @param force If damage should be forcefully applied
+     * @param cause Underlying event that caused this health change
      */
-    public void applyDamage(double damage, boolean force) {
+    public void applyDamage(double damage, boolean force, @Nullable Event cause) {
         Player player = Bukkit.getPlayer(playerUUID);
         if (player != null) {
             for (BodyPart part : BodyPart.values()) {
-                applyDamage(player, part, damage, force);
+                applyDamage(player, part, damage, force, cause);
             }
         } else {
             Debug.logErr("Tried to modify data of a player that isn't online. This should never happen automatically and is a bug!");
@@ -72,11 +75,12 @@ public class BodyHealth {
      * @param part The BodyPart to apply damage to
      * @param damage The amount of damage to apply
      * @param force If damage should be forcefully applied
+     * @param cause Underlying event that caused this health change
      */
-    public void applyDamage(BodyPart part, double damage, boolean force) {
+    public void applyDamage(BodyPart part, double damage, boolean force, @Nullable Event cause) {
         Player player = Bukkit.getPlayer(playerUUID);
         if (player != null) {
-            applyDamage(player, part, damage, force);
+            applyDamage(player, part, damage, force, cause);
         } else {
             Debug.logErr("Tried to modify data of a player that isn't online. This should never happen automatically and is a bug!");
         }
@@ -88,8 +92,9 @@ public class BodyHealth {
      * @param part The BodyPart to apply damage to
      * @param damage The amount of damage to apply
      * @param force If damage should be forcefully applied
+     * @param cause Underlying event that caused this health change
      */
-    private void applyDamage(Player player, BodyPart part, double damage, boolean force) {
+    private void applyDamage(Player player, BodyPart part, double damage, boolean force, @Nullable Event cause) {
         if (!force) {
             if (command_timestamps.containsKey(part) && ((System.currentTimeMillis() - command_timestamps.get(part)) < Config.force_keep_time * 1000L)) return;
             if (player.hasPermission("bodyhealth.bypass.damage." + part.name().toLowerCase())) return;
@@ -99,7 +104,7 @@ public class BodyHealth {
         if (currentHealth > 0) {
             BodyPartState oldState = BodyHealthUtils.getBodyHealthState(this, part);
             double damagePercent = damage / BodyHealthUtils.getMaxHealth(part, player) * 100;
-            BodyPartHealthChangeEvent event = new BodyPartHealthChangeEvent(player, part, currentHealth, Math.max(0, currentHealth - damagePercent));
+            BodyPartHealthChangeEvent event = new BodyPartHealthChangeEvent(player, part, currentHealth, Math.max(0, currentHealth - damagePercent), cause);
             Bukkit.getPluginManager().callEvent(event);
             if (event.isCancelled()) return;
             healthMap.put(part, Math.min(100, Math.max(0, event.getNewHealth()))); // Ensure health stays between 0 and 100
@@ -111,12 +116,13 @@ public class BodyHealth {
      * Regenerate health for all BodyParts
      * @param regenAmount The amount of health to regenerate
      * @param force If damage should be forcefully applied
+     * @param cause Underlying event that caused this health change
      */
-    public void regenerateHealth(double regenAmount, boolean force) {
+    public void regenerateHealth(double regenAmount, boolean force, @Nullable Event cause) {
         Player player = Bukkit.getPlayer(playerUUID);
         if (player != null) {
             for (BodyPart part : BodyPart.values()) {
-                regenerateHealth(player, part, regenAmount, force);
+                regenerateHealth(player, part, regenAmount, force, cause);
             }
         } else {
             Debug.logErr("Tried to modify data of a player that isn't online. This should never happen automatically and is a bug!");
@@ -128,11 +134,12 @@ public class BodyHealth {
      * @param regenAmount The amount of health to regenerate
      * @param part The part to regenerate health for
      * @param force If damage should be forcefully applied
+     * @param cause Underlying event that caused this health change
      */
-    public void regenerateHealth(double regenAmount, BodyPart part, boolean force) {
+    public void regenerateHealth(double regenAmount, BodyPart part, boolean force, @Nullable Event cause) {
         Player player = Bukkit.getPlayer(playerUUID);
         if (player != null) {
-            regenerateHealth(player, part, regenAmount, force);
+            regenerateHealth(player, part, regenAmount, force, cause);
         } else {
             Debug.logErr("Tried to modify data of a player that isn't online. This should never happen automatically and is a bug!");
         }
@@ -144,8 +151,9 @@ public class BodyHealth {
      * @param part The BodyPart to regenerate health for
      * @param regenAmount The amount of health to regenerate
      * @param force If damage should be forcefully applied
+     * @param cause Underlying event that caused this health change
      */
-    private void regenerateHealth(Player player, BodyPart part, double regenAmount, boolean force) {
+    private void regenerateHealth(Player player, BodyPart part, double regenAmount, boolean force, @Nullable Event cause) {
         if (!force) {
             if (command_timestamps.containsKey(part) && ((System.currentTimeMillis() - command_timestamps.get(part)) < Config.force_keep_time * 1000L)) return;
             if (player.hasPermission("bodyhealth.bypass.regen." + part.name().toLowerCase())) return;
@@ -155,7 +163,7 @@ public class BodyHealth {
         if (currentHealth < 100) {
             BodyPartState oldState = BodyHealthUtils.getBodyHealthState(this, part);
             double regenAmountPercent = regenAmount / BodyHealthUtils.getMaxHealth(part, player) * 100;
-            BodyPartHealthChangeEvent event = new BodyPartHealthChangeEvent(player, part, currentHealth, Math.min(100, currentHealth + regenAmountPercent));
+            BodyPartHealthChangeEvent event = new BodyPartHealthChangeEvent(player, part, currentHealth, Math.min(100, currentHealth + regenAmountPercent), cause);
             Bukkit.getPluginManager().callEvent(event);
             healthMap.put(part, Math.min(100, Math.max(0, event.getNewHealth()))); // Ensure health stays between 0 and 100
             EffectHandler.onBodyPartStateChange(player, part, oldState, BodyHealthUtils.getBodyHealthState(this, part));
@@ -174,10 +182,12 @@ public class BodyHealth {
     /**
      * Sets the health (in percent) for all BodyParts to a given number
      * @param newHealth The amount of health to set the BodyPart to
+     * @param force_keep Whether the new health state should be forcefully kept
+     * @param cause Underlying event that caused this health change
      */
-    public void setHealth(double newHealth, boolean force_keep) {
+    public void setHealth(double newHealth, boolean force_keep, @Nullable Event cause) {
         for (BodyPart part : BodyPart.values()) {
-            setHealth(part, newHealth, force_keep);
+            setHealth(part, newHealth, force_keep, cause);
         }
     }
 
@@ -185,12 +195,14 @@ public class BodyHealth {
      * Sets the health (in percent) for a given BodyPart to a given number
      * @param part The BodyPart to set the health for
      * @param newHealth The amount of health to set the BodyPart to
+     * @param force_keep Whether the new health state should be forcefully kept
+     * @param cause Underlying event that caused this health change
      */
-    public void setHealth(BodyPart part, double newHealth, boolean force_keep) {
+    public void setHealth(BodyPart part, double newHealth, boolean force_keep, @Nullable Event cause) {
         BodyPartState oldState = BodyHealthUtils.getBodyHealthState(this, part);
         Player player = Bukkit.getPlayer(playerUUID);
         if (player != null) {
-            BodyPartHealthChangeEvent event = new BodyPartHealthChangeEvent(player, part, healthMap.get(part), Math.min(100, Math.max(0, newHealth)));
+            BodyPartHealthChangeEvent event = new BodyPartHealthChangeEvent(player, part, healthMap.get(part), Math.min(100, Math.max(0, newHealth)), cause);
             Bukkit.getPluginManager().callEvent(event);
             if (event.isCancelled()) return;
             healthMap.put(part, Math.min(100, Math.max(0, event.getNewHealth()))); // Ensure health stays between 0 and 100

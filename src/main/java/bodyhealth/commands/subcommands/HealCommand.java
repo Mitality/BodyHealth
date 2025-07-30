@@ -46,7 +46,7 @@ public class HealCommand implements SubCommand {
 
             if (part == null) {
 
-                bodyHealth.setHealth(100, false);
+                bodyHealth.setHealth(100, false, null);
 
                 MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_heal_success_all
                         .replace("{Player}", target.getName())
@@ -55,7 +55,7 @@ public class HealCommand implements SubCommand {
 
             } else {
 
-                bodyHealth.setHealth(part, 100, false);
+                bodyHealth.setHealth(part, 100, false, null);
 
                 MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_heal_success_single
                         .replace("{Player}", target.getName())

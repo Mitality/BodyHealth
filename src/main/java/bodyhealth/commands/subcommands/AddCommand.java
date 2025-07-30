@@ -65,7 +65,7 @@ public class AddCommand implements SubCommand {
 
                 for (BodyPart p : BodyPart.values()) {
                     double addValue = percent ? value : value / BodyHealthUtils.getMaxHealth(p, target) * 100;
-                    bodyHealth.setHealth(p, bodyHealth.getHealth(p) + addValue, Config.force_keep_relative);
+                    bodyHealth.setHealth(p, bodyHealth.getHealth(p) + addValue, Config.force_keep_relative, null);
                 }
 
                 MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_add_success_all
@@ -77,7 +77,7 @@ public class AddCommand implements SubCommand {
             } else {
 
                 double addValue = percent ? value : value / BodyHealthUtils.getMaxHealth(part, target) * 100;
-                bodyHealth.setHealth(part, bodyHealth.getHealth(part) + addValue, Config.force_keep_relative);
+                bodyHealth.setHealth(part, bodyHealth.getHealth(part) + addValue, Config.force_keep_relative, null);
 
                 MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_add_success_single
                         .replace("{Player}", target.getName())

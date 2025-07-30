@@ -65,7 +65,7 @@ public class SetCommand implements SubCommand {
 
                 for (BodyPart p : BodyPart.values()) {
                     double setValue = percent ? value : value / BodyHealthUtils.getMaxHealth(p, target) * 100;
-                    bodyHealth.setHealth(p, setValue, true);
+                    bodyHealth.setHealth(p, setValue, true, null);
                 }
 
                 MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_set_success_all
@@ -77,7 +77,7 @@ public class SetCommand implements SubCommand {
             } else {
 
                 double setValue = percent ? value : value / BodyHealthUtils.getMaxHealth(part, target) * 100;
-                bodyHealth.setHealth(part, setValue, true);
+                bodyHealth.setHealth(part, setValue, true, null);
 
                 MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_set_success_single
                         .replace("{Player}", target.getName())

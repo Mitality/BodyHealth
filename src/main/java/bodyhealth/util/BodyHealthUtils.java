@@ -19,9 +19,11 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.potion.PotionEffectType;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
@@ -133,23 +135,25 @@ public class BodyHealthUtils {
     /**
      * Applies damage to all BodyParts for a BodyHealth object while taking the fine-tuning section of BodyHealth's config into account
      * @param bodyHealth The BodyHealth object to which the damage should be applied to
-     * @param cause The DamageCause that caused the player to take damage
+     * @param damageCause The DamageCause that caused the player to take damage
      * @param damage The final amount of damage the player took
+     * @param cause Underlying event that caused this health change
      */
-    public static void applyDamageWithConfig(BodyHealth bodyHealth, EntityDamageEvent.DamageCause cause, double damage, boolean force) {
+    public static void applyDamageWithConfig(BodyHealth bodyHealth, EntityDamageEvent.DamageCause damageCause, double damage, boolean force, @Nullable Event cause) {
         for (BodyPart part : BodyPart.values()) {
-            applyDamageWithConfig(bodyHealth, cause, damage, part, force);
+            applyDamageWithConfig(bodyHealth, damageCause, damage, part, force, cause);
         }
     }
 
     /**
      * Applies damage to a specific BodyPart for a BodyHealth object while taking the fine-tuning section of BodyHealth's config into account
      * @param bodyHealth The BodyHealth object to which the damage should be applied to
-     * @param cause The DamageCause that caused the player to take damage
+     * @param damageCause The DamageCause that caused the player to take damage
      * @param damage The final amount of damage the player took
      * @param part The BodyPart to which the damage should be applied
+     * @param cause Underlying event that caused this health change
      */
-    public static void applyDamageWithConfig(BodyHealth bodyHealth, EntityDamageEvent.DamageCause cause, double damage, BodyPart part, boolean force) {
+    public static void applyDamageWithConfig(BodyHealth bodyHealth, EntityDamageEvent.DamageCause damageCause, double damage, BodyPart part, boolean force, @Nullable Event cause) {
 
         Player player = Bukkit.getPlayer(bodyHealth.getPlayerUUID());
         if (player == null) {
@@ -175,7 +179,7 @@ public class BodyHealthUtils {
                 if (data.length < 2) continue;
 
                 String damageType = data[0];
-                if (!cause.name().equalsIgnoreCase(damageType)) continue;
+                if (!damageCause.name().equalsIgnoreCase(damageType)) continue;
 
                 try {
                     finalPercentage = Double.parseDouble(data[1].replace("%", ""));
@@ -191,7 +195,7 @@ public class BodyHealthUtils {
                 if (data.length < 2) continue;
 
                 String damageType = data[0];
-                if (!cause.name().equalsIgnoreCase(damageType)) continue;
+                if (!damageCause.name().equalsIgnoreCase(damageType)) continue;
 
                 try {
                     finalPercentage = Double.parseDouble(data[1].replace("%", ""));
@@ -202,9 +206,9 @@ public class BodyHealthUtils {
         }
 
         if (finalPercentage >= 0) {
-            bodyHealth.applyDamage(part, damage * (finalPercentage / 100.0), force);
+            bodyHealth.applyDamage(part, damage * (finalPercentage / 100.0), force, cause);
         } else {
-            bodyHealth.applyDamage(part, damage, force); // Not configured - default to 100%
+            bodyHealth.applyDamage(part, damage, force, cause); // Not configured - default to 100%
         }
     }
 

@@ -6,6 +6,7 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /***
  * Called whenever the health value (PERCENT!) of any BodyPart of any player is changed.
@@ -20,12 +21,14 @@ public class BodyPartHealthChangeEvent extends Event implements Cancellable {
     BodyPart bodyPart;
     double oldHealth;
     double newHealth;
+    Event cause;
 
-    public BodyPartHealthChangeEvent(Player player, BodyPart bodyPart, double oldHealth, double newHealth) {
+    public BodyPartHealthChangeEvent(Player player, BodyPart bodyPart, double oldHealth, double newHealth, @Nullable Event cause) {
         this.player = player;
         this.bodyPart = bodyPart;
         this.oldHealth = oldHealth;
         this.newHealth = newHealth;
+        this.cause = cause;
     }
 
     @Override
@@ -63,6 +66,14 @@ public class BodyPartHealthChangeEvent extends Event implements Cancellable {
 
     public void setNewHealth(double health) {
         newHealth = health;
+    }
+
+    public @Nullable Event getCause() {
+        return cause;
+    }
+
+    public void setCause(@Nullable Event cause) {
+        this.cause = cause;
     }
 
 }
