@@ -4,7 +4,6 @@ import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
 import bodyhealth.config.Lang;
 import bodyhealth.data.DataManager;
-import bodyhealth.depend.BetterHud;
 import bodyhealth.depend.WorldGuard;
 import bodyhealth.effects.EffectHandler;
 import bodyhealth.core.BodyHealth;

@@ -61,7 +61,7 @@ public class BodyPartHealthChangeEvent extends Event implements Cancellable {
         return newHealth;
     }
 
-    public void setNewHealth(int health) {
+    public void setNewHealth(double health) {
         newHealth = health;
     }
 
