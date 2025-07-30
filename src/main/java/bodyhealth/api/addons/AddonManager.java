@@ -40,7 +40,7 @@ public class AddonManager extends ClassLoader {
                 addon.unregisterCommands();
                 addon.getAddonDebug().log("Addon successfully disabled");
             } catch (Throwable t) {
-                Debug.logErr("Failed to disable addon " + addon.getClass().getSimpleName() + ": " + t.getMessage());
+                Debug.logErr("Failed to disable addon " + addon.getClass().getName() + ": " + t.getMessage());
             }
         }
     }
@@ -56,7 +56,7 @@ public class AddonManager extends ClassLoader {
             addon.unregisterCommands();
             addon.getAddonDebug().log("Addon successfully disabled");
         } catch (Throwable t) {
-            Debug.logErr("Failed to disable addon " + addon.getClass().getSimpleName() + ": " + t.getMessage());
+            Debug.logErr("Failed to disable addon " + addon.getClass().getName() + ": " + t.getMessage());
         }
         addons.remove(addon);
     }
@@ -69,7 +69,7 @@ public class AddonManager extends ClassLoader {
             try {
                 addon.onBodyHealthReload();
             } catch (Throwable t) {
-                Debug.logErr("Failed to reload addon " + addon.getClass().getSimpleName() + ": " + t.getMessage());
+                Debug.logErr("Failed to reload addon " + addon.getClass().getName() + ": " + t.getMessage());
             }
         }
         if (!addons.isEmpty()) Debug.log("Reloaded " + addons.size() + " addon(s)");
@@ -100,7 +100,7 @@ public class AddonManager extends ClassLoader {
             try {
                 addon.onAddonEnable();
             } catch (Throwable t) {
-                Debug.logErr("Failed to enable addon " + addon.getClass().getSimpleName() + ": " + t.getMessage());
+                Debug.logErr("Failed to enable addon " + addon.getClass().getName() + ": " + t.getMessage());
             }
         }
         if (!addons.isEmpty()) Debug.log("Loaded " + addons.size() + " addon(s)");
@@ -112,7 +112,7 @@ public class AddonManager extends ClassLoader {
      */
     public void loadAddon(File file) {
         try {
-            List<Class<?>> classes = loadAllClassesFromJar(file);
+            List<Class<?>> classes = loadAllLoadableClassesFromJar(file);
 
             for (Class<?> clazz : classes) {
 
@@ -146,7 +146,7 @@ public class AddonManager extends ClassLoader {
                     infoField.set(addon, addonClass.getAnnotation(AddonInfo.class));
                     managerField.set(addon, this);
 
-                    addon.getAddonDebug().log("Loading addon " + addon.getAddonInfo().name() + " (v" + addon.getAddonInfo().version() + ") by " + addon.getAddonInfo().author());
+                    Debug.log("Loading addon " + addon.getAddonInfo().name() + " (v" + addon.getAddonInfo().version() + ") by " + addon.getAddonInfo().author());
 
                     addons.add(addon);
                     addon.onAddonPreEnable();
@@ -197,7 +197,7 @@ public class AddonManager extends ClassLoader {
      * @param jarFile the JAR file to scan and load classes from
      * @return A list of successfully loaded classes from the JAR
      */
-    private List<Class<?>> loadAllClassesFromJar(File jarFile) {
+    private List<Class<?>> loadAllLoadableClassesFromJar(File jarFile) {
         List<Class<?>> classes = new ArrayList<>();
 
         try (URLClassLoader classLoader = new URLClassLoader(
@@ -227,7 +227,8 @@ public class AddonManager extends ClassLoader {
                     classes.add(clazz);
 
                 } catch (ClassNotFoundException | NoClassDefFoundError e) {
-                    Debug.logErr("Failed to load class " + className + ": " + e.getMessage());
+                    // Debug.logErr("Failed to load class " + className + ": " + e.getMessage());
+                    // Class not loadable (e.g. META-INF, module-info)
                 }
             }
 

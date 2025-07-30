@@ -4,6 +4,7 @@ import bodyhealth.Main;
 import bodyhealth.config.Debug;
 import com.tchristofferson.configupdater.ConfigUpdater;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -118,7 +119,8 @@ public class AddonFileManager {
      */
     public boolean updateYamlFile(String resourceName, File yamlFile) {
         try {
-            ConfigUpdater.update(instance, resourceName, yamlFile);
+            Plugin dummy = new DummyPluginWrapper(jarFile);
+            ConfigUpdater.update(dummy, resourceName, yamlFile);
             return true;
         } catch (IOException e) {
             Debug.logErr(e);
