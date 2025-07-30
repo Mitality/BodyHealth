@@ -190,7 +190,7 @@ public final class Main extends JavaPlugin {
     }
 
     public static @NotNull BukkitAudiences getAdventure() {
-        if(adventure == null) throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
+        if (adventure == null) throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
         return adventure;
     }
 

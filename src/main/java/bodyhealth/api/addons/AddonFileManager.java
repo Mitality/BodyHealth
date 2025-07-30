@@ -1,6 +1,8 @@
 package bodyhealth.api.addons;
 
 import bodyhealth.Main;
+import bodyhealth.config.Debug;
+import com.tchristofferson.configupdater.ConfigUpdater;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -8,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
 import java.util.regex.Matcher;
@@ -15,7 +18,7 @@ import java.util.regex.Pattern;
 
 public class AddonFileManager {
 
-    private final static Main main = Main.getInstance();
+    private final static Main instance = Main.getInstance();
 
     private final BodyHealthAddon addon;
     private final File addonDir;
@@ -24,74 +27,111 @@ public class AddonFileManager {
     private final String addonName;
     private final AddonDebug debug;
 
-    private final File configFile;
-    private YamlConfiguration config;
-
     public AddonFileManager(BodyHealthAddon addon, File jarFile) {
         this.addon = addon;
         this.addonName = extractAddonName(jarFile.getName());
-        this.addonDir = new File(main.getDataFolder().getAbsolutePath() + File.separator + "addons" + File.separator + addonName);
+        this.addonDir = new File(instance.getDataFolder().getAbsolutePath() + File.separator + "addons" + File.separator + addonName);
         this.jarFile = jarFile;
         this.debug = addon.getAddonDebug();
-        this.configFile = new File(addonDir, addonName + ".yml");
-        this.config = configFile.exists() ? YamlConfiguration.loadConfiguration(configFile) : null;
     }
 
     /**
-     * Generate a file from a given fileName
-     * @param fileName The name of the file to create
+     * Ensures that the addon folder exists
      */
-    public void generateFileFromFileName(String fileName) {
-        generateFile(new File(addonDir, fileName));
+    private void createAddonFolder() {
+        if (!addonDir.exists()) addonDir.mkdirs();
     }
 
     /**
-     * Generate a file from a given absolute path
-     * @param absolutePath The absolute path
+     * Saves a resource from the addons JAR to the addon's data folder
+     * @param fileName the name of the resource/file to save
+     * @param replace whether to replace existing files
      */
-    public void generateFileFromAbsolutePath(String absolutePath) {
-        generateFile(new File(absolutePath));
+    public void saveResource(String fileName, boolean replace) {
+        saveResource(new File(addonDir, fileName), replace);
     }
 
     /**
-     * Generate a file from a given fileName in a given parent directory
-     * @param parent The directory to create the file in
-     * @param fileName The name of the file to create
+     * Saves a resource from the addons JAR to a given parent directory
+     * @param parentDirectory the directory to create the file in
+     * @param fileName the name of the file to create/save
+     * @param replace whether to replace existing files
      */
-    public void generateFileInParentDirectory(File parent, String fileName) {
-        generateFile(new File(parent, fileName));
+    public void saveResource(File parentDirectory, String fileName, boolean replace) {
+        saveResource(new File(parentDirectory, fileName), replace);
     }
 
     /**
-     * Generate a file for a given File object
-     * @param file The File object
+     * Saves a resource from the addons JAR to the given path
+     * @param path the absolute path to save the resource to
+     * @param replace whether to replace existing files
      */
-    public void generateFile(File file) {
+    public void saveResource(Path path, boolean replace) {
+        saveResource(path.toFile(), replace);
+    }
+
+    /**
+     * Saves a resource from the addons JAR to the addon's data folder
+     * @param file the File object to create/save
+     * @param replace whether to replace existing files
+     */
+    public void saveResource(File file, boolean replace) {
         createAddonFolder();
-        try {
-            if (!file.exists()) {
-                file.createNewFile();
-                try (JarInputStream jarInputStream = new JarInputStream(new FileInputStream(jarFile))) {
-                    JarEntry jarEntry;
-                    while ((jarEntry = jarInputStream.getNextJarEntry()) != null) {
-                        if (jarEntry.isDirectory() || !jarEntry.getName().equals(file.getName())) {
-                            continue;
-                        }
-                        OutputStream outputStream = Files.newOutputStream(file.toPath());
-                        byte[] buffer = new byte[1024];
-                        int bytesRead;
-                        while ((bytesRead = jarInputStream.read(buffer)) != -1) {
-                            outputStream.write(buffer, 0, bytesRead);
-                        }
-                        outputStream.flush();
-                        outputStream.close();
-                        break;
+
+        if (file.exists() && !replace) return;
+
+        try (JarInputStream jarInputStream = new JarInputStream(new FileInputStream(jarFile))) {
+            JarEntry jarEntry;
+
+            while ((jarEntry = jarInputStream.getNextJarEntry()) != null) {
+                if (jarEntry.isDirectory()) continue;
+                if (!jarEntry.getName().equals(file.getName())) continue;
+
+                // Ensure parent directories exist
+                File parent = file.getParentFile();
+                if (parent != null && !parent.exists()) parent.mkdirs();
+
+                try (OutputStream outputStream = Files.newOutputStream(file.toPath())) {
+                    byte[] buffer = new byte[1024];
+                    int bytesRead;
+                    while ((bytesRead = jarInputStream.read(buffer)) != -1) {
+                        outputStream.write(buffer, 0, bytesRead);
                     }
                 }
+
+                return; // Successfully written
             }
+
+            debug.logErr("Resource not found in JAR: " + file.getName());
+
         } catch (IOException e) {
-            debug.logErr("Failed to generate addon file: " + e.getMessage());
+            debug.logErr("Failed to save resource: " + file.getName() + " (" + e.getMessage() + ")");
         }
+    }
+
+    /**
+     * Updates a given yaml configuration file, adding missing config options,
+     * removing ones that are no longer needed, updating comments, e.t.c.
+     * @param resourceName Name of the resource within the addon jar
+     * @param yamlFile The file to update to the latest version
+     * @return true if successfully updated, false if not
+     */
+    public boolean updateYamlFile(String resourceName, File yamlFile) {
+        try {
+            ConfigUpdater.update(instance, resourceName, yamlFile);
+            return true;
+        } catch (IOException e) {
+            Debug.logErr(e);
+            return false;
+        }
+    }
+
+    /**
+     * Retrieves the addon folder as a File object
+     * @return The addon folder / directory
+     */
+    public File getAddonFolder() {
+        return addonDir;
     }
 
     /**
@@ -112,52 +152,6 @@ public class AddonFileManager {
     public YamlConfiguration getYamlConfiguration(String fileName) {
         createAddonFolder();
         return YamlConfiguration.loadConfiguration(new File(addonDir, fileName));
-    }
-
-    /**
-     * Retrieves the addon folder as a File object
-     * @return The addon folder / directory
-     */
-    public File getAddonFolder() {
-        return addonDir;
-    }
-
-    /**
-     * Loads a YamlConfiguration from the addons primary config file
-     * @return The loaded YamlConfiguration object
-     */
-    public YamlConfiguration getAddonConfig() {
-        generateAddonConfig();
-        return config;
-    }
-
-    /**
-     * Saves the addons primary config
-     */
-    public void saveAddonConfig() {
-        generateAddonConfig();
-        try {
-            config.save(configFile);
-        } catch (IOException e) {
-            debug.logErr("Failed to save addon config: " + e.getMessage());
-        }
-    }
-
-    /**
-     * Generates the addons primary config file
-     */
-    private void generateAddonConfig() {
-        if (config == null) {
-            generateFile(configFile);
-            config = YamlConfiguration.loadConfiguration(configFile);
-        }
-    }
-
-    /**
-     * Ensures that the addon folder exists
-     */
-    private void createAddonFolder() {
-        if (!addonDir.exists()) addonDir.mkdirs();
     }
 
     /**
