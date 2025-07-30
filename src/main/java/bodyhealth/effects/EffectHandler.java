@@ -18,20 +18,42 @@ import java.util.*;
 
 public class EffectHandler {
 
-    public static Map<String, BodyHealthEffect> effects = Map.ofEntries(
-            Map.entry("POTION_EFFECT", new POTION_EFFECT()),
-            Map.entry("PREVENT_INTERACT", new PREVENT_INTERACT()),
-            Map.entry("PREVENT_SPRINT", new PREVENT_SPRINT()),
-            Map.entry("PREVENT_WALK", new PREVENT_WALK()),
-            Map.entry("PREVENT_JUMP", new PREVENT_JUMP()),
-            Map.entry("KILL_PLAYER", new KILL_PLAYER()),
-            Map.entry("COMMAND", new COMMAND()),
-            Map.entry("COMMAND_UNDO", new COMMAND_UNDO()),
-            Map.entry("MESSAGE", new MESSAGE()),
-            Map.entry("SOUND", new SOUND()),
-            Map.entry("WHEN_DAMAGED", new WHEN_DAMAGED()),
-            Map.entry("WHEN_HEALED", new WHEN_HEALED())
+    private static Map<String, BodyHealthEffect> effects = Map.ofEntries(
+        Map.entry("POTION_EFFECT", new POTION_EFFECT()),
+        Map.entry("PREVENT_INTERACT", new PREVENT_INTERACT()),
+        Map.entry("PREVENT_SPRINT", new PREVENT_SPRINT()),
+        Map.entry("PREVENT_WALK", new PREVENT_WALK()),
+        Map.entry("PREVENT_JUMP", new PREVENT_JUMP()),
+        Map.entry("KILL_PLAYER", new KILL_PLAYER()),
+        Map.entry("COMMAND", new COMMAND()),
+        Map.entry("COMMAND_UNDO", new COMMAND_UNDO()),
+        Map.entry("MESSAGE", new MESSAGE()),
+        Map.entry("SOUND", new SOUND()),
+        Map.entry("WHEN_DAMAGED", new WHEN_DAMAGED()),
+        Map.entry("WHEN_HEALED", new WHEN_HEALED())
     );
+
+    /**
+     * Registers a BodyHealthEffect, making it usable in the effect config
+     * @param effect The BodyHealthEffect object to register
+     * @return true if successfully registered
+     */
+    public static boolean registerEffect(BodyHealthEffect effect) {
+        if (effects.containsKey(effect.getIdentifier())) return false;
+        effects.put(effect.getIdentifier(), effect);
+        return true;
+    }
+
+    /**
+     * Unregisters a BodyHealthEffect, making it no longer usable in the effect config
+     * @param effect The BodyHealthEffect object to unregister
+     * @return true if successfully unregistered
+     */
+    public static boolean unregisterEffect(BodyHealthEffect effect) {
+        if (!effects.containsKey(effect.getIdentifier())) return false;
+        effects.remove(effect.getIdentifier());
+        return true;
+    }
 
     public static List<Player> preventSprint = new ArrayList<>();
 

@@ -1,12 +1,24 @@
 package bodyhealth.api;
 
 import bodyhealth.Main;
+import bodyhealth.config.Config;
+import bodyhealth.core.BodyHealth;
 import bodyhealth.core.BodyPart;
+import bodyhealth.core.BodyPartState;
+import bodyhealth.depend.VanishPlugins;
+import bodyhealth.effects.BodyHealthEffect;
+import bodyhealth.effects.EffectHandler;
 import bodyhealth.util.BodyHealthUtils;
+import bodyhealth.util.MessageUtils;
+import org.bukkit.World;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class BodyHealthAPI {
 
@@ -19,24 +31,63 @@ public class BodyHealthAPI {
     }
 
     /**
-     * Reloads the health system configuration
-     * @return A boolean representing if the system reloads successfully
+     * Reloads the plugin, momentarily removing all effects
+     * @return true if the reload was successful
      */
     public static boolean reloadSystem() {
         return BodyHealthUtils.reloadSystem();
     }
 
     /**
+     * Checks if BodyHealth is enabled in a given world
+     * @param world The world to check for
+     * @return true if enabled
+     */
+    public static boolean isSystemEnabled(@NotNull World world) {
+        return BodyHealthUtils.isSystemEnabled(world);
+    }
+
+    /**
+     * Checks if BodyHealth is enabled at a players position
+     * @param player The player to check for
+     * @return true if enabled
+     */
+    public static boolean isSystemEnabled(@NotNull Player player) {
+        return BodyHealthUtils.isSystemEnabled(player);
+    }
+
+
+    /**
      * Fully heals the given player across all body parts
-     * @param player the player to heal
+     * @param player the player to fully heal
      */
     public static void healPlayer(@NotNull Player player) {
         BodyHealthUtils.getBodyHealth(player).regenerateHealth(Double.MAX_VALUE, false, null);
     }
 
     /**
+     * Fully heals the given player across all body parts
+     * @param player the player to fully heal
+     * @param force heal even where BodyHealth is disabled
+     */
+    public static void healPlayer(@NotNull Player player, boolean force) {
+        BodyHealthUtils.getBodyHealth(player).regenerateHealth(Double.MAX_VALUE, force, null);
+    }
+
+    /**
+     * Fully heals the given player across all body parts
+     * @param player the player to fully heal
+     * @param force heal even where BodyHealth is disabled
+     * @param cause the underlying event that caused this
+     */
+    public static void healPlayer(@NotNull Player player, boolean force, @Nullable Event cause) {
+        BodyHealthUtils.getBodyHealth(player).regenerateHealth(Double.MAX_VALUE, force, cause);
+    }
+
+
+    /**
      * Heals the given player by a specified amount across all body parts
-     * @param player the player to heal
+     * @param player the player to heal by the specified amount
      * @param amount the amount of health to restore
      */
     public static void healPlayer(@NotNull Player player, int amount) {
@@ -44,8 +95,30 @@ public class BodyHealthAPI {
     }
 
     /**
+     * Heals the given player by a specified amount across all body parts
+     * @param player the player to heal by the specified amount
+     * @param amount the amount of health to restore
+     * @param force heal even where BodyHealth is disabled
+     */
+    public static void healPlayer(@NotNull Player player, int amount, boolean force) {
+        BodyHealthUtils.getBodyHealth(player).regenerateHealth(amount, force, null);
+    }
+
+    /**
+     * Heals the given player by a specified amount across all body parts
+     * @param player the player to heal by the specified amount
+     * @param amount the amount of health to restore
+     * @param force heal even where BodyHealth is disabled
+     * @param cause the underlying event that caused this
+     */
+    public static void healPlayer(@NotNull Player player, int amount, boolean force, @Nullable Event cause) {
+        BodyHealthUtils.getBodyHealth(player).regenerateHealth(amount, force, cause);
+    }
+
+
+    /**
      * Fully heals a specific body part of the given player
-     * @param player the player to heal
+     * @param player the player to fully heal
      * @param part the specific body part to heal
      */
     public static void healPlayer(@NotNull Player player, @NotNull BodyPart part) {
@@ -53,9 +126,31 @@ public class BodyHealthAPI {
     }
 
     /**
+     * Fully heals a specific body part of the given player
+     * @param player the player to fully heal
+     * @param part the specific body part to heal
+     * @param force heal even where BodyHealth is disabled
+     */
+    public static void healPlayer(@NotNull Player player, @NotNull BodyPart part, boolean force) {
+        BodyHealthUtils.getBodyHealth(player).regenerateHealth(Double.MAX_VALUE, part, force, null);
+    }
+
+    /**
+     * Fully heals a specific body part of the given player
+     * @param player the player to fully heal
+     * @param part the specific body part to heal
+     * @param force heal even where BodyHealth is disabled
+     * @param cause the underlying event that caused this
+     */
+    public static void healPlayer(@NotNull Player player, @NotNull BodyPart part, boolean force, @Nullable Event cause) {
+        BodyHealthUtils.getBodyHealth(player).regenerateHealth(Double.MAX_VALUE, part, force, cause);
+    }
+
+
+    /**
      * Heals a specific body part of the given player by a specified amount
-     * @param player the player to heal
-     * @param part the body part to heal
+     * @param player the player to heal by the specified amount
+     * @param part the body part to heal by the specified amount
      * @param amount the amount of health to restore
      */
     public static void healPlayer(@NotNull Player player, @NotNull BodyPart part, int amount) {
@@ -63,25 +158,99 @@ public class BodyHealthAPI {
     }
 
     /**
+     * Heals a specific body part of the given player by a specified amount
+     * @param player the player to heal by the specified amount
+     * @param part the body part to heal by the specified amount
+     * @param amount the amount of health to restore
+     * @param force heal even where BodyHealth is disabled
+     */
+    public static void healPlayer(@NotNull Player player, @NotNull BodyPart part, int amount, boolean force) {
+        BodyHealthUtils.getBodyHealth(player).regenerateHealth(amount, part, force, null);
+    }
+
+    /**
+     * Heals a specific body part of the given player by a specified amount
+     * @param player the player to heal by the specified amount
+     * @param part the body part to heal by the specified amount
+     * @param amount the amount of health to restore
+     * @param force heal even where BodyHealth is disabled
+     * @param cause the underlying event that caused this
+     */
+    public static void healPlayer(@NotNull Player player, @NotNull BodyPart part, int amount, boolean force, @Nullable Event cause) {
+        BodyHealthUtils.getBodyHealth(player).regenerateHealth(amount, part, force, cause);
+    }
+
+
+    /**
      * Damages the given player with configured settings based on the cause
      * @param player the player to damage
-     * @param cause the cause of the damage
+     * @param damageCause the cause of the damage
      * @param amount the amount of damage to apply
      */
-    public static void damagePlayerWithConfig(@NotNull Player player, @NotNull EntityDamageEvent.DamageCause cause, double amount) {
-        BodyHealthUtils.applyDamageWithConfig(BodyHealthUtils.getBodyHealth(player), cause, amount, false, null);
+    public static void damagePlayerWithConfig(@NotNull Player player, @NotNull EntityDamageEvent.DamageCause damageCause, double amount) {
+        BodyHealthUtils.applyDamageWithConfig(BodyHealthUtils.getBodyHealth(player), damageCause, amount, false, null);
+    }
+
+    /**
+     * Damages the given player with configured settings based on the cause
+     * @param player the player to damage
+     * @param damageCause the cause of the damage
+     * @param amount the amount of damage to apply
+     * @param force damage even where BodyHealth is disabled
+     */
+    public static void damagePlayerWithConfig(@NotNull Player player, @NotNull EntityDamageEvent.DamageCause damageCause, double amount, boolean force) {
+        BodyHealthUtils.applyDamageWithConfig(BodyHealthUtils.getBodyHealth(player), damageCause, amount, force, null);
+    }
+
+    /**
+     * Damages the given player with configured settings based on the cause
+     * @param player the player to damage
+     * @param damageCause the cause of the damage
+     * @param amount the amount of damage to apply
+     * @param force damage even where BodyHealth is disabled
+     * @param cause the underlying event that caused this
+     */
+    public static void damagePlayerWithConfig(@NotNull Player player, @NotNull EntityDamageEvent.DamageCause damageCause, double amount, boolean force, @Nullable Event cause) {
+        BodyHealthUtils.applyDamageWithConfig(BodyHealthUtils.getBodyHealth(player), damageCause, amount, force, cause);
+    }
+
+
+    /**
+     * Damages a specific body part of the given player with configured settings based on the cause
+     * @param player the player to damage
+     * @param damageCause the cause of the damage
+     * @param amount the amount of damage to apply
+     * @param part the body part to damage
+     */
+    public static void damagePlayerWithConfig(@NotNull Player player, @NotNull EntityDamageEvent.DamageCause damageCause, double amount, @NotNull BodyPart part) {
+        BodyHealthUtils.applyDamageWithConfig(BodyHealthUtils.getBodyHealth(player), damageCause, amount, part, false, null);
     }
 
     /**
      * Damages a specific body part of the given player with configured settings based on the cause
      * @param player the player to damage
-     * @param cause the cause of the damage
+     * @param damageCause the cause of the damage
      * @param amount the amount of damage to apply
      * @param part the body part to damage
+     * @param force damage even where BodyHealth is disabled
      */
-    public static void damagePlayerWithConfig(@NotNull Player player, @NotNull EntityDamageEvent.DamageCause cause, double amount, @NotNull BodyPart part) {
-        BodyHealthUtils.applyDamageWithConfig(BodyHealthUtils.getBodyHealth(player), cause, amount, part, false, null);
+    public static void damagePlayerWithConfig(@NotNull Player player, @NotNull EntityDamageEvent.DamageCause damageCause, double amount, @NotNull BodyPart part, boolean force) {
+        BodyHealthUtils.applyDamageWithConfig(BodyHealthUtils.getBodyHealth(player), damageCause, amount, part, force, null);
     }
+
+    /**
+     * Damages a specific body part of the given player with configured settings based on the cause
+     * @param player the player to damage
+     * @param damageCause the cause of the damage
+     * @param amount the amount of damage to apply
+     * @param part the body part to damage
+     * @param force damage even where BodyHealth is disabled
+     * @param cause the underlying event that caused this
+     */
+    public static void damagePlayerWithConfig(@NotNull Player player, @NotNull EntityDamageEvent.DamageCause damageCause, double amount, @NotNull BodyPart part, boolean force, @Nullable Event cause) {
+        BodyHealthUtils.applyDamageWithConfig(BodyHealthUtils.getBodyHealth(player), damageCause, amount, part, force, cause);
+    }
+
 
     /**
      * Directly damages the given player across all body parts by a specified amount, ignoring the plugins configuration
@@ -91,6 +260,28 @@ public class BodyHealthAPI {
     public static void damagePlayerDirectly(@NotNull Player player, double amount) {
         BodyHealthUtils.getBodyHealth(player).applyDamage(amount, false, null);
     }
+
+    /**
+     * Directly damages the given player across all body parts by a specified amount, ignoring the plugins configuration
+     * @param player the player to damage
+     * @param amount the amount of damage to apply
+     * @param force damage even where BodyHealth is disabled
+     */
+    public static void damagePlayerDirectly(@NotNull Player player, double amount, boolean force) {
+        BodyHealthUtils.getBodyHealth(player).applyDamage(amount, force, null);
+    }
+
+    /**
+     * Directly damages the given player across all body parts by a specified amount, ignoring the plugins configuration
+     * @param player the player to damage
+     * @param amount the amount of damage to apply
+     * @param force damage even where BodyHealth is disabled
+     * @param cause the underlying event that caused this
+     */
+    public static void damagePlayerDirectly(@NotNull Player player, double amount, boolean force, @Nullable Event cause) {
+        BodyHealthUtils.getBodyHealth(player).applyDamage(amount, force, cause);
+    }
+
 
     /**
      * Directly damages a specific body part of the given player by a specified amount, ignoring the plugins configuration
@@ -103,6 +294,30 @@ public class BodyHealthAPI {
     }
 
     /**
+     * Directly damages a specific body part of the given player by a specified amount, ignoring the plugins configuration
+     * @param player the player to damage
+     * @param amount the amount of damage to apply
+     * @param part the body part to damage
+     * @param force damage even where BodyHealth is disabled
+     */
+    public static void damagePlayerDirectly(@NotNull Player player, double amount, @NotNull BodyPart part, boolean force) {
+        BodyHealthUtils.getBodyHealth(player).applyDamage(part, amount, force, null);
+    }
+
+    /**
+     * Directly damages a specific body part of the given player by a specified amount, ignoring the plugins configuration
+     * @param player the player to damage
+     * @param amount the amount of damage to apply
+     * @param part the body part to damage
+     * @param force damage even where BodyHealth is disabled
+     * @param cause the underlying event that caused this
+     */
+    public static void damagePlayerDirectly(@NotNull Player player, double amount, @NotNull BodyPart part, boolean force, @Nullable Event cause) {
+        BodyHealthUtils.getBodyHealth(player).applyDamage(part, amount, force, cause);
+    }
+
+
+    /**
      * Sets the given player's health (in percent!) across all body parts to a specified value
      * @param player the player whose health is to be set
      * @param health the new health value
@@ -112,14 +327,60 @@ public class BodyHealthAPI {
     }
 
     /**
-     * Sets the health (in percent!) of a specific body part of the given player to a specified value
+     * Sets the given player's health (in percent!) across all body parts to a specified value
      * @param player the player whose health is to be set
      * @param health the new health value
-     * @param part the body part to set the health for
+     * @param force_keep whether to force keep the new health state
      */
-    public static void setHealth(@NotNull Player player, double health, @NotNull BodyPart part) {
+    public static void setHealth(@NotNull Player player, double health, boolean force_keep) {
+        BodyHealthUtils.getBodyHealth(player).setHealth(health, force_keep, null);
+    }
+
+    /**
+     * Sets the given player's health (in percent!) across all body parts to a specified value
+     * @param player the player whose health is to be set
+     * @param health the new health value
+     * @param force_keep whether to force keep the new health state
+     * @param cause the underlying event that caused this
+     */
+    public static void setHealth(@NotNull Player player, double health, boolean force_keep, @Nullable Event cause) {
+        BodyHealthUtils.getBodyHealth(player).setHealth(health, force_keep, cause);
+    }
+
+
+    /**
+     * Sets the health (in percent!) of a specific body part of the given player to a specified value
+     * @param player the player whose health is to be set
+     * @param part the body part to set the health for
+     * @param health the new health value
+     */
+    public static void setHealth(@NotNull Player player, @NotNull BodyPart part, double health) {
         BodyHealthUtils.getBodyHealth(player).setHealth(part, health, true, null);
     }
+
+    /**
+     * Sets the health (in percent!) of a specific body part of the given player to a specified value
+     * @param player the player whose health is to be set
+     * @param part the body part to set the health for
+     * @param health the new health value
+     * @param force_keep whether to force keep the new health state
+     */
+    public static void setHealth(@NotNull Player player, @NotNull BodyPart part, double health, boolean force_keep) {
+        BodyHealthUtils.getBodyHealth(player).setHealth(part, health, force_keep, null);
+    }
+
+    /**
+     * Sets the health (in percent!) of a specific body part of the given player to a specified value
+     * @param player the player whose health is to be set
+     * @param part the body part to set the health for
+     * @param health the new health value
+     * @param force_keep whether to force keep the new health state
+     * @param cause the underlying event that caused this
+     */
+    public static void setHealth(@NotNull Player player, @NotNull BodyPart part, double health, boolean force_keep, @Nullable Event cause) {
+        BodyHealthUtils.getBodyHealth(player).setHealth(part, health, force_keep, cause);
+    }
+
 
     /**
      * Retrieves the current health (in percent!) of a specific body part of the given player
@@ -129,6 +390,147 @@ public class BodyHealthAPI {
      */
     public static double getHealth(@NotNull Player player, @NotNull BodyPart part) {
         return BodyHealthUtils.getBodyHealth(player).getHealth(part);
+    }
+
+    /**
+     * Retrieves the BodyHealth object of a player (careful with that!)
+     * @param player the player whose BodyHealth object is to be retrieved
+     * @return the BodyHealth object that belongs to the given player
+     */
+    public static BodyHealth getBodyHealth(@NotNull Player player) {
+        return BodyHealthUtils.getBodyHealth(player);
+    }
+
+    /**
+     * Check what BodyPartState a given body part of a given player currently has
+     * @param player The player to calculate the BodyPartState for
+     * @param part The body part to calculate the BodyPartState for
+     * @return The BodyPartState of the given body part of the given player
+     */
+    public static BodyPartState getBodyHealthState(@NotNull Player player, @NotNull BodyPart part) {
+        BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(player);
+        return BodyHealthUtils.getBodyHealthState(bodyHealth, part);
+    }
+
+    /**
+     * Calculates the maximum amount of health that a players body part should be able to have
+     * @param player The player to which the body part belongs
+     * @param part The body part to calculate the maximum amount of health for
+     * @return The maximum amount of health for the given body part
+     */
+    public static double getMaxPartHealth(@NotNull Player player, @NotNull BodyPart part) {
+        return BodyHealthUtils.getMaxHealth(part, player);
+    }
+
+
+    /**
+     * Registers a custom BodyHealthEffect, making it usable in the effect config
+     * @param effect The custom BodyHealthEffect object to register
+     * @return true if successfully registered
+     */
+    public static boolean registerCustomEffect(BodyHealthEffect effect) {
+        return EffectHandler.registerEffect(effect);
+    }
+
+    /**
+     * Unregisters a custom BodyHealthEffect, making it no longer usable in the effect config
+     * @param effect The custom BodyHealthEffect object to unregister
+     * @return true if successfully unregistered
+     */
+    public static boolean unregisterCustomEffect(BodyHealthEffect effect) {
+        return EffectHandler.unregisterEffect(effect);
+    }
+
+
+    /**
+     * Send a plugin message to a given CommandSender
+     * @param sender The CommandSender to send the message to
+     * @param message The message (may include formatting and PAPI placeholders)
+     */
+    public static void notifySender(@NotNull CommandSender sender, String message) {
+        MessageUtils.notifySender(sender, message);
+    }
+
+    /**
+     * Send a plugin message to a given player
+     * @param player The player to send the message to
+     * @param message The message (may include formatting and PAPI placeholders)
+     */
+    public static void notifyPlayer(@NotNull Player player, String message) {
+        MessageUtils.notifyPlayer(player, message);
+    }
+
+    /**
+     * Send a plugin message to a given CommandSender
+     * @param message The message (may include formatting and PAPI placeholders)
+     */
+    public static void notifyConsole(String message) {
+        MessageUtils.notifyConsole(message);
+    }
+
+
+    /**
+     * Checks whether a player is currently able to interact with a given hand
+     * @param player The player to check for
+     * @param hand EquipmentSlot.HAND/OFF_HAND
+     * @return true if able to interact
+     */
+    public static boolean canPlayerInteract(@NotNull Player player, @NotNull EquipmentSlot hand) {
+        return BodyHealthUtils.canPlayerInteract(player, hand);
+    }
+
+    /**
+     * Checks whether a player is currently able to jump
+     * @param player The player to check for
+     * @return true if able to jump
+     */
+    public static boolean canPlayerJump(@NotNull Player player) {
+        return BodyHealthUtils.canPlayerJump(player);
+    }
+
+    /**
+     * Checks whether a player is currently able to sprint
+     * @param player The player to check for
+     * @return true if able to sprint
+     */
+    public static boolean canPlayerSprint(@NotNull Player player) {
+        return BodyHealthUtils.canPlayerSprint(player);
+    }
+
+    /**
+     * Checks whether a player is currently able to walk
+     * @param player The player to check for
+     * @return true if able to walk
+     */
+    public static boolean canPlayerWalk(@NotNull Player player) {
+        return BodyHealthUtils.canPlayerWalk(player);
+    }
+
+
+    /**
+     * Evaluates a given math expression, returning -1 on failure
+     * @param expression The expression to evaluate/resolve
+     * @return The result or -1 on failure
+     */
+    public static double evaluateMathExpression(String expression) {
+        return BodyHealthUtils.evaluateExpression(expression);
+    }
+
+    /**
+     * Checks if a player is vanished with PremiumVanish or SuperVanish
+     * @param player The player to check for
+     * @return true if vanished
+     */
+    public static boolean isVanished(@NotNull Player player) {
+        return VanishPlugins.isVanished(player);
+    }
+
+    /**
+     * Checks for invalid leftover effects and removes them
+     * @param player The player to validate effects for
+     */
+    public static void validateEffects(@NotNull Player player) {
+        BodyHealthUtils.validateEffects(player);
     }
 
 }

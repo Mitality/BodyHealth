@@ -316,7 +316,7 @@ public class BodyHealthUtils {
             Expression e = new ExpressionBuilder(expression).build();
             return e.evaluate();
         } catch (Exception e) {
-            //Debug.logErr(e);
+            Debug.logErr("Failed to evaluate expression: " + e.getMessage());
             return -1;
         }
     }
