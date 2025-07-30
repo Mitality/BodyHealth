@@ -55,6 +55,14 @@ public class EffectHandler {
         return true;
     }
 
+    /**
+     * Retrieves all currently registered effects, mapped by their identifier
+     * @return A Map of all currently registered effects with their identifier
+     */
+    public static Map<String, BodyHealthEffect> getRegisteredEffects() {
+        return effects;
+    }
+
     public static List<Player> preventSprint = new ArrayList<>();
 
     /**

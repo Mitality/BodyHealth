@@ -1,7 +1,6 @@
 package bodyhealth.api.addons;
 
 import bodyhealth.Main;
-import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -126,7 +125,7 @@ public class AddonManager extends ClassLoader {
                 try {
                     BodyHealthAddon addon = addonClass.getConstructor().newInstance();
                     Class<BodyHealthAddon> bodyHealthAddonClass = BodyHealthAddon.class;
-                    // Set the debug class and file manager
+
                     Field debugField = bodyHealthAddonClass.getDeclaredField("debug");
                     Field fileManagerField = bodyHealthAddonClass.getDeclaredField("fileManager");
                     Field infoField = bodyHealthAddonClass.getDeclaredField("addonInfo");
@@ -137,16 +136,15 @@ public class AddonManager extends ClassLoader {
                     infoField.setAccessible(true);
                     managerField.setAccessible(true);
 
+                    if (addonClass.getAnnotation(AddonInfo.class) == null) {
+                        Debug.logErr("Addon " + addonClass.getSimpleName() + " could not be loaded due to it missing the AddonInfo annotation!");
+                        continue;
+                    }
+
                     debugField.set(addon, new AddonDebug(addonClass));
                     fileManagerField.set(addon, new AddonFileManager(addon, file));
                     infoField.set(addon, addonClass.getAnnotation(AddonInfo.class));
                     managerField.set(addon, this);
-
-
-                    if (addon.getAddonInfo() == null) {
-                        Debug.logErr("Addon " + addonClass.getSimpleName() + " could not be loaded due to missing the AddonInfo annotation!");
-                        continue;
-                    }
 
                     addon.getAddonDebug().log("Loading addon " + addon.getAddonInfo().name() + " (v" + addon.getAddonInfo().version() + ") by " + addon.getAddonInfo().author());
 
@@ -164,113 +162,134 @@ public class AddonManager extends ClassLoader {
     }
 
     /**
-     * Warning, intrepid coder! Beyond this point is uncharted territory, rife with unpredictable challenges.
-     * Save yourself the trouble and turn back while you can - what's ahead is not for the faint of heart !!!
+     * Finds and loads all classes from a given JAR file that are assignable to a specified base class
+     * @param file the JAR file to scan for classes
+     * @param clazz the superclass or interface to match against
+     * @param <T> the base type to which all returned classes must be assignable
+     * @return A list of classes from the JAR that extend or implement {@code clazz}, or an empty list if none found
+     * @throws CompletionException If an I/O or class loading error occurs during processing
      */
+    private static <T> @NotNull List<Class<? extends T>> findClasses(@NotNull File file, @NotNull Class<T> clazz) throws CompletionException {
+        if (!file.exists()) return Collections.emptyList();
 
-    private static <T> @NotNull List<Class<? extends T>> findClasses(@NotNull final File file, @NotNull final Class<T> clazz) throws CompletionException {
-        if (!file.exists()) {
-            return Collections.emptyList();
-        }
+        List<Class<? extends T>> classes = new ArrayList<>();
+        List<String> matches = matchingNames(file);
 
-        final List<Class<? extends T>> classes = new ArrayList<>();
-
-        final List<String> matches = matchingNames(file);
-
-        for (final String match : matches) {
+        for (String match : matches) {
             try {
-                final URL jar = file.toURI().toURL();
-                try (final URLClassLoader loader = new URLClassLoader(new URL[]{jar}, clazz.getClassLoader())) {
+                URL jarUrl = file.toURI().toURL();
+                try (URLClassLoader loader = new URLClassLoader(new URL[]{jarUrl}, clazz.getClassLoader())) {
                     Class<? extends T> addonClass = loadClass(loader, match, clazz);
-                    if (addonClass != null) {
-                        classes.add(addonClass);
-                    }
+                    if (addonClass != null) classes.add(addonClass);
                 }
-            } catch (final VerifyError ignored) {
+            } catch (VerifyError ignored) {
+                // silently ignore invalid class bytecode verification
             } catch (IOException | ClassNotFoundException e) {
-                throw new CompletionException(e.getCause());
+                Debug.logErr(e);
             }
         }
+
         return classes;
     }
 
+    /**
+     * Loads all classes from the given JAR file
+     * @param jarFile the JAR file to scan and load classes from
+     * @return A list of successfully loaded classes from the JAR
+     */
     private List<Class<?>> loadAllClassesFromJar(File jarFile) {
         List<Class<?>> classes = new ArrayList<>();
-        try (URLClassLoader classLoader = new URLClassLoader(new URL[]{jarFile.toURI().toURL()}, getClass().getClassLoader())) {
 
-            try (JarInputStream jarInputStream = new JarInputStream(new FileInputStream(jarFile))) {
-                JarEntry jarEntry;
-                String mainDir = "";
-                while ((jarEntry = jarInputStream.getNextJarEntry()) != null) {
-                    if (jarEntry.getName().endsWith(".class")) {
-                        String className = jarEntry.getName().replaceAll("/", ".").replace(".class", "");
-                        try {
-                            Class<?> clazz;
-                            try {
-                                clazz = Class.forName(className, false, classLoader);
-                            } catch (ClassNotFoundException | NoClassDefFoundError e) {
-                                continue;
-                            }
-                            if (BodyHealthAddon.class.isAssignableFrom(clazz)) {
-                                classLoader.loadClass(className);
-                                mainDir = className.substring(0, className.lastIndexOf('.'));
-                            }
-                            if (!clazz.getName().contains(mainDir)) {
-                                continue;
-                            }
-                            classes.add(clazz);
+        try (URLClassLoader classLoader = new URLClassLoader(
+                new URL[]{jarFile.toURI().toURL()},
+                getClass().getClassLoader());
+             JarInputStream jarInputStream = new JarInputStream(new FileInputStream(jarFile))) {
 
-                        } catch (ClassNotFoundException e) {
-                            Debug.logErr("Failed to load class " + className + ": " + e.getMessage());
-                        }
+            String basePackage = "";
+
+            JarEntry entry;
+            while ((entry = jarInputStream.getNextJarEntry()) != null) {
+                if (!entry.getName().endsWith(".class")) continue;
+
+                String className = entry.getName()
+                        .replace('/', '.')
+                        .replaceAll("\\.class$", "");
+
+                try {
+                    Class<?> clazz = Class.forName(className, false, classLoader);
+
+                    if (BodyHealthAddon.class.isAssignableFrom(clazz)) {
+                        basePackage = className.substring(0, className.lastIndexOf('.'));
                     }
-                }
-                for (Class<?> clazz : classes) {
-                    if (!BodyHealthAddon.class.isAssignableFrom(clazz)) {
-                        try {
-                            classLoader.loadClass(clazz.getName());
-                        } catch (ClassNotFoundException e) {
-                            Debug.logErr("Failed to load class " + clazz.getName() + ": " + e.getMessage());
-                        }
-                    }
+
+                    if (!basePackage.isEmpty() && !clazz.getName().startsWith(basePackage)) continue;
+
+                    classes.add(clazz);
+
+                } catch (ClassNotFoundException | NoClassDefFoundError e) {
+                    Debug.logErr("Failed to load class " + className + ": " + e.getMessage());
                 }
             }
+
+            // Ensure all collected classes are actually loaded
+            for (Class<?> clazz : classes) {
+                try {
+                    classLoader.loadClass(clazz.getName());
+                } catch (ClassNotFoundException e) {
+                    Debug.logErr("Deferred load failed for " + clazz.getName() + ": " + e.getMessage());
+                }
+            }
+
         } catch (IOException e) {
             Debug.logErr("Error loading classes from JAR: " + e.getMessage());
         }
+
         return classes;
     }
 
-    private static @NotNull List<String> matchingNames(final File file) {
-        final List<String> matches = new ArrayList<>();
-        try {
-            final URL jar = file.toURI().toURL();
-            try (final JarInputStream stream = new JarInputStream(jar.openStream())) {
-                JarEntry entry;
-                while ((entry = stream.getNextJarEntry()) != null) {
-                    final String name = entry.getName();
-                    if (!name.endsWith(".class")) {
-                        continue;
-                    }
+    /**
+     * Scans the given JAR file and returns a list of all fully qualified class names found within it
+     * @param file the JAR file to scan
+     * @return A list of class names (e.g., "com.example.MyClass") or an empty list if an error occurs
+     */
+    private static @NotNull List<String> matchingNames(@NotNull File file) {
+        List<String> matches = new ArrayList<>();
 
-                    matches.add(name.substring(0, name.lastIndexOf('.')).replace('/', '.'));
-                }
+        try (JarInputStream stream = new JarInputStream(file.toURI().toURL().openStream())) {
+            JarEntry entry;
+            while ((entry = stream.getNextJarEntry()) != null) {
+                if (!entry.getName().endsWith(".class")) continue;
+
+                String className = entry.getName()
+                        .substring(0, entry.getName().lastIndexOf('.'))
+                        .replace('/', '.');
+
+                matches.add(className);
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
+            Debug.logErr("Error loading classes from JAR: " + e.getMessage());
             return Collections.emptyList();
         }
+
         return matches;
     }
 
-    private static <T> @Nullable Class<? extends T> loadClass(final @NotNull URLClassLoader loader, final String match, @NotNull final Class<T> clazz) throws ClassNotFoundException {
+    /**
+     * Attempts to load a class by name from a given class loader and cast it to the specified type
+     * @param loader the class loader to use
+     * @param className the fully qualified class name
+     * @param clazz the base class or interface to check compatibility with
+     * @param <T> the expected type
+     * @return The class if successfully loaded and assignable to {@code clazz}, or {@code null} otherwise
+     * @throws ClassNotFoundException If the class cannot be found
+     */
+    private static <T> @Nullable Class<? extends T> loadClass(@NotNull URLClassLoader loader, @NotNull String className, @NotNull Class<T> clazz) throws ClassNotFoundException {
         try {
-            final Class<?> loaded = loader.loadClass(match);
-            if (clazz.isAssignableFrom(loaded)) {
-                return (loaded.asSubclass(clazz));
-            }
-        } catch (final NoClassDefFoundError ignored) {
+            Class<?> loaded = loader.loadClass(className);
+            return clazz.isAssignableFrom(loaded) ? loaded.asSubclass(clazz) : null;
+        } catch (NoClassDefFoundError ignored) {
+            return null;
         }
-        return null;
     }
 
 }

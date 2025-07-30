@@ -3,6 +3,8 @@ package bodyhealth.api.addons;
 import bodyhealth.Main;
 import bodyhealth.commands.CommandManager;
 import bodyhealth.commands.SubCommand;
+import bodyhealth.effects.BodyHealthEffect;
+import bodyhealth.effects.EffectHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
@@ -66,6 +68,13 @@ public abstract class BodyHealthAddon {
         listeners.remove(listener);
     }
 
+    public void unregisterListeners() {
+        for (Listener listener : listeners) {
+            HandlerList.unregisterAll(listener);
+        }
+        listeners.clear();
+    }
+
     public void registerCommand(String name, SubCommand command) {
         CommandManager.addSubCommand(name, command);
         commands.add(name);
@@ -83,11 +92,12 @@ public abstract class BodyHealthAddon {
         commands.clear();
     }
 
-    public void unregisterListeners() {
-        for (Listener listener : listeners) {
-            HandlerList.unregisterAll(listener);
-        }
-        listeners.clear();
+    public boolean registerEffect(BodyHealthEffect effect) {
+        return EffectHandler.registerEffect(effect);
+    }
+
+    public boolean unregisterEffect(BodyHealthEffect effect) {
+        return EffectHandler.unregisterEffect(effect);
     }
 
 }

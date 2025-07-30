@@ -37,12 +37,12 @@ public class WHEN_DAMAGED implements BodyHealthEffect {
         }
 
         String[] effectParts = Arrays.copyOfRange(args, 1, args.length);
-        if (!EffectHandler.effects.containsKey(effectParts[0].trim().toUpperCase())) {
+        if (!EffectHandler.getRegisteredEffects().containsKey(effectParts[0].trim().toUpperCase())) {
             Debug.logErr("Effect " + effectParts[0].trim() + " is invalid, check syntax!");
             return;
         }
 
-        BodyHealthEffect effectObject = EffectHandler.effects.get(effectParts[0].trim().toUpperCase());
+        BodyHealthEffect effectObject = EffectHandler.getRegisteredEffects().get(effectParts[0].trim().toUpperCase());
         if (effectObject.getEffectType() != EffectType.ONE_TIME) {
             Debug.logErr("Effect " + args[0].trim() + " can only trigger one-time effects!");
             return;
