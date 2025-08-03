@@ -12,9 +12,8 @@ import bodyhealth.listeners.BodyHealthListener;
 import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
 import bodyhealth.listeners.PlaceholderAPIListener;
-import com.jeff_media.updatechecker.UpdateCheckSource;
-import com.jeff_media.updatechecker.UpdateChecker;
-import com.jeff_media.updatechecker.UserAgentBuilder;
+import bodyhealth.listeners.UpdateNotifyListener;
+import bodyhealth.util.UpdateChecker;
 import com.tchristofferson.configupdater.ConfigUpdater;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
@@ -132,7 +131,7 @@ public final class Main extends JavaPlugin {
                 Bukkit.getPluginManager().registerEvents(bhl, this);
 
                 /*
-                 * BetterHud loads its pack asynchronously, meaning it may not be finished
+                 * BetterHud loads its pack asynchronously, meaning it might not be finished
                  * doing that by this point. We therefore wait another three seconds before
                  * simulating a reload to trigger BodyHealth's file validation process there
                  */
@@ -155,14 +154,9 @@ public final class Main extends JavaPlugin {
         DataManager.load();
 
         // Check for updates
-        UpdateChecker updateChecker = new UpdateChecker(this, UpdateCheckSource.SPIGOT, SPIGOT_RESOURCE_ID)
-            .setDownloadLink("https://www.spigotmc.org/resources/bodyhealth.119966/")
-            .setDonationLink("https://paypal.me/mitality")
-            .setChangelogLink("https://www.spigotmc.org/resources/bodyhealth.119966/updates")
-            .setNotifyByPermissionOnJoin("bodyhealth.update-notify")
-            .setUserAgent(new UserAgentBuilder().addPluginNameAndVersion());
+        UpdateChecker updateChecker = new UpdateChecker("BodyHealth", "bodyhealth", getDescription().getVersion()).checkNow();
         if (Config.update_check_interval > 0) updateChecker.checkEveryXHours(Config.update_check_interval);
-        updateChecker.checkNow();
+        Bukkit.getPluginManager().registerEvents(new UpdateNotifyListener(updateChecker), this);
 
         // Metrics
         if (Config.metrics) {

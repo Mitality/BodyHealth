@@ -1,0 +1,175 @@
+package bodyhealth.util;
+
+import bodyhealth.Main;
+import bodyhealth.config.Config;
+import bodyhealth.config.Debug;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import org.bukkit.Bukkit;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class UpdateChecker {
+
+    private volatile boolean updateAvailable = false;
+    private String updateLink = null;
+    private String latestVer = null;
+
+    private final String currentVersion;
+    private final String resourceName;
+    private final String projectId;
+    private final Gson gson;
+
+    public UpdateChecker(String resourceName, String projectId, String currentVersion) {
+        this.currentVersion = currentVersion;
+        this.resourceName = resourceName;
+        this.projectId = projectId;
+        this.gson = new Gson();
+    }
+
+    private void checkForUpdates() {
+        Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), () -> {
+            try {
+                URL url = new URL("https://api.modrinth.com/v2/project/" + projectId + "/version");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestProperty("User-Agent", "BodyHealth Update Checker");
+                conn.setRequestMethod("GET");
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                StringBuilder jsonBuilder = new StringBuilder();
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    jsonBuilder.append(line);
+                }
+                reader.close();
+
+                JsonArray versions = gson.fromJson(jsonBuilder.toString(), JsonArray.class);
+
+                if (versions.isEmpty()) {
+                    Debug.logErr("No versions for resource with id '" + projectId + "' found on Modrinth!");
+                    return;
+                }
+
+                JsonObject latest = versions.get(0).getAsJsonObject();
+                String latestVersion = latest.get("version_number").getAsString();
+
+                if (isNewerVersion(this.currentVersion, latestVersion)) {
+
+                    this.updateAvailable = true;
+                    this.updateLink = "https://modrinth.com/plugin/" + this.projectId + "/version/latest";
+                    this.latestVer = extractMainVersion(latestVersion);
+
+                    MessageUtils.notifyConsole(Config.prefix);
+                    MessageUtils.notifyConsole(Config.prefix + " &aA new version of &6" + this.resourceName + "&a is available: &6v" + latestVersion);
+                    MessageUtils.notifyConsole(Config.prefix + " &2Please update as soon as you can to avoid known issues.");
+                    MessageUtils.notifyConsole(Config.prefix + " &7https://modrinth.com/plugin/" + this.projectId + "/version/latest");
+                    MessageUtils.notifyConsole(Config.prefix);
+                } else {
+                    Bukkit.getLogger().log(Level.INFO, "[BodyHealth] You are running the latest version!");
+                }
+
+            } catch (Exception e) {
+                Debug.logErr("Failed to check for updates: " + e.getMessage());
+            }
+        });
+    }
+
+    /**
+     * Checks for updates every X hours
+     * @param hours how often to check
+     */
+    public UpdateChecker checkEveryXHours(int hours) {
+        int ticks = hours * 60 * 60 * 20;
+        Bukkit.getScheduler().runTaskTimerAsynchronously(Main.getInstance(), this::checkForUpdates, ticks, ticks);
+        return this;
+    }
+
+    /**
+     * Checks for updates once
+     */
+    public UpdateChecker checkNow() {
+        checkForUpdates();
+        return this;
+    }
+
+    /**
+     * Extracts the main version from given version strings and checks if one version is newer than another
+     * @param currentVersion The current version of a resource (e.g. "ResourceName-v1.0.0-dev3" -> 1.0.0)
+     * @param latestVersion The latest retrieved version of a resource (e.g. "v1.0.1-pre1" -> 1.0.1)
+     * @return true if the latest retrieved version is deemed newer than the current version
+     */
+    private static boolean isNewerVersion(String currentVersion, String latestVersion) {
+        String current = extractMainVersion(currentVersion);
+        String latest = extractMainVersion(latestVersion);
+
+        String[] currentParts = current.split("\\.");
+        String[] latestParts = latest.split("\\.");
+
+        int length = Math.max(currentParts.length, latestParts.length);
+
+        for (int i = 0; i < length; i++) {
+            int curr = i < currentParts.length ? Integer.parseInt(currentParts[i]) : 0;
+            int lat = i < latestParts.length ? Integer.parseInt(latestParts[i]) : 0;
+
+            if (lat > curr) return true;
+            if (lat < curr) return false;
+        }
+
+        return false; // equal
+    }
+
+    /**
+     * Extracts the first digit-based version (e.g., 1.2, 1.2.3.4) from a string
+     * @param input the version string to extract the main version from
+     * @return the main version, extracted from the given string
+     */
+    private static String extractMainVersion(String input) {
+        Pattern pattern = Pattern.compile("(\\d+)(\\.\\d+){0,3}");
+        Matcher matcher = pattern.matcher(input);
+        if (matcher.find()) {
+            return matcher.group();
+        }
+        return "0"; // fallback
+    }
+
+    /**
+     * Checks whether an update is available
+     * @return whether an update is available
+     */
+    public boolean isUpdateAvailable() {
+        return updateAvailable;
+    }
+
+    /**
+     * Retrieves the name of the resource this UpdateChecker instance belongs to
+     * @return the name of the resource this UpdateChecker instance belongs to
+     */
+    public String getResourceName() {
+        return resourceName;
+    }
+
+    /**
+     * Retrieves a link to the latest version of the resource on Modrinth
+     * @return A link where the latest version can be obtained
+     */
+    public String getUpdateLink() {
+        return updateLink;
+    }
+
+    /**
+     * Retrieves the latest retrieved version of the resource
+     * @return the latest retrieved version of the resource
+     */
+    public String getLatestVersion() {
+        return latestVer;
+    }
+
+}

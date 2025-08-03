@@ -69,4 +69,14 @@ public class AddonDebug {
         }
     }
 
+    /**
+     * Send message unconditionally and without extra class info
+     * Output Format: [<AddonName>] Message
+     * @param message The message to log
+     */
+    public void logRaw(String message) {
+        String prefixedMessage = "[" + addonName + "] " + message;
+        Bukkit.getLogger().log(Level.INFO, prefixedMessage);
+    }
+
 }

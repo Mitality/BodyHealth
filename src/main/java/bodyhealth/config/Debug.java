@@ -61,4 +61,15 @@ public class Debug {
             Bukkit.getLogger().log(Level.WARNING, prefixedMessage);
         }
     }
+
+    /**
+     * Send message unconditionally and without extra class info
+     * Output Format: [BodyHealth] Message
+     * @param message The message to log
+     */
+    public static void logRaw(String message) {
+        String prefixedMessage = "[BodyHealth] " + message;
+        Bukkit.getLogger().log(Level.WARNING, prefixedMessage);
+    }
+
 }
