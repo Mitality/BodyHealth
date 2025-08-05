@@ -65,7 +65,7 @@ public class UpdateChecker {
 
                     this.updateAvailable = true;
                     this.updateLink = "https://modrinth.com/plugin/" + this.projectId + "/version/latest";
-                    this.latestVer = extractMainVersion(latestVersion);
+                    this.latestVer = extractMainVersion(latestVersion) + extractSuffix(latestVersion);
 
                     MessageUtils.notifyConsole(Config.prefix);
                     MessageUtils.notifyConsole(Config.prefix + " &aA new version of &6" + this.resourceName + "&a is available: &6v" + latestVersion);
@@ -123,7 +123,26 @@ public class UpdateChecker {
             if (lat < curr) return false;
         }
 
-        return false; // equal
+        // If base versions are equal, compare suffixes
+        String currSuffix = extractSuffix(currentVersion);
+        String latSuffix = extractSuffix(latestVersion);
+        if (currSuffix.equals(latSuffix)) return false;
+
+        // No suffix (=stable release)
+        if (currSuffix.isEmpty() && !latSuffix.isEmpty()) return false;
+        if (!currSuffix.isEmpty() && latSuffix.isEmpty()) return true;
+
+        if (Config.releases_only) return false;
+
+        // Deem "pre" newer than "dev"
+        if (currSuffix.startsWith("dev") && latSuffix.startsWith("pre")) return true;
+        if (currSuffix.startsWith("pre") && latSuffix.startsWith("dev")) return false;
+
+        // Same type, compare numbers
+        int currNum = extractSuffixNumber(currSuffix);
+        int latNum = extractSuffixNumber(latSuffix);
+
+        return latNum > currNum;
     }
 
     /**
@@ -138,6 +157,26 @@ public class UpdateChecker {
             return matcher.group();
         }
         return "0"; // fallback
+    }
+
+    /**
+     * Extracts the suffix part of a version string (e.g. "dev1" from PluginName-v1.0.0-dev1)
+     * @param version A full version string (e.g. "PluginName_1.0.0", or "Test1234pre1")
+     * @return The suffix part of the given version string or an empty string if none
+     */
+    private static String extractSuffix(String version) {
+        Matcher m = Pattern.compile("\\d+\\.\\d+(?:\\.\\d+)?(?:[-_]?([a-zA-Z]+\\d*))?").matcher(version);
+        return m.find() && m.group(1) != null ? m.group(1).toLowerCase() : "";
+    }
+
+    /**
+     * Extracts the suffix number of a given suffix string (e.g. 3 from "dev3" or "pre3")
+     * @param suffix A suffix string like dev_3, pre1, or dev-2
+     * @return The extracted suffix number
+     */
+    private static int extractSuffixNumber(String suffix) {
+        Matcher m = Pattern.compile("\\d+").matcher(suffix);
+        return m.find() ? Integer.parseInt(m.group()) : 0;
     }
 
     /**

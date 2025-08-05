@@ -17,6 +17,7 @@ public class Config {
     public static boolean error_logging;
 
     public static int update_check_interval;
+    public static boolean releases_only;
     public static boolean metrics;
 
     public static boolean self_harm;
@@ -74,6 +75,7 @@ public class Config {
         error_logging = config.getBoolean("error-logging", true);
 
         update_check_interval = config.getInt("update-check-interval", 12);
+        releases_only = config.getBoolean("releases-only", true);
         metrics = config.getBoolean("metrics", true);
 
         self_harm = config.getBoolean("self-harm", false);

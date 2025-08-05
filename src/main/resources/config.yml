@@ -77,6 +77,11 @@ error-logging: true
 # [hours] When set to 0, no further checks are scheduled
 update-check-interval: 12
 
+# Whether to only check for full releases, or for any version
+# When set to false, BodyHealth also notifies you, when a new
+# prerelease or dev version of itself or an addon is available
+releases-only: true
+
 # Share anonymous data to improve the plugin's development
 # Recommended to keep enabled for more relevant updates
 # https://bstats.org/plugin/bukkit/BodyHealth/23538

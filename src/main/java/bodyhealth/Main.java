@@ -34,7 +34,6 @@ public final class Main extends JavaPlugin {
 
     private static Main instance;
     private static List<String> languages;
-    private static String SPIGOT_RESOURCE_ID;
     public static PlaceholderAPI placeholderAPIexpansion;
     private static BukkitAudiences adventure;
     public static long validationTimestamp;
@@ -44,7 +43,6 @@ public final class Main extends JavaPlugin {
     public void onLoad() {
         instance = this;
         validationTimestamp = 0;
-        SPIGOT_RESOURCE_ID = "119966";
         languages = new ArrayList<>();
         if (Bukkit.getPluginManager().getPlugin("WorldGuard") != null)  WorldGuard.initialize();
     }
