@@ -9,9 +9,11 @@ import bodyhealth.util.BodyHealthUtils;
 import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
 import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.EquipmentSlotGroup;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -168,7 +170,7 @@ public class EffectHandler {
      * @return An attribute modifier that reduces sprint speed to walk speed
      */
     public static AttributeModifier getSpeedReductionModifier() {
-        return new AttributeModifier(UUID.fromString("123e4567-e89b-12d3-a456-426614174001"), "Reduce sprint speed to walk", -0.2308, AttributeModifier.Operation.MULTIPLY_SCALAR_1);
+        return new AttributeModifier(new NamespacedKey("bodyhealth", "sprint_denial"), -0.2308, AttributeModifier.Operation.MULTIPLY_SCALAR_1, EquipmentSlotGroup.ANY);
     }
 
     /**
@@ -176,7 +178,7 @@ public class EffectHandler {
      * @return An attribute modifier that reduces walk speed to zero
      */
     public static AttributeModifier getWalkDenialModifier() {
-        return new AttributeModifier(UUID.fromString("123e4567-e89b-12d3-a456-426614174002"), "Reduce walk speed to zero", -1.0, AttributeModifier.Operation.MULTIPLY_SCALAR_1);
+        return new AttributeModifier(new NamespacedKey("bodyhealth", "walk_denial"), -1.0, AttributeModifier.Operation.MULTIPLY_SCALAR_1, EquipmentSlotGroup.ANY);
     }
 
     /**
@@ -184,7 +186,7 @@ public class EffectHandler {
      * @return An attribute modifier that reduces jump strength to zero
      */
     public static AttributeModifier getJumpDenialModifier() {
-        return new AttributeModifier(UUID.fromString("123e4567-e89b-12d3-a456-426614174003"), "Reduce jump strength to zero", -1.0, AttributeModifier.Operation.MULTIPLY_SCALAR_1);
+        return new AttributeModifier(new NamespacedKey("bodyhealth", "jump_denial"), -1.0, AttributeModifier.Operation.MULTIPLY_SCALAR_1, EquipmentSlotGroup.ANY);
     }
 
     /**

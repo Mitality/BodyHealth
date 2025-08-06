@@ -36,7 +36,7 @@ public class PREVENT_WALK implements BodyHealthEffect {
         Debug.log("(" + part.name() +") Preventing walk for player " + player.getName());
 
         AttributeInstance walkAttribute = player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED);
-        if (walkAttribute != null && walkAttribute.getModifiers().stream().noneMatch(mod -> mod.getUniqueId().equals(EffectHandler.getWalkDenialModifier().getUniqueId()))) {
+        if (walkAttribute != null && walkAttribute.getModifiers().stream().noneMatch(mod -> mod.getKey().equals(EffectHandler.getWalkDenialModifier().getKey()))) {
             Debug.log("Adding WalkDenialModifier to player " + player.getName());
             walkAttribute.addModifier(EffectHandler.getWalkDenialModifier());
         }
@@ -51,7 +51,7 @@ public class PREVENT_WALK implements BodyHealthEffect {
 
         AttributeInstance walkAttribute = player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED);
         if (walkAttribute != null && BodyHealthUtils.canPlayerWalk(player)) {
-            if (walkAttribute.getModifiers().stream().anyMatch(mod -> mod.getUniqueId().equals(EffectHandler.getWalkDenialModifier().getUniqueId()))) {
+            if (walkAttribute.getModifiers().stream().anyMatch(mod -> mod.getKey().equals(EffectHandler.getWalkDenialModifier().getKey()))) {
                 Debug.log("Removing WalkDenialModifier from player " + player.getName());
                 walkAttribute.removeModifier(EffectHandler.getWalkDenialModifier());
             }

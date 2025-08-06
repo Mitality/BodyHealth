@@ -34,7 +34,7 @@ public class PREVENT_JUMP implements BodyHealthEffect {
         Debug.log("(" + part.name() +") Preventing jump for player " + player.getName());
 
         AttributeInstance jumpAttribute = player.getAttribute(Attribute.GENERIC_JUMP_STRENGTH);
-        if (jumpAttribute != null && jumpAttribute.getModifiers().stream().noneMatch(mod -> mod.getUniqueId().equals(EffectHandler.getJumpDenialModifier().getUniqueId()))) {
+        if (jumpAttribute != null && jumpAttribute.getModifiers().stream().noneMatch(mod -> mod.getKey().equals(EffectHandler.getJumpDenialModifier().getKey()))) {
             Debug.log("Adding JumpDenialModifier to player " + player.getName());
             jumpAttribute.addModifier(EffectHandler.getJumpDenialModifier());
         }
@@ -49,7 +49,7 @@ public class PREVENT_JUMP implements BodyHealthEffect {
 
         AttributeInstance jumpAttribute = player.getAttribute(Attribute.GENERIC_JUMP_STRENGTH);
         if (jumpAttribute != null && BodyHealthUtils.canPlayerJump(player)) {
-            if (jumpAttribute.getModifiers().stream().anyMatch(mod -> mod.getUniqueId().equals(EffectHandler.getJumpDenialModifier().getUniqueId()))) {
+            if (jumpAttribute.getModifiers().stream().anyMatch(mod -> mod.getKey().equals(EffectHandler.getJumpDenialModifier().getKey()))) {
                 Debug.log("Removing JumpDenialModifier from player " + player.getName());
                 jumpAttribute.removeModifier(EffectHandler.getJumpDenialModifier());
             }
