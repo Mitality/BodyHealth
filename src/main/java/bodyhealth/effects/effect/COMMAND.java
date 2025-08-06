@@ -30,8 +30,10 @@ public class COMMAND implements BodyHealthEffect {
 
         Bukkit.getScheduler().runTask(Main.getInstance(), () -> { // Dispatch command synchronously
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), args[1].trim()
-                    .replaceAll("%PlayerName%", player.getName())
-                    .replaceAll("%PlayerUUID%", player.getUniqueId().toString()));
+                .replace("%PlayerName%", player.getName())
+                .replace("%PlayerUUID%", player.getUniqueId().toString())
+                .replace("%BodyPart%", part.name())
+            );
             Debug.log("(" + part.name() +") Dispatched command: /" + args[1].trim());
         });
 

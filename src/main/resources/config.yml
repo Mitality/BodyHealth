@@ -283,7 +283,7 @@ body-damage:
 #
 #      One-time effects (activate once when conditions are met):
 #
-#         COMMAND / cmd args[...]                  ...execute a command (can use %PlayerName% and %PlayerUUID% as placeholders)
+#         COMMAND / cmd args[...]                  ...execute a command (can use %PlayerName%, %PlayerUUID% and %BodyPart%)
 #         COMMAND_UNDO / cmd args[...]             ...execute a command when the condition is no longer met (to undo stuff)
 #         SOUND / <ID> / [VOLUME] / [PITCH]        ...play a vanilla or custom sound (namespace optional) to only the player
 #         MESSAGE / <MESSAGE>                      ...send a message to the target player to notify them of their status
