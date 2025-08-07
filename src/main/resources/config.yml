@@ -289,10 +289,12 @@ body-damage:
 #         MESSAGE / <MESSAGE>                      ...send a message to the target player to notify them of their status
 #         KILL_PLAYER                              ...you guessed it, this kills the player when the condition is met
 #
-#      Meta effects (activate one-time effects conditionally):
+#      Meta effects (logic-based triggers for non-persistent effects):
 #
-#         WHEN_DAMAGED / <EFFECT[...]>             ...triggers effect when the condition is met due to taking damage
-#         WHEN_HEALED / <EFFECT[...]>              ...triggers effect when the condition is met due to regeneration
+#         REPEATING / <delay> / <interval> / <EFFECT[...]>   ...repeats effect at the specified interval (e.g. 5s for 5 seconds)
+#         DELAYED / <delay> / <EFFECT[...]>               ...executes effect after the specified delay (e.g. 10t for 10 ticks)
+#         WHEN_DAMAGED / <EFFECT[...]>                 ...triggers effect when the condition is met due to taking damage
+#         WHEN_HEALED / <EFFECT[...]>               ...triggers effect when the condition is met due to regeneration
 #
 #   <MESSAGE> (or [MESSAGE]) can be the following:
 #
@@ -309,75 +311,92 @@ body-damage:
 #   DAMAGED » Health is below 25%
 #   BROKEN » No health left
 #
-# Some examples have already been configured for you, but you are meant to adjust them:
+# Some examples have already been configured for you:
 effects:
   HEAD:
     FULL: []
     NEARLYFULL: []
     INTERMEDIATE: []
     DAMAGED:
-      - MESSAGE / TITLE:&4Caution!;&cYou are about to die # Warn players with a title when their health gets below 25%
+      - WHEN_DAMAGED / MESSAGE / actionbar:&cYour head is pounding
+      - POTION_EFFECT / NAUSEA / 1
     BROKEN:
-      - KILL_PLAYER # Kill the player when their head reaches 0 HP
+      - POTION_EFFECT / NAUSEA / 1
+      - KILL_PLAYER
   BODY:
     FULL: []
-    NEARLYFULL: []
+    NEARLYFULL:
+      - WHEN_HEALED / DELAYED / 1s / MESSAGE / actionbar:&aYou feel a little better
+      - DELAYED / 1s / COMMAND / attribute %PlayerName% minecraft:oxygen_bonus base set 1
+      - COMMAND_UNDO / attribute %PlayerName% minecraft:oxygen_bonus base set 0
     INTERMEDIATE: []
     DAMAGED:
-      - MESSAGE / &cYour body is now below 25% health # Send a normal chat message to the player, informing them of their body health state
+      - WHEN_DAMAGED / MESSAGE / actionbar:&cYour heart is pounding
+      - REPEATING / 10t / 10t / SOUND / entity.warden.heartbeat / 1 / 0.75
     BROKEN:
-      - COMMAND / attribute %PlayerName% minecraft:scale base set 2 # Make the player two times as tall when their body reaches 0 HP
-      - COMMAND_UNDO / attribute %PlayerName% minecraft:scale base set 1 # Set the players scale back to normal when their body recovers
+      - KILL_PLAYER
+      - COMMAND / attribute %PlayerName% minecraft:scale base set 2
+      - COMMAND_UNDO / attribute %PlayerName% minecraft:scale base set 1
   ARM_LEFT:
     FULL: []
     NEARLYFULL: []
     INTERMEDIATE: []
-    DAMAGED: []
+    DAMAGED:
+      - WHEN_DAMAGED / MESSAGE / actionbar:&cYou arm hurts
+      - POTION_EFFECT / WEAKNESS / 1
     BROKEN:
-      - PREVENT_INTERACT / OFF_HAND / actionbar:&cYou arm hurts badly! # Prevent off-hand usage of their left arm is at 0 HP and notify them via their actionbar if they try to use it
+      - PREVENT_INTERACT / OFF_HAND / actionbar:&cYou arm hurts badly
+      - POTION_EFFECT / WEAKNESS / 2
   ARM_RIGHT:
     FULL: []
     NEARLYFULL: []
     INTERMEDIATE: []
-    DAMAGED: []
+    DAMAGED:
+      - WHEN_DAMAGED / MESSAGE / actionbar:&cYou arm hurts
+      - POTION_EFFECT / WEAKNESS / 1
     BROKEN:
-      - PREVENT_INTERACT / HAND / actionbar:&cYou arm hurts badly! # Prevent main-hand usage of their left arm is at 0 HP and notify them via their actionbar if they try to use it
+      - PREVENT_INTERACT / HAND / actionbar:&cYou arm hurts badly
+      - POTION_EFFECT / WEAKNESS / 2
   LEG_LEFT:
     FULL: []
     NEARLYFULL: []
     INTERMEDIATE: []
     DAMAGED:
-      - PREVENT_SPRINT # Prevent the player from sprinting when their left legs health is below 25%
-      - PREVENT_JUMP # Prevent the player from jumping when their left legs health is below 25%
+      - PREVENT_SPRINT
+      - PREVENT_JUMP
     BROKEN:
-      - POTION_EFFECT / SLOWNESS / 3 # Apply the SLOWNESS effect (lvl 3) to players whose left leg is at 0 HP
-      - PREVENT_JUMP # Prevent the player from jumping when their right legs health is at 0 HP
+      - POTION_EFFECT / SLOWNESS / 3
+      - PREVENT_JUMP
   LEG_RIGHT:
     FULL: []
     NEARLYFULL: []
     INTERMEDIATE: []
     DAMAGED:
-      - PREVENT_SPRINT # Prevent the player from sprinting when their right legs health is below 25%
-      - PREVENT_JUMP # Prevent the player from jumping when their right legs health is below 25%
+      - PREVENT_SPRINT
+      - PREVENT_JUMP
     BROKEN:
-      - POTION_EFFECT / SLOWNESS / 3 # Apply the SLOWNESS effect (lvl 3) to players whose right leg is at 0 HP
-      - PREVENT_JUMP # Prevent the player from jumping when their right legs health is at 0 HP
+      - POTION_EFFECT / SLOWNESS / 3
+      - PREVENT_JUMP
   FOOT_LEFT:
     FULL: []
     NEARLYFULL: []
     INTERMEDIATE: []
-    DAMAGED: []
+    DAMAGED:
+      - PREVENT_SPRINT
     BROKEN:
-      - PREVENT_WALK # Prevent the player from moving walking at all when left foot reaches 0 HP
-      - SOUND / minecraft:entity.bogged.hurt # Mimic the sound of bones breaking
+      - PREVENT_WALK
+      - SOUND / minecraft:entity.bogged.hurt / 1 / 1.3
+      - MESSAGE / actionbar:&cYou sprained your ankle
   FOOT_RIGHT:
     FULL: []
     NEARLYFULL: []
     INTERMEDIATE: []
-    DAMAGED: []
+    DAMAGED:
+      - PREVENT_SPRINT
     BROKEN:
-      - PREVENT_WALK # Prevent the player from moving walking at all when right foot reaches 0 HP
-      - SOUND / minecraft:entity.bogged.hurt # Mimic the sound of bones breaking
+      - PREVENT_WALK
+      - SOUND / minecraft:entity.bogged.hurt / 1 / 1.3
+      - MESSAGE / actionbar:&cYou sprained your ankle
 
 
 display:

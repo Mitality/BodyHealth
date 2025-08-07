@@ -1,6 +1,7 @@
 package bodyhealth.util;
 
 import bodyhealth.Main;
+import bodyhealth.config.Debug;
 import bodyhealth.core.BodyHealth;
 import bodyhealth.core.BodyPart;
 import io.github.milkdrinkers.colorparser.ColorParser;

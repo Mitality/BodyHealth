@@ -6,6 +6,8 @@ import bodyhealth.config.Debug;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 
 import java.io.BufferedReader;
@@ -64,14 +66,29 @@ public class UpdateChecker {
                 if (isNewerVersion(this.currentVersion, latestVersion)) {
 
                     this.updateAvailable = true;
+                    this.latestVer = latestVersion;
                     this.updateLink = "https://modrinth.com/plugin/" + this.projectId + "/version/latest";
-                    this.latestVer = extractMainVersion(latestVersion) + extractSuffix(latestVersion);
 
-                    MessageUtils.notifyConsole(Config.prefix);
-                    MessageUtils.notifyConsole(Config.prefix + " &aA new version of &6" + this.resourceName + "&a is available: &6v" + latestVersion);
-                    MessageUtils.notifyConsole(Config.prefix + " &2Please update as soon as you can to avoid known issues.");
-                    MessageUtils.notifyConsole(Config.prefix + " &7https://modrinth.com/plugin/" + this.projectId + "/version/latest");
-                    MessageUtils.notifyConsole(Config.prefix);
+                    // Synchronized to prevent interference with addons
+                    synchronized (Main.getMutexObj()) {
+                        Component message = Component.text()
+                            .append(Component.text("[BodyHealth] Update available!", NamedTextColor.GRAY))
+                            .appendNewline()
+                            .appendNewline()
+                            .append(Component.text("  A new version of ", NamedTextColor.GREEN))
+                            .append(Component.text(this.resourceName, NamedTextColor.GOLD))
+                            .append(Component.text(" is available: ", NamedTextColor.GREEN))
+                            .append(Component.text("v" + latestVersion, NamedTextColor.GOLD))
+                            .appendNewline()
+                            .append(Component.text("  Please update at your earliest convenience to prevent known issues.", NamedTextColor.DARK_GREEN))
+                            .appendNewline()
+                            .append(Component.text("  https://modrinth.com/plugin/" + this.projectId + "/version/latest", NamedTextColor.GRAY))
+                            .appendNewline()
+                            .append(Component.text(" ")) // Some consoles would ignore the last line without this
+                            .build();
+                        Main.getAdventure().console().sendMessage(message);
+                    }
+
                 } else {
                     Bukkit.getLogger().log(Level.INFO, "[BodyHealth] You are running the latest version!");
                 }

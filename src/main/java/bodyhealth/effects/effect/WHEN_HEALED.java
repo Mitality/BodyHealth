@@ -43,8 +43,8 @@ public class WHEN_HEALED implements BodyHealthEffect {
         }
 
         BodyHealthEffect effectObject = EffectHandler.getRegisteredEffects().get(effectParts[0].trim().toUpperCase());
-        if (effectObject.getEffectType() != EffectType.ONE_TIME) {
-            Debug.logErr("Effect " + args[0].trim() + " can only trigger one-time effects!");
+        if (effectObject.getEffectType() == EffectType.PERSISTENT) {
+            Debug.logErr("Effect " + args[0].trim() + " cannot trigger persistent effects!");
             return;
         }
 

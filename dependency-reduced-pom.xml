@@ -4,7 +4,7 @@
   <groupId>mitality</groupId>
   <artifactId>BodyHealth</artifactId>
   <name>BodyHealth</name>
-  <version>2.4.0-pre3</version>
+  <version>3.0.0</version>
   <description>description</description>
   <url>https://github.com/Mitality/BodyHealth</url>
   <build>
@@ -43,6 +43,10 @@
             <relocation>
               <pattern>net.kyori.adventure</pattern>
               <shadedPattern>bodyhealth.adventure</shadedPattern>
+            </relocation>
+            <relocation>
+              <pattern>net.kyori.option</pattern>
+              <shadedPattern>bodyhealth.option</shadedPattern>
             </relocation>
             <relocation>
               <pattern>io.github.milkdrinkers.colorparser</pattern>

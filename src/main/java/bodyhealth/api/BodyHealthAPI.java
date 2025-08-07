@@ -1,7 +1,6 @@
 package bodyhealth.api;
 
 import bodyhealth.Main;
-import bodyhealth.config.Config;
 import bodyhealth.core.BodyHealth;
 import bodyhealth.core.BodyPart;
 import bodyhealth.core.BodyPartState;
@@ -461,7 +460,7 @@ public class BodyHealthAPI {
     }
 
     /**
-     * Send a plugin message to a given CommandSender
+     * Send a plugin message to the console
      * @param message The message (may include formatting and PAPI placeholders)
      */
     public static void notifyConsole(String message) {

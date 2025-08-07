@@ -35,9 +35,11 @@ public final class Main extends JavaPlugin {
     private static Main instance;
     private static List<String> languages;
     public static PlaceholderAPI placeholderAPIexpansion;
+    private static final Object MUTEX = new Object();
     private static BukkitAudiences adventure;
     public static long validationTimestamp;
     private static AddonManager addonManager;
+
 
     @Override
     public void onLoad() {
@@ -174,7 +176,7 @@ public final class Main extends JavaPlugin {
             EffectHandler.removeEffectsFromPlayer(player); // Ensure that all effects are removed
             DataManager.saveBodyHealth(player.getUniqueId());
         }
-        if(adventure != null) {
+        if (adventure != null) {
             adventure.close();
             adventure = null;
         }
@@ -196,6 +198,10 @@ public final class Main extends JavaPlugin {
 
     public static List<String> getLanguages() {
         return languages;
+    }
+
+    public static Object getMutexObj() {
+        return MUTEX;
     }
 
 }

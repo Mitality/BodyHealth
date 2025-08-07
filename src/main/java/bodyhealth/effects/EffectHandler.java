@@ -31,6 +31,8 @@ public class EffectHandler {
         Map.entry("COMMAND_UNDO", new COMMAND_UNDO()),
         Map.entry("MESSAGE", new MESSAGE()),
         Map.entry("SOUND", new SOUND()),
+        Map.entry("REPEATING", new REPEATING()),
+        Map.entry("DELAYED", new DELAYED()),
         Map.entry("WHEN_DAMAGED", new WHEN_DAMAGED()),
         Map.entry("WHEN_HEALED", new WHEN_HEALED())
     );
