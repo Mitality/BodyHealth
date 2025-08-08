@@ -63,4 +63,6 @@ public class PREVENT_INTERACT implements BodyHealthEffect {
 
     }
 
+    // This effect utilizes a special builtin system that detects this effect when listed as ongoing
+
 }
