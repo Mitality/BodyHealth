@@ -25,7 +25,7 @@ public class BodyHealthAPI {
      * Retrieves the instance of the main plugin class
      * @return the JavaPlugin instance
      */
-    public static @NotNull JavaPlugin getInstance() {
+    public @NotNull JavaPlugin getBodyHealthPlugin() {
         return Main.getInstance();
     }
 
@@ -33,7 +33,7 @@ public class BodyHealthAPI {
      * Reloads the plugin, momentarily removing all effects
      * @return true if the reload was successful
      */
-    public static boolean reloadSystem() {
+    public boolean reloadBodyHealthPlugin() {
         return BodyHealthUtils.reloadSystem();
     }
 
@@ -42,7 +42,7 @@ public class BodyHealthAPI {
      * @param world The world to check for
      * @return true if enabled
      */
-    public static boolean isSystemEnabled(@NotNull World world) {
+    public boolean isSystemEnabled(@NotNull World world) {
         return BodyHealthUtils.isSystemEnabled(world);
     }
 
@@ -51,7 +51,7 @@ public class BodyHealthAPI {
      * @param player The player to check for
      * @return true if enabled
      */
-    public static boolean isSystemEnabled(@NotNull Player player) {
+    public boolean isSystemEnabled(@NotNull Player player) {
         return BodyHealthUtils.isSystemEnabled(player);
     }
 
@@ -60,7 +60,7 @@ public class BodyHealthAPI {
      * Fully heals the given player across all body parts
      * @param player the player to fully heal
      */
-    public static void healPlayer(@NotNull Player player) {
+    public void healPlayer(@NotNull Player player) {
         BodyHealthUtils.getBodyHealth(player).regenerateHealth(Double.MAX_VALUE, false, null);
     }
 
@@ -69,7 +69,7 @@ public class BodyHealthAPI {
      * @param player the player to fully heal
      * @param force heal even where BodyHealth is disabled
      */
-    public static void healPlayer(@NotNull Player player, boolean force) {
+    public void healPlayer(@NotNull Player player, boolean force) {
         BodyHealthUtils.getBodyHealth(player).regenerateHealth(Double.MAX_VALUE, force, null);
     }
 
@@ -79,7 +79,7 @@ public class BodyHealthAPI {
      * @param force heal even where BodyHealth is disabled
      * @param cause the underlying event that caused this
      */
-    public static void healPlayer(@NotNull Player player, boolean force, @Nullable Event cause) {
+    public void healPlayer(@NotNull Player player, boolean force, @Nullable Event cause) {
         BodyHealthUtils.getBodyHealth(player).regenerateHealth(Double.MAX_VALUE, force, cause);
     }
 
@@ -89,7 +89,7 @@ public class BodyHealthAPI {
      * @param player the player to heal by the specified amount
      * @param amount the amount of health to restore
      */
-    public static void healPlayer(@NotNull Player player, int amount) {
+    public void healPlayer(@NotNull Player player, int amount) {
         BodyHealthUtils.getBodyHealth(player).regenerateHealth(amount, false, null);
     }
 
@@ -99,7 +99,7 @@ public class BodyHealthAPI {
      * @param amount the amount of health to restore
      * @param force heal even where BodyHealth is disabled
      */
-    public static void healPlayer(@NotNull Player player, int amount, boolean force) {
+    public void healPlayer(@NotNull Player player, int amount, boolean force) {
         BodyHealthUtils.getBodyHealth(player).regenerateHealth(amount, force, null);
     }
 
@@ -110,7 +110,7 @@ public class BodyHealthAPI {
      * @param force heal even where BodyHealth is disabled
      * @param cause the underlying event that caused this
      */
-    public static void healPlayer(@NotNull Player player, int amount, boolean force, @Nullable Event cause) {
+    public void healPlayer(@NotNull Player player, int amount, boolean force, @Nullable Event cause) {
         BodyHealthUtils.getBodyHealth(player).regenerateHealth(amount, force, cause);
     }
 
@@ -120,7 +120,7 @@ public class BodyHealthAPI {
      * @param player the player to fully heal
      * @param part the specific body part to heal
      */
-    public static void healPlayer(@NotNull Player player, @NotNull BodyPart part) {
+    public void healPlayer(@NotNull Player player, @NotNull BodyPart part) {
         BodyHealthUtils.getBodyHealth(player).regenerateHealth(Double.MAX_VALUE, part, false, null);
     }
 
@@ -130,7 +130,7 @@ public class BodyHealthAPI {
      * @param part the specific body part to heal
      * @param force heal even where BodyHealth is disabled
      */
-    public static void healPlayer(@NotNull Player player, @NotNull BodyPart part, boolean force) {
+    public void healPlayer(@NotNull Player player, @NotNull BodyPart part, boolean force) {
         BodyHealthUtils.getBodyHealth(player).regenerateHealth(Double.MAX_VALUE, part, force, null);
     }
 
@@ -141,7 +141,7 @@ public class BodyHealthAPI {
      * @param force heal even where BodyHealth is disabled
      * @param cause the underlying event that caused this
      */
-    public static void healPlayer(@NotNull Player player, @NotNull BodyPart part, boolean force, @Nullable Event cause) {
+    public void healPlayer(@NotNull Player player, @NotNull BodyPart part, boolean force, @Nullable Event cause) {
         BodyHealthUtils.getBodyHealth(player).regenerateHealth(Double.MAX_VALUE, part, force, cause);
     }
 
@@ -152,7 +152,7 @@ public class BodyHealthAPI {
      * @param part the body part to heal by the specified amount
      * @param amount the amount of health to restore
      */
-    public static void healPlayer(@NotNull Player player, @NotNull BodyPart part, int amount) {
+    public void healPlayer(@NotNull Player player, @NotNull BodyPart part, int amount) {
         BodyHealthUtils.getBodyHealth(player).regenerateHealth(amount, part, false, null);
     }
 
@@ -163,7 +163,7 @@ public class BodyHealthAPI {
      * @param amount the amount of health to restore
      * @param force heal even where BodyHealth is disabled
      */
-    public static void healPlayer(@NotNull Player player, @NotNull BodyPart part, int amount, boolean force) {
+    public void healPlayer(@NotNull Player player, @NotNull BodyPart part, int amount, boolean force) {
         BodyHealthUtils.getBodyHealth(player).regenerateHealth(amount, part, force, null);
     }
 
@@ -175,7 +175,7 @@ public class BodyHealthAPI {
      * @param force heal even where BodyHealth is disabled
      * @param cause the underlying event that caused this
      */
-    public static void healPlayer(@NotNull Player player, @NotNull BodyPart part, int amount, boolean force, @Nullable Event cause) {
+    public void healPlayer(@NotNull Player player, @NotNull BodyPart part, int amount, boolean force, @Nullable Event cause) {
         BodyHealthUtils.getBodyHealth(player).regenerateHealth(amount, part, force, cause);
     }
 
@@ -186,7 +186,7 @@ public class BodyHealthAPI {
      * @param damageCause the cause of the damage
      * @param amount the amount of damage to apply
      */
-    public static void damagePlayerWithConfig(@NotNull Player player, @NotNull EntityDamageEvent.DamageCause damageCause, double amount) {
+    public void damagePlayerWithConfig(@NotNull Player player, @NotNull EntityDamageEvent.DamageCause damageCause, double amount) {
         BodyHealthUtils.applyDamageWithConfig(BodyHealthUtils.getBodyHealth(player), damageCause, amount, false, null);
     }
 
@@ -197,7 +197,7 @@ public class BodyHealthAPI {
      * @param amount the amount of damage to apply
      * @param force damage even where BodyHealth is disabled
      */
-    public static void damagePlayerWithConfig(@NotNull Player player, @NotNull EntityDamageEvent.DamageCause damageCause, double amount, boolean force) {
+    public void damagePlayerWithConfig(@NotNull Player player, @NotNull EntityDamageEvent.DamageCause damageCause, double amount, boolean force) {
         BodyHealthUtils.applyDamageWithConfig(BodyHealthUtils.getBodyHealth(player), damageCause, amount, force, null);
     }
 
@@ -209,7 +209,7 @@ public class BodyHealthAPI {
      * @param force damage even where BodyHealth is disabled
      * @param cause the underlying event that caused this
      */
-    public static void damagePlayerWithConfig(@NotNull Player player, @NotNull EntityDamageEvent.DamageCause damageCause, double amount, boolean force, @Nullable Event cause) {
+    public void damagePlayerWithConfig(@NotNull Player player, @NotNull EntityDamageEvent.DamageCause damageCause, double amount, boolean force, @Nullable Event cause) {
         BodyHealthUtils.applyDamageWithConfig(BodyHealthUtils.getBodyHealth(player), damageCause, amount, force, cause);
     }
 
@@ -221,7 +221,7 @@ public class BodyHealthAPI {
      * @param amount the amount of damage to apply
      * @param part the body part to damage
      */
-    public static void damagePlayerWithConfig(@NotNull Player player, @NotNull EntityDamageEvent.DamageCause damageCause, double amount, @NotNull BodyPart part) {
+    public void damagePlayerWithConfig(@NotNull Player player, @NotNull EntityDamageEvent.DamageCause damageCause, double amount, @NotNull BodyPart part) {
         BodyHealthUtils.applyDamageWithConfig(BodyHealthUtils.getBodyHealth(player), damageCause, amount, part, false, null);
     }
 
@@ -233,7 +233,7 @@ public class BodyHealthAPI {
      * @param part the body part to damage
      * @param force damage even where BodyHealth is disabled
      */
-    public static void damagePlayerWithConfig(@NotNull Player player, @NotNull EntityDamageEvent.DamageCause damageCause, double amount, @NotNull BodyPart part, boolean force) {
+    public void damagePlayerWithConfig(@NotNull Player player, @NotNull EntityDamageEvent.DamageCause damageCause, double amount, @NotNull BodyPart part, boolean force) {
         BodyHealthUtils.applyDamageWithConfig(BodyHealthUtils.getBodyHealth(player), damageCause, amount, part, force, null);
     }
 
@@ -246,7 +246,7 @@ public class BodyHealthAPI {
      * @param force damage even where BodyHealth is disabled
      * @param cause the underlying event that caused this
      */
-    public static void damagePlayerWithConfig(@NotNull Player player, @NotNull EntityDamageEvent.DamageCause damageCause, double amount, @NotNull BodyPart part, boolean force, @Nullable Event cause) {
+    public void damagePlayerWithConfig(@NotNull Player player, @NotNull EntityDamageEvent.DamageCause damageCause, double amount, @NotNull BodyPart part, boolean force, @Nullable Event cause) {
         BodyHealthUtils.applyDamageWithConfig(BodyHealthUtils.getBodyHealth(player), damageCause, amount, part, force, cause);
     }
 
@@ -256,7 +256,7 @@ public class BodyHealthAPI {
      * @param player the player to damage
      * @param amount the amount of damage to apply
      */
-    public static void damagePlayerDirectly(@NotNull Player player, double amount) {
+    public void damagePlayerDirectly(@NotNull Player player, double amount) {
         BodyHealthUtils.getBodyHealth(player).applyDamage(amount, false, null);
     }
 
@@ -266,7 +266,7 @@ public class BodyHealthAPI {
      * @param amount the amount of damage to apply
      * @param force damage even where BodyHealth is disabled
      */
-    public static void damagePlayerDirectly(@NotNull Player player, double amount, boolean force) {
+    public void damagePlayerDirectly(@NotNull Player player, double amount, boolean force) {
         BodyHealthUtils.getBodyHealth(player).applyDamage(amount, force, null);
     }
 
@@ -277,7 +277,7 @@ public class BodyHealthAPI {
      * @param force damage even where BodyHealth is disabled
      * @param cause the underlying event that caused this
      */
-    public static void damagePlayerDirectly(@NotNull Player player, double amount, boolean force, @Nullable Event cause) {
+    public void damagePlayerDirectly(@NotNull Player player, double amount, boolean force, @Nullable Event cause) {
         BodyHealthUtils.getBodyHealth(player).applyDamage(amount, force, cause);
     }
 
@@ -288,7 +288,7 @@ public class BodyHealthAPI {
      * @param amount the amount of damage to apply
      * @param part the body part to damage
      */
-    public static void damagePlayerDirectly(@NotNull Player player, double amount, @NotNull BodyPart part) {
+    public void damagePlayerDirectly(@NotNull Player player, double amount, @NotNull BodyPart part) {
         BodyHealthUtils.getBodyHealth(player).applyDamage(part, amount, false, null);
     }
 
@@ -299,7 +299,7 @@ public class BodyHealthAPI {
      * @param part the body part to damage
      * @param force damage even where BodyHealth is disabled
      */
-    public static void damagePlayerDirectly(@NotNull Player player, double amount, @NotNull BodyPart part, boolean force) {
+    public void damagePlayerDirectly(@NotNull Player player, double amount, @NotNull BodyPart part, boolean force) {
         BodyHealthUtils.getBodyHealth(player).applyDamage(part, amount, force, null);
     }
 
@@ -311,7 +311,7 @@ public class BodyHealthAPI {
      * @param force damage even where BodyHealth is disabled
      * @param cause the underlying event that caused this
      */
-    public static void damagePlayerDirectly(@NotNull Player player, double amount, @NotNull BodyPart part, boolean force, @Nullable Event cause) {
+    public void damagePlayerDirectly(@NotNull Player player, double amount, @NotNull BodyPart part, boolean force, @Nullable Event cause) {
         BodyHealthUtils.getBodyHealth(player).applyDamage(part, amount, force, cause);
     }
 
@@ -321,7 +321,7 @@ public class BodyHealthAPI {
      * @param player the player whose health is to be set
      * @param health the new health value
      */
-    public static void setHealth(@NotNull Player player, double health) {
+    public void setHealth(@NotNull Player player, double health) {
         BodyHealthUtils.getBodyHealth(player).setHealth(health, true, null);
     }
 
@@ -331,7 +331,7 @@ public class BodyHealthAPI {
      * @param health the new health value
      * @param force_keep whether to force keep the new health state
      */
-    public static void setHealth(@NotNull Player player, double health, boolean force_keep) {
+    public void setHealth(@NotNull Player player, double health, boolean force_keep) {
         BodyHealthUtils.getBodyHealth(player).setHealth(health, force_keep, null);
     }
 
@@ -342,7 +342,7 @@ public class BodyHealthAPI {
      * @param force_keep whether to force keep the new health state
      * @param cause the underlying event that caused this
      */
-    public static void setHealth(@NotNull Player player, double health, boolean force_keep, @Nullable Event cause) {
+    public void setHealth(@NotNull Player player, double health, boolean force_keep, @Nullable Event cause) {
         BodyHealthUtils.getBodyHealth(player).setHealth(health, force_keep, cause);
     }
 
@@ -353,7 +353,7 @@ public class BodyHealthAPI {
      * @param part the body part to set the health for
      * @param health the new health value
      */
-    public static void setHealth(@NotNull Player player, @NotNull BodyPart part, double health) {
+    public void setHealth(@NotNull Player player, @NotNull BodyPart part, double health) {
         BodyHealthUtils.getBodyHealth(player).setHealth(part, health, true, null);
     }
 
@@ -364,7 +364,7 @@ public class BodyHealthAPI {
      * @param health the new health value
      * @param force_keep whether to force keep the new health state
      */
-    public static void setHealth(@NotNull Player player, @NotNull BodyPart part, double health, boolean force_keep) {
+    public void setHealth(@NotNull Player player, @NotNull BodyPart part, double health, boolean force_keep) {
         BodyHealthUtils.getBodyHealth(player).setHealth(part, health, force_keep, null);
     }
 
@@ -376,7 +376,7 @@ public class BodyHealthAPI {
      * @param force_keep whether to force keep the new health state
      * @param cause the underlying event that caused this
      */
-    public static void setHealth(@NotNull Player player, @NotNull BodyPart part, double health, boolean force_keep, @Nullable Event cause) {
+    public void setHealth(@NotNull Player player, @NotNull BodyPart part, double health, boolean force_keep, @Nullable Event cause) {
         BodyHealthUtils.getBodyHealth(player).setHealth(part, health, force_keep, cause);
     }
 
@@ -387,7 +387,7 @@ public class BodyHealthAPI {
      * @param part the body part to retrieve the health for
      * @return the current health of the specified body part
      */
-    public static double getHealth(@NotNull Player player, @NotNull BodyPart part) {
+    public double getHealth(@NotNull Player player, @NotNull BodyPart part) {
         return BodyHealthUtils.getBodyHealth(player).getHealth(part);
     }
 
@@ -396,7 +396,7 @@ public class BodyHealthAPI {
      * @param player the player whose BodyHealth object is to be retrieved
      * @return the BodyHealth object that belongs to the given player
      */
-    public static BodyHealth getBodyHealth(@NotNull Player player) {
+    public BodyHealth getBodyHealth(@NotNull Player player) {
         return BodyHealthUtils.getBodyHealth(player);
     }
 
@@ -406,7 +406,7 @@ public class BodyHealthAPI {
      * @param part The body part to calculate the BodyPartState for
      * @return The BodyPartState of the given body part of the given player
      */
-    public static BodyPartState getBodyHealthState(@NotNull Player player, @NotNull BodyPart part) {
+    public BodyPartState getBodyHealthState(@NotNull Player player, @NotNull BodyPart part) {
         BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(player);
         return BodyHealthUtils.getBodyHealthState(bodyHealth, part);
     }
@@ -417,7 +417,7 @@ public class BodyHealthAPI {
      * @param part The body part to calculate the maximum amount of health for
      * @return The maximum amount of health for the given body part
      */
-    public static double getMaxPartHealth(@NotNull Player player, @NotNull BodyPart part) {
+    public double getMaxPartHealth(@NotNull Player player, @NotNull BodyPart part) {
         return BodyHealthUtils.getMaxHealth(part, player);
     }
 
@@ -427,7 +427,7 @@ public class BodyHealthAPI {
      * @param effect The custom BodyHealthEffect object to register
      * @return true if successfully registered
      */
-    public static boolean registerCustomEffect(BodyHealthEffect effect) {
+    public boolean registerCustomEffect(BodyHealthEffect effect) {
         return EffectHandler.registerEffect(effect);
     }
 
@@ -436,7 +436,7 @@ public class BodyHealthAPI {
      * @param effect The custom BodyHealthEffect object to unregister
      * @return true if successfully unregistered
      */
-    public static boolean unregisterCustomEffect(BodyHealthEffect effect) {
+    public boolean unregisterCustomEffect(BodyHealthEffect effect) {
         return EffectHandler.unregisterEffect(effect);
     }
 
@@ -446,7 +446,7 @@ public class BodyHealthAPI {
      * @param sender The CommandSender to send the message to
      * @param message The message (may include formatting and PAPI placeholders)
      */
-    public static void notifySender(@NotNull CommandSender sender, String message) {
+    public void notifySender(@NotNull CommandSender sender, String message) {
         MessageUtils.notifySender(sender, message);
     }
 
@@ -455,7 +455,7 @@ public class BodyHealthAPI {
      * @param player The player to send the message to
      * @param message The message (may include formatting and PAPI placeholders)
      */
-    public static void notifyPlayer(@NotNull Player player, String message) {
+    public void notifyPlayer(@NotNull Player player, String message) {
         MessageUtils.notifyPlayer(player, message);
     }
 
@@ -463,7 +463,7 @@ public class BodyHealthAPI {
      * Send a plugin message to the console
      * @param message The message (may include formatting and PAPI placeholders)
      */
-    public static void notifyConsole(String message) {
+    public void notifyConsole(String message) {
         MessageUtils.notifyConsole(message);
     }
 
@@ -474,7 +474,7 @@ public class BodyHealthAPI {
      * @param hand EquipmentSlot.HAND/OFF_HAND
      * @return true if able to interact
      */
-    public static boolean canPlayerInteract(@NotNull Player player, @NotNull EquipmentSlot hand) {
+    public boolean canPlayerInteract(@NotNull Player player, @NotNull EquipmentSlot hand) {
         return BodyHealthUtils.canPlayerInteract(player, hand);
     }
 
@@ -483,7 +483,7 @@ public class BodyHealthAPI {
      * @param player The player to check for
      * @return true if able to jump
      */
-    public static boolean canPlayerJump(@NotNull Player player) {
+    public boolean canPlayerJump(@NotNull Player player) {
         return BodyHealthUtils.canPlayerJump(player);
     }
 
@@ -492,7 +492,7 @@ public class BodyHealthAPI {
      * @param player The player to check for
      * @return true if able to sprint
      */
-    public static boolean canPlayerSprint(@NotNull Player player) {
+    public boolean canPlayerSprint(@NotNull Player player) {
         return BodyHealthUtils.canPlayerSprint(player);
     }
 
@@ -501,7 +501,7 @@ public class BodyHealthAPI {
      * @param player The player to check for
      * @return true if able to walk
      */
-    public static boolean canPlayerWalk(@NotNull Player player) {
+    public boolean canPlayerWalk(@NotNull Player player) {
         return BodyHealthUtils.canPlayerWalk(player);
     }
 
@@ -511,7 +511,7 @@ public class BodyHealthAPI {
      * @param expression The expression to evaluate/resolve
      * @return The result or -1 on failure
      */
-    public static double evaluateMathExpression(String expression) {
+    public double evaluateMathExpression(String expression) {
         return BodyHealthUtils.evaluateExpression(expression);
     }
 
@@ -520,7 +520,7 @@ public class BodyHealthAPI {
      * @param player The player to check for
      * @return true if vanished
      */
-    public static boolean isVanished(@NotNull Player player) {
+    public boolean isVanished(@NotNull Player player) {
         return VanishPlugins.isVanished(player);
     }
 
@@ -528,7 +528,7 @@ public class BodyHealthAPI {
      * Checks for invalid leftover effects and removes them
      * @param player The player to validate effects for
      */
-    public static void validateEffects(@NotNull Player player) {
+    public void validateEffects(@NotNull Player player) {
         BodyHealthUtils.validateEffects(player);
     }
 

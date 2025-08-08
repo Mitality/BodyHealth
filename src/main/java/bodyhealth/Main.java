@@ -1,5 +1,6 @@
 package bodyhealth;
 
+import bodyhealth.api.BodyHealthAPI;
 import bodyhealth.api.addons.AddonManager;
 import bodyhealth.commands.CommandManager;
 import bodyhealth.config.Lang;
@@ -33,6 +34,7 @@ import java.util.jar.JarFile;
 public final class Main extends JavaPlugin {
 
     private static Main instance;
+    private static BodyHealthAPI api;
     private static List<String> languages;
     public static PlaceholderAPI placeholderAPIexpansion;
     private static final Object MUTEX = new Object();
@@ -52,8 +54,8 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        // Load Adventure
         adventure = BukkitAudiences.create(this);
+        api = new BodyHealthAPI();
 
         // Reload and update config
         saveDefaultConfig();
@@ -170,12 +172,13 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        addonManager.unloadAddons();
         Debug.log("Disabling System...");
         for (Player player : Bukkit.getOnlinePlayers()) {
             EffectHandler.removeEffectsFromPlayer(player); // Ensure that all effects are removed
             DataManager.saveBodyHealth(player.getUniqueId());
         }
+        addonManager.unloadAddons();
+        api = null;
         if (adventure != null) {
             adventure.close();
             adventure = null;
@@ -190,6 +193,10 @@ public final class Main extends JavaPlugin {
 
     public static Main getInstance() {
         return instance;
+    }
+
+    public static BodyHealthAPI getAPI() {
+        return api;
     }
 
     public static AddonManager getAddonManager() {
