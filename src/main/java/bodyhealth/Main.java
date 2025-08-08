@@ -34,7 +34,6 @@ import java.util.jar.JarFile;
 public final class Main extends JavaPlugin {
 
     private static Main instance;
-    private static BodyHealthAPI api;
     private static List<String> languages;
     public static PlaceholderAPI placeholderAPIexpansion;
     private static final Object MUTEX = new Object();
@@ -54,8 +53,8 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
 
+        // Load adventure
         adventure = BukkitAudiences.create(this);
-        api = new BodyHealthAPI();
 
         // Reload and update config
         saveDefaultConfig();
@@ -178,7 +177,6 @@ public final class Main extends JavaPlugin {
             DataManager.saveBodyHealth(player.getUniqueId());
         }
         addonManager.unloadAddons();
-        api = null;
         if (adventure != null) {
             adventure.close();
             adventure = null;
@@ -193,10 +191,6 @@ public final class Main extends JavaPlugin {
 
     public static Main getInstance() {
         return instance;
-    }
-
-    public static BodyHealthAPI getAPI() {
-        return api;
     }
 
     public static AddonManager getAddonManager() {

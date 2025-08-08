@@ -21,6 +21,20 @@ import org.jetbrains.annotations.Nullable;
 
 public class BodyHealthAPI {
 
+    private static BodyHealthAPI instance;
+    private BodyHealthAPI() {}
+
+    /**
+     * Retrieves a singleton API instance
+     * @return the BodyHealthAPI instance
+     */
+    public static BodyHealthAPI getInstance() {
+        if (instance == null) {
+            instance = new BodyHealthAPI();
+        }
+        return instance;
+    }
+
     /**
      * Retrieves the instance of the main plugin class
      * @return the JavaPlugin instance
