@@ -451,7 +451,7 @@ display:
 
     # !!! ItemsAdder users read here !!!
     # ItemsAdder interferes with BetterHud on default settings. If you can't see the display
-    # in game,  try adjusting the following settings as shown in your ItemsAdder config.yml:
+    # in game, try adjusting the following settings as shown in your ItemsAdder config.yml:
     #
     #   effects:
     #      hide-scoreboard-numbers: false
@@ -461,6 +461,18 @@ display:
     #
     #   custom-font:
     #      enabled: false
+
+    # !!! Nexo users read here !!!
+    # Nexo's GIF shaders interfere with BetterHud on default settings. If you cant see the display
+    # in game, try adjusting the following settings as shown in your Nexo settings.yml:
+    #
+    #   Glyphs:
+    #      generate_gif_shaders: false
+    #
+    # To merge BetterHud's resource pack into Nexo's pack, set the following in BetterHud's config.yml:
+    #
+    #   build-folder-location: Nexo/pack/external_packs/BetterHud
+    #   pack-type: zip
 
 
   # Config complete and sanity still intact? Well done, you are awesome!
