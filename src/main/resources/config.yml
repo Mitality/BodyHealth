@@ -199,6 +199,7 @@ body-damage:
 
   # Default damage values
   HEAD:
+    - KILL 0%
     - DROWN 90%
     - IN_FIRE 60%
     - LAVA 60%
@@ -206,6 +207,7 @@ body-damage:
     - ON_FIRE 60%
     - FALL 0%
   BODY:
+    - KILL 0%
     - FALLING_BLOCK 0%
     - FALLING_STALACTITE 0%
     - FLY_INTO_WALL 0%
@@ -214,6 +216,7 @@ body-damage:
     - ON_FIRE 80%
     - FALL 0%
   ARM_LEFT:
+    - KILL 0%
     - DROWN 0%
     - FALLING_BLOCK 0%
     - FALLING_STALACTITE 0%
@@ -224,6 +227,7 @@ body-damage:
     - ON_FIRE 80%
     - FALL 0%
   ARM_RIGHT:
+    - KILL 0%
     - DROWN 0%
     - FALLING_BLOCK 0%
     - FALLING_STALACTITE 0%
@@ -234,6 +238,7 @@ body-damage:
     - ON_FIRE 80%
     - FALL 0%
   LEG_LEFT:
+    - KILL 0%
     - DROWN 0%
     - FALLING_BLOCK 0%
     - FALLING_STALACTITE 0%
@@ -241,6 +246,7 @@ body-damage:
     - MAGIC 70%
     - FALL 75%
   LEG_RIGHT:
+    - KILL 0%
     - DROWN 0%
     - FALLING_BLOCK 0%
     - FALLING_STALACTITE 0%
@@ -248,12 +254,14 @@ body-damage:
     - MAGIC 70%
     - FALL 75%
   FOOT_LEFT:
+    - KILL 0%
     - DROWN 0%
     - FALLING_BLOCK 0%
     - FALLING_STALACTITE 0%
     - FLY_INTO_WALL 0%
     - MAGIC 50%
   FOOT_RIGHT:
+    - KILL 0%
     - DROWN 0%
     - FALLING_BLOCK 0%
     - FALLING_STALACTITE 0%
