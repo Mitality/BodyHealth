@@ -90,7 +90,7 @@ public class UpdateChecker {
                     }
 
                 } else {
-                    Bukkit.getLogger().log(Level.INFO, "[BodyHealth] You are running the latest version!");
+                    Bukkit.getLogger().log(Level.INFO, "[BodyHealth] You are running the latest version of " + resourceName + " (v" + currentVersion + ")!");
                 }
 
             } catch (Exception e) {
