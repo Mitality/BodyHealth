@@ -332,11 +332,11 @@ effects:
       - POTION_EFFECT / NAUSEA / 1
       - KILL_PLAYER
   BODY:
-    FULL: []
-    NEARLYFULL:
+    FULL:
       - WHEN_HEALED / DELAYED / 1s / MESSAGE / actionbar:&aYou feel a little better
-      - DELAYED / 1s / COMMAND / attribute %PlayerName% minecraft:oxygen_bonus base set 1
+      - WHEN_HEALED / DELAYED / 1s / COMMAND / attribute %PlayerName% minecraft:oxygen_bonus base set 1
       - COMMAND_UNDO / attribute %PlayerName% minecraft:oxygen_bonus base set 0
+    NEARLYFULL: []
     INTERMEDIATE: []
     DAMAGED:
       - WHEN_DAMAGED / MESSAGE / actionbar:&cYour heart is pounding
