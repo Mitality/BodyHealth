@@ -74,6 +74,7 @@ public class UpdateChecker {
                         Component message = Component.text()
                             .append(Component.text("[BodyHealth] Update available!", NamedTextColor.GRAY))
                             .appendNewline()
+                            .append(Component.text(" "))
                             .appendNewline()
                             .append(Component.text("  A new version of ", NamedTextColor.GREEN))
                             .append(Component.text(this.resourceName, NamedTextColor.GOLD))
