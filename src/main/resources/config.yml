@@ -343,8 +343,6 @@ effects:
       - REPEATING / 10t / 10t / SOUND / entity.warden.heartbeat / 1 / 0.75
     BROKEN:
       - KILL_PLAYER
-      - COMMAND / attribute %PlayerName% minecraft:scale base set 2
-      - COMMAND_UNDO / attribute %PlayerName% minecraft:scale base set 1
   ARM_LEFT:
     FULL: []
     NEARLYFULL: []
