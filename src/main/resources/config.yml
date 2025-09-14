@@ -178,6 +178,7 @@ body-health:
   # Permission overrides
   overrides:
     - permission: bodyhealth.health.tough
+      enabled: false
       HEAD: "%PlayerMaxHealth% * 0.75"
       BODY: "%PlayerMaxHealth% * 0.75"
       ARM_LEFT: 15
@@ -271,6 +272,7 @@ body-damage:
   # Permission overrides
   overrides:
     - permission: bodyhealth.damage.helmet
+      enabled: false
       HEAD:
         - FALLING_BLOCK 0%
         - FALLING_STALACTITE 0%

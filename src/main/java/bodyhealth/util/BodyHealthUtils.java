@@ -166,6 +166,10 @@ public class BodyHealthUtils {
 
         List<Map<?, ?>> overrides = config.getMapList("overrides");
         for (Map<?, ?> override : overrides) {
+
+            Object enabledObj = override.containsKey("enabled") ? override.get("enabled") : Boolean.TRUE;
+            if (!((enabledObj instanceof Boolean b) ? b : Boolean.parseBoolean(enabledObj.toString()))) continue;
+
             String permission = (String) override.get("permission");
             if (permission == null || !player.hasPermission(permission)) continue;
 
@@ -258,6 +262,9 @@ public class BodyHealthUtils {
 
         List<Map<?, ?>> overrides = Config.body_health.getMapList("overrides");
         for (Map<?, ?> override : overrides) {
+
+            Object enabledObj = override.containsKey("enabled") ? override.get("enabled") : Boolean.TRUE;
+            if (!((enabledObj instanceof Boolean b) ? b : Boolean.parseBoolean(enabledObj.toString()))) continue;
 
             String permission = (String) override.get("permission");
             if (permission == null || !player.hasPermission(permission)) continue;
