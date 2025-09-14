@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.UUID;
 
 public class YAMLStorage implements Storage {
@@ -22,6 +23,14 @@ public class YAMLStorage implements Storage {
         if (!file.exists()) {
             try {
                 file.createNewFile();
+            } catch (IOException e) {
+                Debug.logErr(e);
+            }
+        } else {
+            try { // Migrate YAML storage
+                String content = Files.readString(file.toPath());
+                content = content.replaceAll("(?m)^(\\s*)BODY(\\s*:)", "$1TORSO$2");
+                Files.writeString(file.toPath(), content);
             } catch (IOException e) {
                 Debug.logErr(e);
             }
@@ -59,7 +68,7 @@ public class YAMLStorage implements Storage {
         if (health == null) return new BodyHealth(uuid);
 
         double head = health.getDouble(BodyPart.HEAD.name(), 100.0);
-        double body = health.getDouble(BodyPart.TORSO.name(), 100.0);
+        double torso = health.getDouble(BodyPart.TORSO.name(), 100.0);
         double arm_left = health.getDouble(BodyPart.ARM_LEFT.name(), 100.0);
         double arm_right = health.getDouble(BodyPart.ARM_RIGHT.name(), 100.0);
         double leg_left = health.getDouble(BodyPart.LEG_LEFT.name(), 100.0);
@@ -67,7 +76,7 @@ public class YAMLStorage implements Storage {
         double foot_left = health.getDouble(BodyPart.FOOT_LEFT.name(), 100.0);
         double foot_right = health.getDouble(BodyPart.FOOT_RIGHT.name(), 100.0);
 
-        return new BodyHealth(uuid, head, body, arm_left, arm_right, leg_left, leg_right, foot_left, foot_right);
+        return new BodyHealth(uuid, head, torso, arm_left, arm_right, leg_left, leg_right, foot_left, foot_right);
     }
 
 }

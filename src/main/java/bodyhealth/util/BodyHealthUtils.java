@@ -42,6 +42,7 @@ public class BodyHealthUtils {
         }
 
         try {
+            Main.getMigrator().onReload();
 
             // Reload and update config
             Main.getInstance().saveDefaultConfig();

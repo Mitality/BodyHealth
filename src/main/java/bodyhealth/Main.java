@@ -13,6 +13,8 @@ import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
 import bodyhealth.listeners.PlaceholderAPIListener;
 import bodyhealth.listeners.UpdateNotifyListener;
+import bodyhealth.migrations.Migrator;
+import bodyhealth.migrations.migration.BodyToTorsoMigration;
 import bodyhealth.util.UpdateChecker;
 import com.tchristofferson.configupdater.ConfigUpdater;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
@@ -33,6 +35,7 @@ import java.util.jar.JarFile;
 public final class Main extends JavaPlugin {
 
     private static Main instance;
+    private static Migrator migrator;
     private static List<String> languages;
     public static PlaceholderAPI placeholderAPIexpansion;
     private static final Object MUTEX = new Object();
@@ -44,11 +47,13 @@ public final class Main extends JavaPlugin {
     @Override
     public void onLoad() {
         instance = this;
+        migrator = new Migrator(this);
         validationTimestamp = 0;
         languages = new ArrayList<>();
         if (Bukkit.getPluginManager().getPlugin("WorldGuard") != null) WorldGuard.initialize();
         addonManager = new AddonManager(this);
         addonManager.loadAddons();
+        migrator.onLoad();
     }
 
     @Override
@@ -56,6 +61,9 @@ public final class Main extends JavaPlugin {
 
         // Load adventure
         adventure = BukkitAudiences.create(this);
+
+        // Migrate config
+        migrator.onEnable();
 
         // Reload and update config
         saveDefaultConfig();
@@ -176,6 +184,7 @@ public final class Main extends JavaPlugin {
             EffectHandler.removeEffectsFromPlayer(player); // Ensure that all effects are removed
             DataManager.saveBodyHealth(player.getUniqueId());
         }
+        migrator.onDisable();
         addonManager.unloadAddons();
         if (adventure != null) {
             adventure.close();
@@ -199,6 +208,10 @@ public final class Main extends JavaPlugin {
 
     public static List<String> getLanguages() {
         return languages;
+    }
+
+    public static Migrator getMigrator() {
+        return migrator;
     }
 
     public static Object getMutexObj() {

@@ -19,6 +19,7 @@ public class MySQLStorage implements Storage {
 
     public MySQLStorage() {
         setupDataSource();
+        migrateTable();
         createTable();
     }
 
@@ -45,11 +46,38 @@ public class MySQLStorage implements Storage {
         dataSource = new HikariDataSource(config);
     }
 
+    private void migrateTable() {
+        String tableName = Config.storage_mysql_prefix + "body_health";
+        try (
+            Connection conn = dataSource.getConnection();
+            Statement stmt = conn.createStatement()
+        ) {
+            DatabaseMetaData meta = conn.getMetaData();
+            try (ResultSet tables = meta.getTables(null, null, tableName, null)) {
+                if (!tables.next()) return; // Table doesn't exist (yet)
+            }
+            boolean hasBody = false, hasTorso = false;
+            try (ResultSet cols = meta.getColumns(null, null, tableName, null)) {
+                while (cols.next()) {
+                    String colName = cols.getString("COLUMN_NAME");
+                    if ("torso".equalsIgnoreCase(colName)) hasTorso = true;
+                    if ("body".equalsIgnoreCase(colName)) hasBody = true;
+                }
+            }
+            if (hasBody && !hasTorso) {
+                String sql = "ALTER TABLE " + tableName + " CHANGE COLUMN body torso DOUBLE";
+                stmt.execute(sql);
+            }
+        } catch (SQLException e) {
+            Debug.logErr(e);
+        }
+    }
+
     private void createTable() {
         String sql = "CREATE TABLE IF NOT EXISTS " + Config.storage_mysql_prefix + "body_health ("
             + "uuid VARCHAR(36) PRIMARY KEY, "
             + "head DOUBLE, "
-            + "body DOUBLE, "
+            + "torso DOUBLE, "
             + "arm_left DOUBLE, "
             + "arm_right DOUBLE, "
             + "leg_left DOUBLE, "
@@ -69,10 +97,10 @@ public class MySQLStorage implements Storage {
 
     @Override
     public void saveBodyHealth(UUID uuid, BodyHealth bodyHealth) {
-        String sql = "INSERT INTO " + Config.storage_mysql_prefix + "body_health (uuid, head, body, arm_left, arm_right, leg_left, leg_right, foot_left, foot_right) "
+        String sql = "INSERT INTO " + Config.storage_mysql_prefix + "body_health (uuid, head, torso, arm_left, arm_right, leg_left, leg_right, foot_left, foot_right) "
             + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) "
             + "ON DUPLICATE KEY UPDATE "
-            + "head = VALUES(head), body = VALUES(body), arm_left = VALUES(arm_left), arm_right = VALUES(arm_right), "
+            + "head = VALUES(head), torso = VALUES(torso), arm_left = VALUES(arm_left), arm_right = VALUES(arm_right), "
             + "leg_left = VALUES(leg_left), leg_right = VALUES(leg_right), foot_left = VALUES(foot_left), foot_right = VALUES(foot_right)";
         try (
             Connection conn = dataSource.getConnection();
@@ -104,7 +132,7 @@ public class MySQLStorage implements Storage {
             if (!rs.next()) return new BodyHealth(uuid);
             return new BodyHealth(uuid,
                 rs.getDouble("head"),
-                rs.getDouble("body"),
+                rs.getDouble("torso"),
                 rs.getDouble("arm_left"),
                 rs.getDouble("arm_right"),
                 rs.getDouble("leg_left"),

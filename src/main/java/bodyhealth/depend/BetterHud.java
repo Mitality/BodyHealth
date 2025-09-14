@@ -184,7 +184,7 @@ public class BetterHud {
         if (!Config.display_betterhud_package_compress) return;
 
         String filename = Config.display_betterhud_package_filename;
-        Debug.log("Zipping BetterHud/build to plugins/BodyHealth/output/" + filename + ".zip");
+        Debug.log("Zipping BetterHud\\build to plugins\\BodyHealth\\output\\" + filename + ".zip");
 
         File betterHudBuildFolder = new File(BetterHudAPI.inst().bootstrap().dataFolder(), "build");
         if (!betterHudBuildFolder.exists()) {
