@@ -23,7 +23,7 @@ public class BodyPartHealthChangeEvent extends Event implements Cancellable {
     double newHealth;
     Event cause;
 
-    public BodyPartHealthChangeEvent(Player player, BodyPart bodyPart, double oldHealth, double newHealth, @Nullable Event cause) {
+    public BodyPartHealthChangeEvent(@NotNull Player player, @NotNull BodyPart bodyPart, double oldHealth, double newHealth, @Nullable Event cause) {
         this.player = player;
         this.bodyPart = bodyPart;
         this.oldHealth = oldHealth;
