@@ -240,7 +240,8 @@ public class BodyHealthCalculator {
         double playerMinX = player.getLocation().getX() - 0.3 * scale;
         double playerMaxX = player.getLocation().getX() + 0.3 * scale;
         double playerMinY = player.getLocation().getY();
-        double playerMaxY = playerMinY + 1.8 * scale;
+        double height = player.isSneaking() ? 1.5 : 1.8;
+        double playerMaxY = playerMinY + height * scale;
         double playerMinZ = player.getLocation().getZ() - 0.3 * scale;
         double playerMaxZ = player.getLocation().getZ() + 0.3 * scale;
 
