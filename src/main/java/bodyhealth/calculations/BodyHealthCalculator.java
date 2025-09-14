@@ -60,7 +60,7 @@ public class BodyHealthCalculator {
             double hitY = rayHitLocation.getY();
             double relativeHitY = hitY - playerLocation.getY();
             double relativeYaw = getRelativeYaw(player, rayHitLocation);
-            return getHitBodyPart(relativeHitY, relativeYaw, scale);
+            return getHitBodyPart(relativeHitY, relativeYaw, player.isSneaking(), scale);
         }
 
         else {
@@ -81,7 +81,7 @@ public class BodyHealthCalculator {
         double scale = (scaleAttribute != null) ? scaleAttribute.getValue() : 1.0;
         double relativeHitY = entity.getLocation().getY() - player.getLocation().getY();
         double relativeYaw = getRelativeYaw(player, entity.getLocation());
-        return getHitBodyPart(relativeHitY, relativeYaw, scale);
+        return getHitBodyPart(relativeHitY, relativeYaw, player.isSneaking(), scale);
     }
 
     /**
@@ -95,31 +95,33 @@ public class BodyHealthCalculator {
         double scale = (scaleAttribute != null) ? scaleAttribute.getValue() : 1.0;
         double yDiff = (block.getLocation().getY() + 1) - player.getLocation().getY();
         double relativeYaw = getRelativeYaw(player, block.getLocation());
-        return determineHitParts(relativeYaw, yDiff, scale);
+        return determineHitParts(relativeYaw, yDiff, player.isSneaking(), scale);
     }
 
     /**
      * Utility method to determine what BodyPart(s) were hit by a block
      * @param relativeYaw The relative yaw between player and damager
      * @param yDiff The height difference between player and damager
+     * @param sneaking Whether the hit player is sneaking
      * @param scale The scale of the player
      * @return The hit BodyParts
      */
-    private static BodyPart[] determineHitParts(double relativeYaw, double yDiff, double scale) {
-        Debug.logDev("Relative yaw: " + relativeYaw + ", Height difference: " + yDiff + ", Scale: " + scale);
-        if (relativeYaw <= 45 || relativeYaw >= 315 || relativeYaw >= 135 && relativeYaw <= 225) return calculateHitPartsCentered(yDiff, scale);
-        else if (relativeYaw > 45 && relativeYaw < 135) return calculateHitPartsLeftSide(yDiff, scale);
-        else return calculateHitPartsRightSide(yDiff, scale);
+    private static BodyPart[] determineHitParts(double relativeYaw, double yDiff, boolean sneaking, double scale) {
+        Debug.logDev("Relative yaw: " + relativeYaw + ", Height difference: " + yDiff + ", Sneaking: " + sneaking + ", Scale: " + scale);
+        if (relativeYaw <= 45 || relativeYaw >= 315 || relativeYaw >= 135 && relativeYaw <= 225) return calculateHitPartsCentered(yDiff, sneaking, scale);
+        else if (relativeYaw > 45 && relativeYaw < 135) return calculateHitPartsLeftSide(yDiff, sneaking, scale);
+        else return calculateHitPartsRightSide(yDiff, sneaking, scale);
     }
 
     /**
      * Utility method to determine what BodyPart(s) were hit by a block (front or back)
      * @param yDiff The height difference between player and damager
+     * @param sneaking Whether the hit player is sneaking
      * @param scale The scale of the player
      * @return The hit BodyParts
      */
-    private static BodyPart[] calculateHitPartsCentered(double yDiff, double scale) {
-        return yDiff >= 2.4 * scale ? new BodyPart[]{BodyPart.HEAD} :
+    private static BodyPart[] calculateHitPartsCentered(double yDiff, boolean sneaking, double scale) {
+        return yDiff >= (sneaking ? 2.1 : 2.4) * scale ? new BodyPart[]{BodyPart.HEAD} :
                 yDiff >= 1.7 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.TORSO} :
                 yDiff >= 1.4 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.TORSO, BodyPart.LEG_LEFT, BodyPart.LEG_RIGHT} :
                 yDiff >= 1.25 * scale ? new BodyPart[]{BodyPart.TORSO, BodyPart.LEG_LEFT, BodyPart.LEG_RIGHT} :
@@ -130,11 +132,12 @@ public class BodyHealthCalculator {
     /**
      * Utility method to determine what BodyPart(s) were hit by a block (left side)
      * @param yDiff The height difference between player and damager
+     * @param sneaking Whether the hit player is sneaking
      * @param scale The scale of the player
      * @return The hit BodyParts
      */
-    private static BodyPart[] calculateHitPartsLeftSide(double yDiff, double scale) {
-        return yDiff >= 2.4 * scale ? new BodyPart[]{BodyPart.HEAD} :
+    private static BodyPart[] calculateHitPartsLeftSide(double yDiff, boolean sneaking, double scale) {
+        return yDiff >= (sneaking ? 2.1 : 2.4) * scale ? new BodyPart[]{BodyPart.HEAD} :
                 yDiff >= 1.7 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.ARM_LEFT} :
                 yDiff >= 1.4 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.ARM_LEFT, BodyPart.LEG_LEFT} :
                 yDiff >= 1.25 * scale ? new BodyPart[]{BodyPart.ARM_LEFT, BodyPart.LEG_LEFT} :
@@ -145,11 +148,12 @@ public class BodyHealthCalculator {
     /**
      * Utility method to determine what BodyPart(s) were hit by a block (right side)
      * @param yDiff The height difference between player and damager
+     * @param sneaking Whether the hit player is sneaking
      * @param scale The scale of the player
      * @return The hit BodyParts
      */
-    private static BodyPart[] calculateHitPartsRightSide(double yDiff, double scale) {
-        return yDiff >= 2.4 * scale ? new BodyPart[]{BodyPart.HEAD} :
+    private static BodyPart[] calculateHitPartsRightSide(double yDiff, boolean sneaking, double scale) {
+        return yDiff >= (sneaking ? 2.1 : 2.4) * scale ? new BodyPart[]{BodyPart.HEAD} :
                 yDiff >= 1.7 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.ARM_RIGHT} :
                 yDiff >= 1.4 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.ARM_RIGHT, BodyPart.LEG_RIGHT} :
                 yDiff >= 1.25 * scale ? new BodyPart[]{BodyPart.ARM_RIGHT, BodyPart.LEG_RIGHT} :
@@ -178,13 +182,15 @@ public class BodyHealthCalculator {
      * Utility method to determine what BodyPart was hit by an entity based on relative positioning
      * @param relativeHitY The height difference between the player and the damaging entity
      * @param relativeYaw The relative yaw between the player and the damaging entity
+     * @param sneaking Whether the player who's part was hit is sneaking
      * @param scale The scale of the player
-     * @return
+     * @return The hit BodyPart
      */
-    private static BodyPart getHitBodyPart(double relativeHitY, double relativeYaw, double scale) {
-        Debug.logDev("Relative hit height: " + relativeHitY + ", Relative yaw: " + relativeYaw + ", Scale: " + scale);
+    private static BodyPart getHitBodyPart(double relativeHitY, double relativeYaw, boolean sneaking, double scale) {
+        Debug.logDev("Relative hit height: " + relativeHitY + ", Relative yaw: " + relativeYaw + ", Sneaking: " + sneaking + ", Scale: " + scale);
 
-        if (relativeHitY > 1.4 * scale) {
+        double headThreshold = sneaking ? 1.1 : 1.4;
+        if (relativeHitY > headThreshold * scale) {
             return BodyPart.HEAD;
         }
 
