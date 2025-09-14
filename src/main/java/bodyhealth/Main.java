@@ -1,6 +1,5 @@
 package bodyhealth;
 
-import bodyhealth.api.BodyHealthAPI;
 import bodyhealth.api.addons.AddonManager;
 import bodyhealth.commands.CommandManager;
 import bodyhealth.config.Lang;
@@ -47,7 +46,9 @@ public final class Main extends JavaPlugin {
         instance = this;
         validationTimestamp = 0;
         languages = new ArrayList<>();
-        if (Bukkit.getPluginManager().getPlugin("WorldGuard") != null)  WorldGuard.initialize();
+        if (Bukkit.getPluginManager().getPlugin("WorldGuard") != null) WorldGuard.initialize();
+        addonManager = new AddonManager(this);
+        addonManager.loadAddons();
     }
 
     @Override
@@ -110,9 +111,8 @@ public final class Main extends JavaPlugin {
 
         Debug.log("Configuration loaded successfully");
 
-        // Load addons
-        addonManager = new AddonManager(this);
-        addonManager.loadAddons();
+        // Enable addons
+        addonManager.enableAddons();
 
         // Commands and Listeners
         Bukkit.getPluginManager().registerEvents(new BodyHealthListener(), this);

@@ -21,16 +21,16 @@ public abstract class BodyHealthAddon {
     private AddonInfo addonInfo = null;
     private AddonManager addonManager = null;
 
-    public void onAddonPreEnable() {
+    public void onAddonLoad() {
     }
 
     public void onAddonEnable() {
     }
 
-    public void onAddonDisable() {
+    public void onAddonReload() {
     }
 
-    public void onBodyHealthReload() {
+    public void onAddonDisable() {
     }
 
     @NotNull

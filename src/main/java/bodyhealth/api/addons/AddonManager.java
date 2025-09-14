@@ -34,14 +34,7 @@ public class AddonManager extends ClassLoader {
      */
     public void unloadAddons() {
         for (BodyHealthAddon addon : addons) {
-            try {
-                addon.onAddonDisable();
-                addon.unregisterListeners();
-                addon.unregisterCommands();
-                addon.getAddonDebug().log("Addon successfully disabled");
-            } catch (Throwable t) {
-                Debug.logErr("Failed to disable addon " + addon.getClass().getName() + ": " + t.getMessage());
-            }
+            unloadAddon(addon);
         }
     }
 
@@ -56,7 +49,7 @@ public class AddonManager extends ClassLoader {
             addon.unregisterCommands();
             addon.getAddonDebug().log("Addon successfully disabled");
         } catch (Throwable t) {
-            Debug.logErr("Failed to disable addon " + addon.getClass().getName() + ": " + t.getMessage());
+            Debug.logErr("Error while disabling addon " + addon.getClass().getName() + ": " + t.getMessage());
         }
         addons.remove(addon);
     }
@@ -66,17 +59,25 @@ public class AddonManager extends ClassLoader {
      */
     public void reloadAddons() {
         for (BodyHealthAddon addon : addons) {
-            try {
-                addon.onBodyHealthReload();
-            } catch (Throwable t) {
-                Debug.logErr("Failed to reload addon " + addon.getClass().getName() + ": " + t.getMessage());
-            }
+            reloadAddon(addon);
         }
         if (!addons.isEmpty()) Debug.log("Reloaded " + addons.size() + " addon(s)");
     }
 
     /**
-     * Retrieves a list of all currently enabled BodyHealthAddons
+     * Reloads a specific BodyHealthAddon
+     * @param addon The addon to reload
+     */
+    public void reloadAddon(BodyHealthAddon addon) {
+        try {
+            addon.onAddonReload();
+        } catch (Throwable t) {
+            Debug.logErr("Error while reloading addon " + addon.getClass().getName() + ": " + t.getMessage());
+        }
+    }
+
+    /**
+     * Retrieves a list of all currently loaded BodyHealthAddons
      * @return All currently enabled BodyHealthAddons
      */
     public List<BodyHealthAddon> getAddons() {
@@ -96,13 +97,6 @@ public class AddonManager extends ClassLoader {
             loadAddon(file);
         }
 
-        for (BodyHealthAddon addon : addons) {
-            try {
-                addon.onAddonEnable();
-            } catch (Throwable t) {
-                Debug.logErr("Failed to enable addon " + addon.getClass().getName() + ": " + t.getMessage());
-            }
-        }
         if (!addons.isEmpty()) Debug.log("Loaded " + addons.size() + " addon(s)");
     }
 
@@ -149,7 +143,7 @@ public class AddonManager extends ClassLoader {
                     Debug.log("Loading addon " + addon.getAddonInfo().name() + " (v" + addon.getAddonInfo().version() + ") by " + addon.getAddonInfo().author());
 
                     addons.add(addon);
-                    addon.onAddonPreEnable();
+                    addon.onAddonLoad();
                 } catch (Exception e) {
                     Debug.logErr("Failed to load addon class " + clazz + ": " + e.getMessage());
                     Debug.logErr(e);
@@ -158,6 +152,28 @@ public class AddonManager extends ClassLoader {
         } catch (Throwable t) {
             Debug.logErr("Failed to load addon classes from jar " + file.getName() + ": " + t.getMessage());
             Debug.logErr(t);
+        }
+    }
+
+    /**
+     * Enables all BodyHealthAddons
+     */
+    public void enableAddons() {
+        for (BodyHealthAddon addon : addons) {
+            enableAddon(addon);
+        }
+        if (!addons.isEmpty()) Debug.log("Enabled " + addons.size() + " addon(s)");
+    }
+
+    /**
+     * Enables a specific BodyHealthAddon
+     * @param addon The addon to enable
+     */
+    public void enableAddon(BodyHealthAddon addon) {
+        try {
+            addon.onAddonEnable();
+        } catch (Throwable t) {
+            Debug.logErr("Error while enabling addon " + addon.getClass().getName() + ": " + t.getMessage());
         }
     }
 
