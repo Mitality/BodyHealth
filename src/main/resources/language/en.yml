@@ -4,7 +4,7 @@ definitions:
 
     # Used in command responses ({Part})
     HEAD: 'head'
-    TORSO: 'body'
+    TORSO: 'torso'
     ARM_LEFT: 'left arm'
     ARM_RIGHT: 'right arm'
     LEG_LEFT: 'left leg'

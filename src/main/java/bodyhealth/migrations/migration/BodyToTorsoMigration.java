@@ -6,7 +6,6 @@ import org.bukkit.Bukkit;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.logging.Level;
@@ -46,6 +45,7 @@ public class BodyToTorsoMigration extends Migration {
     private static void migrateYamlFile(File file) throws IOException {
         String content = Files.readString(file.toPath());
         content = content.replaceAll("(?m)^(\\s*)BODY(\\s*:)", "$1TORSO$2");
+        content = content.replace("{Health_BODY}", "{Health_TORSO}");
         Files.writeString(file.toPath(), content);
     }
 
