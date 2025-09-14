@@ -2,7 +2,7 @@ package bodyhealth.core;
 
 public enum BodyPart {
     HEAD,
-    BODY,
+    TORSO,
     ARM_LEFT,
     ARM_RIGHT,
     LEG_LEFT,

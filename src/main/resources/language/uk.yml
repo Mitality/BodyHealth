@@ -4,7 +4,7 @@ definitions:
 
     # Used in command responses ({Part})
     HEAD: 'голова'
-    BODY: 'тіло'
+    TORSO: 'тіло'
     ARM_LEFT: 'ліва рука'
     ARM_RIGHT: 'права рука'
     LEG_LEFT: 'ліва нога'
@@ -54,7 +54,7 @@ commands:
       no-target: '&cБудь ласка, вкажіть гравця, коли виконуєте цю команду з консолі.'
 
       # Message shown on successful health retrieval (all parts)
-      success-all: "&aЗдоров'я тіла гравця {Player}:\n&e&lГолова &8&l» &a{Health_HEAD}%\n&e&lТіло &8&l» &a{Health_BODY}%\n&e&lЛіва рука &8&l» &a{Health_ARM_LEFT}%\n&e&lПрава рука &8&l» &a{Health_ARM_RIGHT}%\n&e&lЛіва нога &8&l» &a{Health_LEG_LEFT}%\n&e&lПрава нога &8&l» &a{Health_LEG_RIGHT}%\n&e&lЛіва стопа &8&l» &a{Health_FOOT_LEFT}%\n&e&lПрава стопа &8&l» &a{Health_FOOT_RIGHT}%"
+      success-all: "&aЗдоров'я тіла гравця {Player}:\n&e&lГолова &8&l» &a{Health_HEAD}%\n&e&lТіло &8&l» &a{Health_TORSO}%\n&e&lЛіва рука &8&l» &a{Health_ARM_LEFT}%\n&e&lПрава рука &8&l» &a{Health_ARM_RIGHT}%\n&e&lЛіва нога &8&l» &a{Health_LEG_LEFT}%\n&e&lПрава нога &8&l» &a{Health_LEG_RIGHT}%\n&e&lЛіва стопа &8&l» &a{Health_FOOT_LEFT}%\n&e&lПрава стопа &8&l» &a{Health_FOOT_RIGHT}%"
 
       # Message shown on successful health retrieval (given part)
       success-single: '&aЗдоров’я {Part} гравця {Player} становить {Health}%.'

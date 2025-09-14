@@ -4,7 +4,7 @@ definitions:
 
     # Used in command responses ({Part})
     HEAD: 'głowa'
-    BODY: 'ciało'
+    TORSO: 'ciało'
     ARM_LEFT: 'lewa ręka'
     ARM_RIGHT: 'prawa ręka'
     LEG_LEFT: 'lewa noga'
@@ -54,7 +54,7 @@ commands:
       no-target: '&cProszę podać gracza, gdy używasz tej komendy z konsoli.'
 
       # Message shown on successful health retrieval (all parts)
-      success-all: "&aZdrowie ciała gracza {Player}:\n&e&lGłowa &8&l» &a{Health_HEAD}%\n&e&lCiało &8&l» &a{Health_BODY}%\n&e&lLewa ręka &8&l» &a{Health_ARM_LEFT}%\n&e&lPrawa ręka &8&l» &a{Health_ARM_RIGHT}%\n&e&lLewa noga &8&l» &a{Health_LEG_LEFT}%\n&e&lPrawa noga &8&l» &a{Health_LEG_RIGHT}%\n&e&lLewa stopa &8&l» &a{Health_FOOT_LEFT}%\n&e&lPrawa stopa &8&l» &a{Health_FOOT_RIGHT}%"
+      success-all: "&aZdrowie ciała gracza {Player}:\n&e&lGłowa &8&l» &a{Health_HEAD}%\n&e&lCiało &8&l» &a{Health_TORSO}%\n&e&lLewa ręka &8&l» &a{Health_ARM_LEFT}%\n&e&lPrawa ręka &8&l» &a{Health_ARM_RIGHT}%\n&e&lLewa noga &8&l» &a{Health_LEG_LEFT}%\n&e&lPrawa noga &8&l» &a{Health_LEG_RIGHT}%\n&e&lLewa stopa &8&l» &a{Health_FOOT_LEFT}%\n&e&lPrawa stopa &8&l» &a{Health_FOOT_RIGHT}%"
 
       # Message shown on successful health retrieval (given part)
       success-single: '&aZdrowie {Player}''s {Part} to {Health}%.'

@@ -4,7 +4,7 @@ definitions:
 
     # Used in command responses ({Part})
     HEAD: 'cabeza'
-    BODY: 'cuerpo'
+    TORSO: 'cuerpo'
     ARM_LEFT: 'brazo izquierdo'
     ARM_RIGHT: 'brazo derecho'
     LEG_LEFT: 'pierna izquierda'
@@ -54,7 +54,7 @@ commands:
       no-target: '&cPor favor, proporciona un jugador al ejecutar este comando desde la consola.'
 
       # Message shown on successful health retrieval (all parts)
-      success-all: "&aSalud corporal de {Player}:\n&e&lCabeza &8&l» &a{Health_HEAD}%\n&e&lCuerpo &8&l» &a{Health_BODY}%\n&e&lBrazo izquierdo &8&l» &a{Health_ARM_LEFT}%\n&e&lBrazo derecho &8&l» &a{Health_ARM_RIGHT}%\n&e&lPierna izquierda &8&l» &a{Health_LEG_LEFT}%\n&e&lPierna derecha &8&l» &a{Health_LEG_RIGHT}%\n&e&lPie izquierdo &8&l» &a{Health_FOOT_LEFT}%\n&e&lPie derecho &8&l» &a{Health_FOOT_RIGHT}%"
+      success-all: "&aSalud corporal de {Player}:\n&e&lCabeza &8&l» &a{Health_HEAD}%\n&e&lCuerpo &8&l» &a{Health_TORSO}%\n&e&lBrazo izquierdo &8&l» &a{Health_ARM_LEFT}%\n&e&lBrazo derecho &8&l» &a{Health_ARM_RIGHT}%\n&e&lPierna izquierda &8&l» &a{Health_LEG_LEFT}%\n&e&lPierna derecha &8&l» &a{Health_LEG_RIGHT}%\n&e&lPie izquierdo &8&l» &a{Health_FOOT_LEFT}%\n&e&lPie derecho &8&l» &a{Health_FOOT_RIGHT}%"
 
       # Message shown on successful health retrieval (given part)
       success-single: '&aLa {Part} de {Player} está al {Health}%.'

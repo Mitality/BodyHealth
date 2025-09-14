@@ -4,7 +4,7 @@ definitions:
 
     # Used in command responses ({Part})
     HEAD: 'pää'
-    BODY: 'keho'
+    TORSO: 'keho'
     ARM_LEFT: 'vasen käsi'
     ARM_RIGHT: 'oikea käsi'
     LEG_LEFT: 'vasen jalka'
@@ -54,7 +54,7 @@ commands:
       no-target: '&cAnna pelaaja, kun käytät tätä komentoa konsolista.'
 
       # Message shown on successful health retrieval (all parts)
-      success-all: "&a{Player}:n kehon terveys:\n&e&lPää &8&l» &a{Health_HEAD}%\n&e&lKeho &8&l» &a{Health_BODY}%\n&e&lVasen käsi &8&l» &a{Health_ARM_LEFT}%\n&e&lOikea käsi &8&l» &a{Health_ARM_RIGHT}%\n&e&lVasen jalka &8&l» &a{Health_LEG_LEFT}%\n&e&lOikea jalka &8&l» &a{Health_LEG_RIGHT}%\n&e&lVasen jalka &8&l» &a{Health_FOOT_LEFT}%\n&e&lOikea jalka &8&l» &a{Health_FOOT_RIGHT}%"
+      success-all: "&a{Player}:n kehon terveys:\n&e&lPää &8&l» &a{Health_HEAD}%\n&e&lKeho &8&l» &a{Health_TORSO}%\n&e&lVasen käsi &8&l» &a{Health_ARM_LEFT}%\n&e&lOikea käsi &8&l» &a{Health_ARM_RIGHT}%\n&e&lVasen jalka &8&l» &a{Health_LEG_LEFT}%\n&e&lOikea jalka &8&l» &a{Health_LEG_RIGHT}%\n&e&lVasen jalka &8&l» &a{Health_FOOT_LEFT}%\n&e&lOikea jalka &8&l» &a{Health_FOOT_RIGHT}%"
 
       # Message shown on successful health retrieval (given part)
       success-single: '&a{Player}:n {Part}:ssa on {Health}%.'

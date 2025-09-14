@@ -36,7 +36,7 @@ public class BodyHealth {
         command_timestamps = new EnumMap<>(BodyPart.class);
         ongoingEffects = new HashMap<>();
         healthMap.put(BodyPart.HEAD, head);
-        healthMap.put(BodyPart.BODY, body);
+        healthMap.put(BodyPart.TORSO, body);
         healthMap.put(BodyPart.ARM_LEFT, arm_left);
         healthMap.put(BodyPart.ARM_RIGHT, arm_right);
         healthMap.put(BodyPart.LEG_LEFT, leg_left);

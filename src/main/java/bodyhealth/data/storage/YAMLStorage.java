@@ -59,7 +59,7 @@ public class YAMLStorage implements Storage {
         if (health == null) return new BodyHealth(uuid);
 
         double head = health.getDouble(BodyPart.HEAD.name(), 100.0);
-        double body = health.getDouble(BodyPart.BODY.name(), 100.0);
+        double body = health.getDouble(BodyPart.TORSO.name(), 100.0);
         double arm_left = health.getDouble(BodyPart.ARM_LEFT.name(), 100.0);
         double arm_right = health.getDouble(BodyPart.ARM_RIGHT.name(), 100.0);
         double leg_left = health.getDouble(BodyPart.LEG_LEFT.name(), 100.0);

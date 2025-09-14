@@ -4,7 +4,7 @@ definitions:
 
     # Used in command responses ({Part})
     HEAD: 'đầu'
-    BODY: 'cơ thể'
+    TORSO: 'cơ thể'
     ARM_LEFT: 'cánh tay trái'
     ARM_RIGHT: 'cánh tay phải'
     LEG_LEFT: 'chân trái'
@@ -54,7 +54,7 @@ commands:
       no-target: '&cVui lòng cung cấp tên người chơi khi thực thi lệnh này từ bảng điều khiển.'
 
       # Message shown on successful health retrieval (all parts)
-      success-all: "&aSức khỏe cơ thể của {Player}:\n&e&lĐầu &8&l» &a{Health_HEAD}%\n&e&lCơ thể &8&l» &a{Health_BODY}%\n&e&lCánh tay trái &8&l» &a{Health_ARM_LEFT}%\n&e&lCánh tay phải &8&l» &a{Health_ARM_RIGHT}%\n&e&lChân trái &8&l» &a{Health_LEG_LEFT}%\n&e&lChân phải &8&l» &a{Health_LEG_RIGHT}%\n&e&lBàn chân trái &8&l» &a{Health_FOOT_LEFT}%\n&e&lBàn chân phải &8&l» &a{Health_FOOT_RIGHT}%"
+      success-all: "&aSức khỏe cơ thể của {Player}:\n&e&lĐầu &8&l» &a{Health_HEAD}%\n&e&lCơ thể &8&l» &a{Health_TORSO}%\n&e&lCánh tay trái &8&l» &a{Health_ARM_LEFT}%\n&e&lCánh tay phải &8&l» &a{Health_ARM_RIGHT}%\n&e&lChân trái &8&l» &a{Health_LEG_LEFT}%\n&e&lChân phải &8&l» &a{Health_LEG_RIGHT}%\n&e&lBàn chân trái &8&l» &a{Health_FOOT_LEFT}%\n&e&lBàn chân phải &8&l» &a{Health_FOOT_RIGHT}%"
 
       # Message shown on successful health retrieval (given part)
       success-single: '&aSức khỏe của {Player}''s {Part} là {Health}%.'

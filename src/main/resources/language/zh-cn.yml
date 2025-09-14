@@ -4,7 +4,7 @@ definitions:
 
     # Used in command responses ({Part})
     HEAD: '头部'
-    BODY: '身体'
+    TORSO: '身体'
     ARM_LEFT: '左臂'
     ARM_RIGHT: '右臂'
     LEG_LEFT: '左腿'
@@ -54,7 +54,7 @@ commands:
       no-target: '&c如果从控制台执行此命令，请提供目标玩家。'
 
       # Message shown on successful health retrieval (all parts)
-      success-all: "&a{Player}的身体健康状况：\n&e&l头部 &8&l» &a{Health_HEAD}%\n&e&l身体 &8&l» &a{Health_BODY}%\n&e&l左臂 &8&l» &a{Health_ARM_LEFT}%\n&e&l右臂 &8&l» &a{Health_ARM_RIGHT}%\n&e&l左腿 &8&l» &a{Health_LEG_LEFT}%\n&e&l右腿 &8&l» &a{Health_LEG_RIGHT}%\n&e&l左脚 &8&l» &a{Health_FOOT_LEFT}%\n&e&l右脚 &8&l» &a{Health_FOOT_RIGHT}%"
+      success-all: "&a{Player}的身体健康状况：\n&e&l头部 &8&l» &a{Health_HEAD}%\n&e&l身体 &8&l» &a{Health_TORSO}%\n&e&l左臂 &8&l» &a{Health_ARM_LEFT}%\n&e&l右臂 &8&l» &a{Health_ARM_RIGHT}%\n&e&l左腿 &8&l» &a{Health_LEG_LEFT}%\n&e&l右腿 &8&l» &a{Health_LEG_RIGHT}%\n&e&l左脚 &8&l» &a{Health_FOOT_LEFT}%\n&e&l右脚 &8&l» &a{Health_FOOT_RIGHT}%"
 
       # Message shown on successful health retrieval (given part)
       success-single: '&a{Player}的{Part}健康状况为{Health}%。'

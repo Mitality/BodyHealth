@@ -7,7 +7,7 @@ public class Lang {
 
     // Body Parts
     public static String HEAD;
-    public static String BODY;
+    public static String TORSO;
     public static String ARM_LEFT;
     public static String ARM_RIGHT;
     public static String LEG_LEFT;
@@ -55,7 +55,7 @@ public class Lang {
 
         // Body Parts
         HEAD = config.getString("definitions.body-parts.HEAD", "HEAD");
-        BODY = config.getString("definitions.body-parts.BODY", "BODY");
+        TORSO = config.getString("definitions.body-parts.TORSO", "TORSO");
         ARM_LEFT = config.getString("definitions.body-parts.ARM_LEFT", "ARM_LEFT");
         ARM_RIGHT = config.getString("definitions.body-parts.ARM_RIGHT", "ARM_RIGHT");
         LEG_LEFT = config.getString("definitions.body-parts.LEG_LEFT", "LEG_LEFT");
@@ -105,7 +105,7 @@ public class Lang {
     public static String partName(BodyPart bodyPart) {
         return switch (bodyPart) {
             case HEAD -> HEAD;
-            case BODY -> BODY;
+            case TORSO -> TORSO;
             case ARM_LEFT -> ARM_LEFT;
             case ARM_RIGHT -> ARM_RIGHT;
             case LEG_LEFT -> LEG_LEFT;

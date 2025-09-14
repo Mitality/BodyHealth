@@ -120,9 +120,9 @@ public class BodyHealthCalculator {
      */
     private static BodyPart[] calculateHitPartsCentered(double yDiff, double scale) {
         return yDiff >= 2.4 * scale ? new BodyPart[]{BodyPart.HEAD} :
-                yDiff >= 1.7 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.BODY} :
-                yDiff >= 1.4 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.BODY, BodyPart.LEG_LEFT, BodyPart.LEG_RIGHT} :
-                yDiff >= 1.25 * scale ? new BodyPart[]{BodyPart.BODY, BodyPart.LEG_LEFT, BodyPart.LEG_RIGHT} :
+                yDiff >= 1.7 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.TORSO} :
+                yDiff >= 1.4 * scale ? new BodyPart[]{BodyPart.HEAD, BodyPart.TORSO, BodyPart.LEG_LEFT, BodyPart.LEG_RIGHT} :
+                yDiff >= 1.25 * scale ? new BodyPart[]{BodyPart.TORSO, BodyPart.LEG_LEFT, BodyPart.LEG_RIGHT} :
                 yDiff >= 0.25 * scale ? new BodyPart[]{BodyPart.LEG_LEFT, BodyPart.LEG_RIGHT, BodyPart.FOOT_LEFT, BodyPart.FOOT_RIGHT} :
                                         new BodyPart[]{BodyPart.FOOT_LEFT, BodyPart.FOOT_RIGHT};
     }
@@ -191,7 +191,7 @@ public class BodyHealthCalculator {
         else if (relativeHitY > 0.7 * scale) {
             if (relativeYaw > 45 && relativeYaw < 135) return BodyPart.ARM_LEFT;
             if (relativeYaw > 225 && relativeYaw < 315) return BodyPart.ARM_RIGHT;
-            return BodyPart.BODY;
+            return BodyPart.TORSO;
         }
 
         else if (relativeHitY > 0.25 * scale) {

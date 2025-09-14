@@ -46,7 +46,7 @@
 #      %bodyhealth_state_<BodyPart>%   ...returns the current state of a body part (e.g. DAMAGED)
 #      %bodyhealth_enabled%   ...returns whether the system is enabled at the players location
 #
-#      <BodyPart> can be HEAD, BODY, ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, FOOT_LEFT, FOOT_RIGHT
+#      <BodyPart> can be HEAD, TORSO, ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, FOOT_LEFT, FOOT_RIGHT
 #
 #   You can use PlaceholderAPI placeholders everywhere in this plugin, including language files.
 
@@ -167,7 +167,7 @@ body-health:
 
   # Default health values
   HEAD: "%PlayerMaxHealth% * 0.5"
-  BODY: "%PlayerMaxHealth% / 2"
+  TORSO: "%PlayerMaxHealth% / 2"
   ARM_LEFT: 10.0
   ARM_RIGHT: 10.0
   LEG_LEFT: 7.5
@@ -180,7 +180,7 @@ body-health:
     - permission: bodyhealth.health.tough
       enabled: false
       HEAD: "%PlayerMaxHealth% * 0.75"
-      BODY: "%PlayerMaxHealth% * 0.75"
+      TORSO: "%PlayerMaxHealth% * 0.75"
       ARM_LEFT: 15
       ARM_RIGHT: 15
       LEG_LEFT: 10
@@ -207,7 +207,7 @@ body-damage:
     - MAGIC 70%
     - ON_FIRE 60%
     - FALL 0%
-  BODY:
+  TORSO:
     - KILL 0%
     - FALLING_BLOCK 0%
     - FALLING_STALACTITE 0%
@@ -333,7 +333,7 @@ effects:
     BROKEN:
       - POTION_EFFECT / NAUSEA / 1
       - KILL_PLAYER
-  BODY:
+  TORSO:
     FULL:
       - WHEN_HEALED / DELAYED / 1s / MESSAGE / actionbar:&aYou feel a little better
       - WHEN_HEALED / DELAYED / 1s / COMMAND / attribute %PlayerName% minecraft:oxygen_bonus base set 1
