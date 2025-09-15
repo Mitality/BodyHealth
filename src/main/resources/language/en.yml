@@ -113,10 +113,10 @@ commands:
       usage-move: '&bUsage: /bodyhealth data move <storage type> <storage type>'
 
       # Message used to confirm the erase command
-      confirmation-erase: '&c&lWARNING: &r&cYou''re about to erase all existing data from BodyHealth''s {Type}-Storage! &eTo proceed, please type this command again.'
+      confirmation-erase: '&c&lWARNING: &r&cYou''re about to erase all existing data from BodyHealth''s {Type}-Storage!<br> &eTo proceed, please type this command again.'
 
       # Message used to confirm the move command
-      confirmation-move: '&c&lWARNING: &r&cYou''re about to move all data from BodyHealth''s {Type1}-Storage to its {Type2}-Storage, potentially overwriting data that is already there! &eTo proceed, please type this command again.'
+      confirmation-move: '&c&lWARNING: &r&cYou''re about to move all data from BodyHealth''s {Type1}-Storage to its {Type2}-Storage, potentially overwriting data that is already there!<br> &eTo proceed, please type this command again.'
 
       # Message shown on successful save
       success-save: '&aSuccessfully saved all data for {Count} online player(s).'

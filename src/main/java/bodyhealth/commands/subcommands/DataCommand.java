@@ -20,6 +20,9 @@ import java.util.concurrent.ConcurrentHashMap;
 public class DataCommand implements SubCommand {
 
     private static final Map<String, PendingAction> pending = new ConcurrentHashMap<>();
+    public static void resetPendingActions() {
+        pending.clear();
+    }
     private static class PendingAction {
 
         final String operation;

@@ -1,5 +1,6 @@
 package bodyhealth.util;
 
+import bodyhealth.commands.subcommands.DataCommand;
 import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
 import bodyhealth.config.Lang;
@@ -84,6 +85,9 @@ public class BodyHealthUtils {
 
             // Reload DataManager
             DataManager.load();
+
+            // Reset pending confirmations
+            DataCommand.resetPendingActions();
 
         } catch (Exception e) {
             Debug.logErr("Could not reload your configuration!");
