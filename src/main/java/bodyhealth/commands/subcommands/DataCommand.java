@@ -2,6 +2,7 @@ package bodyhealth.commands.subcommands;
 
 import bodyhealth.commands.SubCommand;
 import bodyhealth.config.Config;
+import bodyhealth.config.Debug;
 import bodyhealth.config.Lang;
 import bodyhealth.core.BodyHealth;
 import bodyhealth.data.DataManager;
@@ -129,12 +130,12 @@ public class DataCommand implements SubCommand {
                         .replace("{File}", file)
                         .replace("{Count}", String.valueOf(data.size())));
             }
-            return true;
         } catch (Exception e) {
             MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_fail_dump
                     .replace("{Type}", String.valueOf(storageType)));
-            return true;
+            Debug.logErr(e);
         }
+        return true;
     }
 
     private boolean handleEraseWithConfirmation(CommandSender sender, StorageType type) {
@@ -154,6 +155,7 @@ public class DataCommand implements SubCommand {
             } catch (Exception e) {
                 MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_fail_erase
                         .replace("{Type}", String.valueOf(type)));
+                Debug.logErr(e);
             }
             return true;
         }
@@ -191,6 +193,7 @@ public class DataCommand implements SubCommand {
                 MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_fail_move
                         .replace("{Type1}", String.valueOf(type1))
                         .replace("{Type2}", String.valueOf(type2)));
+                Debug.logErr(e);
             }
             return true;
         }
