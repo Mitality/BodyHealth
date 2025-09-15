@@ -32,7 +32,7 @@ bodyhealth:
           second: "'BROKEN'"
           operation: '=='
     3:
-      name: broken_body
+      name: broken_torso
       x: -18
       y: -51
       conditions:
@@ -45,7 +45,7 @@ bodyhealth:
           second: "'CREATIVE'"
           operation: '!='
         3:
-          first: papi:bodyhealth_state_body
+          first: papi:bodyhealth_state_torso
           second: "'BROKEN'"
           operation: '=='
     4:
@@ -169,7 +169,7 @@ bodyhealth:
           second: "'DAMAGED'"
           operation: '=='
     11:
-      name: damaged_body
+      name: damaged_torso
       x: -18
       y: -51
       conditions:
@@ -182,7 +182,7 @@ bodyhealth:
           second: "'CREATIVE'"
           operation: '!='
         3:
-          first: papi:bodyhealth_state_body
+          first: papi:bodyhealth_state_torso
           second: "'DAMAGED'"
           operation: '=='
     12:
@@ -306,7 +306,7 @@ bodyhealth:
           second: "'INTERMEDIATE'"
           operation: '=='
     19:
-      name: intermediate_body
+      name: intermediate_torso
       x: -18
       y: -51
       conditions:
@@ -319,7 +319,7 @@ bodyhealth:
           second: "'CREATIVE'"
           operation: '!='
         3:
-          first: papi:bodyhealth_state_body
+          first: papi:bodyhealth_state_torso
           second: "'INTERMEDIATE'"
           operation: '=='
     20:
@@ -443,7 +443,7 @@ bodyhealth:
           second: "'NEARLYFULL'"
           operation: '=='
     27:
-      name: nearlyfull_body
+      name: nearlyfull_torso
       x: -18
       y: -51
       conditions:
@@ -456,7 +456,7 @@ bodyhealth:
           second: "'CREATIVE'"
           operation: '!='
         3:
-          first: papi:bodyhealth_state_body
+          first: papi:bodyhealth_state_torso
           second: "'NEARLYFULL'"
           operation: '=='
     28:
@@ -580,7 +580,7 @@ bodyhealth:
           second: "'FULL'"
           operation: '=='
     35:
-      name: full_body
+      name: full_torso
       x: -18
       y: -51
       conditions:
@@ -593,7 +593,7 @@ bodyhealth:
           second: "'CREATIVE'"
           operation: '!='
         3:
-          first: papi:bodyhealth_state_body
+          first: papi:bodyhealth_state_torso
           second: "'FULL'"
           operation: '=='
     36:

@@ -41,7 +41,7 @@ public class BetterHud {
                 "assets/bodyhealth/bodyhealth_full.png",
 
                 "assets/bodyhealth/bodyhealth_broken_head.png",
-                "assets/bodyhealth/bodyhealth_broken_body.png",
+                "assets/bodyhealth/bodyhealth_broken_torso.png",
                 "assets/bodyhealth/bodyhealth_broken_arm_left.png",
                 "assets/bodyhealth/bodyhealth_broken_arm_right.png",
                 "assets/bodyhealth/bodyhealth_broken_leg_left.png",
@@ -50,7 +50,7 @@ public class BetterHud {
                 "assets/bodyhealth/bodyhealth_broken_foot_right.png",
 
                 "assets/bodyhealth/bodyhealth_damaged_head.png",
-                "assets/bodyhealth/bodyhealth_damaged_body.png",
+                "assets/bodyhealth/bodyhealth_damaged_torso.png",
                 "assets/bodyhealth/bodyhealth_damaged_arm_left.png",
                 "assets/bodyhealth/bodyhealth_damaged_arm_right.png",
                 "assets/bodyhealth/bodyhealth_damaged_leg_left.png",
@@ -59,7 +59,7 @@ public class BetterHud {
                 "assets/bodyhealth/bodyhealth_damaged_foot_right.png",
 
                 "assets/bodyhealth/bodyhealth_intermediate_head.png",
-                "assets/bodyhealth/bodyhealth_intermediate_body.png",
+                "assets/bodyhealth/bodyhealth_intermediate_torso.png",
                 "assets/bodyhealth/bodyhealth_intermediate_arm_left.png",
                 "assets/bodyhealth/bodyhealth_intermediate_arm_right.png",
                 "assets/bodyhealth/bodyhealth_intermediate_leg_left.png",
@@ -68,7 +68,7 @@ public class BetterHud {
                 "assets/bodyhealth/bodyhealth_intermediate_foot_right.png",
 
                 "assets/bodyhealth/bodyhealth_nearlyfull_head.png",
-                "assets/bodyhealth/bodyhealth_nearlyfull_body.png",
+                "assets/bodyhealth/bodyhealth_nearlyfull_torso.png",
                 "assets/bodyhealth/bodyhealth_nearlyfull_arm_left.png",
                 "assets/bodyhealth/bodyhealth_nearlyfull_arm_right.png",
                 "assets/bodyhealth/bodyhealth_nearlyfull_leg_left.png",
@@ -77,7 +77,7 @@ public class BetterHud {
                 "assets/bodyhealth/bodyhealth_nearlyfull_foot_right.png",
 
                 "assets/bodyhealth/bodyhealth_full_head.png",
-                "assets/bodyhealth/bodyhealth_full_body.png",
+                "assets/bodyhealth/bodyhealth_full_torso.png",
                 "assets/bodyhealth/bodyhealth_full_arm_left.png",
                 "assets/bodyhealth/bodyhealth_full_arm_right.png",
                 "assets/bodyhealth/bodyhealth_full_leg_left.png",
