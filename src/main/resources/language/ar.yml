@@ -97,3 +97,44 @@ commands:
 
       # Message shown on successful health update (given part)
       success-single: '&aتم تعيين {Player}''s {Part} إلى {Value}.'
+
+    data:
+
+      # Message shown for incorrect command usage
+      usage: '&bالاستخدام: /bodyhealth data <save/dump/erase/move> [...]'
+
+      # Message shown for incorrect command usage (dump)
+      usage-dump: '&bالاستخدام: /bodyhealth data dump <storage type>'
+
+      # Message shown for incorrect command usage (erase)
+      usage-erase: '&bالاستخدام: /bodyhealth data erase <storage type>'
+
+      # Message shown for incorrect command usage (move)
+      usage-move: '&bالاستخدام: /bodyhealth data move <storage type> <storage type>'
+
+      # Message used to confirm the erase command
+      confirmation-erase: '&c&lتحذير: &r&cأنت على وشك مسح جميع البيانات الموجودة من تخزين BodyHealth {Type}!<br> &eللمتابعة، يرجى كتابة هذا الأمر مرة أخرى.'
+
+      # Message used to confirm the move command
+      confirmation-move: '&c&lتحذير: &r&cأنت على وشك نقل جميع البيانات من تخزين BodyHealth {Type1} إلى تخزين {Type2}، مما قد يستبدل البيانات الموجودة بالفعل هناك!<br> &eللمتابعة، يرجى كتابة هذا الأمر مرة أخرى.'
+
+      # Message shown on successful save
+      success-save: '&aتم حفظ جميع البيانات بنجاح لعدد {Count} لاعب(ين) متصلين.'
+
+      # Message shown on successful dump
+      success-dump: '&aتم تفريغ البيانات بنجاح لعدد {Count} لاعب(ين) من تخزين BodyHealth {Type} إلى {File}.'
+
+      # Message shown on successful erase
+      success-erase: '&aتم مسح جميع البيانات بنجاح من تخزين BodyHealth {Type}.'
+
+      # Message shown on successful move
+      success-move: '&aتم نقل البيانات بنجاح لعدد {Count} لاعب(ين) من تخزين BodyHealth {Type1} إلى تخزين {Type2}.'
+
+      # Message shown if dumping data fails
+      fail-dump: '&cفشل في تفريغ البيانات الموجودة من تخزين BodyHealth {Type}.'
+
+      # Message shown if erasing data fails
+      fail-erase: '&cفشل في مسح جميع البيانات من تخزين BodyHealth {Type}.'
+
+      # Message shown if moving data fails
+      fail-move: '&cفشل في نقل جميع البيانات الموجودة من تخزين BodyHealth {Type1} إلى تخزين {Type2}.'

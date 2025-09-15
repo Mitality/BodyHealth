@@ -97,3 +97,44 @@ commands:
 
       # Message shown on successful health update (given part)
       success-single: '&aA {Part} de {Player} foi definida para {Value}.'
+
+    data:
+
+      # Message shown for incorrect command usage
+      usage: '&bUso: /bodyhealth data <save/dump/erase/move> [...]'
+
+      # Message shown for incorrect command usage (dump)
+      usage-dump: '&bUso: /bodyhealth data dump <storage type>'
+
+      # Message shown for incorrect command usage (erase)
+      usage-erase: '&bUso: /bodyhealth data erase <storage type>'
+
+      # Message shown for incorrect command usage (move)
+      usage-move: '&bUso: /bodyhealth data move <storage type> <storage type>'
+
+      # Message used to confirm the erase command
+      confirmation-erase: '&c&lAVISO: &r&cVocê está prestes a apagar todos os dados existentes do armazenamento {Type} do BodyHealth!<br> &ePara continuar, digite novamente este comando.'
+
+      # Message used to confirm the move command
+      confirmation-move: '&c&lAVISO: &r&cVocê está prestes a mover todos os dados do armazenamento {Type1} do BodyHealth para o armazenamento {Type2}, o que pode substituir dados já existentes!<br> &ePara continuar, digite novamente este comando.'
+
+      # Message shown on successful save
+      success-save: '&aTodos os dados de {Count} jogador(es) online foram salvos com sucesso.'
+
+      # Message shown on successful dump
+      success-dump: '&aOs dados de {Count} jogador(es) foram exportados com sucesso do armazenamento {Type} do BodyHealth para {File}.'
+
+      # Message shown on successful erase
+      success-erase: '&aTodos os dados foram apagados com sucesso do armazenamento {Type} do BodyHealth.'
+
+      # Message shown on successful move
+      success-move: '&aOs dados de {Count} jogador(es) foram movidos com sucesso do armazenamento {Type1} do BodyHealth para o armazenamento {Type2}.'
+
+      # Message shown if dumping data fails
+      fail-dump: '&cFalha ao exportar os dados existentes do armazenamento {Type} do BodyHealth.'
+
+      # Message shown if erasing data fails
+      fail-erase: '&cFalha ao apagar todos os dados do armazenamento {Type} do BodyHealth.'
+
+      # Message shown if moving data fails
+      fail-move: '&cFalha ao mover todos os dados existentes do armazenamento {Type1} do BodyHealth para o armazenamento {Type2}.'

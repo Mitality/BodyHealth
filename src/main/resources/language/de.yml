@@ -97,3 +97,44 @@ commands:
 
       # Message shown on successful health update (given part)
       success-single: '&aErfolgreich {Player}''s {Part} auf {Value} gesetzt.'
+
+    data:
+
+      # Message shown for incorrect command usage
+      usage: '&bVerwendung: /bodyhealth data <save/dump/erase/move> [...]'
+
+      # Message shown for incorrect command usage (dump)
+      usage-dump: '&bVerwendung: /bodyhealth data dump <storage type>'
+
+      # Message shown for incorrect command usage (erase)
+      usage-erase: '&bVerwendung: /bodyhealth data erase <storage type>'
+
+      # Message shown for incorrect command usage (move)
+      usage-move: '&bVerwendung: /bodyhealth data move <storage type> <storage type>'
+
+      # Message used to confirm the erase command
+      confirmation-erase: '&c&lWARNUNG: &r&cDu bist dabei, alle vorhandenen Daten aus dem BodyHealth {Type}-Speicher zu löschen!<br> &eUm fortzufahren, gib diesen Befehl bitte erneut ein.'
+
+      # Message used to confirm the move command
+      confirmation-move: '&c&lWARNUNG: &r&cDu bist dabei, alle Daten aus dem BodyHealth {Type1}-Speicher in den {Type2}-Speicher zu verschieben. Dabei können vorhandene Daten überschrieben werden!<br> &eUm fortzufahren, gib diesen Befehl bitte erneut ein.'
+
+      # Message shown on successful save
+      success-save: '&aAlle Daten für {Count} Spieler online wurden erfolgreich gespeichert.'
+
+      # Message shown on successful dump
+      success-dump: '&aDaten für {Count} Spieler wurden erfolgreich aus dem BodyHealth {Type}-Speicher nach {File} exportiert.'
+
+      # Message shown on successful erase
+      success-erase: '&aAlle Daten wurden erfolgreich aus dem BodyHealth {Type}-Speicher gelöscht.'
+
+      # Message shown on successful move
+      success-move: '&aDaten für {Count} Spieler wurden erfolgreich aus dem BodyHealth {Type1}-Speicher in den {Type2}-Speicher verschoben.'
+
+      # Message shown if dumping data fails
+      fail-dump: '&cDie vorhandenen Daten aus dem BodyHealth {Type}-Speicher konnten nicht exportiert werden.'
+
+      # Message shown if erasing data fails
+      fail-erase: '&cEs war nicht möglich, alle Daten aus dem BodyHealth {Type}-Speicher zu löschen.'
+
+      # Message shown if moving data fails
+      fail-move: '&cEs war nicht möglich, alle vorhandenen Daten aus dem BodyHealth {Type1}-Speicher in den {Type2}-Speicher zu verschieben.'

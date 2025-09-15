@@ -97,3 +97,44 @@ commands:
 
       # Message shown on successful health update (given part)
       success-single: '&aהוגדר בהצלחה {Value} ל{Player} ב{Part}.'
+
+    data:
+
+      # Message shown for incorrect command usage
+      usage: '&bשימוש: /bodyhealth data <save/dump/erase/move> [...]'
+
+      # Message shown for incorrect command usage (dump)
+      usage-dump: '&bשימוש: /bodyhealth data dump <storage type>'
+
+      # Message shown for incorrect command usage (erase)
+      usage-erase: '&bשימוש: /bodyhealth data erase <storage type>'
+
+      # Message shown for incorrect command usage (move)
+      usage-move: '&bשימוש: /bodyhealth data move <storage type> <storage type>'
+
+      # Message used to confirm the erase command
+      confirmation-erase: '&c&lאזהרה: &r&cאתה עומד למחוק את כל הנתונים הקיימים מאחסון {Type} של BodyHealth!<br> &eכדי להמשיך, הקלד שוב את הפקודה הזו.'
+
+      # Message used to confirm the move command
+      confirmation-move: '&c&lאזהרה: &r&cאתה עומד להעביר את כל הנתונים מאחסון {Type1} של BodyHealth לאחסון {Type2}, דבר שעשוי לשכתב נתונים שכבר קיימים שם!<br> &eכדי להמשיך, הקלד שוב את הפקודה הזו.'
+
+      # Message shown on successful save
+      success-save: '&aכל הנתונים עבור {Count} שחקן/ים מחוברים נשמרו בהצלחה.'
+
+      # Message shown on successful dump
+      success-dump: '&aהנתונים עבור {Count} שחקן/ים יוצאו בהצלחה מאחסון {Type} של BodyHealth אל {File}.'
+
+      # Message shown on successful erase
+      success-erase: '&aכל הנתונים נמחקו בהצלחה מאחסון {Type} של BodyHealth.'
+
+      # Message shown on successful move
+      success-move: '&aהנתונים עבור {Count} שחקן/ים הועברו בהצלחה מאחסון {Type1} של BodyHealth אל אחסון {Type2}.'
+
+      # Message shown if dumping data fails
+      fail-dump: '&cנכשל ביצוא הנתונים הקיימים מאחסון {Type} של BodyHealth.'
+
+      # Message shown if erasing data fails
+      fail-erase: '&cנכשל במחיקת כל הנתונים מאחסון {Type} של BodyHealth.'
+
+      # Message shown if moving data fails
+      fail-move: '&cנכשל בהעברת כל הנתונים הקיימים מאחסון {Type1} של BodyHealth אל אחסון {Type2}.'

@@ -97,3 +97,44 @@ commands:
 
       # Message shown on successful health update (given part)
       success-single: '&aVous avez défini {Player}''s {Part} à {Value}.'
+
+    data:
+
+      # Message shown for incorrect command usage
+      usage: '&bUtilisation : /bodyhealth data <save/dump/erase/move> [...]'
+
+      # Message shown for incorrect command usage (dump)
+      usage-dump: '&bUtilisation : /bodyhealth data dump <storage type>'
+
+      # Message shown for incorrect command usage (erase)
+      usage-erase: '&bUtilisation : /bodyhealth data erase <storage type>'
+
+      # Message shown for incorrect command usage (move)
+      usage-move: '&bUtilisation : /bodyhealth data move <storage type> <storage type>'
+
+      # Message used to confirm the erase command
+      confirmation-erase: '&c&lATTENTION : &r&cVous êtes sur le point d''effacer toutes les données existantes du stockage {Type} de BodyHealth !<br> &ePour continuer, veuillez retaper cette commande.'
+
+      # Message used to confirm the move command
+      confirmation-move: '&c&lATTENTION : &r&cVous êtes sur le point de déplacer toutes les données du stockage {Type1} de BodyHealth vers le stockage {Type2}, ce qui peut écraser des données déjà présentes !<br> &ePour continuer, veuillez retaper cette commande.'
+
+      # Message shown on successful save
+      success-save: '&aToutes les données de {Count} joueur(s) en ligne ont été enregistrées avec succès.'
+
+      # Message shown on successful dump
+      success-dump: '&aLes données de {Count} joueur(s) ont été exportées avec succès du stockage {Type} de BodyHealth vers {File}.'
+
+      # Message shown on successful erase
+      success-erase: '&aToutes les données ont été effacées avec succès du stockage {Type} de BodyHealth.'
+
+      # Message shown on successful move
+      success-move: '&aLes données de {Count} joueur(s) ont été déplacées avec succès du stockage {Type1} de BodyHealth vers le stockage {Type2}.'
+
+      # Message shown if dumping data fails
+      fail-dump: '&cÉchec de l''exportation des données existantes du stockage {Type} de BodyHealth.'
+
+      # Message shown if erasing data fails
+      fail-erase: '&cÉchec de l''effacement de toutes les données du stockage {Type} de BodyHealth.'
+
+      # Message shown if moving data fails
+      fail-move: '&cÉchec du déplacement de toutes les données existantes du stockage {Type1} de BodyHealth vers le stockage {Type2}.'

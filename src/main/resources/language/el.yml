@@ -97,3 +97,44 @@ commands:
 
       # Message shown on successful health update (given part)
       success-single: '&aΕπιτυχώς ρυθμίστηκε η τιμή {Value} στο {Part} του {Player}.'
+
+    data:
+
+      # Message shown for incorrect command usage
+      usage: '&bΧρήση: /bodyhealth data <save/dump/erase/move> [...]'
+
+      # Message shown for incorrect command usage (dump)
+      usage-dump: '&bΧρήση: /bodyhealth data dump <storage type>'
+
+      # Message shown for incorrect command usage (erase)
+      usage-erase: '&bΧρήση: /bodyhealth data erase <storage type>'
+
+      # Message shown for incorrect command usage (move)
+      usage-move: '&bΧρήση: /bodyhealth data move <storage type> <storage type>'
+
+      # Message used to confirm the erase command
+      confirmation-erase: '&c&lΠΡΟΕΙΔΟΠΟΙΗΣΗ: &r&cΠρόκειται να διαγράψετε όλα τα υπάρχοντα δεδομένα από την αποθήκευση {Type} του BodyHealth!<br> &eΓια να συνεχίσετε, πληκτρολογήστε ξανά αυτήν την εντολή.'
+
+      # Message used to confirm the move command
+      confirmation-move: '&c&lΠΡΟΕΙΔΟΠΟΙΗΣΗ: &r&cΠρόκειται να μετακινήσετε όλα τα δεδομένα από την αποθήκευση {Type1} του BodyHealth στην αποθήκευση {Type2}, κάτι που μπορεί να αντικαταστήσει ήδη υπάρχοντα δεδομένα!<br> &eΓια να συνεχίσετε, πληκτρολογήστε ξανά αυτήν την εντολή.'
+
+      # Message shown on successful save
+      success-save: '&aΌλα τα δεδομένα για {Count} συνδεδεμένο(ους) παίκτη(ες) αποθηκεύτηκαν με επιτυχία.'
+
+      # Message shown on successful dump
+      success-dump: '&aΤα δεδομένα για {Count} παίκτη(ες) εξήχθησαν με επιτυχία από την αποθήκευση {Type} του BodyHealth στο {File}.'
+
+      # Message shown on successful erase
+      success-erase: '&aΌλα τα δεδομένα διαγράφηκαν με επιτυχία από την αποθήκευση {Type} του BodyHealth.'
+
+      # Message shown on successful move
+      success-move: '&aΤα δεδομένα για {Count} παίκτη(ες) μετακινήθηκαν με επιτυχία από την αποθήκευση {Type1} του BodyHealth στην αποθήκευση {Type2}.'
+
+      # Message shown if dumping data fails
+      fail-dump: '&cΑποτυχία εξαγωγής των υπαρχόντων δεδομένων από την αποθήκευση {Type} του BodyHealth.'
+
+      # Message shown if erasing data fails
+      fail-erase: '&cΑποτυχία διαγραφής όλων των δεδομένων από την αποθήκευση {Type} του BodyHealth.'
+
+      # Message shown if moving data fails
+      fail-move: '&cΑποτυχία μετακίνησης όλων των υπαρχόντων δεδομένων από την αποθήκευση {Type1} του BodyHealth στην αποθήκευση {Type2}.'

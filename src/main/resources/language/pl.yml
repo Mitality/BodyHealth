@@ -97,3 +97,44 @@ commands:
 
       # Message shown on successful health update (given part)
       success-single: '&aPomyślnie ustawiono {Player}''s {Part} na {Value}.'
+
+    data:
+
+      # Message shown for incorrect command usage
+      usage: '&bUżycie: /bodyhealth data <save/dump/erase/move> [...]'
+
+      # Message shown for incorrect command usage (dump)
+      usage-dump: '&bUżycie: /bodyhealth data dump <storage type>'
+
+      # Message shown for incorrect command usage (erase)
+      usage-erase: '&bUżycie: /bodyhealth data erase <storage type>'
+
+      # Message shown for incorrect command usage (move)
+      usage-move: '&bUżycie: /bodyhealth data move <storage type> <storage type>'
+
+      # Message used to confirm the erase command
+      confirmation-erase: '&c&lOSTRZEŻENIE: &r&cZamierzasz usunąć wszystkie dane z magazynu BodyHealth {Type}!<br> &eAby kontynuować, wpisz ponownie tę komendę.'
+
+      # Message used to confirm the move command
+      confirmation-move: '&c&lOSTRZEŻENIE: &r&cZamierzasz przenieść wszystkie dane z magazynu BodyHealth {Type1} do magazynu {Type2}, co może nadpisać istniejące dane!<br> &eAby kontynuować, wpisz ponownie tę komendę.'
+
+      # Message shown on successful save
+      success-save: '&aPomyślnie zapisano wszystkie dane {Count} gracza(ży) online.'
+
+      # Message shown on successful dump
+      success-dump: '&aPomyślnie wyeksportowano dane {Count} gracza(ży) z magazynu BodyHealth {Type} do pliku {File}.'
+
+      # Message shown on successful erase
+      success-erase: '&aPomyślnie usunięto wszystkie dane z magazynu BodyHealth {Type}.'
+
+      # Message shown on successful move
+      success-move: '&aPomyślnie przeniesiono dane {Count} gracza(ży) z magazynu BodyHealth {Type1} do magazynu {Type2}.'
+
+      # Message shown if dumping data fails
+      fail-dump: '&cNie udało się wyeksportować danych z magazynu BodyHealth {Type}.'
+
+      # Message shown if erasing data fails
+      fail-erase: '&cNie udało się usunąć wszystkich danych z magazynu BodyHealth {Type}.'
+
+      # Message shown if moving data fails
+      fail-move: '&cNie udało się przenieść danych z magazynu BodyHealth {Type1} do magazynu {Type2}.'

@@ -97,3 +97,44 @@ commands:
 
       # Message shown on successful health update (given part)
       success-single: '&a{Player}:n {Part} on asetettu onnistuneesti {Value}:ksi.'
+
+    data:
+
+      # Message shown for incorrect command usage
+      usage: '&bKäyttö: /bodyhealth data <save/dump/erase/move> [...]'
+
+      # Message shown for incorrect command usage (dump)
+      usage-dump: '&bKäyttö: /bodyhealth data dump <storage type>'
+
+      # Message shown for incorrect command usage (erase)
+      usage-erase: '&bKäyttö: /bodyhealth data erase <storage type>'
+
+      # Message shown for incorrect command usage (move)
+      usage-move: '&bKäyttö: /bodyhealth data move <storage type> <storage type>'
+
+      # Message used to confirm the erase command
+      confirmation-erase: '&c&lVAROITUS: &r&cOlet poistamassa kaikki olemassa olevat tiedot BodyHealthin {Type}-tallennuksesta!<br> &eJatkaaksesi, kirjoita tämä komento uudelleen.'
+
+      # Message used to confirm the move command
+      confirmation-move: '&c&lVAROITUS: &r&cOlet siirtämässä kaikki tiedot BodyHealthin {Type1}-tallennuksesta sen {Type2}-tallennukseen, mikä voi korvata jo olemassa olevat tiedot!<br> &eJatkaaksesi, kirjoita tämä komento uudelleen.'
+
+      # Message shown on successful save
+      success-save: '&aKaikki {Count} online-pelaajan tiedot tallennettiin onnistuneesti.'
+
+      # Message shown on successful dump
+      success-dump: '&a{Count} pelaajan tiedot vietiin onnistuneesti BodyHealthin {Type}-tallennuksesta tiedostoon {File}.'
+
+      # Message shown on successful erase
+      success-erase: '&aKaikki tiedot poistettiin onnistuneesti BodyHealthin {Type}-tallennuksesta.'
+
+      # Message shown on successful move
+      success-move: '&a{Count} pelaajan tiedot siirrettiin onnistuneesti BodyHealthin {Type1}-tallennuksesta sen {Type2}-tallennukseen.'
+
+      # Message shown if dumping data fails
+      fail-dump: '&cOlemassa olevien tietojen vienti BodyHealthin {Type}-tallennuksesta epäonnistui.'
+
+      # Message shown if erasing data fails
+      fail-erase: '&cKaikkien tietojen poistaminen BodyHealthin {Type}-tallennuksesta epäonnistui.'
+
+      # Message shown if moving data fails
+      fail-move: '&cKaikkien olemassa olevien tietojen siirto BodyHealthin {Type1}-tallennuksesta sen {Type2}-tallennukseen epäonnistui.'

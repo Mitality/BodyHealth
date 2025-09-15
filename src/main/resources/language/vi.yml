@@ -97,3 +97,44 @@ commands:
 
       # Message shown on successful health update (given part)
       success-single: '&aĐã thành công thiết lập {Player}''s {Part} thành {Value}.'
+
+    data:
+
+      # Message shown for incorrect command usage
+      usage: '&bCách dùng: /bodyhealth data <save/dump/erase/move> [...]'
+
+      # Message shown for incorrect command usage (dump)
+      usage-dump: '&bCách dùng: /bodyhealth data dump <storage type>'
+
+      # Message shown for incorrect command usage (erase)
+      usage-erase: '&bCách dùng: /bodyhealth data erase <storage type>'
+
+      # Message shown for incorrect command usage (move)
+      usage-move: '&bCách dùng: /bodyhealth data move <storage type> <storage type>'
+
+      # Message used to confirm the erase command
+      confirmation-erase: '&c&lCẢNH BÁO: &r&cBạn sắp xóa tất cả dữ liệu hiện có khỏi kho lưu trữ {Type} của BodyHealth!<br> &eĐể tiếp tục, vui lòng nhập lại lệnh này.'
+
+      # Message used to confirm the move command
+      confirmation-move: '&c&lCẢNH BÁO: &r&cBạn sắp di chuyển tất cả dữ liệu từ kho lưu trữ {Type1} của BodyHealth sang kho {Type2}, có thể ghi đè dữ liệu đã tồn tại!<br> &eĐể tiếp tục, vui lòng nhập lại lệnh này.'
+
+      # Message shown on successful save
+      success-save: '&aTất cả dữ liệu cho {Count} người chơi trực tuyến đã được lưu thành công.'
+
+      # Message shown on successful dump
+      success-dump: '&aDữ liệu cho {Count} người chơi đã được xuất thành công từ kho lưu trữ {Type} của BodyHealth sang {File}.'
+
+      # Message shown on successful erase
+      success-erase: '&aTất cả dữ liệu đã được xóa thành công khỏi kho lưu trữ {Type} của BodyHealth.'
+
+      # Message shown on successful move
+      success-move: '&aDữ liệu cho {Count} người chơi đã được di chuyển thành công từ kho lưu trữ {Type1} của BodyHealth sang kho {Type2}.'
+
+      # Message shown if dumping data fails
+      fail-dump: '&cKhông thể xuất dữ liệu từ kho lưu trữ {Type} của BodyHealth.'
+
+      # Message shown if erasing data fails
+      fail-erase: '&cKhông thể xóa tất cả dữ liệu khỏi kho lưu trữ {Type} của BodyHealth.'
+
+      # Message shown if moving data fails
+      fail-move: '&cKhông thể di chuyển dữ liệu từ kho lưu trữ {Type1} của BodyHealth sang kho {Type2}.'

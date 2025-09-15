@@ -97,3 +97,44 @@ commands:
 
       # Message shown on successful health update (given part)
       success-single: '&a{Player}의 {Part}가 {Value}로 설정되었습니다.'
+
+    data:
+
+      # Message shown for incorrect command usage
+      usage: '&b사용법: /bodyhealth data <save/dump/erase/move> [...]'
+
+      # Message shown for incorrect command usage (dump)
+      usage-dump: '&b사용법: /bodyhealth data dump <storage type>'
+
+      # Message shown for incorrect command usage (erase)
+      usage-erase: '&b사용법: /bodyhealth data erase <storage type>'
+
+      # Message shown for incorrect command usage (move)
+      usage-move: '&b사용법: /bodyhealth data move <storage type> <storage type>'
+
+      # Message used to confirm the erase command
+      confirmation-erase: '&c&l경고: &r&cBodyHealth의 {Type} 저장소에서 모든 기존 데이터를 삭제하려고 합니다!<br> &e계속하려면 이 명령어를 다시 입력하세요.'
+
+      # Message used to confirm the move command
+      confirmation-move: '&c&l경고: &r&cBodyHealth의 {Type1} 저장소에서 {Type2} 저장소로 모든 데이터를 이동하려고 합니다. 이미 존재하는 데이터가 덮어씌워질 수 있습니다!<br> &e계속하려면 이 명령어를 다시 입력하세요.'
+
+      # Message shown on successful save
+      success-save: '&a온라인 {Count}명의 플레이어 데이터를 성공적으로 저장했습니다.'
+
+      # Message shown on successful dump
+      success-dump: '&aBodyHealth의 {Type} 저장소에서 {File}로 {Count}명의 플레이어 데이터를 성공적으로 내보냈습니다.'
+
+      # Message shown on successful erase
+      success-erase: '&aBodyHealth의 {Type} 저장소에서 모든 데이터를 성공적으로 삭제했습니다.'
+
+      # Message shown on successful move
+      success-move: '&aBodyHealth의 {Type1} 저장소에서 {Type2} 저장소로 {Count}명의 플레이어 데이터를 성공적으로 이동했습니다.'
+
+      # Message shown if dumping data fails
+      fail-dump: '&cBodyHealth의 {Type} 저장소에서 기존 데이터를 내보내지 못했습니다.'
+
+      # Message shown if erasing data fails
+      fail-erase: '&cBodyHealth의 {Type} 저장소에서 모든 데이터를 삭제하지 못했습니다.'
+
+      # Message shown if moving data fails
+      fail-move: '&cBodyHealth의 {Type1} 저장소에서 {Type2} 저장소로 기존 데이터를 이동하지 못했습니다.'

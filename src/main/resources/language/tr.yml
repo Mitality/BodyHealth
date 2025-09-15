@@ -97,3 +97,44 @@ commands:
 
       # Message shown on successful health update (given part)
       success-single: '&a{Player}''nin {Part} başarıyla {Value} olarak ayarlandı.'
+
+    data:
+
+      # Message shown for incorrect command usage
+      usage: '&bKullanım: /bodyhealth data <save/dump/erase/move> [...]'
+
+      # Message shown for incorrect command usage (dump)
+      usage-dump: '&bKullanım: /bodyhealth data dump <storage type>'
+
+      # Message shown for incorrect command usage (erase)
+      usage-erase: '&bKullanım: /bodyhealth data erase <storage type>'
+
+      # Message shown for incorrect command usage (move)
+      usage-move: '&bKullanım: /bodyhealth data move <storage type> <storage type>'
+
+      # Message used to confirm the erase command
+      confirmation-erase: '&c&lUYARI: &r&cBodyHealth''in {Type} depolamasındaki tüm mevcut verileri silmek üzeresiniz!<br> &eDevam etmek için lütfen bu komutu tekrar yazın.'
+
+      # Message used to confirm the move command
+      confirmation-move: '&c&lUYARI: &r&cBodyHealth''in {Type1} depolamasındaki tüm verileri {Type2} depolamasına taşımak üzeresiniz, bu işlem mevcut verilerin üzerine yazabilir!<br> &eDevam etmek için lütfen bu komutu tekrar yazın.'
+
+      # Message shown on successful save
+      success-save: '&a{Count} çevrimiçi oyuncunun tüm verileri başarıyla kaydedildi.'
+
+      # Message shown on successful dump
+      success-dump: '&a{Count} oyuncunun verileri BodyHealth''in {Type} depolamasından {File} dosyasına başarıyla aktarıldı.'
+
+      # Message shown on successful erase
+      success-erase: '&aBodyHealth''in {Type} depolamasındaki tüm veriler başarıyla silindi.'
+
+      # Message shown on successful move
+      success-move: '&a{Count} oyuncunun verileri BodyHealth''in {Type1} depolamasından {Type2} depolamasına başarıyla taşındı.'
+
+      # Message shown if dumping data fails
+      fail-dump: '&cBodyHealth''in {Type} depolamasındaki veriler aktarılamadı.'
+
+      # Message shown if erasing data fails
+      fail-erase: '&cBodyHealth''in {Type} depolamasındaki tüm veriler silinemedi.'
+
+      # Message shown if moving data fails
+      fail-move: '&cBodyHealth''in {Type1} depolamasındaki veriler {Type2} depolamasına taşınamadı.'

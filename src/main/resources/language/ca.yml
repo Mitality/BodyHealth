@@ -97,3 +97,44 @@ commands:
 
       # Message shown on successful health update (given part)
       success-single: '&aS''ha establert {Value} a {Player}''s {Part}.'
+
+    data:
+
+      # Message shown for incorrect command usage
+      usage: '&bÚs: /bodyhealth data <save/dump/erase/move> [...]'
+
+      # Message shown for incorrect command usage (dump)
+      usage-dump: '&bÚs: /bodyhealth data dump <storage type>'
+
+      # Message shown for incorrect command usage (erase)
+      usage-erase: '&bÚs: /bodyhealth data erase <storage type>'
+
+      # Message shown for incorrect command usage (move)
+      usage-move: '&bÚs: /bodyhealth data move <storage type> <storage type>'
+
+      # Message used to confirm the erase command
+      confirmation-erase: '&c&lAVÍS: &r&cEstàs a punt d''esborrar totes les dades existents de l''emmagatzematge {Type} de BodyHealth!<br> &ePer continuar, torna a escriure aquesta ordre.'
+
+      # Message used to confirm the move command
+      confirmation-move: '&c&lAVÍS: &r&cEstàs a punt de moure totes les dades de l''emmagatzematge {Type1} de BodyHealth al seu emmagatzematge {Type2}, cosa que pot sobreescriure dades que ja hi siguin!<br> &ePer continuar, torna a escriure aquesta ordre.'
+
+      # Message shown on successful save
+      success-save: '&aS''han desat correctament totes les dades de {Count} jugador(s) en línia.'
+
+      # Message shown on successful dump
+      success-dump: '&aS''han abocat correctament les dades de {Count} jugador(s) des de l''emmagatzematge {Type} de BodyHealth a {File}.'
+
+      # Message shown on successful erase
+      success-erase: '&aS''han esborrat correctament totes les dades de l''emmagatzematge {Type} de BodyHealth.'
+
+      # Message shown on successful move
+      success-move: '&aS''han mogut correctament les dades de {Count} jugador(s) de l''emmagatzematge {Type1} de BodyHealth al seu emmagatzematge {Type2}.'
+
+      # Message shown if dumping data fails
+      fail-dump: '&cNo s''han pogut abocar les dades existents de l''emmagatzematge {Type} de BodyHealth.'
+
+      # Message shown if erasing data fails
+      fail-erase: '&cNo s''han pogut esborrar totes les dades de l''emmagatzematge {Type} de BodyHealth.'
+
+      # Message shown if moving data fails
+      fail-move: '&cNo s''han pogut moure totes les dades existents de l''emmagatzematge {Type1} de BodyHealth al seu emmagatzematge {Type2}.'

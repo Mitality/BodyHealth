@@ -97,3 +97,44 @@ commands:
 
       # Message shown on successful health update (given part)
       success-single: '&a{Part} lui {Player} a fost setat la {Value}.'
+
+    data:
+
+      # Message shown for incorrect command usage
+      usage: '&bUtilizare: /bodyhealth data <save/dump/erase/move> [...]'
+
+      # Message shown for incorrect command usage (dump)
+      usage-dump: '&bUtilizare: /bodyhealth data dump <storage type>'
+
+      # Message shown for incorrect command usage (erase)
+      usage-erase: '&bUtilizare: /bodyhealth data erase <storage type>'
+
+      # Message shown for incorrect command usage (move)
+      usage-move: '&bUtilizare: /bodyhealth data move <storage type> <storage type>'
+
+      # Message used to confirm the erase command
+      confirmation-erase: '&c&lAVERTISMENT: &r&cEști pe cale să ștergi toate datele existente din stocarea {Type} a BodyHealth!<br> &ePentru a continua, tastează din nou această comandă.'
+
+      # Message used to confirm the move command
+      confirmation-move: '&c&lAVERTISMENT: &r&cEști pe cale să muți toate datele din stocarea {Type1} a BodyHealth în stocarea {Type2}, ceea ce poate suprascrie date existente!<br> &ePentru a continua, tastează din nou această comandă.'
+
+      # Message shown on successful save
+      success-save: '&aToate datele pentru {Count} jucător(i) online au fost salvate cu succes.'
+
+      # Message shown on successful dump
+      success-dump: '&aDatele pentru {Count} jucător(i) au fost exportate cu succes din stocarea {Type} a BodyHealth în {File}.'
+
+      # Message shown on successful erase
+      success-erase: '&aToate datele au fost șterse cu succes din stocarea {Type} a BodyHealth.'
+
+      # Message shown on successful move
+      success-move: '&aDatele pentru {Count} jucător(i) au fost mutate cu succes din stocarea {Type1} a BodyHealth în stocarea {Type2}.'
+
+      # Message shown if dumping data fails
+      fail-dump: '&cNu s-au putut exporta datele existente din stocarea {Type} a BodyHealth.'
+
+      # Message shown if erasing data fails
+      fail-erase: '&cNu s-au putut șterge toate datele din stocarea {Type} a BodyHealth.'
+
+      # Message shown if moving data fails
+      fail-move: '&cNu s-au putut muta datele existente din stocarea {Type1} a BodyHealth în stocarea {Type2}.'

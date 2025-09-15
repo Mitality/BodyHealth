@@ -97,3 +97,44 @@ commands:
 
       # Message shown on successful health update (given part)
       success-single: '&aЧастина тіла {Part} гравця {Player} була успішно встановлена на {Value}.'
+
+    data:
+
+      # Message shown for incorrect command usage
+      usage: '&bВикористання: /bodyhealth data <save/dump/erase/move> [...]'
+
+      # Message shown for incorrect command usage (dump)
+      usage-dump: '&bВикористання: /bodyhealth data dump <storage type>'
+
+      # Message shown for incorrect command usage (erase)
+      usage-erase: '&bВикористання: /bodyhealth data erase <storage type>'
+
+      # Message shown for incorrect command usage (move)
+      usage-move: '&bВикористання: /bodyhealth data move <storage type> <storage type>'
+
+      # Message used to confirm the erase command
+      confirmation-erase: '&c&lУВАГА: &r&cВи збираєтеся видалити всі дані зі сховища {Type} BodyHealth!<br> &eЩоб продовжити, введіть цю команду ще раз.'
+
+      # Message used to confirm the move command
+      confirmation-move: '&c&lУВАГА: &r&cВи збираєтеся перемістити всі дані зі сховища {Type1} BodyHealth до сховища {Type2}, що може перезаписати наявні дані!<br> &eЩоб продовжити, введіть цю команду ще раз.'
+
+      # Message shown on successful save
+      success-save: '&aУсі дані {Count} гравця(ів) онлайн успішно збережено.'
+
+      # Message shown on successful dump
+      success-dump: '&aДані {Count} гравця(ів) успішно експортовано зі сховища {Type} BodyHealth у {File}.'
+
+      # Message shown on successful erase
+      success-erase: '&aУсі дані успішно видалено зі сховища {Type} BodyHealth.'
+
+      # Message shown on successful move
+      success-move: '&aДані {Count} гравця(ів) успішно переміщено зі сховища {Type1} BodyHealth до сховища {Type2}.'
+
+      # Message shown if dumping data fails
+      fail-dump: '&cНе вдалося експортувати дані зі сховища {Type} BodyHealth.'
+
+      # Message shown if erasing data fails
+      fail-erase: '&cНе вдалося видалити всі дані зі сховища {Type} BodyHealth.'
+
+      # Message shown if moving data fails
+      fail-move: '&cНе вдалося перемістити дані зі сховища {Type1} BodyHealth до сховища {Type2}.'

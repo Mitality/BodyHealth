@@ -97,3 +97,44 @@ commands:
 
       # Message shown on successful health update (given part)
       success-single: '&aSuksesvol {Player}''s {Part} na {Value} gestel.'
+
+    data:
+
+      # Message shown for incorrect command usage
+      usage: '&bGebruik: /bodyhealth data <save/dump/erase/move> [...]'
+
+      # Message shown for incorrect command usage (dump)
+      usage-dump: '&bGebruik: /bodyhealth data dump <storage type>'
+
+      # Message shown for incorrect command usage (erase)
+      usage-erase: '&bGebruik: /bodyhealth data erase <storage type>'
+
+      # Message shown for incorrect command usage (move)
+      usage-move: '&bGebruik: /bodyhealth data move <storage type> <storage type>'
+
+      # Message used to confirm the erase command
+      confirmation-erase: '&c&lWAARSKUWING: &r&cJy is op die punt om alle bestaande data van BodyHealth se {Type}-Stoor te verwyder!<br> &eOm voort te gaan, tik asseblief hierdie bevel weer.'
+
+      # Message used to confirm the move command
+      confirmation-move: '&c&lWAARSKUWING: &r&cJy is op die punt om alle data van BodyHealth se {Type1}-Stoor na sy {Type2}-Stoor te skuif, wat moontlik bestaande data daar kan oorskryf!<br> &eOm voort te gaan, tik asseblief hierdie bevel weer.'
+
+      # Message shown on successful save
+      success-save: '&aAlle data vir {Count} aanlyn speler(s) is suksesvol gestoor.'
+
+      # Message shown on successful dump
+      success-dump: '&aData vir {Count} speler(s) is suksesvol uit BodyHealth se {Type}-Stoor na {File} gestort.'
+
+      # Message shown on successful erase
+      success-erase: '&aAlle data is suksesvol uit BodyHealth se {Type}-Stoor verwyder.'
+
+      # Message shown on successful move
+      success-move: '&aData vir {Count} speler(s) is suksesvol van BodyHealth se {Type1}-Stoor na sy {Type2}-Stoor geskuif.'
+
+      # Message shown if dumping data fails
+      fail-dump: '&cKon nie bestaande data uit BodyHealth se {Type}-Stoor stort nie.'
+
+      # Message shown if erasing data fails
+      fail-erase: '&cKon nie alle data uit BodyHealth se {Type}-Stoor verwyder nie.'
+
+      # Message shown if moving data fails
+      fail-move: '&cKon nie alle bestaande data van BodyHealth se {Type1}-Stoor na sy {Type2}-Stoor skuif nie.'

@@ -97,3 +97,44 @@ commands:
 
       # Message shown on successful health update (given part)
       success-single: '&a{Player} {Part} részét sikeresen {Value}-ra állítottuk.'
+
+    data:
+
+      # Message shown for incorrect command usage
+      usage: '&bHasználat: /bodyhealth data <save/dump/erase/move> [...]'
+
+      # Message shown for incorrect command usage (dump)
+      usage-dump: '&bHasználat: /bodyhealth data dump <storage type>'
+
+      # Message shown for incorrect command usage (erase)
+      usage-erase: '&bHasználat: /bodyhealth data erase <storage type>'
+
+      # Message shown for incorrect command usage (move)
+      usage-move: '&bHasználat: /bodyhealth data move <storage type> <storage type>'
+
+      # Message used to confirm the erase command
+      confirmation-erase: '&c&lFIGYELMEZTETÉS: &r&cAz összes meglévő adat törlésére készülsz a BodyHealth {Type} tárolóból!<br> &eA folytatáshoz írd be újra ezt a parancsot.'
+
+      # Message used to confirm the move command
+      confirmation-move: '&c&lFIGYELMEZTETÉS: &r&cAz összes adatot át fogod helyezni a BodyHealth {Type1} tárolóból a {Type2} tárolóba, ami felülírhatja a már ott lévő adatokat!<br> &eA folytatáshoz írd be újra ezt a parancsot.'
+
+      # Message shown on successful save
+      success-save: '&aSikeresen mentve {Count} online játékos összes adata.'
+
+      # Message shown on successful dump
+      success-dump: '&aSikeresen exportálva {Count} játékos adata a BodyHealth {Type} tárolóból a(z) {File} fájlba.'
+
+      # Message shown on successful erase
+      success-erase: '&aSikeresen törölve az összes adat a BodyHealth {Type} tárolóból.'
+
+      # Message shown on successful move
+      success-move: '&aSikeresen áthelyezve {Count} játékos adata a BodyHealth {Type1} tárolóból a {Type2} tárolóba.'
+
+      # Message shown if dumping data fails
+      fail-dump: '&cNem sikerült exportálni a meglévő adatokat a BodyHealth {Type} tárolóból.'
+
+      # Message shown if erasing data fails
+      fail-erase: '&cNem sikerült törölni az összes adatot a BodyHealth {Type} tárolóból.'
+
+      # Message shown if moving data fails
+      fail-move: '&cNem sikerült áthelyezni a meglévő adatokat a BodyHealth {Type1} tárolóból a {Type2} tárolóba.'

@@ -97,3 +97,44 @@ commands:
 
       # Message shown on successful health update (given part)
       success-single: '&a成功將{Player}的{Part}設置為{Value}。'
+
+    data:
+
+      # Message shown for incorrect command usage
+      usage: '&b用法: /bodyhealth data <save/dump/erase/move> [...]'
+
+      # Message shown for incorrect command usage (dump)
+      usage-dump: '&b用法: /bodyhealth data dump <storage type>'
+
+      # Message shown for incorrect command usage (erase)
+      usage-erase: '&b用法: /bodyhealth data erase <storage type>'
+
+      # Message shown for incorrect command usage (move)
+      usage-move: '&b用法: /bodyhealth data move <storage type> <storage type>'
+
+      # Message used to confirm the erase command
+      confirmation-erase: '&c&l警告: &r&c您即將刪除 BodyHealth 的 {Type} 儲存中的所有現有資料！<br> &e若要繼續，請再次輸入此指令。'
+
+      # Message used to confirm the move command
+      confirmation-move: '&c&l警告: &r&c您即將把所有資料從 BodyHealth 的 {Type1} 儲存移動到 {Type2} 儲存，這可能會覆蓋已存在的資料！<br> &e若要繼續，請再次輸入此指令。'
+
+      # Message shown on successful save
+      success-save: '&a已成功儲存 {Count} 位線上玩家的所有資料。'
+
+      # Message shown on successful dump
+      success-dump: '&a已成功將 {Count} 位玩家的資料從 BodyHealth 的 {Type} 儲存匯出到 {File}。'
+
+      # Message shown on successful erase
+      success-erase: '&a已成功刪除 BodyHealth 的 {Type} 儲存中的所有資料。'
+
+      # Message shown on successful move
+      success-move: '&a已成功將 {Count} 位玩家的資料從 BodyHealth 的 {Type1} 儲存移動到 {Type2} 儲存。'
+
+      # Message shown if dumping data fails
+      fail-dump: '&c無法從 BodyHealth 的 {Type} 儲存匯出現有資料。'
+
+      # Message shown if erasing data fails
+      fail-erase: '&c無法刪除 BodyHealth 的 {Type} 儲存中的所有資料。'
+
+      # Message shown if moving data fails
+      fail-move: '&c無法將資料從 BodyHealth 的 {Type1} 儲存移動到 {Type2} 儲存。'

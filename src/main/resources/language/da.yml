@@ -97,3 +97,44 @@ commands:
 
       # Message shown on successful health update (given part)
       success-single: '&aSuccesfuldt sat {Player}''s {Part} til {Value}.'
+
+    data:
+
+      # Message shown for incorrect command usage
+      usage: '&bBrug: /bodyhealth data <save/dump/erase/move> [...]'
+
+      # Message shown for incorrect command usage (dump)
+      usage-dump: '&bBrug: /bodyhealth data dump <storage type>'
+
+      # Message shown for incorrect command usage (erase)
+      usage-erase: '&bBrug: /bodyhealth data erase <storage type>'
+
+      # Message shown for incorrect command usage (move)
+      usage-move: '&bBrug: /bodyhealth data move <storage type> <storage type>'
+
+      # Message used to confirm the erase command
+      confirmation-erase: '&c&lADVARSEL: &r&cDu er ved at slette alle eksisterende data fra BodyHealth''s {Type}-lager!<br> &eFor at fortsætte, skriv venligst kommandoen igen.'
+
+      # Message used to confirm the move command
+      confirmation-move: '&c&lADVARSEL: &r&cDu er ved at flytte alle data fra BodyHealth''s {Type1}-lager til dets {Type2}-lager, hvilket kan overskrive eksisterende data!<br> &eFor at fortsætte, skriv venligst kommandoen igen.'
+
+      # Message shown on successful save
+      success-save: '&aAlle data for {Count} online spiller(e) blev gemt med succes.'
+
+      # Message shown on successful dump
+      success-dump: '&aData for {Count} spiller(e) blev succesfuldt eksporteret fra BodyHealth''s {Type}-lager til {File}.'
+
+      # Message shown on successful erase
+      success-erase: '&aAlle data blev succesfuldt slettet fra BodyHealth''s {Type}-lager.'
+
+      # Message shown on successful move
+      success-move: '&aData for {Count} spiller(e) blev succesfuldt flyttet fra BodyHealth''s {Type1}-lager til dets {Type2}-lager.'
+
+      # Message shown if dumping data fails
+      fail-dump: '&cKunne ikke eksportere eksisterende data fra BodyHealth''s {Type}-lager.'
+
+      # Message shown if erasing data fails
+      fail-erase: '&cKunne ikke slette alle data fra BodyHealth''s {Type}-lager.'
+
+      # Message shown if moving data fails
+      fail-move: '&cKunne ikke flytte alle eksisterende data fra BodyHealth''s {Type1}-lager til dets {Type2}-lager.'

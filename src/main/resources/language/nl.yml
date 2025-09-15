@@ -97,3 +97,44 @@ commands:
 
       # Message shown on successful health update (given part)
       success-single: '&a{Player}''s {Part} is ingesteld op {Value}.'
+
+    data:
+
+      # Message shown for incorrect command usage
+      usage: '&bGebruik: /bodyhealth data <save/dump/erase/move> [...]'
+
+      # Message shown for incorrect command usage (dump)
+      usage-dump: '&bGebruik: /bodyhealth data dump <storage type>'
+
+      # Message shown for incorrect command usage (erase)
+      usage-erase: '&bGebruik: /bodyhealth data erase <storage type>'
+
+      # Message shown for incorrect command usage (move)
+      usage-move: '&bGebruik: /bodyhealth data move <storage type> <storage type>'
+
+      # Message used to confirm the erase command
+      confirmation-erase: '&c&lWAARSCHUWING: &r&cJe staat op het punt om alle bestaande gegevens uit de {Type}-opslag van BodyHealth te verwijderen!<br> &eOm door te gaan, voer dit commando opnieuw in.'
+
+      # Message used to confirm the move command
+      confirmation-move: '&c&lWAARSCHUWING: &r&cJe staat op het punt om alle gegevens van de {Type1}-opslag van BodyHealth naar de {Type2}-opslag te verplaatsen, wat bestaande gegevens kan overschrijven!<br> &eOm door te gaan, voer dit commando opnieuw in.'
+
+      # Message shown on successful save
+      success-save: '&aAlle gegevens voor {Count} online speler(s) zijn succesvol opgeslagen.'
+
+      # Message shown on successful dump
+      success-dump: '&aGegevens voor {Count} speler(s) zijn succesvol geëxporteerd van de {Type}-opslag van BodyHealth naar {File}.'
+
+      # Message shown on successful erase
+      success-erase: '&aAlle gegevens zijn succesvol verwijderd uit de {Type}-opslag van BodyHealth.'
+
+      # Message shown on successful move
+      success-move: '&aGegevens voor {Count} speler(s) zijn succesvol verplaatst van de {Type1}-opslag van BodyHealth naar de {Type2}-opslag.'
+
+      # Message shown if dumping data fails
+      fail-dump: '&cHet exporteren van bestaande gegevens uit de {Type}-opslag van BodyHealth is mislukt.'
+
+      # Message shown if erasing data fails
+      fail-erase: '&cHet verwijderen van alle gegevens uit de {Type}-opslag van BodyHealth is mislukt.'
+
+      # Message shown if moving data fails
+      fail-move: '&cHet verplaatsen van alle bestaande gegevens van de {Type1}-opslag van BodyHealth naar de {Type2}-opslag is mislukt.'

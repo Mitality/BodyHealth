@@ -97,3 +97,44 @@ commands:
 
       # Message shown on successful health update (given part)
       success-single: '&aÚspěšně nastavena hodnota {Value} pro {Player}''s {Part}.'
+
+    data:
+
+      # Message shown for incorrect command usage
+      usage: '&bPoužití: /bodyhealth data <save/dump/erase/move> [...]'
+
+      # Message shown for incorrect command usage (dump)
+      usage-dump: '&bPoužití: /bodyhealth data dump <storage type>'
+
+      # Message shown for incorrect command usage (erase)
+      usage-erase: '&bPoužití: /bodyhealth data erase <storage type>'
+
+      # Message shown for incorrect command usage (move)
+      usage-move: '&bPoužití: /bodyhealth data move <storage type> <storage type>'
+
+      # Message used to confirm the erase command
+      confirmation-erase: '&c&lVAROVÁNÍ: &r&cChystáte se vymazat všechna existující data z úložiště BodyHealth {Type}!<br> &ePro pokračování prosím zadejte tento příkaz znovu.'
+
+      # Message used to confirm the move command
+      confirmation-move: '&c&lVAROVÁNÍ: &r&cChystáte se přesunout všechna data z úložiště BodyHealth {Type1} do úložiště {Type2}, což může přepsat již existující data!<br> &ePro pokračování prosím zadejte tento příkaz znovu.'
+
+      # Message shown on successful save
+      success-save: '&aÚspěšně uložena všechna data pro {Count} online hráč(e).'
+
+      # Message shown on successful dump
+      success-dump: '&aÚspěšně vyexportována data pro {Count} hráč(e) z úložiště BodyHealth {Type} do {File}.'
+
+      # Message shown on successful erase
+      success-erase: '&aVšechna data byla úspěšně vymazána z úložiště BodyHealth {Type}.'
+
+      # Message shown on successful move
+      success-move: '&aÚspěšně přesunuta data pro {Count} hráč(e) z úložiště BodyHealth {Type1} do úložiště {Type2}.'
+
+      # Message shown if dumping data fails
+      fail-dump: '&cNepodařilo se vyexportovat existující data z úložiště BodyHealth {Type}.'
+
+      # Message shown if erasing data fails
+      fail-erase: '&cNepodařilo se vymazat všechna data z úložiště BodyHealth {Type}.'
+
+      # Message shown if moving data fails
+      fail-move: '&cNepodařilo se přesunout všechna existující data z úložiště BodyHealth {Type1} do úložiště {Type2}.'

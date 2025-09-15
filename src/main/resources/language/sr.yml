@@ -97,3 +97,44 @@ commands:
 
       # Message shown on successful health update (given part)
       success-single: '&a{Part} играча {Player} је постављен на {Value}.'
+
+    data:
+
+      # Message shown for incorrect command usage
+      usage: '&bUpotreba: /bodyhealth data <save/dump/erase/move> [...]'
+
+      # Message shown for incorrect command usage (dump)
+      usage-dump: '&bUpotreba: /bodyhealth data dump <storage type>'
+
+      # Message shown for incorrect command usage (erase)
+      usage-erase: '&bUpotreba: /bodyhealth data erase <storage type>'
+
+      # Message shown for incorrect command usage (move)
+      usage-move: '&bUpotreba: /bodyhealth data move <storage type> <storage type>'
+
+      # Message used to confirm the erase command
+      confirmation-erase: '&c&lUPOZORENJE: &r&cSpremate se da obrišete sve postojeće podatke iz BodyHealth {Type} skladišta!<br> &eDa nastavite, ponovo unesite ovu komandu.'
+
+      # Message used to confirm the move command
+      confirmation-move: '&c&lUPOZORENJE: &r&cSpremate se da premestite sve podatke iz BodyHealth {Type1} skladišta u {Type2} skladište, što može prepisati postojeće podatke!<br> &eDa nastavite, ponovo unesite ovu komandu.'
+
+      # Message shown on successful save
+      success-save: '&aSvi podaci za {Count} online igrača uspešno su sačuvani.'
+
+      # Message shown on successful dump
+      success-dump: '&aPodaci za {Count} igrača uspešno su izvezeni iz BodyHealth {Type} skladišta u {File}.'
+
+      # Message shown on successful erase
+      success-erase: '&aSvi podaci uspešno su obrisani iz BodyHealth {Type} skladišta.'
+
+      # Message shown on successful move
+      success-move: '&aPodaci za {Count} igrača uspešno su premešteni iz BodyHealth {Type1} skladišta u {Type2} skladište.'
+
+      # Message shown if dumping data fails
+      fail-dump: '&cNeuspešno izvoz podataka iz BodyHealth {Type} skladišta.'
+
+      # Message shown if erasing data fails
+      fail-erase: '&cNeuspešno brisanje svih podataka iz BodyHealth {Type} skladišta.'
+
+      # Message shown if moving data fails
+      fail-move: '&cNeuspešno premeštanje podataka iz BodyHealth {Type1} skladišta u {Type2} skladište.'

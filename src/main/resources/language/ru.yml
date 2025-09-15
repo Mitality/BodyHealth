@@ -97,3 +97,44 @@ commands:
 
       # Message shown on successful health update (given part)
       success-single: '&a{Part} игрока {Player} был установлен на {Value}.'
+
+    data:
+
+      # Message shown for incorrect command usage
+      usage: '&bИспользование: /bodyhealth data <save/dump/erase/move> [...]'
+
+      # Message shown for incorrect command usage (dump)
+      usage-dump: '&bИспользование: /bodyhealth data dump <storage type>'
+
+      # Message shown for incorrect command usage (erase)
+      usage-erase: '&bИспользование: /bodyhealth data erase <storage type>'
+
+      # Message shown for incorrect command usage (move)
+      usage-move: '&bИспользование: /bodyhealth data move <storage type> <storage type>'
+
+      # Message used to confirm the erase command
+      confirmation-erase: '&c&lПРЕДУПРЕЖДЕНИЕ: &r&cВы собираетесь удалить все данные из хранилища BodyHealth {Type}!<br> &eЧтобы продолжить, введите эту команду ещё раз.'
+
+      # Message used to confirm the move command
+      confirmation-move: '&c&lПРЕДУПРЕЖДЕНИЕ: &r&cВы собираетесь переместить все данные из хранилища BodyHealth {Type1} в хранилище {Type2}, что может перезаписать уже существующие данные!<br> &eЧтобы продолжить, введите эту команду ещё раз.'
+
+      # Message shown on successful save
+      success-save: '&aВсе данные {Count} игрока(ов) онлайн были успешно сохранены.'
+
+      # Message shown on successful dump
+      success-dump: '&aДанные {Count} игрока(ов) успешно экспортированы из хранилища BodyHealth {Type} в {File}.'
+
+      # Message shown on successful erase
+      success-erase: '&aВсе данные были успешно удалены из хранилища BodyHealth {Type}.'
+
+      # Message shown on successful move
+      success-move: '&aДанные {Count} игрока(ов) успешно перемещены из хранилища BodyHealth {Type1} в хранилище {Type2}.'
+
+      # Message shown if dumping data fails
+      fail-dump: '&cНе удалось экспортировать данные из хранилища BodyHealth {Type}.'
+
+      # Message shown if erasing data fails
+      fail-erase: '&cНе удалось удалить все данные из хранилища BodyHealth {Type}.'
+
+      # Message shown if moving data fails
+      fail-move: '&cНе удалось переместить данные из хранилища BodyHealth {Type1} в хранилище {Type2}.'

@@ -97,3 +97,44 @@ commands:
 
       # Message shown on successful health update (given part)
       success-single: '&aFramgångsrikt satt {Player}''s {Part} till {Value}.'
+
+    data:
+
+      # Message shown for incorrect command usage
+      usage: '&bAnvändning: /bodyhealth data <save/dump/erase/move> [...]'
+
+      # Message shown for incorrect command usage (dump)
+      usage-dump: '&bAnvändning: /bodyhealth data dump <storage type>'
+
+      # Message shown for incorrect command usage (erase)
+      usage-erase: '&bAnvändning: /bodyhealth data erase <storage type>'
+
+      # Message shown for incorrect command usage (move)
+      usage-move: '&bAnvändning: /bodyhealth data move <storage type> <storage type>'
+
+      # Message used to confirm the erase command
+      confirmation-erase: '&c&lVARNING: &r&cDu är på väg att radera all befintlig data från BodyHealths {Type}-lagring!<br> &eFör att fortsätta, skriv kommandot igen.'
+
+      # Message used to confirm the move command
+      confirmation-move: '&c&lVARNING: &r&cDu är på väg att flytta all data från BodyHealths {Type1}-lagring till {Type2}-lagringen, vilket kan skriva över befintlig data!<br> &eFör att fortsätta, skriv kommandot igen.'
+
+      # Message shown on successful save
+      success-save: '&aAll data för {Count} online-spelare sparades framgångsrikt.'
+
+      # Message shown on successful dump
+      success-dump: '&aData för {Count} spelare exporterades framgångsrikt från BodyHealths {Type}-lagring till {File}.'
+
+      # Message shown on successful erase
+      success-erase: '&aAll data raderades framgångsrikt från BodyHealths {Type}-lagring.'
+
+      # Message shown on successful move
+      success-move: '&aData för {Count} spelare flyttades framgångsrikt från BodyHealths {Type1}-lagring till {Type2}-lagringen.'
+
+      # Message shown if dumping data fails
+      fail-dump: '&cKunde inte exportera data från BodyHealths {Type}-lagring.'
+
+      # Message shown if erasing data fails
+      fail-erase: '&cKunde inte radera all data från BodyHealths {Type}-lagring.'
+
+      # Message shown if moving data fails
+      fail-move: '&cKunde inte flytta data från BodyHealths {Type1}-lagring till {Type2}-lagringen.'

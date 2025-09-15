@@ -97,3 +97,44 @@ commands:
 
       # Message shown on successful health update (given part)
       success-single: '&a{Player}の{Part}が{Value}に設定されました。'
+
+    data:
+
+      # Message shown for incorrect command usage
+      usage: '&b使い方: /bodyhealth data <save/dump/erase/move> [...]'
+
+      # Message shown for incorrect command usage (dump)
+      usage-dump: '&b使い方: /bodyhealth data dump <storage type>'
+
+      # Message shown for incorrect command usage (erase)
+      usage-erase: '&b使い方: /bodyhealth data erase <storage type>'
+
+      # Message shown for incorrect command usage (move)
+      usage-move: '&b使い方: /bodyhealth data move <storage type> <storage type>'
+
+      # Message used to confirm the erase command
+      confirmation-erase: '&c&l警告: &r&cBodyHealth の {Type} ストレージから既存のすべてのデータを削除しようとしています！<br> &e続行するには、このコマンドをもう一度入力してください。'
+
+      # Message used to confirm the move command
+      confirmation-move: '&c&l警告: &r&cBodyHealth の {Type1} ストレージから {Type2} ストレージへすべてのデータを移動しようとしています。既存のデータが上書きされる可能性があります！<br> &e続行するには、このコマンドをもう一度入力してください。'
+
+      # Message shown on successful save
+      success-save: '&aオンラインの {Count} 人のプレイヤーのデータを正常に保存しました。'
+
+      # Message shown on successful dump
+      success-dump: '&a{Count} 人のプレイヤーのデータを BodyHealth の {Type} ストレージから {File} に正常にエクスポートしました。'
+
+      # Message shown on successful erase
+      success-erase: '&aBodyHealth の {Type} ストレージからすべてのデータを正常に削除しました。'
+
+      # Message shown on successful move
+      success-move: '&a{Count} 人のプレイヤーのデータを BodyHealth の {Type1} ストレージから {Type2} ストレージへ正常に移動しました。'
+
+      # Message shown if dumping data fails
+      fail-dump: '&cBodyHealth の {Type} ストレージから既存のデータをエクスポートできませんでした。'
+
+      # Message shown if erasing data fails
+      fail-erase: '&cBodyHealth の {Type} ストレージからすべてのデータを削除できませんでした。'
+
+      # Message shown if moving data fails
+      fail-move: '&cBodyHealth の {Type1} ストレージから {Type2} ストレージへ既存のデータを移動できませんでした。'
