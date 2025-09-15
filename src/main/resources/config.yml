@@ -108,6 +108,10 @@ force-keep-time: 10
 # For example through the use of the "/bodyhealth add" command
 force-keep-relative: false
 
+# Destructive commands may require confirmation by sending the command
+# again. After how many seconds should we request a new confirmation?
+confirmation-expiration: 30
+
 
 # World Blacklist/Whitelist settings:
 world-blacklist:

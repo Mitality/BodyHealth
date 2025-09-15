@@ -26,6 +26,7 @@ public class Config {
 
     public static int force_keep_time;
     public static boolean force_keep_relative;
+    public static int confirmation_expiration;
 
     public static boolean wold_blacklist_whitelist_mode;
     public static List<String> world_blacklist_worlds = new ArrayList<>();
@@ -84,6 +85,7 @@ public class Config {
 
         force_keep_time = config.getInt("force-keep-time", 10);
         force_keep_relative = config.getBoolean("force-keep-relative", false);
+        confirmation_expiration = config.getInt("confirmation-expiration", 30);
 
         wold_blacklist_whitelist_mode = config.getBoolean("world-blacklist.whitelist-mode", false);
         world_blacklist_worlds = config.getStringList("world-blacklist.worlds");

@@ -26,6 +26,7 @@ public class CommandManager implements TabExecutor {
         subCommands.put("get", new GetCommand());
         subCommands.put("set", new SetCommand());
         subCommands.put("add", new AddCommand());
+        subCommands.put("data", new DataCommand());
     }
 
     @Override

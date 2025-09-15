@@ -62,7 +62,7 @@ commands:
     heal:
 
       # Message shown for incorrect command usage
-      usage: '&bUsage: /bodyhealth set [player] [body part] <value>'
+      usage: '&bUsage: /bodyhealth heal [player] [body part] <value>'
 
       # Message shown when no valid target player could be retrieved
       no-target: '&cPlease provide a player to target when executing this command from the console.'
@@ -97,3 +97,44 @@ commands:
 
       # Message shown on successful health update (given part)
       success-single: '&aSuccessfully set {Player}''s {Part} to {Value}.'
+
+    data:
+
+      # Message shown for incorrect command usage
+      usage: '&bUsage: /bodyhealth data <save/dump/erase/move> [...]'
+
+      # Message shown for incorrect command usage (dump)
+      usage-dump: '&bUsage: /bodyhealth data dump <storage type>'
+
+      # Message shown for incorrect command usage (erase)
+      usage-erase: '&bUsage: /bodyhealth data erase <storage type>'
+
+      # Message shown for incorrect command usage (move)
+      usage-move: '&bUsage: /bodyhealth data move <storage type> <storage type>'
+
+      # Message used to confirm the erase command
+      confirmation-erase: '&c&lWARNING: &r&cYou''re about to erase all existing data from BodyHealth''s {Type}-Storage! &eTo proceed, please type this command again.'
+
+      # Message used to confirm the move command
+      confirmation-move: '&c&lWARNING: &r&cYou''re about to move all data from BodyHealth''s {Type1}-Storage to its {Type2}-Storage, potentially overwriting data that is already there! &eTo proceed, please type this command again.'
+
+      # Message shown on successful save
+      success-save: '&aSuccessfully saved all data for {Count} online player(s).'
+
+      # Message shown on successful dump
+      success-dump: '&aSuccessfully dumped data for {Count} player(s) from BodyHealth''s {Type}-Storage to {File}'
+
+      # Message shown on successful erase
+      success-erase: '&aSuccessfully erased all data from BodyHealth''s {Type}-Storage.'
+
+      # Message shown on successful move
+      success-move: '&aSuccessfully moved data for {Count} player(s) from BodyHealth''s {Type1}-Storage to its {Type2}-Storage.'
+
+      # Message shown if dumping data fails
+      fail-dump: '&cFailed to dump existing data from BodyHealth''s {Type}-Storage.'
+
+      # Message shown if erasing data fails
+      fail-erase: '&cFailed to erase all data from BodyHealth''s {Type}-Storage.'
+
+      # Message shown if moving data fails
+      fail-move: '&cFailed to move all existing data from BodyHealth''s {Type1}-Storage to its {Type2}-Storage.'

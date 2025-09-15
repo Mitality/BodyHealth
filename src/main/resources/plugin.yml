@@ -33,6 +33,9 @@ commands:
       bodyhealth.add:
         description: Allows using the add command
         default: op
+      bodyhealth.data:
+        description: Allows using the data command
+        default: op
       bodyhealth.*:
         description: Allows managing body health
         default: op
@@ -42,6 +45,7 @@ commands:
           bodyhealth.get: true
           bodyhealth.set: true
           bodyhealth.add: true
+          bodyhealth.data: true
 
 permissions:
 

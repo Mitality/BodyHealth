@@ -51,6 +51,21 @@ public class Lang {
     public static String bodyhealth_set_success_all;
     public static String bodyhealth_set_success_single;
 
+    // Data Command
+    public static String bodyhealth_data_usage;
+    public static String bodyhealth_data_usage_dump;
+    public static String bodyhealth_data_usage_erase;
+    public static String bodyhealth_data_usage_move;
+    public static String bodyhealth_data_confirmation_erase;
+    public static String bodyhealth_data_confirmation_move;
+    public static String bodyhealth_data_success_save;
+    public static String bodyhealth_data_success_dump;
+    public static String bodyhealth_data_success_erase;
+    public static String bodyhealth_data_success_move;
+    public static String bodyhealth_data_fail_dump;
+    public static String bodyhealth_data_fail_erase;
+    public static String bodyhealth_data_fail_move;
+
     public static void load(FileConfiguration config) {
 
         // Body Parts
@@ -98,6 +113,21 @@ public class Lang {
         bodyhealth_set_invalid_value = config.getString("commands.bodyhealth.set.invalid-value", "bodyhealth_set_invalid_value");
         bodyhealth_set_success_all = config.getString("commands.bodyhealth.set.success-all", "bodyhealth_set_success_all");
         bodyhealth_set_success_single = config.getString("commands.bodyhealth.set.success-single", "bodyhealth_set_success_single");
+
+        // Data Command
+        bodyhealth_data_usage = config.getString("commands.bodyhealth.data.usage", "bodyhealth_data_usage");
+        bodyhealth_data_usage_dump = config.getString("commands.bodyhealth.data.usage-dump", "bodyhealth_data_usage_dump");
+        bodyhealth_data_usage_erase = config.getString("commands.bodyhealth.data.usage-erase", "bodyhealth_data_usage_erase");
+        bodyhealth_data_usage_move = config.getString("commands.bodyhealth.data.usage-move", "bodyhealth_data_usage_move");
+        bodyhealth_data_confirmation_erase = config.getString("commands.bodyhealth.data.confirmation-erase", "bodyhealth_data_confirmation_erase");
+        bodyhealth_data_confirmation_move = config.getString("commands.bodyhealth.data.confirmation-move", "bodyhealth_data_confirmation_move");
+        bodyhealth_data_success_save = config.getString("commands.bodyhealth.data.success-save", "bodyhealth_data_success_save");
+        bodyhealth_data_success_dump = config.getString("commands.bodyhealth.data.success-dump", "bodyhealth_data_success_dump");
+        bodyhealth_data_success_erase = config.getString("commands.bodyhealth.data.success-erase", "bodyhealth_data_success_erase");
+        bodyhealth_data_success_move = config.getString("commands.bodyhealth.data.success-move", "bodyhealth_data_success_move");
+        bodyhealth_data_fail_dump = config.getString("commands.bodyhealth.data.fail-dump", "bodyhealth_data_fail_dump");
+        bodyhealth_data_fail_erase = config.getString("commands.bodyhealth.data.fail-erase", "bodyhealth_data_fail_erase");
+        bodyhealth_data_fail_move = config.getString("commands.bodyhealth.data.fail-move", "bodyhealth_data_fail_move");
 
     }
 

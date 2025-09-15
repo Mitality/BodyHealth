@@ -5,15 +5,23 @@ import bodyhealth.core.BodyHealth;
 import bodyhealth.core.BodyPart;
 import bodyhealth.data.DataManager;
 import bodyhealth.data.Storage;
+import bodyhealth.data.StorageType;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class SQLiteStorage implements Storage {
+
+    @Override
+    public StorageType getType() {
+        return StorageType.SQLite;
+    }
 
     private static HikariDataSource dataSource;
 
@@ -88,6 +96,21 @@ public class SQLiteStorage implements Storage {
     }
 
     @Override
+    public boolean erase() {
+        final String sql = "DELETE FROM body_health";
+        try (
+            Connection conn = dataSource.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)
+        ) {
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            Debug.logErr(e);
+            return false;
+        }
+    }
+
+    @Override
     public void saveBodyHealth(UUID uuid, BodyHealth bodyHealth) {
         String sql = "INSERT INTO body_health (uuid, head, torso, arm_left, arm_right, leg_left, leg_right, foot_left, foot_right) "
             + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) "
@@ -123,18 +146,48 @@ public class SQLiteStorage implements Storage {
             pstmt.setString(1, uuid.toString());
             ResultSet rs = pstmt.executeQuery();
             if (!rs.next()) return new BodyHealth(uuid);
-            return new BodyHealth(uuid,
-                rs.getDouble("head"),
-                rs.getDouble("torso"),
-                rs.getDouble("arm_left"),
-                rs.getDouble("arm_right"),
-                rs.getDouble("leg_left"),
-                rs.getDouble("leg_right"),
-                rs.getDouble("foot_left"),
-                rs.getDouble("foot_right"));
+            return getBodyHealth(uuid, rs);
         } catch (SQLException e) {
             Debug.logErr(e);
         }
         return new BodyHealth(uuid);
     }
+
+    @Override
+    public @NotNull Map<UUID, BodyHealth> loadAllBodyHealth() {
+        final String sql = "SELECT uuid, head, torso, arm_left, arm_right, " +
+                "leg_left, leg_right, foot_left, foot_right FROM body_health";
+
+        Map<UUID, BodyHealth> map = new HashMap<>();
+        try (
+            Connection conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()
+        ) {
+            while (rs.next()) {
+                try {
+                    UUID uuid = UUID.fromString(rs.getString("uuid"));
+                    BodyHealth bh = getBodyHealth(uuid, rs);
+                    map.put(uuid, bh);
+                } catch (Exception ignored) {
+                }
+            }
+        } catch (SQLException e) {
+            Debug.logErr(e);
+        }
+        return map;
+    }
+
+    private BodyHealth getBodyHealth(UUID uuid, ResultSet rs) throws SQLException {
+        return new BodyHealth(uuid,
+            rs.getDouble("head"),
+            rs.getDouble("torso"),
+            rs.getDouble("arm_left"),
+            rs.getDouble("arm_right"),
+            rs.getDouble("leg_left"),
+            rs.getDouble("leg_right"),
+            rs.getDouble("foot_left"),
+            rs.getDouble("foot_right"));
+    }
+
 }
