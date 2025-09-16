@@ -55,6 +55,7 @@ public class Config {
     public static String display_betterhud_position_anchor_point;
     public static int display_betterhud_position_horizontal_offset;
     public static int display_betterhud_position_vertical_offset;
+    public static double display_betterhud_position_scale;
 
     public static boolean display_betterhud_disable_entity_popup;
     public static boolean display_betterhud_disable_default_hud;
@@ -114,6 +115,7 @@ public class Config {
         display_betterhud_position_anchor_point = config.getString("display.betterhud.position.anchor-point", "BOTTOM_RIGHT");
         display_betterhud_position_horizontal_offset = config.getInt("display.betterhud.position.horizontal-offset", 0);
         display_betterhud_position_vertical_offset = config.getInt("display.betterhud.position.vertical-offset", 0);
+        display_betterhud_position_scale = config.getDouble("display.betterhud.position.scale", 1.0);
 
         display_betterhud_disable_entity_popup = config.getBoolean("display.betterhud.disable.entity-popup", true);
         display_betterhud_disable_default_hud = config.getBoolean("display.betterhud.disable.default-hud", true);

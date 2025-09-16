@@ -281,9 +281,11 @@ public class BetterHud {
         for (String key : images.getKeys(false)) {
             ConfigurationSection image = images.getConfigurationSection(key);
             if (image == null) continue;
-
-            image.set("x", image.getInt("x", 0) + x + Config.display_betterhud_position_horizontal_offset);
-            image.set("y", image.getInt("y", 0) + y + Config.display_betterhud_position_vertical_offset);
+            image.set("scale", Config.display_betterhud_position_scale);
+            image.set("x", Config.display_betterhud_position_scale * (image.getInt("x", 0) + x)
+                    + Config.display_betterhud_position_horizontal_offset);
+            image.set("y", Config.display_betterhud_position_scale * (image.getInt("y", 0) + y)
+                    + Config.display_betterhud_position_vertical_offset);
         }
 
         layoutConfig.save(targetFile);
