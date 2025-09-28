@@ -85,7 +85,6 @@ public class BetterHud {
                 "assets/bodyhealth/bodyhealth_full_foot_left.png",
                 "assets/bodyhealth/bodyhealth_full_foot_right.png",
 
-                "assets/bodyhealth/bodyhealth_damaged.png",
                 "images/bodyhealth.yml",
                 "layouts/bodyhealth.yml",
                 "huds/bodyhealth.yml",
@@ -100,7 +99,8 @@ public class BetterHud {
 
         File configFile = new File(betterHudDataFolder, "config.yml");
         if (!configFile.exists()) {
-            throw new IOException("BetterHud config.yml not found in " + betterHudDataFolder.getAbsolutePath());
+            Debug.logErr("BetterHud config.yml not found in " + betterHudDataFolder.getAbsolutePath());
+            return;
         }
         FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
         List<String> defaultHudList = config.getStringList("default-hud");
