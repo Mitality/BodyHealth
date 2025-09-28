@@ -12,8 +12,8 @@
 </div>
 
 <p align="center">
-  <img width="60%" src="https://raw.githubusercontent.com/Mitality/BodyHealth/refs/heads/main/src/main/resources/assets/BodyHealth_GitHub.png" alt="Image featuring a stylized, color-coded character model highlighting different body parts, an in-game health display, configuration files, scripting options, a raytracing combat scene, and a resource pack, with text emphasizing features like fine-tuned damage, PlaceholderAPI support, persistence through restarts, and full compatibility with all types of damage.">
-  <img width="50%" src="https://raw.githubusercontent.com/Mitality/BodyHealth/refs/heads/main/src/main/resources/assets/about.png" alt="About">
+  <img width="600" src="https://raw.githubusercontent.com/Mitality/BodyHealth/refs/heads/main/src/main/resources/assets/BodyHealth_GitHub.png" alt="Image featuring a stylized, color-coded character model highlighting different body parts, an in-game health display, configuration files, scripting options, a raytracing combat scene, and a resource pack, with text emphasizing features like fine-tuned damage, PlaceholderAPI support, persistence through restarts, and full compatibility with all types of damage.">
+  <img width="500" src="https://raw.githubusercontent.com/Mitality/BodyHealth/refs/heads/main/src/main/resources/assets/about.png" alt="About">
 </p>
 
 <p align="center"><b>BodyHealth - Health Management Per Body Part!</b></p>
@@ -37,7 +37,7 @@
 </p>
 
 <p align="center">
-  <img width="50%" src="https://raw.githubusercontent.com/Mitality/BodyHealth/refs/heads/main/src/main/resources/assets/features.png" alt="Features">
+  <img width="500" src="https://raw.githubusercontent.com/Mitality/BodyHealth/refs/heads/main/src/main/resources/assets/features.png" alt="Features">
 </p>
 
 <p align="center"><b>Fine-Tuned Damage</b><br>
@@ -82,7 +82,7 @@ Safe to say this won't be the<br>plugin lagging your server</p>
 </p>
 
 <p align="center">
-  <img width="50%" src="https://raw.githubusercontent.com/Mitality/BodyHealth/refs/heads/main/src/main/resources/assets/commands.png" alt="Commands">
+  <img width="500" src="https://raw.githubusercontent.com/Mitality/BodyHealth/refs/heads/main/src/main/resources/assets/commands.png" alt="Commands">
 </p>
 
 <p align="center"><b>/bodyhealth reload</b><br><em>reloads the configuration, including effects and language files</em></p>
@@ -96,7 +96,7 @@ Safe to say this won't be the<br>plugin lagging your server</p>
 <p align="center"><b>/bodyhealth add [player] [body part] &lt;health&gt;</b><br><em>add health to all parts or the given one for a given player or yourself</em></p>
 
 <p align="center">
-  <img width="50%" src="https://raw.githubusercontent.com/Mitality/BodyHealth/refs/heads/main/src/main/resources/assets/permissions.png" alt="Permissions">
+  <img width="500" src="https://raw.githubusercontent.com/Mitality/BodyHealth/refs/heads/main/src/main/resources/assets/permissions.png" alt="Permissions">
 </p>
 
 <p align="center"><b>bodyhealth.update-notify</b><br><em>notifications upon new updates</em></p>
@@ -108,7 +108,7 @@ Safe to say this won't be the<br>plugin lagging your server</p>
 <p align="center"><em>+ <a href="https://github.com/Mitality/BodyHealth/blob/7a0c68af2ef66e8ec5c3b449bbde7d24aa3a2fd5/src/main/resources/config.yml#L35-L42">bypass permissions</a></em></p>
 
 <p align="center">
-  <img width="50%" src="https://raw.githubusercontent.com/Mitality/BodyHealth/refs/heads/main/src/main/resources/assets/placeholders.png" alt="Placeholders">
+  <img width="500" src="https://raw.githubusercontent.com/Mitality/BodyHealth/refs/heads/main/src/main/resources/assets/placeholders.png" alt="Placeholders">
 </p>
 
 <p align="center">
@@ -121,7 +121,7 @@ Safe to say this won't be the<br>plugin lagging your server</p>
 <p align="center"><b>%bodyhealth_state_&lt;BodyPart&gt;%</b><br><em>(returns the current state of a body part)</em></p>
 
 <p align="center">
-  <img width="50%" src="https://raw.githubusercontent.com/Mitality/BodyHealth/refs/heads/main/src/main/resources/assets/setup.png" alt="Setup">
+  <img width="500" src="https://raw.githubusercontent.com/Mitality/BodyHealth/refs/heads/main/src/main/resources/assets/setup.png" alt="Setup">
 </p>
 
 <p align="center">Please have a look at our <a href="https://github.com/Mitality/BodyHealth/wiki/Setup">Setup Guide</a></p>
@@ -130,7 +130,7 @@ Safe to say this won't be the<br>plugin lagging your server</p>
 Check out <a href="https://github.com/Mitality/BodyHealthLegacy/releases/latest">BodyHealthLegacy</a></p>
 
 <p align="center">
-  <img width="50%" src="https://raw.githubusercontent.com/Mitality/BodyHealth/refs/heads/main/src/main/resources/assets/support.png" alt="Support">
+  <img width="500" src="https://raw.githubusercontent.com/Mitality/BodyHealth/refs/heads/main/src/main/resources/assets/support.png" alt="Support">
 </p>
 
 <p align="center">
