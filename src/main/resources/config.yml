@@ -438,7 +438,7 @@ display:
       # Vertical shift from the default position (positive moves down, negative moves up)
       vertical-offset: 0
       # Scale of the hud (also automatically and individually scales with your GUI-size)
-      scale: 1.0
+      scale: 1.5
     # Disable parts of BetterHuds default configuration that could get annoying
     disable:
       # Disable BetterHud's default entity popup (seems to still be W.I.P.)
