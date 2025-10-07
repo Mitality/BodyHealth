@@ -3,7 +3,7 @@ package bodyhealth.util;
 import bodyhealth.Main;
 import bodyhealth.core.BodyHealth;
 import bodyhealth.core.BodyPart;
-import io.github.milkdrinkers.colorparser.ColorParser;
+import io.github.milkdrinkers.colorparser.bukkit.ColorParser;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
@@ -26,22 +26,22 @@ public class MessageUtils {
         if (message.trim().toUpperCase().startsWith("ACTIONBAR:")) {
             String actionbarText = message.trim().substring(10).trim();
             Component actionbarMessage = ColorParser.of(actionbarText)
-                .parsePAPIPlaceholders(player).parseLegacy().build();
+                .papi(player).legacy().build();
             audience.sendActionBar(actionbarMessage);
         }
 
         else if (message.trim().toUpperCase().startsWith("TITLE:")) {
             String[] parts = message.trim().substring(6).split(";", 2);
             Component title = (parts.length > 0) ? ColorParser.of(parts[0].trim()).
-                parsePAPIPlaceholders(player).parseLegacy().build() : Component.empty();
+                    papi(player).legacy().build() : Component.empty();
             Component subtitle = (parts.length > 1) ? ColorParser.of(parts[1].trim()).
-                parsePAPIPlaceholders(player).parseLegacy().build() : Component.empty();
+                    papi(player).legacy().build() : Component.empty();
             audience.showTitle(net.kyori.adventure.title.Title.title(title, subtitle));
         }
 
         else {
             Component chatMessage = ColorParser.of(message)
-                .parsePAPIPlaceholders(player).parseLegacy().build();
+                .papi(player).legacy().build();
             audience.sendMessage(chatMessage);
         }
     }
@@ -54,7 +54,7 @@ public class MessageUtils {
      */
     public static void notifyConsole(String message) {
         Audience audience = Main.getAdventure().console();
-        Component chatMessage = ColorParser.of(message).parseLegacy().build();
+        Component chatMessage = ColorParser.of(message).legacy().build();
         audience.sendMessage(chatMessage);
     }
 

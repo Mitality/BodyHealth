@@ -2,9 +2,8 @@ package bodyhealth.listeners;
 
 import bodyhealth.Main;
 import bodyhealth.config.Config;
-import bodyhealth.util.MessageUtils;
 import bodyhealth.util.UpdateChecker;
-import io.github.milkdrinkers.colorparser.ColorParser;
+import io.github.milkdrinkers.colorparser.bukkit.ColorParser;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
@@ -27,7 +26,7 @@ public class UpdateNotifyListener implements Listener {
         Player player = event.getPlayer();
 
         if (player.hasPermission("bodyhealth.update-notify") && updateChecker.isUpdateAvailable()) {
-            Component prefix = ColorParser.of(Config.prefix).parsePAPIPlaceholders(player).parseLegacy().build();
+            Component prefix = ColorParser.of(Config.prefix).papi(player).legacy().build();
             Component message = Component.text()
                 .append(prefix)
                 .append(Component.text("A new version of ", NamedTextColor.GREEN))

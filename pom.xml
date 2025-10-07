@@ -54,8 +54,8 @@
                             <shadedPattern>bodyhealth.option</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>io.github.milkdrinkers.colorparser</pattern>
-                            <shadedPattern>bodyhealth.colorparser</shadedPattern>
+                            <pattern>io.github.milkdrinkers.colorparser.bukkit</pattern>
+                            <shadedPattern>bodyhealth.colorparser.bukkit</shadedPattern>
                         </relocation>
                     </relocations>
                     <filters>
@@ -229,7 +229,7 @@
         <dependency>
             <groupId>io.github.milkdrinkers</groupId>
             <artifactId>colorparser</artifactId>
-            <version>3.0.0</version>
+            <version>4.1.0</version>
             <scope>compile</scope>
         </dependency>
 

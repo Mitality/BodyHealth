@@ -49,8 +49,8 @@
               <shadedPattern>bodyhealth.option</shadedPattern>
             </relocation>
             <relocation>
-              <pattern>io.github.milkdrinkers.colorparser</pattern>
-              <shadedPattern>bodyhealth.colorparser</shadedPattern>
+              <pattern>io.github.milkdrinkers.colorparser.bukkit</pattern>
+              <shadedPattern>bodyhealth.colorparser.bukkit</shadedPattern>
             </relocation>
           </relocations>
           <filters>
