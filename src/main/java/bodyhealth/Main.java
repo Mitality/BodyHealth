@@ -14,8 +14,9 @@ import bodyhealth.config.Debug;
 import bodyhealth.listeners.PlaceholderAPIListener;
 import bodyhealth.listeners.UpdateNotifyListener;
 import bodyhealth.migrations.Migrator;
-import bodyhealth.migrations.migration.BodyToTorsoMigration;
 import bodyhealth.util.UpdateChecker;
+import com.github.Anon8281.universalScheduler.UniversalScheduler;
+import com.github.Anon8281.universalScheduler.scheduling.schedulers.TaskScheduler;
 import com.tchristofferson.configupdater.ConfigUpdater;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
@@ -40,6 +41,7 @@ public final class Main extends JavaPlugin {
     public static PlaceholderAPI placeholderAPIexpansion;
     private static final Object MUTEX = new Object();
     private static BukkitAudiences adventure;
+    private static TaskScheduler scheduler;
     public static long validationTimestamp;
     private static AddonManager addonManager;
 
@@ -61,6 +63,9 @@ public final class Main extends JavaPlugin {
 
         // Load adventure
         adventure = BukkitAudiences.create(this);
+
+        // Load scheduler
+        scheduler = UniversalScheduler.getScheduler(this);
 
         // Migrate config
         migrator.onEnable();
@@ -144,15 +149,11 @@ public final class Main extends JavaPlugin {
                  * doing that by this point. We therefore wait another three seconds before
                  * simulating a reload to trigger BodyHealth's file validation process there
                  */
-                Bukkit.getScheduler().runTaskLater(Main.getInstance(), () -> {
-                    bhl.onBetterHudReloaded(null);
-                }, 60L);
-
+                scheduler.runTaskLater(() -> bhl.onBetterHudReloaded(null), 60L);
                 Debug.log("BetterHud integration enabled");
 
                 Debug.log("The BetterHud integration requires the PlaceholderAPI expansion 'Player' to be installed. Setting up a Listener to ensure it is present at all times.");
                 Bukkit.getPluginManager().registerEvents(new PlaceholderAPIListener(), this);
-
             }
 
         }
@@ -200,6 +201,10 @@ public final class Main extends JavaPlugin {
 
     public static Main getInstance() {
         return instance;
+    }
+
+    public static TaskScheduler getScheduler() {
+        return scheduler;
     }
 
     public static AddonManager getAddonManager() {

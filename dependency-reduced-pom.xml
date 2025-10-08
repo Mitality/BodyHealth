@@ -5,7 +5,7 @@
   <artifactId>BodyHealth</artifactId>
   <name>BodyHealth</name>
   <version>3.0.0</version>
-  <description>description</description>
+  <description>Minecraft Spigot Plugin to manage Health per BodyPart</description>
   <url>https://github.com/Mitality/BodyHealth</url>
   <build>
     <resources>
@@ -47,6 +47,10 @@
             <relocation>
               <pattern>net.kyori.option</pattern>
               <shadedPattern>bodyhealth.option</shadedPattern>
+            </relocation>
+            <relocation>
+              <pattern>com.github.Anon8281.universalScheduler</pattern>
+              <shadedPattern>bodyhealth.universalScheduler</shadedPattern>
             </relocation>
             <relocation>
               <pattern>io.github.milkdrinkers.colorparser.bukkit</pattern>

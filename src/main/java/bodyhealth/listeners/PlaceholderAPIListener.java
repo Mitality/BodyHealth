@@ -8,10 +8,8 @@ import me.clip.placeholderapi.expansion.cloud.CloudExpansion;
 import me.clip.placeholderapi.expansion.manager.CloudExpansionManager;
 import me.clip.placeholderapi.expansion.manager.LocalExpansionManager;
 import org.bukkit.Bukkit;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Optional;
 
@@ -20,13 +18,7 @@ public class PlaceholderAPIListener implements Listener {
     @EventHandler
     public void onExpansionsLoaded(ExpansionsLoadedEvent event) {
         Debug.log("PlaceholderAPI (re)loaded, ensuring presence of the 'Player' expansion...");
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                ensurePlayerExpansion();
-                Main.placeholderAPIexpansion.register(); // Why do I have to do this again...?
-            }
-        }.runTaskLater(Main.getInstance(), 20); // Honestly, I have no idea why this is needed
+        Main.getScheduler().runTaskLater(PlaceholderAPIListener::ensurePlayerExpansion, 20L);
     }
 
     /**
@@ -63,10 +55,8 @@ public class PlaceholderAPIListener implements Listener {
                     Debug.log("Successfully downloaded the Player expansion from PlaceholderAPIs eCloud.");
 
                     Debug.log("Reloading PlaceholderAPI to register the expansion...");
-                    Bukkit.getScheduler().runTask(placeholderAPIPlugin, () -> { // Dispatch command synchronously
-                        ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-                        Bukkit.dispatchCommand(console, "papi reload");
-                    });
+                    Main.getScheduler().runTask(() -> Bukkit // Dispatch command synchronously
+                            .dispatchCommand(Bukkit.getConsoleSender(), "papi reload"));
                 } else {
                     Debug.logErr("Failed to download the Player expansion. Please download it manually with '/papi ecloud download Player'");
                 }

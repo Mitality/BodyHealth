@@ -342,7 +342,7 @@ effects:
   TORSO:
     FULL:
       - WHEN_HEALED / DELAYED / 1s / MESSAGE / actionbar:&aYou feel a little better
-      - WHEN_HEALED / DELAYED / 1s / COMMAND / attribute %PlayerName% minecraft:oxygen_bonus modifier add bodyhealth_configured_effect 1 add_value
+      - COMMAND / attribute %PlayerName% minecraft:oxygen_bonus modifier add bodyhealth_configured_effect 1 add_value
       - COMMAND_UNDO / attribute %PlayerName% minecraft:oxygen_bonus modifier remove minecraft:bodyhealth_configured_effect
     NEARLYFULL: []
     INTERMEDIATE: []

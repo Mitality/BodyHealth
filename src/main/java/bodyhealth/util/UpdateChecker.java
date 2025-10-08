@@ -37,7 +37,7 @@ public class UpdateChecker {
     }
 
     private void checkForUpdates() {
-        Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), () -> {
+        Main.getScheduler().runTaskAsynchronously(() -> {
             try {
                 URL url = new URL("https://api.modrinth.com/v2/project/" + projectId + "/version");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -106,7 +106,7 @@ public class UpdateChecker {
      */
     public UpdateChecker checkEveryXHours(int hours) {
         int ticks = hours * 60 * 60 * 20;
-        Bukkit.getScheduler().runTaskTimerAsynchronously(Main.getInstance(), this::checkForUpdates, ticks, ticks);
+        Main.getScheduler().runTaskTimerAsynchronously(this::checkForUpdates, ticks, ticks);
         return this;
     }
 

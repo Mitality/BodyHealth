@@ -7,15 +7,17 @@ import bodyhealth.effects.BodyHealthEffect;
 import bodyhealth.effects.EffectHandler;
 import bodyhealth.effects.EffectType;
 import bodyhealth.util.TimeUtils;
+import com.github.Anon8281.universalScheduler.scheduling.tasks.MyScheduledTask;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class DELAYED implements BodyHealthEffect {
 
-    private final Map<String, List<Integer>> scheduledTasks = new HashMap<>();
+    private final Map<String, List<MyScheduledTask>> scheduledTasks = new HashMap<>();
 
     @Override
     public EffectType getEffectType() {
@@ -55,13 +57,13 @@ public class DELAYED implements BodyHealthEffect {
         }
 
         if (ticks > 0) {
-            AtomicInteger taskIdHolder = new AtomicInteger();
-            int taskId = Bukkit.getScheduler().runTaskLater(Main.getInstance(), () -> {
+            AtomicReference<MyScheduledTask> taskReference = new AtomicReference<>();
+            MyScheduledTask task = Main.getScheduler().runTaskLater(() -> {
                 effectObject.onApply(player, part, effectParts, isRecovery);
-                removeTaskId(player, part, taskIdHolder.get()); // Was it worth it?
-            }, ticks).getTaskId();
-            taskIdHolder.set(taskId);
-            storeTaskId(player, part, taskId);
+                removeTask(player, part, taskReference.get());
+            }, ticks);
+            taskReference.set(task);
+            storeTask(player, part, task);
         } else {
             effectObject.onApply(player, part, effectParts, isRecovery);
         }
@@ -71,25 +73,25 @@ public class DELAYED implements BodyHealthEffect {
     public void onRemove(Player player, BodyPart part, String[] args, boolean isRecovery) {
         synchronized (scheduledTasks) {
             String key = player.getUniqueId() + ":" + part.name().toLowerCase();
-            List<Integer> tasks = scheduledTasks.remove(key);
+            List<MyScheduledTask> tasks = scheduledTasks.remove(key);
             if (tasks == null) return;
-            for (int id : tasks) Bukkit.getScheduler().cancelTask(id);
+            for (MyScheduledTask task : tasks) task.cancel();
         }
     }
 
-    private void storeTaskId(Player player, BodyPart part, int taskId) {
+    private void storeTask(Player player, BodyPart part, MyScheduledTask task) {
         synchronized (scheduledTasks) {
             String key = player.getUniqueId() + ":" + part.name().toLowerCase();
-            scheduledTasks.computeIfAbsent(key, k -> new ArrayList<>()).add(taskId);
+            scheduledTasks.computeIfAbsent(key, k -> new ArrayList<>()).add(task);
         }
     }
 
-    private void removeTaskId(Player player, BodyPart part, int taskId) {
+    private void removeTask(Player player, BodyPart part, MyScheduledTask task) {
         synchronized (scheduledTasks) {
             String key = player.getUniqueId() + ":" + part.name().toLowerCase();
-            List<Integer> tasks = scheduledTasks.get(key);
+            List<MyScheduledTask> tasks = scheduledTasks.get(key);
             if (tasks == null) return;
-            tasks.remove(Integer.valueOf(taskId));
+            tasks.remove(task);
             if (tasks.isEmpty()) scheduledTasks.remove(key);
         }
     }

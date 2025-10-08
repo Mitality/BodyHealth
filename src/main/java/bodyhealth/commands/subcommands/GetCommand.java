@@ -57,7 +57,6 @@ public class GetCommand implements SubCommand {
                         .replace("{Health_FOOT_LEFT}",  String.format("%.2f", bodyHealth.getHealth(BodyPart.FOOT_LEFT)))
                         .replace("{Health_FOOT_RIGHT}",  String.format("%.2f", bodyHealth.getHealth(BodyPart.FOOT_RIGHT)))
                 );
-                return true;
 
             } else {
 
@@ -66,9 +65,9 @@ public class GetCommand implements SubCommand {
                         .replace("{Part}", Lang.partName(part))
                         .replace("{Health}", String.format("%.2f", bodyHealth.getHealth(part)))
                 );
-                return true;
 
             }
+            return true;
 
         } catch (ArrayIndexOutOfBoundsException e) {
             MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_get_usage);

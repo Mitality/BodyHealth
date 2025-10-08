@@ -1,5 +1,6 @@
 package bodyhealth.effects.effect;
 
+import bodyhealth.Main;
 import bodyhealth.config.Debug;
 import bodyhealth.core.BodyPart;
 import bodyhealth.effects.BodyHealthEffect;
@@ -31,12 +32,14 @@ public class COMMAND_UNDO implements BodyHealthEffect {
     @Override
     public void onRemove(Player player, BodyPart part, String[] args, boolean isRecovery) {
 
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), args[1].trim()
-            .replace("%PlayerName%", player.getName())
-            .replace("%PlayerUUID%", player.getUniqueId().toString())
-            .replace("%BodyPart%", part.name())
-        );
-        Debug.log("(" + part.name() +") Dispatched command: /" + args[1].trim());
+        Main.getScheduler().runTask(() -> {
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), args[1].trim()
+                .replace("%PlayerName%", player.getName())
+                .replace("%PlayerUUID%", player.getUniqueId().toString())
+                .replace("%BodyPart%", part.name())
+            );
+            Debug.log("(" + part.name() +") Dispatched command: /" + args[1].trim());
+        });
 
     }
 

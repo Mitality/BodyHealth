@@ -1,4 +1,5 @@
 name: BodyHealth
+folia-supported: true
 version: '${project.version}'
 main: bodyhealth.Main
 api-version: '1.21'
@@ -56,8 +57,8 @@ permissions:
   bodyhealth.bypass.damage.head:
     description: Players with this permission bypass damage to their head
     default: false
-  bodyhealth.bypass.damage.body:
-    description: Players with this permission bypass damage to their body
+  bodyhealth.bypass.damage.torso:
+    description: Players with this permission bypass damage to their torso
     default: false
   bodyhealth.bypass.damage.arm_left:
     description: Players with this permission bypass damage to their left arm
@@ -81,8 +82,8 @@ permissions:
   bodyhealth.bypass.regen.head:
     description: Players with this permission bypass regeneration on their head
     default: false
-  bodyhealth.bypass.regen.body:
-    description: Players with this permission bypass regeneration on their body
+  bodyhealth.bypass.regen.torso:
+    description: Players with this permission bypass regeneration on their torso
     default: false
   bodyhealth.bypass.regen.arm_left:
     description: Players with this permission bypass regeneration on their left arm
@@ -108,7 +109,7 @@ permissions:
     default: false
     children:
       bodyhealth.bypass.damage.head: true
-      bodyhealth.bypass.damage.body: true
+      bodyhealth.bypass.damage.torso: true
       bodyhealth.bypass.damage.arm_left: true
       bodyhealth.bypass.damage.arm_right: true
       bodyhealth.bypass.damage.leg_left: true
@@ -121,7 +122,7 @@ permissions:
     default: false
     children:
       bodyhealth.bypass.regen.head: true
-      bodyhealth.bypass.regen.body: true
+      bodyhealth.bypass.regen.torso: true
       bodyhealth.bypass.regen.arm_left: true
       bodyhealth.bypass.regen.arm_right: true
       bodyhealth.bypass.regen.leg_left: true

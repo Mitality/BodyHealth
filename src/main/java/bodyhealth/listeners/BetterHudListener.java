@@ -6,10 +6,8 @@ import bodyhealth.config.Debug;
 import bodyhealth.depend.BetterHud;
 import kr.toxicity.hud.api.bukkit.event.PluginReloadedEvent;
 import org.bukkit.Bukkit;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.IOException;
 
@@ -25,21 +23,16 @@ public class BetterHudListener implements Listener {
                 BetterHud.inject();
                 Debug.log("BetterHud Configuration successfully validated");
                 Debug.log("Reloading BetterHud to apply potential changes");
-                Bukkit.getScheduler().runTask(Main.getInstance(), () -> { // Dispatch command synchronously
-                    ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-                    Bukkit.dispatchCommand(console, "betterhud reload");
-                });
-                new BukkitRunnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Debug.log("Adding files to BetterHud...");
-                            BetterHud.add(); // Add mcmeta and icon
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
+                Main.getScheduler().runTask(() -> Bukkit
+                        .dispatchCommand(Bukkit.getConsoleSender(), "betterhud reload"));
+                Main.getScheduler().runTaskLaterAsynchronously(() -> {
+                    try {
+                        Debug.log("Adding files to BetterHud...");
+                        BetterHud.add(); // Add mcmeta and icon
+                    } catch (IOException e) {
+                        Debug.logErr(e);
                     }
-                }.runTaskLater(Main.getInstance(), 60); // Wait for BetterHud to clean the directory
+                }, 60L);
 
             } catch (IOException e) {
                 Debug.logErr("Couldn't validate BetterHud config: " + e.getMessage());

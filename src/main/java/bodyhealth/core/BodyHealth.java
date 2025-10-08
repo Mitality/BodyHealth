@@ -30,13 +30,13 @@ public class BodyHealth {
         }
     }
 
-    public BodyHealth(UUID uuid, double head, double body, double arm_left, double arm_right, double leg_left, double leg_right, double foot_left, double foot_right) {
+    public BodyHealth(UUID uuid, double head, double torso, double arm_left, double arm_right, double leg_left, double leg_right, double foot_left, double foot_right) {
         playerUUID = uuid;
         healthMap = new EnumMap<>(BodyPart.class);
         command_timestamps = new EnumMap<>(BodyPart.class);
         ongoingEffects = new HashMap<>();
         healthMap.put(BodyPart.HEAD, head);
-        healthMap.put(BodyPart.TORSO, body);
+        healthMap.put(BodyPart.TORSO, torso);
         healthMap.put(BodyPart.ARM_LEFT, arm_left);
         healthMap.put(BodyPart.ARM_RIGHT, arm_right);
         healthMap.put(BodyPart.LEG_LEFT, leg_left);
