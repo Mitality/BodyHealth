@@ -140,10 +140,11 @@ public class EffectHandler {
             Debug.logErr("Effect " + effectParts[0].trim() + " is invalid, check syntax!");
             return;
         }
-
         BodyHealthEffect effectObject = effects.get(effectIdentifier.toUpperCase());
-        effectObject.onApply(player, part, effectParts, isRecovery);
 
+        // ORDER IMPORTANT:
+        effectObject.onApply(player, part, effectParts, isRecovery);
+        BodyHealthUtils.getBodyHealth(player).addToOngoingEffects(part, effectParts);
     }
 
     /**
@@ -161,10 +162,44 @@ public class EffectHandler {
             Debug.logErr("Effect " + effectParts[0].trim() + " is invalid, check syntax!");
             return;
         }
-
         BodyHealthEffect effectObject = effects.get(effectIdentifier.toUpperCase());
-        effectObject.onRemove(player, part, effectParts, isRecovery);
 
+        // ORDER IMPORTANT:
+        BodyHealthUtils.getBodyHealth(player).removeFromOngoingEffects(part, effectParts);
+        effectObject.onRemove(player, part, effectParts, isRecovery);
+    }
+
+    /**
+     * Utility method to remove all currently active effects from a given player
+     * @param player The player from which to remove all ongoing effects
+     */
+    public static void removeOngoingEffects(Player player) {
+        BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(player);
+        Map<BodyPart, List<String[]>> ongoingEffects = bodyHealth.getOngoingEffects();
+
+        for (
+            Iterator<Map.Entry<BodyPart, List<String[]>>> it = ongoingEffects.entrySet().iterator();
+            it.hasNext();
+        ) {
+            Map.Entry<BodyPart, List<String[]>> entry = it.next();
+
+            for (
+                ListIterator<String[]> lit = entry.getValue().listIterator();
+                lit.hasNext();
+            ) {
+                String[] effectParts = lit.next();
+
+                String effectIdentifier = effectParts[0].trim().toUpperCase();
+                BodyHealthEffect effectObject = effects.get(effectIdentifier);
+
+                lit.remove(); // Remove from ongoingEffects
+                if (effectObject == null) continue;
+                effectObject.onRemove(player, entry.getKey(), effectParts, true);
+            }
+
+            if (entry.getValue().isEmpty()) it.remove();
+        }
+        bodyHealth.clearOngoingEffects(); // Just to be sure
     }
 
     /**

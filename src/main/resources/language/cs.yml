@@ -103,38 +103,85 @@ commands:
       # Message shown for incorrect command usage
       usage: '&bPoužití: /bodyhealth data <save/dump/erase/move> [...]'
 
-      # Message shown for incorrect command usage (dump)
-      usage-dump: '&bPoužití: /bodyhealth data dump <storage type>'
+      save:
 
-      # Message shown for incorrect command usage (erase)
-      usage-erase: '&bPoužití: /bodyhealth data erase <storage type>'
+        # Message shown on successful save
+        success: '&aVšechny údaje pro {Count} online hráče(-ů) byly úspěšně uloženy.'
 
-      # Message shown for incorrect command usage (move)
-      usage-move: '&bPoužití: /bodyhealth data move <storage type> <storage type>'
+      dump:
 
-      # Message used to confirm the erase command
-      confirmation-erase: '&c&lVAROVÁNÍ: &r&cChystáte se vymazat všechna existující data z úložiště BodyHealth {Type}!<br> &ePro pokračování prosím zadejte tento příkaz znovu.'
+        # Message shown for incorrect command usage (dump)
+        usage: '&bPoužití: /bodyhealth data dump <typ úložiště>'
 
-      # Message used to confirm the move command
-      confirmation-move: '&c&lVAROVÁNÍ: &r&cChystáte se přesunout všechna data z úložiště BodyHealth {Type1} do úložiště {Type2}, což může přepsat již existující data!<br> &ePro pokračování prosím zadejte tento příkaz znovu.'
+        # Message shown on dump start
+        start: '&aShromažďuji a vypisuji data ze {Type}-úložiště BodyHealth...'
 
-      # Message shown on successful save
-      success-save: '&aÚspěšně uložena všechna data pro {Count} online hráč(e).'
+        # Message shown on successful dump
+        success: '&aÚspěšně vypsána data pro {Count} hráče/-ů z {Type}-úložiště BodyHealth do {File}.'
 
-      # Message shown on successful dump
-      success-dump: '&aÚspěšně vyexportována data pro {Count} hráč(e) z úložiště BodyHealth {Type} do {File}.'
+        # Message shown if dumping data fails
+        fail: '&cNepodařilo se vypsat existující data z {Type}-úložiště BodyHealth.'
 
-      # Message shown on successful erase
-      success-erase: '&aVšechna data byla úspěšně vymazána z úložiště BodyHealth {Type}.'
+      erase:
 
-      # Message shown on successful move
-      success-move: '&aÚspěšně přesunuta data pro {Count} hráč(e) z úložiště BodyHealth {Type1} do úložiště {Type2}.'
+        # Message shown for incorrect command usage (erase)
+        usage: '&bPoužití: /bodyhealth data erase <typ úložiště>'
 
-      # Message shown if dumping data fails
-      fail-dump: '&cNepodařilo se vyexportovat existující data z úložiště BodyHealth {Type}.'
+        # Message used to confirm the erase command
+        confirmation: '&c&lUPOZORNĚNÍ: &r&cChystáte se vymazat všechna existující data z {Type}-úložiště BodyHealth!<br> &eChcete-li pokračovat, zadejte tento příkaz znovu.'
 
-      # Message shown if erasing data fails
-      fail-erase: '&cNepodařilo se vymazat všechna data z úložiště BodyHealth {Type}.'
+        # Message shown on erase start
+        start: '&aVymazávám všechna data z {Type}-úložiště BodyHealth...'
 
-      # Message shown if moving data fails
-      fail-move: '&cNepodařilo se přesunout všechna existující data z úložiště BodyHealth {Type1} do úložiště {Type2}.'
+        # Message shown on successful erase
+        success: '&aVšechna data z {Type}-úložiště BodyHealth byla úspěšně vymazána.'
+
+        # Message shown if erasing data fails
+        fail: '&cNepodařilo se vymazat všechna data z {Type}-úložiště BodyHealth.'
+
+      move:
+
+        # Message shown for incorrect command usage (move)
+        usage: '&bPoužití: /bodyhealth data move <typ úložiště> <typ úložiště>'
+
+        # Message used to confirm the move command
+        confirmation: '&c&lUPOZORNĚNÍ: &r&cChystáte se přesunout všechna data z {Type1}-úložiště do {Type2}-úložiště BodyHealth, což může přepsat již existující data!<br> &eChcete-li pokračovat, zadejte tento příkaz znovu.'
+
+        # Message shown on move start
+        start: '&aPřesouvám data z {Type1}-úložiště do {Type2}-úložiště BodyHealth...'
+
+        # Message shown on successful move
+        success: '&aData pro {Count} hráče/-ů byla úspěšně přesunuta z {Type1}-úložiště do {Type2}-úložiště BodyHealth.'
+
+        # Message shown if moving data fails
+        fail: '&cNepodařilo se přesunout všechna existující data z {Type1}-úložiště do {Type2}-úložiště BodyHealth.'
+
+    debug:
+
+      # Message shown for incorrect command usage
+      usage: '&bPoužití: /bodyhealth debug <dump/toggle> [...]'
+
+      dump:
+
+        # Message shown on dump start
+        start: '&aShromažďuji a vypisuji debug informace...'
+
+        # Message shown on successful dump
+        success: '&aDebug informace úspěšně vypsány do {File}.'
+
+        # Message shown if dumping data fails
+        fail: '&cNepodařilo se vypsat debug informace!'
+
+      toggle:
+
+        # Message shown for toggling on debug mode
+        normal-on: '&aDebug mód zapnut.'
+
+        # Message shown for toggling off debug mode
+        normal-off: '&aDebug mód vypnut.'
+
+        # Message shown for toggling on verbose (development) mode
+        verbose-on: '&aVývojový mód zapnut.'
+
+        # Message shown for toggling off verbose (development) mode
+        verbose-off: '&aVývojový mód vypnut.'

@@ -8,11 +8,9 @@ import bodyhealth.effects.EffectHandler;
 import bodyhealth.effects.EffectType;
 import bodyhealth.util.TimeUtils;
 import com.github.Anon8281.universalScheduler.scheduling.tasks.MyScheduledTask;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class DELAYED implements BodyHealthEffect {

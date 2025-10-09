@@ -13,6 +13,7 @@ import com.zaxxer.hikari.HikariDataSource;
 
 import java.sql.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -82,22 +83,35 @@ public class MySQLStorage implements Storage {
     }
 
     private void createTable() {
-        String sql = "CREATE TABLE IF NOT EXISTS " + Config.storage_mysql_prefix + "body_health ("
-            + "uuid VARCHAR(36) PRIMARY KEY, "
-            + "head DOUBLE, "
-            + "torso DOUBLE, "
-            + "arm_left DOUBLE, "
-            + "arm_right DOUBLE, "
-            + "leg_left DOUBLE, "
-            + "leg_right DOUBLE, "
-            + "foot_left DOUBLE, "
-            + "foot_right DOUBLE"
-            + ")";
+        String prefix = Config.storage_mysql_prefix;
+
+        String sqlHealth = "CREATE TABLE IF NOT EXISTS " + prefix + "body_health ("
+                + "uuid VARCHAR(36) PRIMARY KEY, "
+                + "head DOUBLE, "
+                + "torso DOUBLE, "
+                + "arm_left DOUBLE, "
+                + "arm_right DOUBLE, "
+                + "leg_left DOUBLE, "
+                + "leg_right DOUBLE, "
+                + "foot_left DOUBLE, "
+                + "foot_right DOUBLE"
+                + ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+
+        String sqlEffects = "CREATE TABLE IF NOT EXISTS " + prefix + "active_effects ("
+                + "uuid VARCHAR(36) NOT NULL, "
+                + "body_part VARCHAR(32) NOT NULL, "
+                + "position INT NOT NULL, "
+                + "effect TEXT NOT NULL, "
+                + "PRIMARY KEY (uuid, body_part, position), "
+                + "INDEX idx_effects_uuid (uuid)"
+                + ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+
         try (
             Connection conn = dataSource.getConnection();
             Statement stmt = conn.createStatement()
         ) {
-            stmt.execute(sql);
+            stmt.execute(sqlHealth);
+            stmt.execute(sqlEffects);
         } catch (SQLException e) {
             Debug.logErr(e);
         }
@@ -120,23 +134,58 @@ public class MySQLStorage implements Storage {
 
     @Override
     public void saveBodyHealth(UUID uuid, BodyHealth bodyHealth) {
-        String sql = "INSERT INTO " + Config.storage_mysql_prefix + "body_health (uuid, head, torso, arm_left, arm_right, leg_left, leg_right, foot_left, foot_right) "
-            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) "
-            + "ON DUPLICATE KEY UPDATE "
-            + "head = VALUES(head), torso = VALUES(torso), arm_left = VALUES(arm_left), arm_right = VALUES(arm_right), "
-            + "leg_left = VALUES(leg_left), leg_right = VALUES(leg_right), foot_left = VALUES(foot_left), foot_right = VALUES(foot_right)";
-        try (
-            Connection conn = dataSource.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(sql)
-        ) {
-            pstmt.setString(1, uuid.toString());
+        String prefix = Config.storage_mysql_prefix;
 
-            int index = 2; // Should work, right?
-            for (BodyPart part : BodyPart.values()) {
-                pstmt.setDouble(index++, bodyHealth.getHealth(part));
+        String upsertHealth = "INSERT INTO " + prefix + "body_health "
+                + "(uuid, head, torso, arm_left, arm_right, leg_left, leg_right, foot_left, foot_right) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) "
+                + "ON DUPLICATE KEY UPDATE "
+                + "head=VALUES(head), torso=VALUES(torso), arm_left=VALUES(arm_left), arm_right=VALUES(arm_right), "
+                + "leg_left=VALUES(leg_left), leg_right=VALUES(leg_right), foot_left=VALUES(foot_left), foot_right=VALUES(foot_right)";
+        String deleteEffects = "DELETE FROM " + prefix + "active_effects WHERE uuid = ?";
+        String insertEffect = "INSERT INTO " + prefix + "active_effects "
+                + "(uuid, body_part, position, effect) VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = dataSource.getConnection()) {
+            conn.setAutoCommit(false);
+
+            try (PreparedStatement pstmt = conn.prepareStatement(upsertHealth)) {
+                pstmt.setString(1, uuid.toString());
+                int idx = 2;
+                for (BodyPart part : BodyPart.values()) {
+                    pstmt.setDouble(idx++, bodyHealth.getHealth(part));
+                }
+                pstmt.executeUpdate();
             }
 
-            pstmt.executeUpdate();
+            try (PreparedStatement del = conn.prepareStatement(deleteEffects)) {
+                del.setString(1, uuid.toString());
+                del.executeUpdate();
+            }
+
+            Map<BodyPart, List<String[]>> effects = bodyHealth.getOngoingEffects();
+            boolean hasAny = effects.values().stream().anyMatch(list -> list != null && !list.isEmpty());
+
+            if (hasAny) {
+                try (PreparedStatement ins = conn.prepareStatement(insertEffect)) {
+                    for (Map.Entry<BodyPart, List<String[]>> e : effects.entrySet()) {
+                        List<String[]> list = e.getValue();
+                        if (list == null || list.isEmpty()) continue;
+
+                        int pos = 0;
+                        for (String[] arr : list) {
+                            ins.setString(1, uuid.toString());
+                            ins.setString(2, e.getKey().name());
+                            ins.setInt(3, pos++);
+                            ins.setString(4, String.join("/", arr));
+                            ins.addBatch();
+                        }
+                    }
+                    ins.executeBatch();
+                }
+            }
+
+            conn.commit();
         } catch (SQLException e) {
             Debug.logErr(e);
         }
@@ -144,46 +193,97 @@ public class MySQLStorage implements Storage {
 
     @Override
     public @NotNull BodyHealth loadBodyHealth(UUID uuid) {
-        String sql = "SELECT * FROM " + Config.storage_mysql_prefix + "body_health WHERE uuid = ?";
+        String prefix = Config.storage_mysql_prefix;
+        String sql = "SELECT * FROM " + prefix + "body_health WHERE uuid = ?";
 
         try (
             Connection conn = dataSource.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)
         ) {
             pstmt.setString(1, uuid.toString());
-            ResultSet rs = pstmt.executeQuery();
-            if (!rs.next()) return new BodyHealth(uuid);
-            return getBodyHealth(uuid, rs);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (!rs.next()) return new BodyHealth(uuid);
+                BodyHealth bh = getBodyHealth(uuid, rs);
+                loadEffectsInto(conn, uuid, bh);
+                return bh;
+            }
         } catch (SQLException e) {
             Debug.logErr(e);
+            return new BodyHealth(uuid);
         }
-        return new BodyHealth(uuid);
     }
 
     @Override
     public @NotNull Map<UUID, BodyHealth> loadAllBodyHealth() {
-        final String sql = "SELECT uuid, head, torso, arm_left, arm_right, " +
-                "leg_left, leg_right, foot_left, foot_right FROM " +
-                Config.storage_mysql_prefix + "body_health";
+        String prefix = Config.storage_mysql_prefix;
+        final String sql = "SELECT uuid, head, torso, arm_left, arm_right, "
+                + "leg_left, leg_right, foot_left, foot_right FROM " + prefix + "body_health";
 
         Map<UUID, BodyHealth> map = new HashMap<>();
         try (
             Connection conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery()
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery()
         ) {
+
             while (rs.next()) {
                 try {
                     UUID uuid = UUID.fromString(rs.getString("uuid"));
                     BodyHealth bh = getBodyHealth(uuid, rs);
                     map.put(uuid, bh);
-                } catch (Exception ignored) {
+                } catch (Exception ignored) {}
+            }
+
+            if (!map.isEmpty()) {
+                String esql = "SELECT uuid, body_part, position, effect "
+                        + "FROM " + prefix + "active_effects "
+                        + "ORDER BY uuid, body_part, position";
+
+                try (
+                    PreparedStatement eps = conn.prepareStatement(esql);
+                    ResultSet ers = eps.executeQuery()
+                ) {
+
+                    while (ers.next()) {
+                        UUID uuid;
+                        try { uuid = UUID.fromString(ers.getString("uuid")); }
+                        catch (Exception e) { continue; }
+
+                        BodyHealth bh = map.get(uuid);
+                        if (bh == null) continue;
+
+                        BodyPart part;
+                        try { part = BodyPart.valueOf(ers.getString("body_part")); }
+                        catch (IllegalArgumentException ex) { continue; }
+
+                        String effect = ers.getString("effect");
+                        bh.addToOngoingEffects(part, effect.split("/"));
+                    }
                 }
             }
         } catch (SQLException e) {
             Debug.logErr(e);
         }
         return map;
+    }
+
+    private void loadEffectsInto(Connection conn, UUID uuid, BodyHealth bh) throws SQLException {
+        String prefix = Config.storage_mysql_prefix;
+        final String sql = "SELECT body_part, position, effect "
+                + "FROM " + prefix + "active_effects WHERE uuid = ? "
+                + "ORDER BY body_part, position";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, uuid.toString());
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    BodyPart part;
+                    try { part = BodyPart.valueOf(rs.getString("body_part")); }
+                    catch (IllegalArgumentException ex) { continue; }
+                    String effect = rs.getString("effect");
+                    bh.addToOngoingEffects(part, effect.split("/"));
+                }
+            }
+        }
     }
 
     private BodyHealth getBodyHealth(UUID uuid, ResultSet rs) throws SQLException {

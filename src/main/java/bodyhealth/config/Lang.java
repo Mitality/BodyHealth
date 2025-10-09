@@ -53,18 +53,31 @@ public class Lang {
 
     // Data Command
     public static String bodyhealth_data_usage;
-    public static String bodyhealth_data_usage_dump;
-    public static String bodyhealth_data_usage_erase;
-    public static String bodyhealth_data_usage_move;
-    public static String bodyhealth_data_confirmation_erase;
-    public static String bodyhealth_data_confirmation_move;
-    public static String bodyhealth_data_success_save;
-    public static String bodyhealth_data_success_dump;
-    public static String bodyhealth_data_success_erase;
-    public static String bodyhealth_data_success_move;
-    public static String bodyhealth_data_fail_dump;
-    public static String bodyhealth_data_fail_erase;
-    public static String bodyhealth_data_fail_move;
+    public static String bodyhealth_data_dump_usage;
+    public static String bodyhealth_data_erase_usage;
+    public static String bodyhealth_data_move_usage;
+    public static String bodyhealth_data_erase_confirmation;
+    public static String bodyhealth_data_move_confirmation;
+    public static String bodyhealth_data_save_success;
+    public static String bodyhealth_data_dump_success;
+    public static String bodyhealth_data_erase_success;
+    public static String bodyhealth_data_move_success;
+    public static String bodyhealth_data_dump_fail;
+    public static String bodyhealth_data_erase_fail;
+    public static String bodyhealth_data_move_fail;
+    public static String bodyhealth_data_dump_start;
+    public static String bodyhealth_data_erase_start;
+    public static String bodyhealth_data_move_start;
+
+    // Debug Command
+    public static String bodyhealth_debug_usage;
+    public static String bodyhealth_debug_dump_start;
+    public static String bodyhealth_debug_dump_success;
+    public static String bodyhealth_debug_dump_fail;
+    public static String bodyhealth_debug_toggle_normal_on;
+    public static String bodyhealth_debug_toggle_normal_off;
+    public static String bodyhealth_debug_toggle_verbose_on;
+    public static String bodyhealth_debug_toggle_verbose_off;
 
     public static void load(FileConfiguration config) {
 
@@ -116,18 +129,31 @@ public class Lang {
 
         // Data Command
         bodyhealth_data_usage = config.getString("commands.bodyhealth.data.usage", "bodyhealth_data_usage");
-        bodyhealth_data_usage_dump = config.getString("commands.bodyhealth.data.usage-dump", "bodyhealth_data_usage_dump");
-        bodyhealth_data_usage_erase = config.getString("commands.bodyhealth.data.usage-erase", "bodyhealth_data_usage_erase");
-        bodyhealth_data_usage_move = config.getString("commands.bodyhealth.data.usage-move", "bodyhealth_data_usage_move");
-        bodyhealth_data_confirmation_erase = config.getString("commands.bodyhealth.data.confirmation-erase", "bodyhealth_data_confirmation_erase");
-        bodyhealth_data_confirmation_move = config.getString("commands.bodyhealth.data.confirmation-move", "bodyhealth_data_confirmation_move");
-        bodyhealth_data_success_save = config.getString("commands.bodyhealth.data.success-save", "bodyhealth_data_success_save");
-        bodyhealth_data_success_dump = config.getString("commands.bodyhealth.data.success-dump", "bodyhealth_data_success_dump");
-        bodyhealth_data_success_erase = config.getString("commands.bodyhealth.data.success-erase", "bodyhealth_data_success_erase");
-        bodyhealth_data_success_move = config.getString("commands.bodyhealth.data.success-move", "bodyhealth_data_success_move");
-        bodyhealth_data_fail_dump = config.getString("commands.bodyhealth.data.fail-dump", "bodyhealth_data_fail_dump");
-        bodyhealth_data_fail_erase = config.getString("commands.bodyhealth.data.fail-erase", "bodyhealth_data_fail_erase");
-        bodyhealth_data_fail_move = config.getString("commands.bodyhealth.data.fail-move", "bodyhealth_data_fail_move");
+        bodyhealth_data_dump_usage = config.getString("commands.bodyhealth.data.dump.usage", "bodyhealth_data_dump_usage");
+        bodyhealth_data_erase_usage = config.getString("commands.bodyhealth.data.erase.usage", "bodyhealth_data_erase_usage");
+        bodyhealth_data_move_usage = config.getString("commands.bodyhealth.data.move.usage", "bodyhealth_data_move_usage");
+        bodyhealth_data_erase_confirmation = config.getString("commands.bodyhealth.data.erase.confirmation", "bodyhealth_data_erase_confirmation");
+        bodyhealth_data_move_confirmation = config.getString("commands.bodyhealth.data.move.confirmation", "bodyhealth_data_move_confirmation");
+        bodyhealth_data_save_success = config.getString("commands.bodyhealth.data.save.success", "bodyhealth_data_save_success");
+        bodyhealth_data_dump_success = config.getString("commands.bodyhealth.data.dump.success", "bodyhealth_data_dump_success");
+        bodyhealth_data_erase_success = config.getString("commands.bodyhealth.data.erase.success", "bodyhealth_data_erase_success");
+        bodyhealth_data_move_success = config.getString("commands.bodyhealth.data.move.success", "bodyhealth_data_move_success");
+        bodyhealth_data_dump_fail = config.getString("commands.bodyhealth.data.dump.fail", "bodyhealth_data_dump_fail");
+        bodyhealth_data_erase_fail = config.getString("commands.bodyhealth.data.erase.fail", "bodyhealth_data_erase_fail");
+        bodyhealth_data_move_fail = config.getString("commands.bodyhealth.data.move.fail", "bodyhealth_data_move_fail");
+        bodyhealth_data_dump_start = config.getString("commands.bodyhealth.data.dump.start", "bodyhealth_data_dump_start");
+        bodyhealth_data_erase_start = config.getString("commands.bodyhealth.data.erase.start", "bodyhealth_data_erase_start");
+        bodyhealth_data_move_start = config.getString("commands.bodyhealth.data.move.start", "bodyhealth_data_move_start");
+
+        // Debug Command
+        bodyhealth_debug_usage =  config.getString("commands.bodyhealth.debug.usage", "bodyhealth_debug_usage");
+        bodyhealth_debug_dump_start = config.getString("commands.bodyhealth.debug.dump.start", "bodyhealth_debug_dump_start");
+        bodyhealth_debug_dump_success = config.getString("commands.bodyhealth.debug.dump.success", "bodyhealth_debug_dump_success");
+        bodyhealth_debug_dump_fail = config.getString("commands.bodyhealth.debug.dump.fail", "bodyhealth_debug_dump_fail");
+        bodyhealth_debug_toggle_normal_on = config.getString("commands.bodyhealth.debug.toggle.normal-on", "bodyhealth_debug_toggle_normal_on");
+        bodyhealth_debug_toggle_normal_off = config.getString("commands.bodyhealth.debug.toggle.normal-off", "bodyhealth_debug_toggle_normal_off");
+        bodyhealth_debug_toggle_verbose_on = config.getString("commands.bodyhealth.debug.toggle.verbose-on", "bodyhealth_debug_toggle_verbose_on");
+        bodyhealth_debug_toggle_verbose_off = config.getString("commands.bodyhealth.debug.toggle.verbose-off", "bodyhealth_debug_toggle_verbose_off");
 
     }
 

@@ -103,38 +103,85 @@ commands:
       # Message shown for incorrect command usage
       usage: '&bHasználat: /bodyhealth data <save/dump/erase/move> [...]'
 
-      # Message shown for incorrect command usage (dump)
-      usage-dump: '&bHasználat: /bodyhealth data dump <storage type>'
+      save:
 
-      # Message shown for incorrect command usage (erase)
-      usage-erase: '&bHasználat: /bodyhealth data erase <storage type>'
+        # Message shown on successful save
+        success: '&aSikeresen elmentve minden adat {Count} online játékos számára.'
 
-      # Message shown for incorrect command usage (move)
-      usage-move: '&bHasználat: /bodyhealth data move <storage type> <storage type>'
+      dump:
 
-      # Message used to confirm the erase command
-      confirmation-erase: '&c&lFIGYELMEZTETÉS: &r&cAz összes meglévő adat törlésére készülsz a BodyHealth {Type} tárolóból!<br> &eA folytatáshoz írd be újra ezt a parancsot.'
+        # Message shown for incorrect command usage (dump)
+        usage: '&bHasználat: /bodyhealth data dump <tároló típus>'
 
-      # Message used to confirm the move command
-      confirmation-move: '&c&lFIGYELMEZTETÉS: &r&cAz összes adatot át fogod helyezni a BodyHealth {Type1} tárolóból a {Type2} tárolóba, ami felülírhatja a már ott lévő adatokat!<br> &eA folytatáshoz írd be újra ezt a parancsot.'
+        # Message shown on dump start
+        start: '&aAdatok gyűjtése és exportálása a BodyHealth {Type} tárolójából...'
 
-      # Message shown on successful save
-      success-save: '&aSikeresen mentve {Count} online játékos összes adata.'
+        # Message shown on successful dump
+        success: '&aSikeresen exportálva {Count} játékos adatai a BodyHealth {Type} tárolójából a {File} fájlba.'
 
-      # Message shown on successful dump
-      success-dump: '&aSikeresen exportálva {Count} játékos adata a BodyHealth {Type} tárolóból a(z) {File} fájlba.'
+        # Message shown if dumping data fails
+        fail: '&cNem sikerült exportálni az adatokat a BodyHealth {Type} tárolójából.'
 
-      # Message shown on successful erase
-      success-erase: '&aSikeresen törölve az összes adat a BodyHealth {Type} tárolóból.'
+      erase:
 
-      # Message shown on successful move
-      success-move: '&aSikeresen áthelyezve {Count} játékos adata a BodyHealth {Type1} tárolóból a {Type2} tárolóba.'
+        # Message shown for incorrect command usage (erase)
+        usage: '&bHasználat: /bodyhealth data erase <tároló típus>'
 
-      # Message shown if dumping data fails
-      fail-dump: '&cNem sikerült exportálni a meglévő adatokat a BodyHealth {Type} tárolóból.'
+        # Message used to confirm the erase command
+        confirmation: '&c&lFIGYELMEZTETÉS: &r&cMinden adat törlésre kerül a BodyHealth {Type} tárolójából!<br> &eA folytatáshoz írd be újra ezt a parancsot.'
 
-      # Message shown if erasing data fails
-      fail-erase: '&cNem sikerült törölni az összes adatot a BodyHealth {Type} tárolóból.'
+        # Message shown on erase start
+        start: '&aMinden adat törlése a BodyHealth {Type} tárolójából...'
 
-      # Message shown if moving data fails
-      fail-move: '&cNem sikerült áthelyezni a meglévő adatokat a BodyHealth {Type1} tárolóból a {Type2} tárolóba.'
+        # Message shown on successful erase
+        success: '&aSikeresen törölve minden adat a BodyHealth {Type} tárolójából.'
+
+        # Message shown if erasing data fails
+        fail: '&cNem sikerült törölni az adatokat a BodyHealth {Type} tárolójából.'
+
+      move:
+
+        # Message shown for incorrect command usage (move)
+        usage: '&bHasználat: /bodyhealth data move <tároló típus> <tároló típus>'
+
+        # Message used to confirm the move command
+        confirmation: '&c&lFIGYELMEZTETÉS: &r&cAz összes adat áthelyezésre kerül a BodyHealth {Type1} tárolójából a {Type2} tárolóba, ami felülírhatja a meglévő adatokat!<br> &eA folytatáshoz írd be újra ezt a parancsot.'
+
+        # Message shown on move start
+        start: '&aAdatok áthelyezése a BodyHealth {Type1} tárolójából a {Type2} tárolóba...'
+
+        # Message shown on successful move
+        success: '&aSikeresen áthelyezve {Count} játékos adatai a BodyHealth {Type1} tárolójából a {Type2} tárolóba.'
+
+        # Message shown if moving data fails
+        fail: '&cNem sikerült áthelyezni az adatokat a BodyHealth {Type1} tárolójából a {Type2} tárolóba.'
+
+    debug:
+
+      # Message shown for incorrect command usage
+      usage: '&bHasználat: /bodyhealth debug <dump/toggle> [...]'
+
+      dump:
+
+        # Message shown on dump start
+        start: '&aHibakeresési információk gyűjtése és exportálása...'
+
+        # Message shown on successful dump
+        success: '&aA hibakeresési információk sikeresen exportálva a {File} fájlba.'
+
+        # Message shown if dumping data fails
+        fail: '&cNem sikerült exportálni a hibakeresési információkat!'
+
+      toggle:
+
+        # Message shown for toggling on debug mode
+        normal-on: '&aHibakeresési mód engedélyezve.'
+
+        # Message shown for toggling off debug mode
+        normal-off: '&aHibakeresési mód kikapcsolva.'
+
+        # Message shown for toggling on verbose (development) mode
+        verbose-on: '&aFejlesztői mód engedélyezve.'
+
+        # Message shown for toggling off verbose (development) mode
+        verbose-off: '&aFejlesztői mód kikapcsolva.'

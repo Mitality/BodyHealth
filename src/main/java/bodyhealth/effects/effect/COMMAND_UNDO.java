@@ -32,14 +32,16 @@ public class COMMAND_UNDO implements BodyHealthEffect {
     @Override
     public void onRemove(Player player, BodyPart part, String[] args, boolean isRecovery) {
 
-        Main.getScheduler().runTask(() -> {
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), args[1].trim()
+        String command = args[1].trim()
                 .replace("%PlayerName%", player.getName())
                 .replace("%PlayerUUID%", player.getUniqueId().toString())
-                .replace("%BodyPart%", part.name())
-            );
-            Debug.log("(" + part.name() +") Dispatched command: /" + args[1].trim());
-        });
+                .replace("%BodyPart%", part.name());
+        if (!Main.getScheduler().isGlobalThread()) {
+            Main.getScheduler().execute(() -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command)); // line 40
+        } else {
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+        }
+        Debug.log("(" + part.name() +") Dispatched command: /" + args[1].trim());
 
     }
 

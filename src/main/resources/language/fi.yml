@@ -103,38 +103,85 @@ commands:
       # Message shown for incorrect command usage
       usage: '&bKäyttö: /bodyhealth data <save/dump/erase/move> [...]'
 
-      # Message shown for incorrect command usage (dump)
-      usage-dump: '&bKäyttö: /bodyhealth data dump <storage type>'
+      save:
 
-      # Message shown for incorrect command usage (erase)
-      usage-erase: '&bKäyttö: /bodyhealth data erase <storage type>'
+        # Message shown on successful save
+        success: '&aKaikki tiedot {Count} verkossa olevalta pelaajalta tallennettiin onnistuneesti.'
 
-      # Message shown for incorrect command usage (move)
-      usage-move: '&bKäyttö: /bodyhealth data move <storage type> <storage type>'
+      dump:
 
-      # Message used to confirm the erase command
-      confirmation-erase: '&c&lVAROITUS: &r&cOlet poistamassa kaikki olemassa olevat tiedot BodyHealthin {Type}-tallennuksesta!<br> &eJatkaaksesi, kirjoita tämä komento uudelleen.'
+        # Message shown for incorrect command usage (dump)
+        usage: '&bKäyttö: /bodyhealth data dump <tallennustyyppi>'
 
-      # Message used to confirm the move command
-      confirmation-move: '&c&lVAROITUS: &r&cOlet siirtämässä kaikki tiedot BodyHealthin {Type1}-tallennuksesta sen {Type2}-tallennukseen, mikä voi korvata jo olemassa olevat tiedot!<br> &eJatkaaksesi, kirjoita tämä komento uudelleen.'
+        # Message shown on dump start
+        start: '&aKerätään ja puretaan tietoja BodyHealthin {Type}-tallennuksesta...'
 
-      # Message shown on successful save
-      success-save: '&aKaikki {Count} online-pelaajan tiedot tallennettiin onnistuneesti.'
+        # Message shown on successful dump
+        success: '&aTietojen purku onnistui {Count} pelaajalle BodyHealthin {Type}-tallennuksesta tiedostoon {File}.'
 
-      # Message shown on successful dump
-      success-dump: '&a{Count} pelaajan tiedot vietiin onnistuneesti BodyHealthin {Type}-tallennuksesta tiedostoon {File}.'
+        # Message shown if dumping data fails
+        fail: '&cTietojen purku epäonnistui BodyHealthin {Type}-tallennuksesta.'
 
-      # Message shown on successful erase
-      success-erase: '&aKaikki tiedot poistettiin onnistuneesti BodyHealthin {Type}-tallennuksesta.'
+      erase:
 
-      # Message shown on successful move
-      success-move: '&a{Count} pelaajan tiedot siirrettiin onnistuneesti BodyHealthin {Type1}-tallennuksesta sen {Type2}-tallennukseen.'
+        # Message shown for incorrect command usage (erase)
+        usage: '&bKäyttö: /bodyhealth data erase <tallennustyyppi>'
 
-      # Message shown if dumping data fails
-      fail-dump: '&cOlemassa olevien tietojen vienti BodyHealthin {Type}-tallennuksesta epäonnistui.'
+        # Message used to confirm the erase command
+        confirmation: '&c&lVAROITUS: &r&cOlet poistamassa kaikki olemassa olevat tiedot BodyHealthin {Type}-tallennuksesta!<br> &eJatka kirjoittamalla tämä komento uudelleen.'
 
-      # Message shown if erasing data fails
-      fail-erase: '&cKaikkien tietojen poistaminen BodyHealthin {Type}-tallennuksesta epäonnistui.'
+        # Message shown on erase start
+        start: '&aPoistetaan kaikki tiedot BodyHealthin {Type}-tallennuksesta...'
 
-      # Message shown if moving data fails
-      fail-move: '&cKaikkien olemassa olevien tietojen siirto BodyHealthin {Type1}-tallennuksesta sen {Type2}-tallennukseen epäonnistui.'
+        # Message shown on successful erase
+        success: '&aKaikki tiedot poistettiin onnistuneesti BodyHealthin {Type}-tallennuksesta.'
+
+        # Message shown if erasing data fails
+        fail: '&cTietojen poistaminen epäonnistui BodyHealthin {Type}-tallennuksesta.'
+
+      move:
+
+        # Message shown for incorrect command usage (move)
+        usage: '&bKäyttö: /bodyhealth data move <tallennustyyppi> <tallennustyyppi>'
+
+        # Message used to confirm the move command
+        confirmation: '&c&lVAROITUS: &r&cOlet siirtämässä kaikki tiedot BodyHealthin {Type1}-tallennuksesta sen {Type2}-tallennukseen, mikä voi ylikirjoittaa olemassa olevia tietoja!<br> &eJatka kirjoittamalla tämä komento uudelleen.'
+
+        # Message shown on move start
+        start: '&aSiirretään tietoja BodyHealthin {Type1}-tallennuksesta sen {Type2}-tallennukseen...'
+
+        # Message shown on successful move
+        success: '&a{Count} pelaajan tiedot siirrettiin onnistuneesti BodyHealthin {Type1}-tallennuksesta sen {Type2}-tallennukseen.'
+
+        # Message shown if moving data fails
+        fail: '&cTietojen siirtäminen epäonnistui BodyHealthin {Type1}-tallennuksesta sen {Type2}-tallennukseen.'
+
+    debug:
+
+      # Message shown for incorrect command usage
+      usage: '&bKäyttö: /bodyhealth debug <dump/toggle> [...]'
+
+      dump:
+
+        # Message shown on dump start
+        start: '&aKerätään ja puretaan vianmääritystietoja...'
+
+        # Message shown on successful dump
+        success: '&aVianmääritystiedot purettiin onnistuneesti tiedostoon {File}.'
+
+        # Message shown if dumping data fails
+        fail: '&cVianmääritystietojen purku epäonnistui!'
+
+      toggle:
+
+        # Message shown for toggling on debug mode
+        normal-on: '&aVianmääritystila otettu käyttöön.'
+
+        # Message shown for toggling off debug mode
+        normal-off: '&aVianmääritystila poistettu käytöstä.'
+
+        # Message shown for toggling on verbose (development) mode
+        verbose-on: '&aKehitystila otettu käyttöön.'
+
+        # Message shown for toggling off verbose (development) mode
+        verbose-off: '&aKehitystila poistettu käytöstä.'

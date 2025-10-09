@@ -103,38 +103,85 @@ commands:
       # Message shown for incorrect command usage
       usage: '&bKullanım: /bodyhealth data <save/dump/erase/move> [...]'
 
-      # Message shown for incorrect command usage (dump)
-      usage-dump: '&bKullanım: /bodyhealth data dump <storage type>'
+      save:
 
-      # Message shown for incorrect command usage (erase)
-      usage-erase: '&bKullanım: /bodyhealth data erase <storage type>'
+        # Message shown on successful save
+        success: '&a{Count} çevrimiçi oyuncunun tüm verileri başarıyla kaydedildi.'
 
-      # Message shown for incorrect command usage (move)
-      usage-move: '&bKullanım: /bodyhealth data move <storage type> <storage type>'
+      dump:
 
-      # Message used to confirm the erase command
-      confirmation-erase: '&c&lUYARI: &r&cBodyHealth''in {Type} depolamasındaki tüm mevcut verileri silmek üzeresiniz!<br> &eDevam etmek için lütfen bu komutu tekrar yazın.'
+        # Message shown for incorrect command usage (dump)
+        usage: '&bKullanım: /bodyhealth data dump <depolama türü>'
 
-      # Message used to confirm the move command
-      confirmation-move: '&c&lUYARI: &r&cBodyHealth''in {Type1} depolamasındaki tüm verileri {Type2} depolamasına taşımak üzeresiniz, bu işlem mevcut verilerin üzerine yazabilir!<br> &eDevam etmek için lütfen bu komutu tekrar yazın.'
+        # Message shown on dump start
+        start: '&aBodyHealth''in {Type} depolamasından veri toplanıyor ve dışa aktarılıyor...'
 
-      # Message shown on successful save
-      success-save: '&a{Count} çevrimiçi oyuncunun tüm verileri başarıyla kaydedildi.'
+        # Message shown on successful dump
+        success: '&aBodyHealth''in {Type} depolamasındaki {Count} oyuncunun verileri başarıyla {File} dosyasına aktarıldı.'
 
-      # Message shown on successful dump
-      success-dump: '&a{Count} oyuncunun verileri BodyHealth''in {Type} depolamasından {File} dosyasına başarıyla aktarıldı.'
+        # Message shown if dumping data fails
+        fail: '&cBodyHealth''in {Type} depolamasından mevcut veriler dışa aktarılamadı.'
 
-      # Message shown on successful erase
-      success-erase: '&aBodyHealth''in {Type} depolamasındaki tüm veriler başarıyla silindi.'
+      erase:
 
-      # Message shown on successful move
-      success-move: '&a{Count} oyuncunun verileri BodyHealth''in {Type1} depolamasından {Type2} depolamasına başarıyla taşındı.'
+        # Message shown for incorrect command usage (erase)
+        usage: '&bKullanım: /bodyhealth data erase <depolama türü>'
 
-      # Message shown if dumping data fails
-      fail-dump: '&cBodyHealth''in {Type} depolamasındaki veriler aktarılamadı.'
+        # Message used to confirm the erase command
+        confirmation: '&c&lUYARI: &r&cBodyHealth''in {Type} depolamasındaki tüm verileri silmek üzeresiniz!<br> &eDevam etmek için bu komutu tekrar yazın.'
 
-      # Message shown if erasing data fails
-      fail-erase: '&cBodyHealth''in {Type} depolamasındaki tüm veriler silinemedi.'
+        # Message shown on erase start
+        start: '&aBodyHealth''in {Type} depolamasındaki tüm veriler siliniyor...'
 
-      # Message shown if moving data fails
-      fail-move: '&cBodyHealth''in {Type1} depolamasındaki veriler {Type2} depolamasına taşınamadı.'
+        # Message shown on successful erase
+        success: '&aBodyHealth''in {Type} depolamasındaki tüm veriler başarıyla silindi.'
+
+        # Message shown if erasing data fails
+        fail: '&cBodyHealth''in {Type} depolamasındaki veriler silinemedi.'
+
+      move:
+
+        # Message shown for incorrect command usage (move)
+        usage: '&bKullanım: /bodyhealth data move <depolama türü> <depolama türü>'
+
+        # Message used to confirm the move command
+        confirmation: '&c&lUYARI: &r&cBodyHealth''in {Type1} depolamasındaki tüm verileri {Type2} depolamasına taşımak üzeresiniz. Mevcut veriler üzerine yazılabilir!<br> &eDevam etmek için bu komutu tekrar yazın.'
+
+        # Message shown on move start
+        start: '&aBodyHealth''in {Type1} depolamasındaki veriler {Type2} depolamasına taşınıyor...'
+
+        # Message shown on successful move
+        success: '&a{Count} oyuncunun verileri BodyHealth''in {Type1} depolamasından {Type2} depolamasına başarıyla taşındı.'
+
+        # Message shown if moving data fails
+        fail: '&cBodyHealth''in {Type1} depolamasındaki mevcut veriler {Type2} depolamasına taşınamadı.'
+
+    debug:
+
+      # Message shown for incorrect command usage
+      usage: '&bKullanım: /bodyhealth debug <dump/toggle> [...]'
+
+      dump:
+
+        # Message shown on dump start
+        start: '&aHata ayıklama bilgileri toplanıyor ve dışa aktarılıyor...'
+
+        # Message shown on successful dump
+        success: '&aHata ayıklama bilgileri {File} dosyasına başarıyla aktarıldı.'
+
+        # Message shown if dumping data fails
+        fail: '&cHata ayıklama bilgileri dışa aktarılamadı!'
+
+      toggle:
+
+        # Message shown for toggling on debug mode
+        normal-on: '&aHata ayıklama modu etkinleştirildi.'
+
+        # Message shown for toggling off debug mode
+        normal-off: '&aHata ayıklama modu devre dışı bırakıldı.'
+
+        # Message shown for toggling on verbose (development) mode
+        verbose-on: '&aGeliştirici modu etkinleştirildi.'
+
+        # Message shown for toggling off verbose (development) mode
+        verbose-off: '&aGeliştirici modu devre dışı bırakıldı.'

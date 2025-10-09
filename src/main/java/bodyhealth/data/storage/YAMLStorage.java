@@ -14,10 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class YAMLStorage implements Storage {
 
@@ -69,6 +66,13 @@ public class YAMLStorage implements Storage {
             yaml.set("players." + uuid + ".health." + part.name(), health);
         }
 
+        yaml.set("players." + uuid + ".effects", null); // Clear previously stored effects
+        for (Map.Entry<BodyPart, List<String[]>> entry : bodyHealth.getOngoingEffects().entrySet()) {
+            yaml.set("players." + uuid + ".effects." + entry.getKey().name(),
+                    entry.getValue().stream().map(array -> String.join("/", array)).toList()
+            );
+        }
+
         try {
             yaml.save(file);
         } catch (IOException e) {
@@ -90,7 +94,8 @@ public class YAMLStorage implements Storage {
         ConfigurationSection health = player.getConfigurationSection("health");
         if (health == null) return new BodyHealth(uuid);
 
-        return getBodyHealth(uuid, health);
+        ConfigurationSection effects = player.getConfigurationSection("effects");
+        return getBodyHealth(uuid, health, effects);
     }
 
     @Override
@@ -110,9 +115,11 @@ public class YAMLStorage implements Storage {
             ConfigurationSection health = player.getConfigurationSection("health");
             if (health == null) continue;
 
+            ConfigurationSection effects = player.getConfigurationSection("effects");
+
             try {
                 UUID uuid = UUID.fromString(key);
-                map.put(uuid, getBodyHealth(uuid, health));
+                map.put(uuid, getBodyHealth(uuid, health, effects));
             } catch (Exception ignored) {
             }
         }
@@ -120,7 +127,7 @@ public class YAMLStorage implements Storage {
         return map;
     }
 
-    private BodyHealth getBodyHealth(UUID uuid, ConfigurationSection health) {
+    private BodyHealth getBodyHealth(UUID uuid, ConfigurationSection health, ConfigurationSection effects) {
 
         double head = health.getDouble(BodyPart.HEAD.name(), 100.0);
         double torso = health.getDouble(BodyPart.TORSO.name(), 100.0);
@@ -131,7 +138,15 @@ public class YAMLStorage implements Storage {
         double foot_left = health.getDouble(BodyPart.FOOT_LEFT.name(), 100.0);
         double foot_right = health.getDouble(BodyPart.FOOT_RIGHT.name(), 100.0);
 
-        return new BodyHealth(uuid, head, torso, arm_left, arm_right, leg_left, leg_right, foot_left, foot_right);
+        BodyHealth bh = new BodyHealth(uuid, head, torso, arm_left, arm_right, leg_left, leg_right, foot_left, foot_right);
+        if (effects == null) return bh;
+
+        for (BodyPart part : BodyPart.values()) {
+            for (String effect : effects.getStringList(part.name())) {
+                bh.addToOngoingEffects(part, effect.split("/"));
+            }
+        }
+        return bh;
     }
 
     public static String dump(Map<UUID, BodyHealth> map, StorageType origin) {

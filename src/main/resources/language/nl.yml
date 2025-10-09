@@ -103,38 +103,85 @@ commands:
       # Message shown for incorrect command usage
       usage: '&bGebruik: /bodyhealth data <save/dump/erase/move> [...]'
 
-      # Message shown for incorrect command usage (dump)
-      usage-dump: '&bGebruik: /bodyhealth data dump <storage type>'
+      save:
 
-      # Message shown for incorrect command usage (erase)
-      usage-erase: '&bGebruik: /bodyhealth data erase <storage type>'
+        # Message shown on successful save
+        success: '&aAlle gegevens voor {Count} online speler(s) zijn succesvol opgeslagen.'
 
-      # Message shown for incorrect command usage (move)
-      usage-move: '&bGebruik: /bodyhealth data move <storage type> <storage type>'
+      dump:
 
-      # Message used to confirm the erase command
-      confirmation-erase: '&c&lWAARSCHUWING: &r&cJe staat op het punt om alle bestaande gegevens uit de {Type}-opslag van BodyHealth te verwijderen!<br> &eOm door te gaan, voer dit commando opnieuw in.'
+        # Message shown for incorrect command usage (dump)
+        usage: '&bGebruik: /bodyhealth data dump <opslagtype>'
 
-      # Message used to confirm the move command
-      confirmation-move: '&c&lWAARSCHUWING: &r&cJe staat op het punt om alle gegevens van de {Type1}-opslag van BodyHealth naar de {Type2}-opslag te verplaatsen, wat bestaande gegevens kan overschrijven!<br> &eOm door te gaan, voer dit commando opnieuw in.'
+        # Message shown on dump start
+        start: '&aGegevens verzamelen en exporteren uit de {Type}-opslag van BodyHealth...'
 
-      # Message shown on successful save
-      success-save: '&aAlle gegevens voor {Count} online speler(s) zijn succesvol opgeslagen.'
+        # Message shown on successful dump
+        success: '&aSuccesvol gegevens van {Count} speler(s) geëxporteerd uit de {Type}-opslag van BodyHealth naar {File}.'
 
-      # Message shown on successful dump
-      success-dump: '&aGegevens voor {Count} speler(s) zijn succesvol geëxporteerd van de {Type}-opslag van BodyHealth naar {File}.'
+        # Message shown if dumping data fails
+        fail: '&cHet is niet gelukt om bestaande gegevens uit de {Type}-opslag van BodyHealth te exporteren.'
 
-      # Message shown on successful erase
-      success-erase: '&aAlle gegevens zijn succesvol verwijderd uit de {Type}-opslag van BodyHealth.'
+      erase:
 
-      # Message shown on successful move
-      success-move: '&aGegevens voor {Count} speler(s) zijn succesvol verplaatst van de {Type1}-opslag van BodyHealth naar de {Type2}-opslag.'
+        # Message shown for incorrect command usage (erase)
+        usage: '&bGebruik: /bodyhealth data erase <opslagtype>'
 
-      # Message shown if dumping data fails
-      fail-dump: '&cHet exporteren van bestaande gegevens uit de {Type}-opslag van BodyHealth is mislukt.'
+        # Message used to confirm the erase command
+        confirmation: '&c&lWAARSCHUWING: &r&cJe staat op het punt alle bestaande gegevens uit de {Type}-opslag van BodyHealth te verwijderen!<br> &eVoer dit commando opnieuw in om door te gaan.'
 
-      # Message shown if erasing data fails
-      fail-erase: '&cHet verwijderen van alle gegevens uit de {Type}-opslag van BodyHealth is mislukt.'
+        # Message shown on erase start
+        start: '&aAlle gegevens uit de {Type}-opslag van BodyHealth verwijderen...'
 
-      # Message shown if moving data fails
-      fail-move: '&cHet verplaatsen van alle bestaande gegevens van de {Type1}-opslag van BodyHealth naar de {Type2}-opslag is mislukt.'
+        # Message shown on successful erase
+        success: '&aAlle gegevens uit de {Type}-opslag van BodyHealth zijn succesvol verwijderd.'
+
+        # Message shown if erasing data fails
+        fail: '&cHet is niet gelukt om alle gegevens uit de {Type}-opslag van BodyHealth te verwijderen.'
+
+      move:
+
+        # Message shown for incorrect command usage (move)
+        usage: '&bGebruik: /bodyhealth data move <opslagtype> <opslagtype>'
+
+        # Message used to confirm the move command
+        confirmation: '&c&lWAARSCHUWING: &r&cJe staat op het punt alle gegevens van de {Type1}-opslag naar de {Type2}-opslag van BodyHealth te verplaatsen, waardoor bestaande gegevens kunnen worden overschreven!<br> &eVoer dit commando opnieuw in om door te gaan.'
+
+        # Message shown on move start
+        start: '&aGegevens verplaatsen van de {Type1}-opslag naar de {Type2}-opslag van BodyHealth...'
+
+        # Message shown on successful move
+        success: '&aSuccesvol gegevens van {Count} speler(s) verplaatst van de {Type1}-opslag naar de {Type2}-opslag van BodyHealth.'
+
+        # Message shown if moving data fails
+        fail: '&cHet is niet gelukt om alle bestaande gegevens van de {Type1}-opslag naar de {Type2}-opslag van BodyHealth te verplaatsen.'
+
+    debug:
+
+      # Message shown for incorrect command usage
+      usage: '&bGebruik: /bodyhealth debug <dump/toggle> [...]'
+
+      dump:
+
+        # Message shown on dump start
+        start: '&aDebug-informatie verzamelen en exporteren...'
+
+        # Message shown on successful dump
+        success: '&aDebug-informatie succesvol geëxporteerd naar {File}.'
+
+        # Message shown if dumping data fails
+        fail: '&cExporteren van debug-informatie mislukt!'
+
+      toggle:
+
+        # Message shown for toggling on debug mode
+        normal-on: '&aDebugmodus ingeschakeld.'
+
+        # Message shown for toggling off debug mode
+        normal-off: '&aDebugmodus uitgeschakeld.'
+
+        # Message shown for toggling on verbose (development) mode
+        verbose-on: '&aOntwikkelmodus ingeschakeld.'
+
+        # Message shown for toggling off verbose (development) mode
+        verbose-off: '&aOntwikkelmodus uitgeschakeld.'

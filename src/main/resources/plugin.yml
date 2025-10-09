@@ -37,6 +37,9 @@ commands:
       bodyhealth.data:
         description: Allows using the data command
         default: op
+      bodyhealth.debug:
+        description: Allows using the debug command
+        default: op
       bodyhealth.*:
         description: Allows managing body health
         default: op
@@ -47,6 +50,7 @@ commands:
           bodyhealth.set: true
           bodyhealth.add: true
           bodyhealth.data: true
+          bodyhealth.debug: true
 
 permissions:
 

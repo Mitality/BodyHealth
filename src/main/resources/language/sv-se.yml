@@ -103,38 +103,85 @@ commands:
       # Message shown for incorrect command usage
       usage: '&bAnvändning: /bodyhealth data <save/dump/erase/move> [...]'
 
-      # Message shown for incorrect command usage (dump)
-      usage-dump: '&bAnvändning: /bodyhealth data dump <storage type>'
+      save:
 
-      # Message shown for incorrect command usage (erase)
-      usage-erase: '&bAnvändning: /bodyhealth data erase <storage type>'
+        # Message shown on successful save
+        success: '&aAll data för {Count} ansluten(a) spelare har sparats framgångsrikt.'
 
-      # Message shown for incorrect command usage (move)
-      usage-move: '&bAnvändning: /bodyhealth data move <storage type> <storage type>'
+      dump:
 
-      # Message used to confirm the erase command
-      confirmation-erase: '&c&lVARNING: &r&cDu är på väg att radera all befintlig data från BodyHealths {Type}-lagring!<br> &eFör att fortsätta, skriv kommandot igen.'
+        # Message shown for incorrect command usage (dump)
+        usage: '&bAnvändning: /bodyhealth data dump <lagringstyp>'
 
-      # Message used to confirm the move command
-      confirmation-move: '&c&lVARNING: &r&cDu är på väg att flytta all data från BodyHealths {Type1}-lagring till {Type2}-lagringen, vilket kan skriva över befintlig data!<br> &eFör att fortsätta, skriv kommandot igen.'
+        # Message shown on dump start
+        start: '&aSamlar in och exporterar data från BodyHealths {Type}-lagring...'
 
-      # Message shown on successful save
-      success-save: '&aAll data för {Count} online-spelare sparades framgångsrikt.'
+        # Message shown on successful dump
+        success: '&aData för {Count} spelare har exporterats framgångsrikt från BodyHealths {Type}-lagring till {File}.'
 
-      # Message shown on successful dump
-      success-dump: '&aData för {Count} spelare exporterades framgångsrikt från BodyHealths {Type}-lagring till {File}.'
+        # Message shown if dumping data fails
+        fail: '&cMisslyckades med att exportera befintlig data från BodyHealths {Type}-lagring.'
 
-      # Message shown on successful erase
-      success-erase: '&aAll data raderades framgångsrikt från BodyHealths {Type}-lagring.'
+      erase:
 
-      # Message shown on successful move
-      success-move: '&aData för {Count} spelare flyttades framgångsrikt från BodyHealths {Type1}-lagring till {Type2}-lagringen.'
+        # Message shown for incorrect command usage (erase)
+        usage: '&bAnvändning: /bodyhealth data erase <lagringstyp>'
 
-      # Message shown if dumping data fails
-      fail-dump: '&cKunde inte exportera data från BodyHealths {Type}-lagring.'
+        # Message used to confirm the erase command
+        confirmation: '&c&lVARNING: &r&cDu håller på att radera all befintlig data från BodyHealths {Type}-lagring!<br> &eFör att fortsätta, skriv kommandot igen.'
 
-      # Message shown if erasing data fails
-      fail-erase: '&cKunde inte radera all data från BodyHealths {Type}-lagring.'
+        # Message shown on erase start
+        start: '&aRaderar all data från BodyHealths {Type}-lagring...'
 
-      # Message shown if moving data fails
-      fail-move: '&cKunde inte flytta data från BodyHealths {Type1}-lagring till {Type2}-lagringen.'
+        # Message shown on successful erase
+        success: '&aAll data från BodyHealths {Type}-lagring har raderats framgångsrikt.'
+
+        # Message shown if erasing data fails
+        fail: '&cMisslyckades med att radera all data från BodyHealths {Type}-lagring.'
+
+      move:
+
+        # Message shown for incorrect command usage (move)
+        usage: '&bAnvändning: /bodyhealth data move <lagringstyp> <lagringstyp>'
+
+        # Message used to confirm the move command
+        confirmation: '&c&lVARNING: &r&cDu håller på att flytta all data från BodyHealths {Type1}-lagring till {Type2}-lagringen, vilket kan skriva över befintlig data!<br> &eFör att fortsätta, skriv kommandot igen.'
+
+        # Message shown on move start
+        start: '&aFlyttar data från BodyHealths {Type1}-lagring till {Type2}-lagringen...'
+
+        # Message shown on successful move
+        success: '&aData för {Count} spelare har flyttats framgångsrikt från BodyHealths {Type1}-lagring till {Type2}-lagringen.'
+
+        # Message shown if moving data fails
+        fail: '&cMisslyckades med att flytta all befintlig data från BodyHealths {Type1}-lagring till {Type2}-lagringen.'
+
+    debug:
+
+      # Message shown for incorrect command usage
+      usage: '&bAnvändning: /bodyhealth debug <dump/toggle> [...]'
+
+      dump:
+
+        # Message shown on dump start
+        start: '&aSamlar in och exporterar felsökningsinformation...'
+
+        # Message shown on successful dump
+        success: '&aFelsökningsinformationen har exporterats till {File}.'
+
+        # Message shown if dumping data fails
+        fail: '&cMisslyckades med att exportera felsökningsinformationen!'
+
+      toggle:
+
+        # Message shown for toggling on debug mode
+        normal-on: '&aFelsökningsläge aktiverat.'
+
+        # Message shown for toggling off debug mode
+        normal-off: '&aFelsökningsläge inaktiverat.'
+
+        # Message shown for toggling on verbose (development) mode
+        verbose-on: '&aUtvecklingsläge aktiverat.'
+
+        # Message shown for toggling off verbose (development) mode
+        verbose-off: '&aUtvecklingsläge inaktiverat.'

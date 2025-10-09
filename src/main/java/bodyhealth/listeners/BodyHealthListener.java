@@ -21,6 +21,8 @@ import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class BodyHealthListener implements Listener {
@@ -29,19 +31,16 @@ public class BodyHealthListener implements Listener {
     public void onPlayerDamage(EntityDamageEvent event) {
 
         if (event.isCancelled()) return;
-        if (!(event.getEntity() instanceof Player)) return;
+        if (!(event.getEntity() instanceof Player player)) return;
 
-        Player player = (Player) event.getEntity();
         BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(player);
         EntityDamageEvent.DamageCause cause = event.getCause();
         double damage = event.getFinalDamage();
 
-        if (event instanceof EntityDamageByEntityEvent) {
-            EntityDamageByEntityEvent entityDamageEvent = (EntityDamageByEntityEvent) event;
+        if (event instanceof EntityDamageByEntityEvent entityDamageEvent) {
             Entity damager = entityDamageEvent.getDamager();
 
-            if (damager instanceof Arrow) {
-                Arrow arrow = (Arrow) damager;
+            if (damager instanceof Arrow arrow) {
                 BodyPart hitBodyPart = BodyHealthCalculator.calculateHitByArrow(player, arrow);
                 BodyHealthUtils.applyDamageWithConfig(bodyHealth, cause, damage, hitBodyPart, false, event);
                 Debug.log("Player " + player.getName() + " was hit by an arrow on " + hitBodyPart.name() + " with " + String.format("%.2f", damage) + " damage.");
@@ -71,8 +70,7 @@ public class BodyHealthListener implements Listener {
 
         }
 
-        else if (event instanceof EntityDamageByBlockEvent) {
-            EntityDamageByBlockEvent blockDamageEvent = (EntityDamageByBlockEvent) event;
+        else if (event instanceof EntityDamageByBlockEvent blockDamageEvent) {
 
             // 1.21.3 & 1.21.4 PaperMC bug
             if (blockDamageEvent.getDamager() == null) {
@@ -190,6 +188,7 @@ public class BodyHealthListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
+        EffectHandler.removeOngoingEffects(event.getPlayer()); // Clean up known leftover effects
         if (BodyHealthUtils.isSystemEnabled(event.getPlayer())) EffectHandler.addEffectsToPlayer(event.getPlayer());
     }
 

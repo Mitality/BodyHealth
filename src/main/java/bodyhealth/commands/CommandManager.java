@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class CommandManager implements TabExecutor {
 
-    private static Map<String, SubCommand> subCommands = new HashMap<>();
+    private static final Map<String, SubCommand> subCommands = new HashMap<>();
 
     public CommandManager() {
         subCommands.put("reload", new ReloadCommand());
@@ -27,6 +27,7 @@ public class CommandManager implements TabExecutor {
         subCommands.put("set", new SetCommand());
         subCommands.put("add", new AddCommand());
         subCommands.put("data", new DataCommand());
+        subCommands.put("debug", new DebugCommand());
     }
 
     @Override

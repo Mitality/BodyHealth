@@ -7,13 +7,11 @@ import bodyhealth.data.DataManager;
 import bodyhealth.depend.PlaceholderAPI;
 import bodyhealth.depend.WorldGuard;
 import bodyhealth.effects.EffectHandler;
-import bodyhealth.listeners.BetterHudListener;
-import bodyhealth.listeners.BodyHealthListener;
+import bodyhealth.listeners.*;
 import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
-import bodyhealth.listeners.PlaceholderAPIListener;
-import bodyhealth.listeners.UpdateNotifyListener;
 import bodyhealth.migrations.Migrator;
+import bodyhealth.util.FoliaUtils;
 import bodyhealth.util.UpdateChecker;
 import com.github.Anon8281.universalScheduler.UniversalScheduler;
 import com.github.Anon8281.universalScheduler.scheduling.schedulers.TaskScheduler;
@@ -175,14 +173,14 @@ public final class Main extends JavaPlugin {
         }
 
         Debug.log("System initialized");
-
     }
 
     @Override
     public void onDisable() {
         Debug.log("Disabling System...");
         for (Player player : Bukkit.getOnlinePlayers()) {
-            EffectHandler.removeEffectsFromPlayer(player); // Ensure that all effects are removed
+            if (!FoliaUtils.isFolia() && Config.remove_effects_on_shutdown)
+                EffectHandler.removeEffectsFromPlayer(player);
             DataManager.saveBodyHealth(player.getUniqueId());
         }
         migrator.onDisable();

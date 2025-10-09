@@ -35,7 +35,6 @@ public class PREVENT_INTERACT implements BodyHealthEffect {
 
         try {
             EquipmentSlot hand = EquipmentSlot.valueOf(args[1].trim().toUpperCase());
-            BodyHealthUtils.getBodyHealth(player).addToOngoingEffects(part, args);
             Debug.log("(" + part.name() +") Preventing " + hand.name() + " interaction for player " + player.getName());
 
         } catch (IllegalArgumentException e) {
@@ -54,7 +53,6 @@ public class PREVENT_INTERACT implements BodyHealthEffect {
 
         try {
             EquipmentSlot hand = EquipmentSlot.valueOf(args[1].trim().toUpperCase());
-            BodyHealthUtils.getBodyHealth(player).removeFromOngoingEffects(part, args);
             Debug.log("(" + part.name() +") No longer preventing " + hand.name() + " interaction for player " + player.getName());
 
         } catch (IllegalArgumentException e) {

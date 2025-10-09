@@ -103,38 +103,85 @@ commands:
       # Message shown for incorrect command usage
       usage: '&bUso: /bodyhealth data <save/dump/erase/move> [...]'
 
-      # Message shown for incorrect command usage (dump)
-      usage-dump: '&bUso: /bodyhealth data dump <storage type>'
+      save:
 
-      # Message shown for incorrect command usage (erase)
-      usage-erase: '&bUso: /bodyhealth data erase <storage type>'
+        # Message shown on successful save
+        success: '&aDatos guardados correctamente para {Count} jugador(es) en línea.'
 
-      # Message shown for incorrect command usage (move)
-      usage-move: '&bUso: /bodyhealth data move <storage type> <storage type>'
+      dump:
 
-      # Message used to confirm the erase command
-      confirmation-erase: '&c&lADVERTENCIA: &r&c¡Estás a punto de borrar todos los datos existentes del almacenamiento {Type} de BodyHealth!<br> &ePara continuar, escribe este comando de nuevo.'
+        # Message shown for incorrect command usage (dump)
+        usage: '&bUso: /bodyhealth data dump <tipo de almacenamiento>'
 
-      # Message used to confirm the move command
-      confirmation-move: '&c&lADVERTENCIA: &r&c¡Estás a punto de mover todos los datos del almacenamiento {Type1} de BodyHealth al almacenamiento {Type2}, lo que puede sobrescribir datos existentes!<br> &ePara continuar, escribe este comando de nuevo.'
+        # Message shown on dump start
+        start: '&aRecopilando y volcando datos desde el almacenamiento {Type} de BodyHealth...'
 
-      # Message shown on successful save
-      success-save: '&aTodos los datos de {Count} jugador(es) en línea se guardaron correctamente.'
+        # Message shown on successful dump
+        success: '&aDatos de {Count} jugador(es) volcados correctamente desde el almacenamiento {Type} de BodyHealth a {File}.'
 
-      # Message shown on successful dump
-      success-dump: '&aSe exportaron correctamente los datos de {Count} jugador(es) desde el almacenamiento {Type} de BodyHealth a {File}.'
+        # Message shown if dumping data fails
+        fail: '&cError al volcar los datos existentes del almacenamiento {Type} de BodyHealth.'
 
-      # Message shown on successful erase
-      success-erase: '&aTodos los datos se borraron correctamente del almacenamiento {Type} de BodyHealth.'
+      erase:
 
-      # Message shown on successful move
-      success-move: '&aSe movieron correctamente los datos de {Count} jugador(es) desde el almacenamiento {Type1} de BodyHealth al almacenamiento {Type2}.'
+        # Message shown for incorrect command usage (erase)
+        usage: '&bUso: /bodyhealth data erase <tipo de almacenamiento>'
 
-      # Message shown if dumping data fails
-      fail-dump: '&cNo se pudieron exportar los datos existentes del almacenamiento {Type} de BodyHealth.'
+        # Message used to confirm the erase command
+        confirmation: '&c&lADVERTENCIA: &r&c¡Estás a punto de borrar todos los datos existentes del almacenamiento {Type} de BodyHealth!<br> &ePara continuar, escribe este comando nuevamente.'
 
-      # Message shown if erasing data fails
-      fail-erase: '&cNo se pudieron borrar todos los datos del almacenamiento {Type} de BodyHealth.'
+        # Message shown on erase start
+        start: '&aBorrando todos los datos del almacenamiento {Type} de BodyHealth...'
 
-      # Message shown if moving data fails
-      fail-move: '&cNo se pudieron mover todos los datos existentes del almacenamiento {Type1} de BodyHealth al almacenamiento {Type2}.'
+        # Message shown on successful erase
+        success: '&aTodos los datos del almacenamiento {Type} de BodyHealth se han borrado correctamente.'
+
+        # Message shown if erasing data fails
+        fail: '&cError al borrar todos los datos del almacenamiento {Type} de BodyHealth.'
+
+      move:
+
+        # Message shown for incorrect command usage (move)
+        usage: '&bUso: /bodyhealth data move <tipo de almacenamiento> <tipo de almacenamiento>'
+
+        # Message used to confirm the move command
+        confirmation: '&c&lADVERTENCIA: &r&c¡Estás a punto de mover todos los datos del almacenamiento {Type1} al {Type2} de BodyHealth, lo que podría sobrescribir datos existentes!<br> &ePara continuar, escribe este comando nuevamente.'
+
+        # Message shown on move start
+        start: '&aMoviendo datos del almacenamiento {Type1} al {Type2} de BodyHealth...'
+
+        # Message shown on successful move
+        success: '&aDatos para {Count} jugador(es) movidos correctamente del almacenamiento {Type1} al {Type2} de BodyHealth.'
+
+        # Message shown if moving data fails
+        fail: '&cError al mover todos los datos existentes del almacenamiento {Type1} al {Type2} de BodyHealth.'
+
+    debug:
+
+      # Message shown for incorrect command usage
+      usage: '&bUso: /bodyhealth debug <dump/toggle> [...]'
+
+      dump:
+
+        # Message shown on dump start
+        start: '&aRecopilando y volcando información de depuración...'
+
+        # Message shown on successful dump
+        success: '&aInformación de depuración volcada correctamente en {File}.'
+
+        # Message shown if dumping data fails
+        fail: '&cError al volcar la información de depuración!'
+
+      toggle:
+
+        # Message shown for toggling on debug mode
+        normal-on: '&aModo de depuración activado.'
+
+        # Message shown for toggling off debug mode
+        normal-off: '&aModo de depuración desactivado.'
+
+        # Message shown for toggling on verbose (development) mode
+        verbose-on: '&aModo de desarrollo activado.'
+
+        # Message shown for toggling off verbose (development) mode
+        verbose-off: '&aModo de desarrollo desactivado.'

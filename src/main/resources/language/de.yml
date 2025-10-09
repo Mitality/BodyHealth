@@ -103,38 +103,85 @@ commands:
       # Message shown for incorrect command usage
       usage: '&bVerwendung: /bodyhealth data <save/dump/erase/move> [...]'
 
-      # Message shown for incorrect command usage (dump)
-      usage-dump: '&bVerwendung: /bodyhealth data dump <storage type>'
+      save:
 
-      # Message shown for incorrect command usage (erase)
-      usage-erase: '&bVerwendung: /bodyhealth data erase <storage type>'
+        # Message shown on successful save
+        success: '&aAlle Daten für {Count} Online-Spieler erfolgreich gespeichert.'
 
-      # Message shown for incorrect command usage (move)
-      usage-move: '&bVerwendung: /bodyhealth data move <storage type> <storage type>'
+      dump:
 
-      # Message used to confirm the erase command
-      confirmation-erase: '&c&lWARNUNG: &r&cDu bist dabei, alle vorhandenen Daten aus dem BodyHealth {Type}-Speicher zu löschen!<br> &eUm fortzufahren, gib diesen Befehl bitte erneut ein.'
+        # Message shown for incorrect command usage (dump)
+        usage: '&bVerwendung: /bodyhealth data dump <Speichertyp>'
 
-      # Message used to confirm the move command
-      confirmation-move: '&c&lWARNUNG: &r&cDu bist dabei, alle Daten aus dem BodyHealth {Type1}-Speicher in den {Type2}-Speicher zu verschieben. Dabei können vorhandene Daten überschrieben werden!<br> &eUm fortzufahren, gib diesen Befehl bitte erneut ein.'
+        # Message shown on dump start
+        start: '&aSammle und exportiere Daten aus dem {Type}-Speicher von BodyHealth...'
 
-      # Message shown on successful save
-      success-save: '&aAlle Daten für {Count} Spieler online wurden erfolgreich gespeichert.'
+        # Message shown on successful dump
+        success: '&aDaten für {Count} Spieler erfolgreich aus dem {Type}-Speicher von BodyHealth nach {File} exportiert.'
 
-      # Message shown on successful dump
-      success-dump: '&aDaten für {Count} Spieler wurden erfolgreich aus dem BodyHealth {Type}-Speicher nach {File} exportiert.'
+        # Message shown if dumping data fails
+        fail: '&cFehler beim Exportieren vorhandener Daten aus dem {Type}-Speicher von BodyHealth.'
 
-      # Message shown on successful erase
-      success-erase: '&aAlle Daten wurden erfolgreich aus dem BodyHealth {Type}-Speicher gelöscht.'
+      erase:
 
-      # Message shown on successful move
-      success-move: '&aDaten für {Count} Spieler wurden erfolgreich aus dem BodyHealth {Type1}-Speicher in den {Type2}-Speicher verschoben.'
+        # Message shown for incorrect command usage (erase)
+        usage: '&bVerwendung: /bodyhealth data erase <Speichertyp>'
 
-      # Message shown if dumping data fails
-      fail-dump: '&cDie vorhandenen Daten aus dem BodyHealth {Type}-Speicher konnten nicht exportiert werden.'
+        # Message used to confirm the erase command
+        confirmation: '&c&lWARNUNG: &r&cDu bist dabei, alle vorhandenen Daten aus dem {Type}-Speicher von BodyHealth zu löschen!<br> &eUm fortzufahren, gib diesen Befehl bitte erneut ein.'
 
-      # Message shown if erasing data fails
-      fail-erase: '&cEs war nicht möglich, alle Daten aus dem BodyHealth {Type}-Speicher zu löschen.'
+        # Message shown on erase start
+        start: '&aLösche alle Daten aus dem {Type}-Speicher von BodyHealth...'
 
-      # Message shown if moving data fails
-      fail-move: '&cEs war nicht möglich, alle vorhandenen Daten aus dem BodyHealth {Type1}-Speicher in den {Type2}-Speicher zu verschieben.'
+        # Message shown on successful erase
+        success: '&aAlle Daten aus dem {Type}-Speicher von BodyHealth erfolgreich gelöscht.'
+
+        # Message shown if erasing data fails
+        fail: '&cFehler beim Löschen aller Daten aus dem {Type}-Speicher von BodyHealth.'
+
+      move:
+
+        # Message shown for incorrect command usage (move)
+        usage: '&bVerwendung: /bodyhealth data move <Speichertyp> <Speichertyp>'
+
+        # Message used to confirm the move command
+        confirmation: '&c&lWARNUNG: &r&cDu bist dabei, alle Daten vom {Type1}-Speicher in den {Type2}-Speicher von BodyHealth zu verschieben, wodurch eventuell vorhandene Daten überschrieben werden!<br> &eUm fortzufahren, gib diesen Befehl bitte erneut ein.'
+
+        # Message shown on move start
+        start: '&aVerschiebe Daten vom {Type1}-Speicher in den {Type2}-Speicher von BodyHealth...'
+
+        # Message shown on successful move
+        success: '&aDaten für {Count} Spieler erfolgreich vom {Type1}-Speicher in den {Type2}-Speicher von BodyHealth verschoben.'
+
+        # Message shown if moving data fails
+        fail: '&cFehler beim Verschieben aller vorhandenen Daten vom {Type1}-Speicher in den {Type2}-Speicher von BodyHealth.'
+
+    debug:
+
+      # Message shown for incorrect command usage
+      usage: '&bVerwendung: /bodyhealth debug <dump/toggle> [...]'
+
+      dump:
+
+        # Message shown on dump start
+        start: '&aSammle und exportiere Debug-Informationen...'
+
+        # Message shown on successful dump
+        success: '&aDebug-Informationen erfolgreich nach {File} exportiert.'
+
+        # Message shown if dumping data fails
+        fail: '&cFehler beim Exportieren der Debug-Informationen!'
+
+      toggle:
+
+        # Message shown for toggling on debug mode
+        normal-on: '&aDebug-Modus aktiviert.'
+
+        # Message shown for toggling off debug mode
+        normal-off: '&aDebug-Modus deaktiviert.'
+
+        # Message shown for toggling on verbose (development) mode
+        verbose-on: '&aEntwicklungsmodus aktiviert.'
+
+        # Message shown for toggling off verbose (development) mode
+        verbose-off: '&aEntwicklungsmodus deaktiviert.'

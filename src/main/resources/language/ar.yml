@@ -103,38 +103,85 @@ commands:
       # Message shown for incorrect command usage
       usage: '&bالاستخدام: /bodyhealth data <save/dump/erase/move> [...]'
 
-      # Message shown for incorrect command usage (dump)
-      usage-dump: '&bالاستخدام: /bodyhealth data dump <storage type>'
+      save:
 
-      # Message shown for incorrect command usage (erase)
-      usage-erase: '&bالاستخدام: /bodyhealth data erase <storage type>'
+        # Message shown on successful save
+        success: '&aتم حفظ جميع البيانات بنجاح لـ {Count} لاعب(ين) متصلين.'
 
-      # Message shown for incorrect command usage (move)
-      usage-move: '&bالاستخدام: /bodyhealth data move <storage type> <storage type>'
+      dump:
 
-      # Message used to confirm the erase command
-      confirmation-erase: '&c&lتحذير: &r&cأنت على وشك مسح جميع البيانات الموجودة من تخزين BodyHealth {Type}!<br> &eللمتابعة، يرجى كتابة هذا الأمر مرة أخرى.'
+        # Message shown for incorrect command usage (dump)
+        usage: '&bالاستخدام: /bodyhealth data dump <نوع التخزين>'
 
-      # Message used to confirm the move command
-      confirmation-move: '&c&lتحذير: &r&cأنت على وشك نقل جميع البيانات من تخزين BodyHealth {Type1} إلى تخزين {Type2}، مما قد يستبدل البيانات الموجودة بالفعل هناك!<br> &eللمتابعة، يرجى كتابة هذا الأمر مرة أخرى.'
+        # Message shown on dump start
+        start: '&aجمع وتفريغ البيانات من تخزين {Type} الخاص بـ BodyHealth...'
 
-      # Message shown on successful save
-      success-save: '&aتم حفظ جميع البيانات بنجاح لعدد {Count} لاعب(ين) متصلين.'
+        # Message shown on successful dump
+        success: '&aتم تفريغ البيانات لـ {Count} لاعب(ين) من تخزين {Type} الخاص بـ BodyHealth إلى {File}.'
 
-      # Message shown on successful dump
-      success-dump: '&aتم تفريغ البيانات بنجاح لعدد {Count} لاعب(ين) من تخزين BodyHealth {Type} إلى {File}.'
+        # Message shown if dumping data fails
+        fail: '&cفشل تفريغ البيانات الموجودة من تخزين {Type} الخاص بـ BodyHealth.'
 
-      # Message shown on successful erase
-      success-erase: '&aتم مسح جميع البيانات بنجاح من تخزين BodyHealth {Type}.'
+      erase:
 
-      # Message shown on successful move
-      success-move: '&aتم نقل البيانات بنجاح لعدد {Count} لاعب(ين) من تخزين BodyHealth {Type1} إلى تخزين {Type2}.'
+        # Message shown for incorrect command usage (erase)
+        usage: '&bالاستخدام: /bodyhealth data erase <نوع التخزين>'
 
-      # Message shown if dumping data fails
-      fail-dump: '&cفشل في تفريغ البيانات الموجودة من تخزين BodyHealth {Type}.'
+        # Message used to confirm the erase command
+        confirmation: '&c&lتحذير: &r&cأنت على وشك مسح كل البيانات الموجودة من تخزين {Type} الخاص بـ BodyHealth!<br> &eللمتابعة، الرجاء كتابة هذا الأمر مرة أخرى.'
 
-      # Message shown if erasing data fails
-      fail-erase: '&cفشل في مسح جميع البيانات من تخزين BodyHealth {Type}.'
+        # Message shown on erase start
+        start: '&aمسح جميع البيانات من تخزين {Type} الخاص بـ BodyHealth...'
 
-      # Message shown if moving data fails
-      fail-move: '&cفشل في نقل جميع البيانات الموجودة من تخزين BodyHealth {Type1} إلى تخزين {Type2}.'
+        # Message shown on successful erase
+        success: '&aتم مسح جميع البيانات من تخزين {Type} الخاص بـ BodyHealth بنجاح.'
+
+        # Message shown if erasing data fails
+        fail: '&cفشل مسح جميع البيانات من تخزين {Type} الخاص بـ BodyHealth.'
+
+      move:
+
+        # Message shown for incorrect command usage (move)
+        usage: '&bالاستخدام: /bodyhealth data move <نوع التخزين> <نوع التخزين>'
+
+        # Message used to confirm the move command
+        confirmation: '&c&lتحذير: &r&cأنت على وشك نقل جميع البيانات من تخزين {Type1} إلى تخزين {Type2} الخاص بـ BodyHealth، مما قد يؤدي إلى الكتابة فوق بيانات موجودة بالفعل!<br> &eللمتابعة، الرجاء كتابة هذا الأمر مرة أخرى.'
+
+        # Message shown on move start
+        start: '&aنقل البيانات من تخزين {Type1} إلى تخزين {Type2} الخاص بـ BodyHealth...'
+
+        # Message shown on successful move
+        success: '&aتم نقل البيانات لـ {Count} لاعب(ين) بنجاح من تخزين {Type1} إلى تخزين {Type2} الخاص بـ BodyHealth.'
+
+        # Message shown if moving data fails
+        fail: '&cفشل نقل جميع البيانات الموجودة من تخزين {Type1} إلى تخزين {Type2} الخاص بـ BodyHealth.'
+
+    debug:
+
+      # Message shown for incorrect command usage
+      usage: '&bالاستخدام: /bodyhealth debug <dump/toggle> [...]'
+
+      dump:
+
+        # Message shown on dump start
+        start: '&aجمع وتفريغ معلومات التصحيح...'
+
+        # Message shown on successful dump
+        success: '&aتم تفريغ معلومات التصحيح بنجاح إلى {File}.'
+
+        # Message shown if dumping data fails
+        fail: '&cفشل تفريغ معلومات التصحيح!'
+
+      toggle:
+
+        # Message shown for toggling on debug mode
+        normal-on: '&aتم تفعيل وضع التصحيح.'
+
+        # Message shown for toggling off debug mode
+        normal-off: '&aتم تعطيل وضع التصحيح.'
+
+        # Message shown for toggling on verbose (development) mode
+        verbose-on: '&aتم تفعيل وضع التطوير.'
+
+        # Message shown for toggling off verbose (development) mode
+        verbose-off: '&aتم تعطيل وضع التطوير.'

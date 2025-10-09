@@ -4,7 +4,6 @@ import bodyhealth.config.Debug;
 import bodyhealth.core.BodyPart;
 import bodyhealth.effects.BodyHealthEffect;
 import bodyhealth.effects.EffectType;
-import bodyhealth.util.BodyHealthUtils;
 import org.bukkit.entity.Player;
 
 public class PREVENT_SPRINT implements BodyHealthEffect {
@@ -26,20 +25,15 @@ public class PREVENT_SPRINT implements BodyHealthEffect {
 
     @Override
     public void onApply(Player player, BodyPart part, String[] args, boolean isRecovery) {
-
-        BodyHealthUtils.getBodyHealth(player).addToOngoingEffects(part, args);
         Debug.log("(" + part.name() +") Preventing sprint for player " + player.getName());
-
     }
 
     @Override
     public void onRemove(Player player, BodyPart part, String[] args, boolean isRecovery) {
-
-        BodyHealthUtils.getBodyHealth(player).removeFromOngoingEffects(part, args);
         Debug.log("(" + part.name() +") No longer preventing sprint for player " + player.getName());
-
     }
 
     // This effect utilizes a special builtin system that detects this effect when listed as ongoing
+    // Managing this effect here would be much less responsive, as we (un)apply it constantly
 
 }

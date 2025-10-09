@@ -103,38 +103,85 @@ commands:
       # Message shown for incorrect command usage
       usage: '&bИспользование: /bodyhealth data <save/dump/erase/move> [...]'
 
-      # Message shown for incorrect command usage (dump)
-      usage-dump: '&bИспользование: /bodyhealth data dump <storage type>'
+      save:
 
-      # Message shown for incorrect command usage (erase)
-      usage-erase: '&bИспользование: /bodyhealth data erase <storage type>'
+        # Message shown on successful save
+        success: '&aВсе данные для {Count} игрок(ов) онлайн успешно сохранены.'
 
-      # Message shown for incorrect command usage (move)
-      usage-move: '&bИспользование: /bodyhealth data move <storage type> <storage type>'
+      dump:
 
-      # Message used to confirm the erase command
-      confirmation-erase: '&c&lПРЕДУПРЕЖДЕНИЕ: &r&cВы собираетесь удалить все данные из хранилища BodyHealth {Type}!<br> &eЧтобы продолжить, введите эту команду ещё раз.'
+        # Message shown for incorrect command usage (dump)
+        usage: '&bИспользование: /bodyhealth data dump <тип хранилища>'
 
-      # Message used to confirm the move command
-      confirmation-move: '&c&lПРЕДУПРЕЖДЕНИЕ: &r&cВы собираетесь переместить все данные из хранилища BodyHealth {Type1} в хранилище {Type2}, что может перезаписать уже существующие данные!<br> &eЧтобы продолжить, введите эту команду ещё раз.'
+        # Message shown on dump start
+        start: '&aСбор и экспорт данных из {Type}-хранилища BodyHealth...'
 
-      # Message shown on successful save
-      success-save: '&aВсе данные {Count} игрока(ов) онлайн были успешно сохранены.'
+        # Message shown on successful dump
+        success: '&aДанные {Count} игрок(ов) успешно экспортированы из {Type}-хранилища BodyHealth в {File}.'
 
-      # Message shown on successful dump
-      success-dump: '&aДанные {Count} игрока(ов) успешно экспортированы из хранилища BodyHealth {Type} в {File}.'
+        # Message shown if dumping data fails
+        fail: '&cНе удалось экспортировать существующие данные из {Type}-хранилища BodyHealth.'
 
-      # Message shown on successful erase
-      success-erase: '&aВсе данные были успешно удалены из хранилища BodyHealth {Type}.'
+      erase:
 
-      # Message shown on successful move
-      success-move: '&aДанные {Count} игрока(ов) успешно перемещены из хранилища BodyHealth {Type1} в хранилище {Type2}.'
+        # Message shown for incorrect command usage (erase)
+        usage: '&bИспользование: /bodyhealth data erase <тип хранилища>'
 
-      # Message shown if dumping data fails
-      fail-dump: '&cНе удалось экспортировать данные из хранилища BodyHealth {Type}.'
+        # Message used to confirm the erase command
+        confirmation: '&c&lПРЕДУПРЕЖДЕНИЕ: &r&cВы собираетесь удалить все существующие данные из {Type}-хранилища BodyHealth!<br> &eЧтобы продолжить, введите эту команду ещё раз.'
 
-      # Message shown if erasing data fails
-      fail-erase: '&cНе удалось удалить все данные из хранилища BodyHealth {Type}.'
+        # Message shown on erase start
+        start: '&aУдаление всех данных из {Type}-хранилища BodyHealth...'
 
-      # Message shown if moving data fails
-      fail-move: '&cНе удалось переместить данные из хранилища BodyHealth {Type1} в хранилище {Type2}.'
+        # Message shown on successful erase
+        success: '&aВсе данные из {Type}-хранилища BodyHealth успешно удалены.'
+
+        # Message shown if erasing data fails
+        fail: '&cНе удалось удалить все данные из {Type}-хранилища BodyHealth.'
+
+      move:
+
+        # Message shown for incorrect command usage (move)
+        usage: '&bИспользование: /bodyhealth data move <тип хранилища> <тип хранилища>'
+
+        # Message used to confirm the move command
+        confirmation: '&c&lПРЕДУПРЕЖДЕНИЕ: &r&cВы собираетесь переместить все данные из {Type1}-хранилища в {Type2}-хранилище BodyHealth, что может перезаписать существующие данные!<br> &eЧтобы продолжить, введите эту команду ещё раз.'
+
+        # Message shown on move start
+        start: '&aПеремещение данных из {Type1}-хранилища в {Type2}-хранилище BodyHealth...'
+
+        # Message shown on successful move
+        success: '&aДанные {Count} игрок(ов) успешно перемещены из {Type1}-хранилища в {Type2}-хранилище BodyHealth.'
+
+        # Message shown if moving data fails
+        fail: '&cНе удалось переместить существующие данные из {Type1}-хранилища в {Type2}-хранилище BodyHealth.'
+
+    debug:
+
+      # Message shown for incorrect command usage
+      usage: '&bИспользование: /bodyhealth debug <dump/toggle> [...]'
+
+      dump:
+
+        # Message shown on dump start
+        start: '&aСбор и экспорт отладочной информации...'
+
+        # Message shown on successful dump
+        success: '&aОтладочная информация успешно экспортирована в {File}.'
+
+        # Message shown if dumping data fails
+        fail: '&cНе удалось экспортировать отладочную информацию!'
+
+      toggle:
+
+        # Message shown for toggling on debug mode
+        normal-on: '&aРежим отладки включен.'
+
+        # Message shown for toggling off debug mode
+        normal-off: '&aРежим отладки выключен.'
+
+        # Message shown for toggling on verbose (development) mode
+        verbose-on: '&aРежим разработки включен.'
+
+        # Message shown for toggling off verbose (development) mode
+        verbose-off: '&aРежим разработки выключен.'

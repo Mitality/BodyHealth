@@ -10,8 +10,6 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Player;
 
-import java.util.Objects;
-
 public class PREVENT_WALK implements BodyHealthEffect {
 
     @Override
@@ -32,9 +30,7 @@ public class PREVENT_WALK implements BodyHealthEffect {
     @Override
     public void onApply(Player player, BodyPart part, String[] args, boolean isRecovery) {
 
-        BodyHealthUtils.getBodyHealth(player).addToOngoingEffects(part, args);
         Debug.log("(" + part.name() +") Preventing walk for player " + player.getName());
-
         AttributeInstance walkAttribute = player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED);
         if (walkAttribute != null && walkAttribute.getModifiers().stream().noneMatch(mod -> mod.getKey().equals(EffectHandler.getWalkDenialModifier().getKey()))) {
             Debug.log("Adding WalkDenialModifier to player " + player.getName());
@@ -46,9 +42,7 @@ public class PREVENT_WALK implements BodyHealthEffect {
     @Override
     public void onRemove(Player player, BodyPart part, String[] args, boolean isRecovery) {
 
-        BodyHealthUtils.getBodyHealth(player).removeFromOngoingEffects(part, args);
         Debug.log("(" + part.name() +") No longer preventing walk for player " + player.getName());
-
         AttributeInstance walkAttribute = player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED);
         if (walkAttribute != null && BodyHealthUtils.canPlayerWalk(player)) {
             if (walkAttribute.getModifiers().stream().anyMatch(mod -> mod.getKey().equals(EffectHandler.getWalkDenialModifier().getKey()))) {

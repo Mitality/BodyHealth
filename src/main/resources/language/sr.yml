@@ -103,38 +103,85 @@ commands:
       # Message shown for incorrect command usage
       usage: '&bUpotreba: /bodyhealth data <save/dump/erase/move> [...]'
 
-      # Message shown for incorrect command usage (dump)
-      usage-dump: '&bUpotreba: /bodyhealth data dump <storage type>'
+      save:
 
-      # Message shown for incorrect command usage (erase)
-      usage-erase: '&bUpotreba: /bodyhealth data erase <storage type>'
+        # Message shown on successful save
+        success: '&aSvi podaci za {Count} igrača na mreži uspešno su sačuvani.'
 
-      # Message shown for incorrect command usage (move)
-      usage-move: '&bUpotreba: /bodyhealth data move <storage type> <storage type>'
+      dump:
 
-      # Message used to confirm the erase command
-      confirmation-erase: '&c&lUPOZORENJE: &r&cSpremate se da obrišete sve postojeće podatke iz BodyHealth {Type} skladišta!<br> &eDa nastavite, ponovo unesite ovu komandu.'
+        # Message shown for incorrect command usage (dump)
+        usage: '&bUpotreba: /bodyhealth data dump <tip skladišta>'
 
-      # Message used to confirm the move command
-      confirmation-move: '&c&lUPOZORENJE: &r&cSpremate se da premestite sve podatke iz BodyHealth {Type1} skladišta u {Type2} skladište, što može prepisati postojeće podatke!<br> &eDa nastavite, ponovo unesite ovu komandu.'
+        # Message shown on dump start
+        start: '&aPrikupljam i izvozím podatke iz {Type} skladišta BodyHealth-a...'
 
-      # Message shown on successful save
-      success-save: '&aSvi podaci za {Count} online igrača uspešno su sačuvani.'
+        # Message shown on successful dump
+        success: '&aPodaci za {Count} igrača uspešno su izvezeni iz {Type} skladišta BodyHealth-a u {File}.'
 
-      # Message shown on successful dump
-      success-dump: '&aPodaci za {Count} igrača uspešno su izvezeni iz BodyHealth {Type} skladišta u {File}.'
+        # Message shown if dumping data fails
+        fail: '&cNije uspelo izvoženje postojećih podataka iz {Type} skladišta BodyHealth-a.'
 
-      # Message shown on successful erase
-      success-erase: '&aSvi podaci uspešno su obrisani iz BodyHealth {Type} skladišta.'
+      erase:
 
-      # Message shown on successful move
-      success-move: '&aPodaci za {Count} igrača uspešno su premešteni iz BodyHealth {Type1} skladišta u {Type2} skladište.'
+        # Message shown for incorrect command usage (erase)
+        usage: '&bUpotreba: /bodyhealth data erase <tip skladišta>'
 
-      # Message shown if dumping data fails
-      fail-dump: '&cNeuspešno izvoz podataka iz BodyHealth {Type} skladišta.'
+        # Message used to confirm the erase command
+        confirmation: '&c&lUPOZORENJE: &r&cSpremate se da obrišete sve postojeće podatke iz {Type} skladišta BodyHealth-a!<br> &eDa biste nastavili, unesite ovu komandu ponovo.'
 
-      # Message shown if erasing data fails
-      fail-erase: '&cNeuspešno brisanje svih podataka iz BodyHealth {Type} skladišta.'
+        # Message shown on erase start
+        start: '&aBrisanje svih podataka iz {Type} skladišta BodyHealth-a...'
 
-      # Message shown if moving data fails
-      fail-move: '&cNeuspešno premeštanje podataka iz BodyHealth {Type1} skladišta u {Type2} skladište.'
+        # Message shown on successful erase
+        success: '&aSvi podaci iz {Type} skladišta BodyHealth-a uspešno su obrisani.'
+
+        # Message shown if erasing data fails
+        fail: '&cBrisanje svih podataka iz {Type} skladišta BodyHealth-a nije uspelo.'
+
+      move:
+
+        # Message shown for incorrect command usage (move)
+        usage: '&bUpotreba: /bodyhealth data move <tip skladišta> <tip skladišta>'
+
+        # Message used to confirm the move command
+        confirmation: '&c&lUPOZORENJE: &r&cSpremate se da premestite sve podatke iz {Type1} skladišta u {Type2} skladište BodyHealth-a, što može prebrisati postojeće podatke!<br> &eDa biste nastavili, unesite ovu komandu ponovo.'
+
+        # Message shown on move start
+        start: '&aPremeštanje podataka iz {Type1} skladišta u {Type2} skladište BodyHealth-a...'
+
+        # Message shown on successful move
+        success: '&aPodaci za {Count} igrača uspešno su premešteni iz {Type1} skladišta u {Type2} skladište BodyHealth-a.'
+
+        # Message shown if moving data fails
+        fail: '&cPremeštanje postojećih podataka iz {Type1} skladišta u {Type2} skladište BodyHealth-a nije uspelo.'
+
+    debug:
+
+      # Message shown for incorrect command usage
+      usage: '&bUpotreba: /bodyhealth debug <dump/toggle> [...]'
+
+      dump:
+
+        # Message shown on dump start
+        start: '&aPrikupljanje i izvoz informacija za ispravljanje grešaka...'
+
+        # Message shown on successful dump
+        success: '&aInformacije za ispravljanje grešaka uspešno su izvezene u {File}.'
+
+        # Message shown if dumping data fails
+        fail: '&cIzvoz informacija za ispravljanje grešaka nije uspeo!'
+
+      toggle:
+
+        # Message shown for toggling on debug mode
+        normal-on: '&aRežim ispravljanja grešaka uključen.'
+
+        # Message shown for toggling off debug mode
+        normal-off: '&aRežim ispravljanja grešaka isključen.'
+
+        # Message shown for toggling on verbose (development) mode
+        verbose-on: '&aRazvojni režim uključen.'
+
+        # Message shown for toggling off verbose (development) mode
+        verbose-off: '&aRazvojni režim isključen.'

@@ -103,38 +103,85 @@ commands:
       # Message shown for incorrect command usage
       usage: '&bUso: /bodyhealth data <save/dump/erase/move> [...]'
 
-      # Message shown for incorrect command usage (dump)
-      usage-dump: '&bUso: /bodyhealth data dump <storage type>'
+      save:
 
-      # Message shown for incorrect command usage (erase)
-      usage-erase: '&bUso: /bodyhealth data erase <storage type>'
+        # Message shown on successful save
+        success: '&aTutti i dati per {Count} giocator(i) online sono stati salvati con successo.'
 
-      # Message shown for incorrect command usage (move)
-      usage-move: '&bUso: /bodyhealth data move <storage type> <storage type>'
+      dump:
 
-      # Message used to confirm the erase command
-      confirmation-erase: '&c&lATTENZIONE: &r&cStai per cancellare tutti i dati esistenti dallo storage {Type} di BodyHealth!<br> &ePer continuare, digita di nuovo questo comando.'
+        # Message shown for incorrect command usage (dump)
+        usage: '&bUso: /bodyhealth data dump <tipo di archiviazione>'
 
-      # Message used to confirm the move command
-      confirmation-move: '&c&lATTENZIONE: &r&cStai per spostare tutti i dati dallo storage {Type1} di BodyHealth allo storage {Type2}, sovrascrivendo eventualmente i dati già presenti!<br> &ePer continuare, digita di nuovo questo comando.'
+        # Message shown on dump start
+        start: '&aRaccolta ed esportazione dei dati dall’archiviazione {Type} di BodyHealth...'
 
-      # Message shown on successful save
-      success-save: '&aTutti i dati per {Count} giocatore/i online sono stati salvati con successo.'
+        # Message shown on successful dump
+        success: '&aDati di {Count} giocator(i) esportati con successo dall’archiviazione {Type} di BodyHealth a {File}.'
 
-      # Message shown on successful dump
-      success-dump: '&aI dati per {Count} giocatore/i sono stati esportati con successo dallo storage {Type} di BodyHealth in {File}.'
+        # Message shown if dumping data fails
+        fail: '&cImpossibile esportare i dati esistenti dall’archiviazione {Type} di BodyHealth.'
 
-      # Message shown on successful erase
-      success-erase: '&aTutti i dati sono stati cancellati con successo dallo storage {Type} di BodyHealth.'
+      erase:
 
-      # Message shown on successful move
-      success-move: '&aI dati per {Count} giocatore/i sono stati spostati con successo dallo storage {Type1} di BodyHealth allo storage {Type2}.'
+        # Message shown for incorrect command usage (erase)
+        usage: '&bUso: /bodyhealth data erase <tipo di archiviazione>'
 
-      # Message shown if dumping data fails
-      fail-dump: '&cImpossibile esportare i dati esistenti dallo storage {Type} di BodyHealth.'
+        # Message used to confirm the erase command
+        confirmation: '&c&lATTENZIONE: &r&cStai per cancellare tutti i dati esistenti dall’archiviazione {Type} di BodyHealth!<br> &ePer procedere, digita nuovamente questo comando.'
 
-      # Message shown if erasing data fails
-      fail-erase: '&cImpossibile cancellare tutti i dati dallo storage {Type} di BodyHealth.'
+        # Message shown on erase start
+        start: '&aCancellazione di tutti i dati dall’archiviazione {Type} di BodyHealth...'
 
-      # Message shown if moving data fails
-      fail-move: '&cImpossibile spostare tutti i dati esistenti dallo storage {Type1} di BodyHealth allo storage {Type2}.'
+        # Message shown on successful erase
+        success: '&aTutti i dati dall’archiviazione {Type} di BodyHealth sono stati cancellati con successo.'
+
+        # Message shown if erasing data fails
+        fail: '&cImpossibile cancellare tutti i dati dall’archiviazione {Type} di BodyHealth.'
+
+      move:
+
+        # Message shown for incorrect command usage (move)
+        usage: '&bUso: /bodyhealth data move <tipo di archiviazione> <tipo di archiviazione>'
+
+        # Message used to confirm the move command
+        confirmation: '&c&lATTENZIONE: &r&cStai per spostare tutti i dati dall’archiviazione {Type1} a {Type2} di BodyHealth, sovrascrivendo potenzialmente i dati esistenti!<br> &ePer procedere, digita nuovamente questo comando.'
+
+        # Message shown on move start
+        start: '&aSpostamento dei dati dall’archiviazione {Type1} a {Type2} di BodyHealth...'
+
+        # Message shown on successful move
+        success: '&aDati di {Count} giocator(i) spostati con successo dall’archiviazione {Type1} a {Type2} di BodyHealth.'
+
+        # Message shown if moving data fails
+        fail: '&cImpossibile spostare tutti i dati esistenti dall’archiviazione {Type1} a {Type2} di BodyHealth.'
+
+    debug:
+
+      # Message shown for incorrect command usage
+      usage: '&bUso: /bodyhealth debug <dump/toggle> [...]'
+
+      dump:
+
+        # Message shown on dump start
+        start: '&aRaccolta ed esportazione delle informazioni di debug...'
+
+        # Message shown on successful dump
+        success: '&aInformazioni di debug esportate con successo in {File}.'
+
+        # Message shown if dumping data fails
+        fail: '&cImpossibile esportare le informazioni di debug!'
+
+      toggle:
+
+        # Message shown for toggling on debug mode
+        normal-on: '&aModalità debug attivata.'
+
+        # Message shown for toggling off debug mode
+        normal-off: '&aModalità debug disattivata.'
+
+        # Message shown for toggling on verbose (development) mode
+        verbose-on: '&aModalità sviluppo attivata.'
+
+        # Message shown for toggling off verbose (development) mode
+        verbose-off: '&aModalità sviluppo disattivata.'

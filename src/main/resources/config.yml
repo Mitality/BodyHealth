@@ -82,6 +82,8 @@ update-check-interval: 12
 # Whether to only check for full releases, or for any version
 # When set to false, BodyHealth also notifies you, when a new
 # prerelease or dev version of itself or an addon is available
+# NOTE: This is Modrinth only, as the dev builds on Jenkins
+# could contain breaking changes without notice/changelog
 releases-only: true
 
 # Share anonymous data to improve the plugin's development
@@ -97,6 +99,14 @@ self-harm: false
 # via the effects section. If this is done, should we ensure
 # that all players are still able to eat to heal back up?
 always-allow-eating: true
+
+# Should we remove all active effects from all online players,
+# when the server is shutting down? If set to false, effects are
+# stored and removed when the affected player joins the server again
+# NOTE: This is impossible to do on Folia due to it shutting down the
+# global thread needed to remove effects before plugins can know that
+# the server is shutting down. Hence, this defaults to false on Folia
+remove-effects-on-shutdown: true
 
 # Choose whether to use the /kill command to kill players instead of the API
 # Way more consistent across different server software, therefore recommended

@@ -247,4 +247,11 @@ public class BodyHealth {
         }
     }
 
+    /**
+     * Clears the list of currently ongoing effects
+     */
+    public void clearOngoingEffects() {
+        ongoingEffects.clear();
+    }
+
 }

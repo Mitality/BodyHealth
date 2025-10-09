@@ -103,38 +103,85 @@ commands:
       # Message shown for incorrect command usage
       usage: '&bBrug: /bodyhealth data <save/dump/erase/move> [...]'
 
-      # Message shown for incorrect command usage (dump)
-      usage-dump: '&bBrug: /bodyhealth data dump <storage type>'
+      save:
 
-      # Message shown for incorrect command usage (erase)
-      usage-erase: '&bBrug: /bodyhealth data erase <storage type>'
+        # Message shown on successful save
+        success: '&aAlle data for {Count} online spiller(e) blev gemt med succes.'
 
-      # Message shown for incorrect command usage (move)
-      usage-move: '&bBrug: /bodyhealth data move <storage type> <storage type>'
+      dump:
 
-      # Message used to confirm the erase command
-      confirmation-erase: '&c&lADVARSEL: &r&cDu er ved at slette alle eksisterende data fra BodyHealth''s {Type}-lager!<br> &eFor at fortsætte, skriv venligst kommandoen igen.'
+        # Message shown for incorrect command usage (dump)
+        usage: '&bBrug: /bodyhealth data dump <lagertype>'
 
-      # Message used to confirm the move command
-      confirmation-move: '&c&lADVARSEL: &r&cDu er ved at flytte alle data fra BodyHealth''s {Type1}-lager til dets {Type2}-lager, hvilket kan overskrive eksisterende data!<br> &eFor at fortsætte, skriv venligst kommandoen igen.'
+        # Message shown on dump start
+        start: '&aIndsamler og dumper data fra BodyHealths {Type}-lager…'
 
-      # Message shown on successful save
-      success-save: '&aAlle data for {Count} online spiller(e) blev gemt med succes.'
+        # Message shown on successful dump
+        success: '&aData for {Count} spiller(e) blev med succes dumpet fra BodyHealths {Type}-lager til {File}.'
 
-      # Message shown on successful dump
-      success-dump: '&aData for {Count} spiller(e) blev succesfuldt eksporteret fra BodyHealth''s {Type}-lager til {File}.'
+        # Message shown if dumping data fails
+        fail: '&cKunne ikke dumpe eksisterende data fra BodyHealths {Type}-lager.'
 
-      # Message shown on successful erase
-      success-erase: '&aAlle data blev succesfuldt slettet fra BodyHealth''s {Type}-lager.'
+      erase:
 
-      # Message shown on successful move
-      success-move: '&aData for {Count} spiller(e) blev succesfuldt flyttet fra BodyHealth''s {Type1}-lager til dets {Type2}-lager.'
+        # Message shown for incorrect command usage (erase)
+        usage: '&bBrug: /bodyhealth data erase <lagertype>'
 
-      # Message shown if dumping data fails
-      fail-dump: '&cKunne ikke eksportere eksisterende data fra BodyHealth''s {Type}-lager.'
+        # Message used to confirm the erase command
+        confirmation: '&c&lADVARSEL: &r&cDu er ved at slette alle eksisterende data fra BodyHealths {Type}-lager!<br> &eFor at fortsætte, skriv denne kommando igen.'
 
-      # Message shown if erasing data fails
-      fail-erase: '&cKunne ikke slette alle data fra BodyHealth''s {Type}-lager.'
+        # Message shown on erase start
+        start: '&aSletter alle data fra BodyHealths {Type}-lager…'
 
-      # Message shown if moving data fails
-      fail-move: '&cKunne ikke flytte alle eksisterende data fra BodyHealth''s {Type1}-lager til dets {Type2}-lager.'
+        # Message shown on successful erase
+        success: '&aAlle data fra BodyHealths {Type}-lager blev med succes slettet.'
+
+        # Message shown if erasing data fails
+        fail: '&cKunne ikke slette alle data fra BodyHealths {Type}-lager.'
+
+      move:
+
+        # Message shown for incorrect command usage (move)
+        usage: '&bBrug: /bodyhealth data move <lagertype> <lagertype>'
+
+        # Message used to confirm the move command
+        confirmation: '&c&lADVARSEL: &r&cDu er ved at flytte alle data fra BodyHealths {Type1}-lager til dets {Type2}-lager, hvilket potentielt overskriver eksisterende data!<br> &eFor at fortsætte, skriv denne kommando igen.'
+
+        # Message shown on move start
+        start: '&aFlytter data fra BodyHealths {Type1}-lager til dets {Type2}-lager…'
+
+        # Message shown on successful move
+        success: '&aData for {Count} spiller(e) blev med succes flyttet fra BodyHealths {Type1}-lager til dets {Type2}-lager.'
+
+        # Message shown if moving data fails
+        fail: '&cKunne ikke flytte alle eksisterende data fra BodyHealths {Type1}-lager til dets {Type2}-lager.'
+
+    debug:
+
+      # Message shown for incorrect command usage
+      usage: '&bBrug: /bodyhealth debug <dump/toggle> [...]'
+
+      dump:
+
+        # Message shown on dump start
+        start: '&aIndsamler og dumper debug-information…'
+
+        # Message shown on successful dump
+        success: '&aDebug-information blev med succes dumpet til {File}.'
+
+        # Message shown if dumping data fails
+        fail: '&cKunne ikke dumpe debug-information!'
+
+      toggle:
+
+        # Message shown for toggling on debug mode
+        normal-on: '&aDebug-tilstand aktiveret.'
+
+        # Message shown for toggling off debug mode
+        normal-off: '&aDebug-tilstand deaktiveret.'
+
+        # Message shown for toggling on verbose (development) mode
+        verbose-on: '&aUdviklingstilstand aktiveret.'
+
+        # Message shown for toggling off verbose (development) mode
+        verbose-off: '&aUdviklingstilstand deaktiveret.'

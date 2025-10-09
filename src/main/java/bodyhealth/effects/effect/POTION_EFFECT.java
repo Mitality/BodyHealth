@@ -46,8 +46,6 @@ public class POTION_EFFECT implements BodyHealthEffect {
             return;
         }
 
-
-        BodyHealthUtils.getBodyHealth(player).addToOngoingEffects(part, args);
         if (player.getPotionEffect(effectType) != null
                 && Objects.requireNonNull(player.getPotionEffect(effectType)).getDuration() == PotionEffect.INFINITE_DURATION
                 && Objects.requireNonNull(player.getPotionEffect(effectType)).getAmplifier() >= amplifier)
@@ -73,8 +71,6 @@ public class POTION_EFFECT implements BodyHealthEffect {
             return;
         }
 
-
-        BodyHealthUtils.getBodyHealth(player).removeFromOngoingEffects(part, args);
         int highestAmplifier = BodyHealthUtils.getHighestPotionEffectAmplifier(player, effectType);
 
         if (highestAmplifier >= 0) {

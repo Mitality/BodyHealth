@@ -1,5 +1,6 @@
 package bodyhealth.commands.subcommands;
 
+import bodyhealth.Main;
 import bodyhealth.commands.SubCommand;
 import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
@@ -9,11 +10,13 @@ import bodyhealth.data.DataManager;
 import bodyhealth.data.Storage;
 import bodyhealth.data.StorageType;
 import bodyhealth.data.storage.YAMLStorage;
+import bodyhealth.util.DebugUtils;
 import bodyhealth.util.MessageUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.io.File;
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -66,7 +69,7 @@ public class DataCommand implements SubCommand {
 
                 case "dump": {
                     if (args.length <= index) {
-                        MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_usage_dump);
+                        MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_dump_usage);
                         return true;
                     }
                     storageType1 = StorageType.fromString(args[index]);
@@ -75,7 +78,7 @@ public class DataCommand implements SubCommand {
 
                 case "erase": {
                     if (args.length <= index) {
-                        MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_usage_erase);
+                        MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_erase_usage);
                         return true;
                     }
                     storageType1 = StorageType.fromString(args[index]);
@@ -83,8 +86,8 @@ public class DataCommand implements SubCommand {
                 }
 
                 case "move": {
-                    if (args.length <= index + 0) {
-                        MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_usage_move);
+                    if (args.length <= index) {
+                        MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_move_usage);
                         return true;
                     }
                     storageType1 = StorageType.fromString(args[index++]);
@@ -112,29 +115,33 @@ public class DataCommand implements SubCommand {
             } catch (Exception ignored) {
             }
         }
-        MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_success_save
+        MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_save_success
                 .replace("{Count}", String.valueOf(count)));
         return true;
     }
 
     private boolean handleDump(CommandSender sender, StorageType storageType) {
-        try {
-            Map<UUID, BodyHealth> data = DataManager.getStorage(storageType).loadAllBodyHealth();
-            String file = YAMLStorage.dump(data, storageType);
-            if (file.isEmpty()) {
-                MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_fail_dump
+        Main.getScheduler().runTaskAsynchronously(() -> {
+            try {
+                Map<UUID, BodyHealth> data = DataManager.getStorage(storageType).loadAllBodyHealth();
+                String file = YAMLStorage.dump(data, storageType);
+                if (file.isEmpty()) {
+                    MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_dump_fail
                         .replace("{Type}", String.valueOf(storageType)));
-            } else {
-                MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_success_dump
+                } else {
+                    MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_dump_success
                         .replace("{Type}", String.valueOf(storageType))
                         .replace("{File}", file)
                         .replace("{Count}", String.valueOf(data.size())));
+                }
+            } catch (Exception e) {
+                MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_dump_fail
+                        .replace("{Type}", String.valueOf(storageType)));
+                Debug.logErr(e);
             }
-        } catch (Exception e) {
-            MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_fail_dump
-                    .replace("{Type}", String.valueOf(storageType)));
-            Debug.logErr(e);
-        }
+        });
+        MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_dump_start
+                .replace("{Type}", String.valueOf(storageType)));
         return true;
     }
 
@@ -144,24 +151,28 @@ public class DataCommand implements SubCommand {
 
         if (existing != null && !existing.isExpired() && existing.matches("erase", type, null)) {
             pending.remove(key);
-            try {
-                if (DataManager.getStorage(type).erase()) {
-                    MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_success_erase
+            Main.getScheduler().runTaskAsynchronously(() -> {
+                try {
+                    if (DataManager.getStorage(type).erase()) {
+                        MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_erase_success
+                                .replace("{Type}", String.valueOf(type)));
+                    } else {
+                        MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_erase_fail
+                                .replace("{Type}", String.valueOf(type)));
+                    }
+                } catch (Exception e) {
+                    MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_erase_fail
                             .replace("{Type}", String.valueOf(type)));
-                } else {
-                    MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_fail_erase
-                            .replace("{Type}", String.valueOf(type)));
+                    Debug.logErr(e);
                 }
-            } catch (Exception e) {
-                MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_fail_erase
-                        .replace("{Type}", String.valueOf(type)));
-                Debug.logErr(e);
-            }
+            });
+            MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_erase_start
+                    .replace("{Type}", String.valueOf(type)));
             return true;
         }
 
         pending.put(key, new PendingAction("erase", type, null));
-        MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_confirmation_erase
+        MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_erase_confirmation
                 .replace("{Type}", String.valueOf(type)));
         return true;
     }
@@ -172,34 +183,39 @@ public class DataCommand implements SubCommand {
 
         if (existing != null && !existing.isExpired() && existing.matches("move", type1, type2)) {
             pending.remove(key);
-            try {
-                Map<UUID, BodyHealth> data = DataManager.getStorage(type1).loadAllBodyHealth();
-                Storage targetStorage = DataManager.getStorage(type2);
+            Main.getScheduler().runTaskAsynchronously(() -> {
+                try {
+                    Map<UUID, BodyHealth> data = DataManager.getStorage(type1).loadAllBodyHealth();
+                    Storage targetStorage = DataManager.getStorage(type2);
 
-                int moved = 0;
-                for (Map.Entry<UUID, BodyHealth> entry : data.entrySet()) {
-                    try {
-                        targetStorage.saveBodyHealth(entry.getKey(), entry.getValue());
-                        moved++;
-                    } catch (Exception ignored) {
+                    int moved = 0;
+                    for (Map.Entry<UUID, BodyHealth> entry : data.entrySet()) {
+                        try {
+                            targetStorage.saveBodyHealth(entry.getKey(), entry.getValue());
+                            moved++;
+                        } catch (Exception ignored) {
+                        }
                     }
-                }
 
-                MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_success_move
+                    MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_move_success
                         .replace("{Type1}", String.valueOf(type1))
                         .replace("{Type2}", String.valueOf(type2))
                         .replace("{Count}", String.valueOf(moved)));
-            } catch (Exception e) {
-                MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_fail_move
+                } catch (Exception e) {
+                    MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_move_fail
                         .replace("{Type1}", String.valueOf(type1))
                         .replace("{Type2}", String.valueOf(type2)));
-                Debug.logErr(e);
-            }
+                    Debug.logErr(e);
+                }
+            });
+            MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_move_start
+                    .replace("{Type1}", String.valueOf(type1))
+                    .replace("{Type2}", String.valueOf(type2)));
             return true;
         }
 
         pending.put(key, new PendingAction("move", type1, type2));
-        MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_confirmation_move
+        MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_data_move_confirmation
                 .replace("{Type1}", String.valueOf(type1))
                 .replace("{Type2}", String.valueOf(type2)));
         return true;
