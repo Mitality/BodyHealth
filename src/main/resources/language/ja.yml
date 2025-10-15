@@ -26,7 +26,7 @@ commands:
   bodyhealth:
 
     # Message shown for incorrect command usage
-    usage: '&b使い方: /bodyhealth <get/set/add/heal/reload> <player> <bodypart> [value]'
+    usage: '&b使用方法: /bodyhealth <get/set/add/heal/reload> <player> <bodypart> [value]'
 
     # Message shown for invalid subcommands
     invalid: '&c無効なアクションです。''get''、''set''、''add''、''heal''、または''reload''を使用してください。'
@@ -40,7 +40,7 @@ commands:
     add:
 
       # Message shown for incorrect command usage
-      usage: '&b使用法: /bodyhealth add [プレイヤー] [体の部位] <値>'
+      usage: '&b使用方法: /bodyhealth add [プレイヤー] [体の部位] <値>'
 
       # Message shown when no valid target player could be retrieved
       no-target: '&cコンソールから実行する場合はプレイヤーを指定してください。'
@@ -57,13 +57,13 @@ commands:
     get:
 
       # Message shown for incorrect command usage
-      usage: '&b使用法: /bodyhealth get [プレイヤー] [体の部位]'
+      usage: '&b使用方法: /bodyhealth get [プレイヤー] [体の部位]'
 
       # Message shown when no valid target player could be retrieved
       no-target: '&cコンソールから実行する場合はプレイヤーを指定してください。'
 
       # Message shown on successful health retrieval (all parts)
-      success-all: "&a{Player}の体の健康状態:\n&e&l頭 &8&l» &a{Health_HEAD}%\n&e&l体 &8&l» &a{Health_TORSO}%\n&e&l左腕 &8&l» &a{Health_ARM_LEFT}%\n&e&l右腕 &8&l» &a{Health_ARM_RIGHT}%\n&e&l右腕 &8&l» &a{Health_LEG_LEFT}%\n&e&l右脚 &8&l» &a{Health_LEG_RIGHT}%\n&e&l左足 &8&l» &a{Health_FOOT_LEFT}%\n&e&l右足 &8&l» &a{Health_FOOT_RIGHT}%"
+      success-all: "&a{Player}の健康状態:\n&e&l頭 &8&l» &a{Health_HEAD}%\n&e&l体 &8&l» &a{Health_TORSO}%\n&e&l左腕 &8&l» &a{Health_ARM_LEFT}%\n&e&l右腕 &8&l» &a{Health_ARM_RIGHT}%\n&e&l左脚 &8&l» &a{Health_LEG_LEFT}%\n&e&l右脚 &8&l» &a{Health_LEG_RIGHT}%\n&e&l左足 &8&l» &a{Health_FOOT_LEFT}%\n&e&l右足 &8&l» &a{Health_FOOT_RIGHT}%"
 
       # Message shown on successful health retrieval (given part)
       success-single: '&a{Player}の{Part}は{Health}%です。'
@@ -71,7 +71,7 @@ commands:
     heal:
 
       # Message shown for incorrect command usage
-      usage: '&b使用法: /bodyhealth set [プレイヤー] [体の部位] <値>'
+      usage: '&b使用方法: /bodyhealth set [プレイヤー] [体の部位] <値>'
 
       # Message shown when no valid target player could be retrieved
       no-target: '&cコンソールから実行する場合はプレイヤーを指定してください。'
@@ -93,7 +93,7 @@ commands:
     set:
 
       # Message shown for incorrect command usage
-      usage: '&b使用法: /bodyhealth set [プレイヤー] [体の部位] <値>'
+      usage: '&b使用方法: /bodyhealth set [プレイヤー] [体の部位] <値>'
 
       # Message shown when no valid target player could be retrieved
       no-target: '&cコンソールから実行する場合はプレイヤーを指定してください。'
@@ -115,7 +115,7 @@ commands:
       save:
 
         # Message shown on successful save
-        success: '&a{Count} 人のオンラインプレイヤーのデータを正常に保存しました。'
+        success: '&a{Count}人のオンラインプレイヤーのデータを正常に保存しました。'
 
       dump:
 
@@ -123,13 +123,13 @@ commands:
         usage: '&b使用方法: /bodyhealth data dump <ストレージタイプ>'
 
         # Message shown on dump start
-        start: '&aBodyHealth の {Type} ストレージからデータを収集してエクスポートしています...'
+        start: '&aBodyHealthの{Type}ストレージからデータを収集してエクスポートしています...'
 
         # Message shown on successful dump
-        success: '&a{Count} 人のプレイヤーのデータを BodyHealth の {Type} ストレージから {File} に正常にエクスポートしました。'
+        success: '&a{Count}人のプレイヤーのデータをBodyHealthの{Type}ストレージから{File}に正常にエクスポートしました。'
 
         # Message shown if dumping data fails
-        fail: '&cBodyHealth の {Type} ストレージから既存データをエクスポートできませんでした。'
+        fail: '&cBodyHealthの{Type}ストレージから既存データをエクスポートできませんでした。'
 
       erase:
 
@@ -137,16 +137,16 @@ commands:
         usage: '&b使用方法: /bodyhealth data erase <ストレージタイプ>'
 
         # Message used to confirm the erase command
-        confirmation: '&c&l警告: &r&cBodyHealth の {Type} ストレージにあるすべてのデータを削除しようとしています！<br> &e続行するには、このコマンドをもう一度入力してください。'
+        confirmation: '&c&l警告: &r&cBodyHealthの{Type}ストレージにあるすべてのデータを削除しようとしています！<br> &e続行するには、このコマンドをもう一度入力してください。'
 
         # Message shown on erase start
-        start: '&aBodyHealth の {Type} ストレージからすべてのデータを削除しています...'
+        start: '&aBodyHealthの{Type}ストレージからすべてのデータを削除しています...'
 
         # Message shown on successful erase
-        success: '&aBodyHealth の {Type} ストレージからすべてのデータを正常に削除しました。'
+        success: '&aBodyHealthの{Type}ストレージからすべてのデータを正常に削除しました。'
 
         # Message shown if erasing data fails
-        fail: '&cBodyHealth の {Type} ストレージからすべてのデータを削除できませんでした。'
+        fail: '&cBodyHealthの{Type}ストレージからすべてのデータを削除できませんでした。'
 
       move:
 
@@ -154,16 +154,16 @@ commands:
         usage: '&b使用方法: /bodyhealth data move <ストレージタイプ> <ストレージタイプ>'
 
         # Message used to confirm the move command
-        confirmation: '&c&l警告: &r&cBodyHealth の {Type1} ストレージから {Type2} ストレージにすべてのデータを移動しようとしています。既存データが上書きされる可能性があります！<br> &e続行するには、このコマンドをもう一度入力してください。'
+        confirmation: '&c&l警告: &r&cBodyHealthの{Type1}ストレージから{Type2}ストレージにすべてのデータを移動しようとしています。既存データが上書きされる可能性があります！<br> &e続行するには、このコマンドをもう一度入力してください。'
 
         # Message shown on move start
-        start: '&aBodyHealth の {Type1} ストレージから {Type2} ストレージにデータを移動しています...'
+        start: '&aBodyHealthの{Type1}ストレージから{Type2}ストレージにデータを移動しています...'
 
         # Message shown on successful move
-        success: '&a{Count} 人のプレイヤーのデータを BodyHealth の {Type1} ストレージから {Type2} ストレージに正常に移動しました。'
+        success: '&a{Count}人のプレイヤーのデータをBodyHealthの{Type1}ストレージから{Type2}ストレージに正常に移動しました。'
 
         # Message shown if moving data fails
-        fail: '&cBodyHealth の {Type1} ストレージから {Type2} ストレージへのデータ移動に失敗しました。'
+        fail: '&cBodyHealthの{Type1}ストレージから{Type2}ストレージへのデータ移動に失敗しました。'
 
     debug:
 
@@ -176,7 +176,7 @@ commands:
         start: '&aデバッグ情報を収集してエクスポートしています...'
 
         # Message shown on successful dump
-        success: '&aデバッグ情報を {File} に正常にエクスポートしました。'
+        success: '&aデバッグ情報を{File}に正常にエクスポートしました。'
 
         # Message shown if dumping data fails
         fail: '&cデバッグ情報のエクスポートに失敗しました！'
