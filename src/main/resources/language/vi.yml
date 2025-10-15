@@ -12,6 +12,15 @@ definitions:
     FOOT_LEFT: 'bàn chân trái'
     FOOT_RIGHT: 'bàn chân phải'
 
+  body-part-states:
+
+    # Used in PAPI placeholders
+    FULL: 'khỏe mạnh'
+    NEARLYFULL: 'bị thương nhẹ'
+    INTERMEDIATE: 'bị thương vừa'
+    DAMAGED: 'bị thương nặng'
+    BROKEN: 'gãy'
+
 commands:
 
   bodyhealth:

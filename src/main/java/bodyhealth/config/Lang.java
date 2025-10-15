@@ -1,6 +1,7 @@
 package bodyhealth.config;
 
 import bodyhealth.core.BodyPart;
+import bodyhealth.core.BodyPartState;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public class Lang {
@@ -14,6 +15,13 @@ public class Lang {
     public static String LEG_RIGHT;
     public static String FOOT_LEFT;
     public static String FOOT_RIGHT;
+
+    // Body Part States
+    public static String FULL;
+    public static String NEARLYFULL;
+    public static String INTERMEDIATE;
+    public static String DAMAGED;
+    public static String BROKEN;
 
     // Command Manager
     public static String bodyhealth_usage;
@@ -91,6 +99,12 @@ public class Lang {
         FOOT_LEFT = config.getString("definitions.body-parts.FOOT_LEFT", "FOOT_LEFT");
         FOOT_RIGHT = config.getString("definitions.body-parts.FOOT_RIGHT", "FOOT_RIGHT");
 
+        FULL = config.getString("definitions.body-part-states.FULL", "FULL");
+        NEARLYFULL = config.getString("definitions.body-part-states.NEARLYFULL", "NEARLYFULL");
+        INTERMEDIATE = config.getString("definitions.body-part-states.INTERMEDIATE", "INTERMEDIATE");
+        DAMAGED = config.getString("definitions.body-part-states.DAMAGED", "DAMAGED");
+        BROKEN = config.getString("definitions.body-part-states.BROKEN", "BROKEN");
+
         // Command Manager
         bodyhealth_usage = config.getString("commands.bodyhealth.usage", "bodyhealth_usage");
         bodyhealth_invalid = config.getString("commands.bodyhealth.invalid", "bodyhealth_invalid");
@@ -158,8 +172,8 @@ public class Lang {
     }
 
     // If someone's got a better approach, let me know
-    public static String partName(BodyPart bodyPart) {
-        return switch (bodyPart) {
+    public static String partName(BodyPart part) {
+        return switch (part) {
             case HEAD -> HEAD;
             case TORSO -> TORSO;
             case ARM_LEFT -> ARM_LEFT;
@@ -168,6 +182,15 @@ public class Lang {
             case LEG_RIGHT -> LEG_RIGHT;
             case FOOT_LEFT -> FOOT_LEFT;
             case FOOT_RIGHT -> FOOT_RIGHT;
+        };
+    }
+    public static String stateName(BodyPartState state) {
+        return switch (state) {
+            case FULL -> FULL;
+            case NEARLYFULL -> NEARLYFULL;
+            case INTERMEDIATE -> INTERMEDIATE;
+            case DAMAGED -> DAMAGED;
+            case BROKEN -> BROKEN;
         };
     }
 }

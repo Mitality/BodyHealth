@@ -12,6 +12,15 @@ definitions:
     FOOT_LEFT: 'القدم اليسرى'
     FOOT_RIGHT: 'القدم اليمنى'
 
+  body-part-states:
+
+    # Used in PAPI placeholders
+    FULL: 'سليم'
+    NEARLYFULL: 'إصابة خفيفة'
+    INTERMEDIATE: 'إصابة متوسطة'
+    DAMAGED: 'إصابة خطيرة'
+    BROKEN: 'مكسور'
+
 commands:
 
   bodyhealth:

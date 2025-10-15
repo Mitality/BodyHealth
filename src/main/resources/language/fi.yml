@@ -12,6 +12,15 @@ definitions:
     FOOT_LEFT: 'vasen jalka'
     FOOT_RIGHT: 'oikea jalka'
 
+  body-part-states:
+
+    # Used in PAPI placeholders
+    FULL: 'terve'
+    NEARLYFULL: 'lievästi vahingoittunut'
+    INTERMEDIATE: 'kohtalaisesti vahingoittunut'
+    DAMAGED: 'vakavasti vahingoittunut'
+    BROKEN: 'murtunut'
+
 commands:
 
   bodyhealth:

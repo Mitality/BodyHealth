@@ -12,6 +12,15 @@ definitions:
     FOOT_LEFT: 'venstre fod'
     FOOT_RIGHT: 'højre fod'
 
+  body-part-states:
+
+    # Used in PAPI placeholders
+    FULL: 'sund'
+    NEARLYFULL: 'let skadet'
+    INTERMEDIATE: 'moderat skadet'
+    DAMAGED: 'alvorligt skadet'
+    BROKEN: 'brækket'
+
 commands:
 
   bodyhealth:

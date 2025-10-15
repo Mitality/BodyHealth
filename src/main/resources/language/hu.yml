@@ -12,6 +12,15 @@ definitions:
     FOOT_LEFT: 'bal lábfej'
     FOOT_RIGHT: 'jobb lábfej'
 
+  body-part-states:
+
+    # Used in PAPI placeholders
+    FULL: 'egészséges'
+    NEARLYFULL: 'enyhén sérült'
+    INTERMEDIATE: 'közepesen sérült'
+    DAMAGED: 'súlyosan sérült'
+    BROKEN: 'eltört'
+
 commands:
 
   bodyhealth:

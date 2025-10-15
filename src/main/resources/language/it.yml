@@ -12,6 +12,15 @@ definitions:
     FOOT_LEFT: 'piede sinistro'
     FOOT_RIGHT: 'piede destro'
 
+  body-part-states:
+
+    # Used in PAPI placeholders
+    FULL: 'sano'
+    NEARLYFULL: 'lieve'
+    INTERMEDIATE: 'moderato'
+    DAMAGED: 'grave'
+    BROKEN: 'rotto'
+
 commands:
 
   bodyhealth:

@@ -12,6 +12,15 @@ definitions:
     FOOT_LEFT: 'peu esquerre'
     FOOT_RIGHT: 'peu dret'
 
+  body-part-states:
+
+    # Used in PAPI placeholders
+    FULL: 'sa'
+    NEARLYFULL: 'lleu'
+    INTERMEDIATE: 'moderat'
+    DAMAGED: 'greu'
+    BROKEN: 'trencat'
+
 commands:
 
   bodyhealth:

@@ -12,6 +12,15 @@ definitions:
     FOOT_LEFT: 'picior stâng'
     FOOT_RIGHT: 'picior drept'
 
+  body-part-states:
+
+    # Used in PAPI placeholders
+    FULL: 'sănătos'
+    NEARLYFULL: 'rănit ușor'
+    INTERMEDIATE: 'rănit moderat'
+    DAMAGED: 'rănit grav'
+    BROKEN: 'rupt'
+
 commands:
 
   bodyhealth:

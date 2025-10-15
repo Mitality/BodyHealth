@@ -12,6 +12,15 @@ definitions:
     FOOT_LEFT: 'linker voet'
     FOOT_RIGHT: 'regter voet'
 
+  body-part-states:
+
+    # Used in PAPI placeholders
+    FULL: 'gesond'
+    NEARLYFULL: 'ligte besering'
+    INTERMEDIATE: 'matig beseer'
+    DAMAGED: 'ernstig beseer'
+    BROKEN: 'gebreek'
+
 commands:
 
   bodyhealth:

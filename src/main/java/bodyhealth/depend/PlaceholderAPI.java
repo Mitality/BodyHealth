@@ -1,8 +1,13 @@
 package bodyhealth.depend;
 
+import bodyhealth.config.Lang;
 import bodyhealth.core.BodyHealth;
+import bodyhealth.core.BodyPartState;
 import bodyhealth.util.BodyHealthUtils;
 import bodyhealth.core.BodyPart;
+import io.github.milkdrinkers.colorparser.bukkit.ColorParser;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -45,30 +50,31 @@ public class PlaceholderAPI extends PlaceholderExpansion {
         String[] splitParams = params.split("_");
         if (splitParams.length < 2) return null;
 
-        StringBuilder bodyPartNameBuilder = new StringBuilder();
+        StringBuilder partNameBuilder = new StringBuilder();
 
         for (int i = 1; i < splitParams.length; i++) {
             if (splitParams[i].equalsIgnoreCase("rounded")) break;
-            if (i > 1) bodyPartNameBuilder.append("_");
-            bodyPartNameBuilder.append(splitParams[i].toUpperCase());
+            if (i > 1) partNameBuilder.append("_");
+            partNameBuilder.append(splitParams[i].toUpperCase());
         }
 
-        String bodyPartName = bodyPartNameBuilder.toString();
-        BodyPart bodyPart;
+        String partName = partNameBuilder.toString();
+        BodyPart part;
 
         try {
-            bodyPart = BodyPart.valueOf(bodyPartName);
+            part = BodyPart.valueOf(partName);
         } catch (IllegalArgumentException e) {
-            return "Invalid body part: " + bodyPartName;
+            return "Invalid body part: " + partName;
         }
 
         if (!player.isOnline()) return null;
         Player onlinePlayer = player.getPlayer();
         if (onlinePlayer != null) {
             BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(onlinePlayer);
-            double partHealth = bodyHealth.getHealth(bodyPart);
-            if (splitParams[splitParams.length - 1].equalsIgnoreCase("rounded")) return String.valueOf((int) Math.round(partHealth));
-            return String.format("%.2f", partHealth); // Return health as a formatted string
+            double partHealth = bodyHealth.getHealth(part);
+            if (splitParams[splitParams.length - 1].equalsIgnoreCase("rounded"))
+                return String.valueOf((int) Math.round(partHealth));
+            return String.format("%.2f", partHealth);
         }
 
         return null;
@@ -79,20 +85,33 @@ public class PlaceholderAPI extends PlaceholderExpansion {
         String[] splitParams = params.split("_");
         if (splitParams.length < 2) return null;
 
-        String bodyPartName = splitParams.length == 2 ? splitParams[1].toUpperCase() : splitParams[1].toUpperCase() + "_" + splitParams[2].toUpperCase();
-        BodyPart bodyPart;
+        StringBuilder stateNameBuilder = new StringBuilder();
 
-        try {
-            bodyPart = BodyPart.valueOf(bodyPartName);
-        } catch (IllegalArgumentException e) {
-            return "Invalid body part: " + bodyPartName;
+        for (int i = 1; i < splitParams.length; i++) {
+            if (splitParams[i].equalsIgnoreCase("translated")) break;
+            if (i > 1) stateNameBuilder.append("_");
+            stateNameBuilder.append(splitParams[i].toUpperCase());
         }
 
-        if (player.isOnline()) {
-            Player onlinePlayer = player.getPlayer();
-            if (onlinePlayer != null) {
-                return BodyHealthUtils.getBodyHealthState(BodyHealthUtils.getBodyHealth(onlinePlayer), bodyPart).name();
-            }
+        String stateName = stateNameBuilder.toString();
+        BodyPart part;
+
+        try {
+            part = BodyPart.valueOf(stateName);
+        } catch (IllegalArgumentException e) {
+            return "Invalid body part: " + stateName;
+        }
+
+        if (!player.isOnline()) return null;
+        Player onlinePlayer = player.getPlayer();
+        if (onlinePlayer != null) {
+            BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(onlinePlayer);
+            BodyPartState partState = BodyHealthUtils.getBodyHealthState(bodyHealth, part);
+            if (splitParams[splitParams.length - 1].equalsIgnoreCase("translated"))
+                return LegacyComponentSerializer.legacySection()
+                        .serialize(ColorParser.of(Lang.stateName(partState))
+                                .papi(player).legacy().build());
+            return partState.name();
         }
 
         return null;

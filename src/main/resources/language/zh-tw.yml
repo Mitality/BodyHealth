@@ -12,6 +12,15 @@ definitions:
     FOOT_LEFT: '左腳'
     FOOT_RIGHT: '右腳'
 
+  body-part-states:
+
+    # Used in PAPI placeholders
+    FULL: '健康'
+    NEARLYFULL: '輕傷'
+    INTERMEDIATE: '中度'
+    DAMAGED: '重傷'
+    BROKEN: '損壞'
+
 commands:
 
   bodyhealth:

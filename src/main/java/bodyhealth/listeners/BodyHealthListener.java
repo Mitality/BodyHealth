@@ -21,8 +21,6 @@ import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 public class BodyHealthListener implements Listener {

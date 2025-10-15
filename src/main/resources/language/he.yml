@@ -12,6 +12,15 @@ definitions:
     FOOT_LEFT: 'רגל שמאל'
     FOOT_RIGHT: 'רגל ימין'
 
+  body-part-states:
+
+    # Used in PAPI placeholders
+    FULL: 'בריא'
+    NEARLYFULL: 'פציעה קלה'
+    INTERMEDIATE: 'פציעה בינונית'
+    DAMAGED: 'פציעה חמורה'
+    BROKEN: 'שבור'
+
 commands:
 
   bodyhealth:

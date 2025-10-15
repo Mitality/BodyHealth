@@ -12,6 +12,15 @@ definitions:
     FOOT_LEFT: 'левая ступня'
     FOOT_RIGHT: 'правая ступня'
 
+  body-part-states:
+
+    # Used in PAPI placeholders
+    FULL: 'здоров'
+    NEARLYFULL: 'лёгкое повреждение'
+    INTERMEDIATE: 'среднее повреждение'
+    DAMAGED: 'тяжёлое повреждение'
+    BROKEN: 'сломано'
+
 commands:
 
   bodyhealth:

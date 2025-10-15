@@ -12,6 +12,15 @@ definitions:
     FOOT_LEFT: 'pie izquierdo'
     FOOT_RIGHT: 'pie derecho'
 
+  body-part-states:
+
+    # Used in PAPI placeholders
+    FULL: 'sano'
+    NEARLYFULL: 'leve'
+    INTERMEDIATE: 'moderado'
+    DAMAGED: 'grave'
+    BROKEN: 'roto'
+
 commands:
 
   bodyhealth:

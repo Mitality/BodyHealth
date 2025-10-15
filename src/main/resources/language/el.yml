@@ -12,6 +12,15 @@ definitions:
     FOOT_LEFT: 'αριστερό πόδι'
     FOOT_RIGHT: 'δεξί πόδι'
 
+  body-part-states:
+
+    # Used in PAPI placeholders
+    FULL: 'υγιές'
+    NEARLYFULL: 'ελαφρύ τραύμα'
+    INTERMEDIATE: 'μέτριο τραύμα'
+    DAMAGED: 'σοβαρό τραύμα'
+    BROKEN: 'σπασμένο'
+
 commands:
 
   bodyhealth:

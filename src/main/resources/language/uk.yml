@@ -12,6 +12,15 @@ definitions:
     FOOT_LEFT: 'ліва стопа'
     FOOT_RIGHT: 'права стопа'
 
+  body-part-states:
+
+    # Used in PAPI placeholders
+    FULL: 'здоровий'
+    NEARLYFULL: 'легке пошкодження'
+    INTERMEDIATE: 'середнє пошкодження'
+    DAMAGED: 'важке пошкодження'
+    BROKEN: 'зламаний'
+
 commands:
 
   bodyhealth:

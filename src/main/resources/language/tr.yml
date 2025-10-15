@@ -12,6 +12,15 @@ definitions:
     FOOT_LEFT: 'sol ayak'
     FOOT_RIGHT: 'sağ ayak'
 
+  body-part-states:
+
+    # Used in PAPI placeholders
+    FULL: 'sağlam'
+    NEARLYFULL: 'hafif yaralı'
+    INTERMEDIATE: 'orta derecede yaralı'
+    DAMAGED: 'ağır yaralı'
+    BROKEN: 'kırık'
+
 commands:
 
   bodyhealth:

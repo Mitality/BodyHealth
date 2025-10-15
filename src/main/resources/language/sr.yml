@@ -12,6 +12,15 @@ definitions:
     FOOT_LEFT: 'лева стопала'
     FOOT_RIGHT: 'десна стопала'
 
+  body-part-states:
+
+    # Used in PAPI placeholders
+    FULL: 'здрав'
+    NEARLYFULL: 'лако повређен'
+    INTERMEDIATE: 'умерено повређен'
+    DAMAGED: 'тешко повређен'
+    BROKEN: 'сломљен'
+
 commands:
 
   bodyhealth:

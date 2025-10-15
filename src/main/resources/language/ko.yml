@@ -12,6 +12,15 @@ definitions:
     FOOT_LEFT: '왼발'
     FOOT_RIGHT: '오른발'
 
+  body-part-states:
+
+    # Used in PAPI placeholders
+    FULL: '건강함'
+    NEARLYFULL: '경상'
+    INTERMEDIATE: '중상'
+    DAMAGED: '중증'
+    BROKEN: '파손'
+
 commands:
 
   bodyhealth:

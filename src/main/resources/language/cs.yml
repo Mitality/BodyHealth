@@ -12,6 +12,15 @@ definitions:
     FOOT_LEFT: 'levá noha'
     FOOT_RIGHT: 'pravá noha'
 
+  body-part-states:
+
+    # Used in PAPI placeholders
+    FULL: 'zdravý'
+    NEARLYFULL: 'lehce zraněný'
+    INTERMEDIATE: 'středně zraněný'
+    DAMAGED: 'vážně zraněný'
+    BROKEN: 'zlomený'
+
 commands:
 
   bodyhealth:
