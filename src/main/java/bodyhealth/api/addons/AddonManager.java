@@ -33,7 +33,7 @@ public class AddonManager extends ClassLoader {
      * Unloads all BodyHealthAddons
      */
     public void unloadAddons() {
-        for (BodyHealthAddon addon : addons) {
+        for (BodyHealthAddon addon : new ArrayList<>(addons)) {
             unloadAddon(addon);
         }
     }
