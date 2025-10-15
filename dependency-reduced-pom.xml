@@ -4,7 +4,7 @@
   <groupId>mitality</groupId>
   <artifactId>BodyHealth</artifactId>
   <name>BodyHealth</name>
-  <version>3.0.0</version>
+  <version>4.0.0</version>
   <description>Minecraft Spigot Plugin to manage Health per BodyPart</description>
   <url>https://github.com/Mitality/BodyHealth</url>
   <build>
