@@ -143,8 +143,10 @@ world-blacklist:
 
 # Raytracing settings - Don't touch unless you know what you're doing
 raytracing:
-  # Should raytracing be used to determine what body part was hit?
+  # Should raytracing be used to determine what body part was hit by an entity?
   enabled: true
+  # Fix imprecise mob rotation by always facing the hit player (x,z, not y)?
+  fix-rotation: true
   # How far should we trace rays before defaulting to vector calculations?
   max-distance: 10.0
   # How precise should we trace rays (smaller number = more precision)

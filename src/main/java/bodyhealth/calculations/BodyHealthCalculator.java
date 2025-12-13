@@ -46,15 +46,15 @@ public class BodyHealthCalculator {
         AttributeInstance scaleAttribute = player.getAttribute(Attribute.GENERIC_SCALE);
         double scale = (scaleAttribute != null) ? scaleAttribute.getValue() : 1.0;
 
-        Location entityEyeLocation = ((LivingEntity) entity).getEyeHeight() > 1.0 ?
-                ((LivingEntity) entity).getEyeLocation().subtract(0.0, 0.3, 0.0) :
-                ((LivingEntity) entity).getEyeLocation().add(0.0, 0.1, 0.0);
-        if (entity.getType() == EntityType.PLAYER) entityEyeLocation = ((LivingEntity) entity).getEyeLocation();
-
         Location playerLocation = player.getLocation();
-        Vector direction = entityEyeLocation.getDirection().normalize();
+        Vector direction = getHandLocation(entity).getDirection().normalize();
 
-        Location rayHitLocation = traceRay(entityEyeLocation, direction, player, scale);
+        if (Config.raytracing_fix_rotation) {
+            Vector toPlayerFlat = playerLocation.toVector().subtract(getHandLocation(entity).toVector()).setY(0).normalize();
+            direction = new Vector(toPlayerFlat.getX(), direction.getY(), toPlayerFlat.getZ()).normalize();
+        }
+
+        Location rayHitLocation = traceRay(getHandLocation(entity), direction, player, scale);
 
         if (rayHitLocation != null) {
             double hitY = rayHitLocation.getY();
@@ -79,7 +79,7 @@ public class BodyHealthCalculator {
     public static BodyPart calculateHitByEntityLegacy(Player player, Entity entity) {
         AttributeInstance scaleAttribute = player.getAttribute(Attribute.GENERIC_SCALE);
         double scale = (scaleAttribute != null) ? scaleAttribute.getValue() : 1.0;
-        double relativeHitY = entity.getLocation().getY() - player.getLocation().getY();
+        double relativeHitY = getHandLocation(entity).getY() - player.getLocation().getY();
         double relativeYaw = getRelativeYaw(player, entity.getLocation());
         return getHitBodyPart(relativeHitY, relativeYaw, player.isSneaking(), scale);
     }
@@ -252,6 +252,19 @@ public class BodyHealthCalculator {
         return (locX >= playerMinX && locX <= playerMaxX) &&
                 (locY >= playerMinY && locY <= playerMaxY) &&
                 (locZ >= playerMinZ && locZ <= playerMaxZ);
+    }
+
+    /**
+     * Utility method to roughly compute an entities hand location
+     * @param entity The entity to retrieve the hand location from
+     * @return A location roughly matching the entities hands
+     */
+    public static Location getHandLocation(Entity entity) {
+        Location entityEyeLocation = ((LivingEntity) entity).getEyeHeight() > 1.0 ?
+                ((LivingEntity) entity).getEyeLocation().subtract(0.0, 0.3, 0.0) :
+                ((LivingEntity) entity).getEyeLocation().add(0.0, 0.1, 0.0);
+        if (entity.getType() == EntityType.PLAYER) entityEyeLocation = ((LivingEntity) entity).getEyeLocation();
+        return entityEyeLocation;
     }
 
 }

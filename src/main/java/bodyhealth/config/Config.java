@@ -33,6 +33,7 @@ public class Config {
     public static List<String> world_blacklist_worlds = new ArrayList<>();
 
     public static boolean raytracing_enabled;
+    public static boolean raytracing_fix_rotation;
     public static double  raytracing_max_distance;
     public static double  raytracing_step_size;
 
@@ -94,6 +95,7 @@ public class Config {
         world_blacklist_worlds = config.getStringList("world-blacklist.worlds");
 
         raytracing_enabled = config.getBoolean("raytracing.enabled", true);
+        raytracing_fix_rotation = config.getBoolean("raytracing.fix-rotation", true);
         raytracing_max_distance = config.getDouble("raytracing.max-distance", 10.0);
         raytracing_step_size = config.getDouble("raytracing.step-size", 0.1);
 
