@@ -226,6 +226,7 @@ body-damage:
     - IN_FIRE 60%
     - LAVA 60%
     - MAGIC 70%
+    - POISON 60%
     - ON_FIRE 60%
     - FALL 0%
   TORSO:
@@ -235,6 +236,8 @@ body-damage:
     - FLY_INTO_WALL 0%
     - IN_FIRE 80%
     - LAVA 80%
+    - MAGIC 80%
+    - POISON 70%
     - ON_FIRE 80%
     - FALL 0%
   ARM_LEFT:
@@ -245,7 +248,8 @@ body-damage:
     - FLY_INTO_WALL 0%
     - IN_FIRE 80%
     - LAVA 80%
-    - MAGIC 70%
+    - MAGIC 50%
+    - POISON 40%
     - ON_FIRE 80%
     - FALL 0%
   ARM_RIGHT:
@@ -256,7 +260,8 @@ body-damage:
     - FLY_INTO_WALL 0%
     - IN_FIRE 80%
     - LAVA 80%
-    - MAGIC 70%
+    - MAGIC 50%
+    - POISON 40%
     - ON_FIRE 80%
     - FALL 0%
   LEG_LEFT:
@@ -265,7 +270,8 @@ body-damage:
     - FALLING_BLOCK 0%
     - FALLING_STALACTITE 0%
     - FLY_INTO_WALL 0%
-    - MAGIC 70%
+    - MAGIC 50%
+    - POISON 40%
     - FALL 75%
   LEG_RIGHT:
     - KILL 0%
@@ -273,7 +279,8 @@ body-damage:
     - FALLING_BLOCK 0%
     - FALLING_STALACTITE 0%
     - FLY_INTO_WALL 0%
-    - MAGIC 70%
+    - MAGIC 50%
+    - POISON 40%
     - FALL 75%
   FOOT_LEFT:
     - KILL 0%
@@ -281,14 +288,16 @@ body-damage:
     - FALLING_BLOCK 0%
     - FALLING_STALACTITE 0%
     - FLY_INTO_WALL 0%
-    - MAGIC 50%
+    - MAGIC 40%
+    - POISON 30%
   FOOT_RIGHT:
     - KILL 0%
     - DROWN 0%
     - FALLING_BLOCK 0%
     - FALLING_STALACTITE 0%
     - FLY_INTO_WALL 0%
-    - MAGIC 50%
+    - MAGIC 40%
+    - POISON 30%
 
   # Permission overrides
   overrides:
