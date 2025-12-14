@@ -1,5 +1,6 @@
 package bodyhealth.effects.effect;
 
+import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
 import bodyhealth.core.BodyPart;
 import bodyhealth.effects.BodyHealthEffect;
@@ -50,7 +51,8 @@ public class POTION_EFFECT implements BodyHealthEffect {
                 && Objects.requireNonNull(player.getPotionEffect(effectType)).getDuration() == PotionEffect.INFINITE_DURATION
                 && Objects.requireNonNull(player.getPotionEffect(effectType)).getAmplifier() >= amplifier)
             return; // Player should keep infinite effects with a higher or equal amplifier
-        player.addPotionEffect(new PotionEffect(effectType, PotionEffect.INFINITE_DURATION, amplifier-1));
+        boolean ambient = !Config.hide_potion_effects, particles = !Config.hide_potion_effects, icon = !Config.hide_potion_effects;
+        player.addPotionEffect(new PotionEffect(effectType, PotionEffect.INFINITE_DURATION, amplifier-1, ambient, particles, icon));
         Debug.log("(" + part.name() +") Applied effect \"" + args[1].trim() + "\" to player " + player.getName());
 
     }
@@ -74,7 +76,8 @@ public class POTION_EFFECT implements BodyHealthEffect {
         int highestAmplifier = BodyHealthUtils.getHighestPotionEffectAmplifier(player, effectType);
 
         if (highestAmplifier >= 0) {
-            player.addPotionEffect(new PotionEffect(effectType, PotionEffect.INFINITE_DURATION, highestAmplifier-1));
+            boolean ambient = !Config.hide_potion_effects, particles = !Config.hide_potion_effects, icon = !Config.hide_potion_effects;
+            player.addPotionEffect(new PotionEffect(effectType, PotionEffect.INFINITE_DURATION, highestAmplifier-1, ambient, particles, icon));
             Debug.log("(" + part.name() +") Set PotionEffect \"" + args[1].trim() + "\" to amplifier " + highestAmplifier + " for player " + player.getName());
         } else {
             player.removePotionEffect(effectType);

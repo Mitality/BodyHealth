@@ -116,6 +116,11 @@ lenient-movement-restrictions: false
 # the server is shutting down. Hence, this defaults to false on Folia
 remove-effects-on-shutdown: true
 
+# Should we hide potion effects applied by the POTION_EFFECT effect from
+# players? This removes the effect icon, particles and so on, but players
+# can still technically see the effects next to their inventory if opened
+hide-potion-effects: true
+
 # Choose whether to use the /kill command to kill players instead of the API
 # Way more consistent across different server software, therefore recommended
 kill-with-command: true

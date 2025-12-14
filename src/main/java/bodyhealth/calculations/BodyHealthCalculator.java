@@ -260,10 +260,11 @@ public class BodyHealthCalculator {
      * @return A location roughly matching the entities hands
      */
     public static Location getHandLocation(Entity entity) {
-        Location entityEyeLocation = ((LivingEntity) entity).getEyeHeight() > 1.0 ?
-                ((LivingEntity) entity).getEyeLocation().subtract(0.0, 0.3, 0.0) :
-                ((LivingEntity) entity).getEyeLocation().add(0.0, 0.1, 0.0);
-        if (entity.getType() == EntityType.PLAYER) entityEyeLocation = ((LivingEntity) entity).getEyeLocation();
+        if (!(entity instanceof LivingEntity livingEntity)) return entity.getLocation();
+        Location entityEyeLocation = livingEntity.getEyeHeight() > 1.0 ?
+                livingEntity.getEyeLocation().subtract(0.0, 0.3, 0.0) :
+                livingEntity.getEyeLocation().add(0.0, 0.1, 0.0);
+        if (entity.getType() == EntityType.PLAYER) entityEyeLocation = livingEntity.getEyeLocation();
         return entityEyeLocation;
     }
 
