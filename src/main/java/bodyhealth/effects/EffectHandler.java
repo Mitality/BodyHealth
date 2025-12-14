@@ -211,19 +211,21 @@ public class EffectHandler {
     }
 
     /**
-     * Utility method to get an attribute modifier that reduces walk speed to zero
+     * Utility method to get an attribute modifier that reduces walk speed to zero (or 15% if lenient)
      * @return An attribute modifier that reduces walk speed to zero
      */
     public static AttributeModifier getWalkDenialModifier() {
-        return new AttributeModifier(new NamespacedKey("bodyhealth", "walk_denial"), -1.0, AttributeModifier.Operation.MULTIPLY_SCALAR_1, EquipmentSlotGroup.ANY);
+        double amount = Config.lenient_movement_restrictions ? -0.85 : -1.0;
+        return new AttributeModifier(new NamespacedKey("bodyhealth", "walk_denial"), amount, AttributeModifier.Operation.MULTIPLY_SCALAR_1, EquipmentSlotGroup.ANY);
     }
 
     /**
-     * Utility method to get an attribute modifier that reduces jump strength to zero
+     * Utility method to get an attribute modifier that reduces jump strength to zero (or 15% if lenient)
      * @return An attribute modifier that reduces jump strength to zero
      */
     public static AttributeModifier getJumpDenialModifier() {
-        return new AttributeModifier(new NamespacedKey("bodyhealth", "jump_denial"), -1.0, AttributeModifier.Operation.MULTIPLY_SCALAR_1, EquipmentSlotGroup.ANY);
+        double amount = Config.lenient_movement_restrictions ? -0.85 : -1.0;
+        return new AttributeModifier(new NamespacedKey("bodyhealth", "jump_denial"), amount, AttributeModifier.Operation.MULTIPLY_SCALAR_1, EquipmentSlotGroup.ANY);
     }
 
     /**

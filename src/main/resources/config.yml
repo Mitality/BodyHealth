@@ -103,6 +103,11 @@ self-harm: false
 # that all players are still able to eat to heal back up?
 always-allow-eating: true
 
+# You can completely prevent certain movement actions like jumping or
+# sprinting via the effects section. If this is done, should we still
+# allow some (~15%) mobility, so players are not completely stuck?
+lenient-movement-restrictions: false
+
 # Should we remove all active effects from all online players,
 # when the server is shutting down? If set to false, effects are
 # stored and removed when the affected player joins the server again
