@@ -37,6 +37,11 @@
 </p>
 
 <p align="center">
+  Demo Server:<br>
+  <a href="https://mcsrvstat.us/server/showcase.breweryteam.dev">showcase.breweryteam.dev</a>
+</p>
+
+<p align="center">
   <img width="500" src="https://raw.githubusercontent.com/Mitality/BodyHealth/refs/heads/main/src/main/resources/assets/features.png" alt="Features">
 </p>
 
@@ -95,6 +100,10 @@ Safe to say this won't be the<br>plugin lagging your server</p>
 
 <p align="center"><b>/bodyhealth add [player] [body part] &lt;health&gt;</b><br><em>add health to all parts or the given one for a given player or yourself</em></p>
 
+<p align="center"><b>/bodyhealth data &lt;save/dump/erase/move&gt; [...]</b><br><em>control BodyHealth's DataManager, managing data in all storage types</em></p>
+
+<p align="center"><b>/bodyhealth debug &lt;dump/toggle&gt; [...]</b><br><em>dump debug information, or toggle debug- or development mode in game</em></p>
+
 <p align="center">
   <img width="500" src="https://raw.githubusercontent.com/Mitality/BodyHealth/refs/heads/main/src/main/resources/assets/permissions.png" alt="Permissions">
 </p>
@@ -105,6 +114,8 @@ Safe to say this won't be the<br>plugin lagging your server</p>
 <p align="center"><b>bodyhealth.get</b><br><em>allows using the get command</em></p>
 <p align="center"><b>bodyhealth.set</b><br><em>allows using the set command</em></p>
 <p align="center"><b>bodyhealth.add</b><br><em>allows using the add command</em></p>
+<p align="center"><b>bodyhealth.data</b><br><em>allows using the data command</em></p>
+<p align="center"><b>bodyhealth.debug</b><br><em>allows using the debug command</em></p>
 <p align="center"><em>+ <a href="https://github.com/Mitality/BodyHealth/blob/7a0c68af2ef66e8ec5c3b449bbde7d24aa3a2fd5/src/main/resources/config.yml#L35-L42">bypass permissions</a></em></p>
 
 <p align="center">
