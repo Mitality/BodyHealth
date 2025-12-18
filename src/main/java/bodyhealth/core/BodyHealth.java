@@ -97,7 +97,10 @@ public class BodyHealth {
     private void applyDamage(Player player, BodyPart part, double damage, boolean force, @Nullable Event cause) {
         if (!force) {
             if (command_timestamps.containsKey(part) && ((System.currentTimeMillis() - command_timestamps.get(part)) < Config.force_keep_time * 1000L)) return;
-            if (player.hasPermission("bodyhealth.bypass.damage." + part.name().toLowerCase())) return;
+            if (player.hasPermission("bodyhealth.bypass.damage." + part.name().toLowerCase())) {
+                Debug.log("Player " + player.getName() + " bypasses damage to " + part.name() + "!");
+                return;
+            }
             if (!BodyHealthUtils.isSystemEnabled(player)) return;
         }
         double currentHealth = healthMap.get(part);
@@ -156,7 +159,10 @@ public class BodyHealth {
     private void regenerateHealth(Player player, BodyPart part, double regenAmount, boolean force, @Nullable Event cause) {
         if (!force) {
             if (command_timestamps.containsKey(part) && ((System.currentTimeMillis() - command_timestamps.get(part)) < Config.force_keep_time * 1000L)) return;
-            if (player.hasPermission("bodyhealth.bypass.regen." + part.name().toLowerCase())) return;
+            if (player.hasPermission("bodyhealth.bypass.regen." + part.name().toLowerCase())) {
+                Debug.log("Player " + player.getName() + " bypasses regeneration on " + part.name() + "!");
+                return;
+            }
             if (!BodyHealthUtils.isSystemEnabled(player)) return;
         }
         double currentHealth = healthMap.get(part);
