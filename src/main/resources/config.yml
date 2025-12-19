@@ -125,6 +125,14 @@ hide-potion-effects: true
 # Way more consistent across different server software, therefore recommended
 kill-with-command: true
 
+# Whether we should set all body parts to 100% health when a player respawns
+# In reality, this is done 1 tick (0.05s) after respawning to avoid issues
+heal-on-respawn: true
+
+# Whether we should set all body parts to 100% health when we detect that a player
+# has full vanilla health. This prevents desyncs with varying max vanilla health
+heal-on-full-health: true
+
 # Force keep body parts that have been modified by a command
 # at their modified state for the given amount of seconds
 force-keep-time: 10

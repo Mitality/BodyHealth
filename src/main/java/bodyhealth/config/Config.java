@@ -26,6 +26,8 @@ public class Config {
     public static boolean remove_effects_on_shutdown;
     public static boolean hide_potion_effects;
     public static boolean kill_with_command;
+    public static boolean heal_on_respawn;
+    public static boolean heal_on_full_health;
 
     public static int force_keep_time;
     public static boolean force_keep_relative;
@@ -90,6 +92,8 @@ public class Config {
         remove_effects_on_shutdown = config.getBoolean("remove-effects-on-shutdown", true);
         hide_potion_effects = config.getBoolean("hide-potion-effects", true);
         kill_with_command = config.getBoolean("kill-with-command", true);
+        heal_on_respawn = config.getBoolean("heal-on-respawn", true);
+        heal_on_full_health = config.getBoolean("heal-on-full-health", true);
 
         force_keep_time = config.getInt("force-keep-time", 10);
         force_keep_relative = config.getBoolean("force-keep-relative", false);
