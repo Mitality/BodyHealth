@@ -85,7 +85,7 @@ public class BodyHealthListener implements Listener {
                 BodyHealthUtils.applyDamageWithConfig(bodyHealth, cause, damage, bodyPart, false, event);
                 hitBodyPartsString.append(bodyPart.name()).append(", ");
             }
-            Debug.log("Player " + player.getName() + " was hit by a block (" + blockDamageEvent.getDamager().getType().name() + ") on " + hitBodyPartsString.substring(0, hitBodyPartsString.length() - 1) + "with " + String.format("%.2f", damage) + "damage.");
+            Debug.log("Player " + player.getName() + " was hit by a block (" + blockDamageEvent.getDamager().getType().name() + ") on " + hitBodyPartsString.substring(0, hitBodyPartsString.length() - 2) + " with " + String.format("%.2f", damage) + "damage.");
         }
 
         else {
