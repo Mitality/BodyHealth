@@ -471,6 +471,8 @@ display:
     inject-config: true
     # Show BodyHealth's HUD to all players **IN SURVIVAL/ADVENTURE MODE**
     as-default: true
+    # Show BodyHealth's HUD only in worlds/regions where BodyHealth is enabled
+    enabled-only: true
     # Position BodyHealth's HUD on your screen (REQUIRES REGENERATING THE RESOURCE PACK)
     position:
       # Chose one of nine possible anchor points (TOP_, MIDDLE_, BOTTOM_ & _LEFT, _CENTER, _RIGHT)

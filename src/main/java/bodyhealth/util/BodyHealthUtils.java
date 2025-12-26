@@ -5,6 +5,7 @@ import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
 import bodyhealth.config.Lang;
 import bodyhealth.data.DataManager;
+import bodyhealth.depend.BetterHud;
 import bodyhealth.depend.WorldGuard;
 import bodyhealth.effects.EffectHandler;
 import bodyhealth.core.BodyHealth;
@@ -23,6 +24,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.Nullable;
 
@@ -126,6 +128,23 @@ public class BodyHealthUtils {
     public static boolean isSystemEnabled(World world) {
         if (world == null) return false; // Shouldn't ever happen
         return Config.wold_blacklist_whitelist_mode == Config.world_blacklist_worlds.contains(world.getName());
+    }
+
+    /**
+     * Checks whether BodyHealth's HUD should currently be shown
+     * to the given player and ensures it is or is not
+     * @param player The player to do this for
+     */
+    public static void applyBodyHealthHudVisibility(Player player) {
+        Plugin betterHudPlugin = Bukkit.getPluginManager().getPlugin("BetterHud");
+        if (betterHudPlugin == null || !betterHudPlugin.isEnabled()) return;
+        if (!Config.display_betterhud_enabled_only) {
+            BetterHud.setBodyHealthHudEnabled(player, true);
+            return;
+        }
+        boolean enabled = isSystemEnabled(player);
+        boolean changed = BetterHud.setBodyHealthHudEnabled(player, enabled);
+        if (changed) Debug.logDev((enabled ? "Enabled" : "Disabled") + " BodyHealth's HUD for player " + player.getName() + ".");
     }
 
     /**

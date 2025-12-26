@@ -110,16 +110,16 @@
             <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
 
-        <!-- BetterHud -->
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-
         <!-- WorldGuard -->
         <repository>
             <id>enginehub-repo</id>
             <url>https://maven.enginehub.org/repo/</url>
+        </repository>
+
+        <!-- Various -->
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
         </repository>
     </repositories>
 
@@ -175,9 +175,9 @@
 
         <!-- BetterHud -->
         <dependency>
-            <groupId>com.github.toxicity188</groupId>
-            <artifactId>BetterHud</artifactId>
-            <version>1.4</version>
+            <groupId>io.github.toxicity188</groupId>
+            <artifactId>BetterHud-bukkit-api</artifactId>
+            <version>1.14.0</version>
             <scope>provided</scope>
         </dependency>
 

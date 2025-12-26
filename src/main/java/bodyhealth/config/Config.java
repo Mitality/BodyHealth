@@ -57,6 +57,7 @@ public class Config {
     public static boolean display_betterhud_auto_reload;
     public static boolean display_betterhud_inject_config;
     public static boolean display_betterhud_as_default;
+    public static boolean display_betterhud_enabled_only;
 
     public static String display_betterhud_position_anchor_point;
     public static int display_betterhud_position_horizontal_offset;
@@ -123,6 +124,7 @@ public class Config {
         display_betterhud_auto_reload = config.getBoolean("display.betterhud.auto-reload", true);
         display_betterhud_inject_config = config.getBoolean("display.betterhud.inject-config", true);
         display_betterhud_as_default = config.getBoolean("display.betterhud.as-default", true);
+        display_betterhud_enabled_only = config.getBoolean("display.betterhud.enabled-only", true);
 
         display_betterhud_position_anchor_point = config.getString("display.betterhud.position.anchor-point", "BOTTOM_RIGHT");
         display_betterhud_position_horizontal_offset = config.getInt("display.betterhud.position.horizontal-offset", 0);

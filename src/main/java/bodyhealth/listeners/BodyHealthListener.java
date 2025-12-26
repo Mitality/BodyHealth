@@ -159,6 +159,10 @@ public class BodyHealthListener implements Listener {
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
+        if (event.getTo() != null && (event.getFrom().getBlockX() != event.getTo().getBlockX() || event.getFrom().getBlockZ() != event.getTo().getBlockZ())) {
+            BodyHealthUtils.applyBodyHealthHudVisibility(event.getPlayer()); // Refresh when moved to a new block
+        }
+
         if (event.getPlayer().isSprinting()) {
             if (EffectHandler.preventSprint.contains(event.getPlayer())) return; // Player is already slowed down
             //if (event.getFrom().getBlockX() == event.getTo().getBlockX() && event.getFrom().getBlockZ() != event.getTo().getBlockZ()) return; // Player hasn't moved a block yet (possible optimization for the line below)
@@ -177,6 +181,7 @@ public class BodyHealthListener implements Listener {
 
     @EventHandler
     public void onPlayerChangeWorld(PlayerChangedWorldEvent event) {
+        BodyHealthUtils.applyBodyHealthHudVisibility(event.getPlayer());
         boolean isEnabledInFrom = BodyHealthUtils.isSystemEnabled(event.getFrom());
         boolean isEnabledInTo = BodyHealthUtils.isSystemEnabled(event.getPlayer());
         if (!isEnabledInFrom && isEnabledInTo) EffectHandler.addEffectsToPlayer(event.getPlayer());
@@ -190,6 +195,7 @@ public class BodyHealthListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         EffectHandler.removeOngoingEffects(event.getPlayer()); // Clean up known leftover effects
         if (BodyHealthUtils.isSystemEnabled(event.getPlayer())) EffectHandler.addEffectsToPlayer(event.getPlayer());
+        BodyHealthUtils.applyBodyHealthHudVisibility(event.getPlayer());
     }
 
     @EventHandler

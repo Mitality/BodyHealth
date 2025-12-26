@@ -5,9 +5,13 @@ import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
 import com.google.gson.*;
 import kr.toxicity.hud.api.BetterHudAPI;
+import kr.toxicity.hud.api.hud.Hud;
+import kr.toxicity.hud.api.player.HudPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.*;
@@ -448,6 +452,27 @@ public class BetterHud {
             compassConfig.save(compassFile);
         } catch (IOException e) {
             Debug.logErr("Failed to save compass config: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Enables or disables the BodyHealth HUD for a given player
+     * @param player The player for whom the HUD should be enabled or disabled
+     * @param enabled Whether the HUD should be enabled or disabled
+     * @return Whether the operation was successful
+     */
+    public static boolean setBodyHealthHudEnabled(Player player, boolean enabled) {
+
+        HudPlayer hudPlayer = BetterHudAPI.inst().getPlayerManager().getHudPlayer(player.getUniqueId());
+        if (hudPlayer == null) return false;
+
+        Hud hud = BetterHudAPI.inst().getHudManager().getHud("bodyhealth");
+        if (hud == null) return false;
+
+        if (enabled) {
+            return hud.add(hudPlayer);
+        } else {
+            return hud.remove(hudPlayer);
         }
     }
 
