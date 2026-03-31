@@ -17,10 +17,11 @@ import org.bukkit.inventory.EquipmentSlotGroup;
 
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class EffectHandler {
 
-    private static Map<String, BodyHealthEffect> effects = Map.ofEntries(
+    private static Map<String, BodyHealthEffect> effects = new ConcurrentHashMap<>(Map.ofEntries(
         Map.entry("POTION_EFFECT", new POTION_EFFECT()),
         Map.entry("PREVENT_INTERACT", new PREVENT_INTERACT()),
         Map.entry("PREVENT_SPRINT", new PREVENT_SPRINT()),
@@ -35,7 +36,7 @@ public class EffectHandler {
         Map.entry("DELAYED", new DELAYED()),
         Map.entry("WHEN_DAMAGED", new WHEN_DAMAGED()),
         Map.entry("WHEN_HEALED", new WHEN_HEALED())
-    );
+    ));
 
     /**
      * Registers a BodyHealthEffect, making it usable in the effect config
