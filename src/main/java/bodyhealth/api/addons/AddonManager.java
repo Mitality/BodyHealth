@@ -174,6 +174,7 @@ public class AddonManager extends ClassLoader {
             addon.onAddonEnable();
         } catch (Throwable t) {
             Debug.logErr("Error while enabling addon " + addon.getClass().getName() + ": " + t.getMessage());
+            Debug.logErr(t);
         }
     }
 
