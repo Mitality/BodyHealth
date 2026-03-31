@@ -45,7 +45,7 @@ public class SOUND implements BodyHealthEffect {
         try {
             return Float.parseFloat(input.trim());
         } catch (Exception e) {
-            return (float) 1.0;
+            return 1.0f;
         }
     }
 
