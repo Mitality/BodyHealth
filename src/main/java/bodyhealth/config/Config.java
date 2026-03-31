@@ -23,6 +23,7 @@ public class Config {
     public static boolean self_harm;
     public static boolean always_allow_eating;
     public static boolean lenient_movement_restrictions;
+    public static boolean use_transient_modifiers;
     public static boolean remove_effects_on_shutdown;
     public static boolean hide_potion_effects;
     public static boolean kill_with_command;
@@ -90,6 +91,7 @@ public class Config {
         self_harm = config.getBoolean("self-harm", false);
         always_allow_eating = config.getBoolean("always-allow-eating", true);
         lenient_movement_restrictions = config.getBoolean("lenient-movement-restrictions", false);
+        use_transient_modifiers = config.getBoolean("use-transient-modifiers", true);
         remove_effects_on_shutdown = config.getBoolean("remove-effects-on-shutdown", true);
         hide_potion_effects = config.getBoolean("hide-potion-effects", true);
         kill_with_command = config.getBoolean("kill-with-command", true);

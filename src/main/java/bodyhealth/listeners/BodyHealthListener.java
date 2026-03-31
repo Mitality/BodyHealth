@@ -168,7 +168,7 @@ public class BodyHealthListener implements Listener {
             //if (event.getFrom().getBlockX() == event.getTo().getBlockX() && event.getFrom().getBlockZ() != event.getTo().getBlockZ()) return; // Player hasn't moved a block yet (possible optimization for the line below)
             if (BodyHealthUtils.canPlayerSprint(event.getPlayer())) return; // Player is allowed to sprint
             EffectHandler.preventSprint.add(event.getPlayer());
-            Objects.requireNonNull(event.getPlayer().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).addModifier(EffectHandler.getSpeedReductionModifier());
+            BodyHealthUtils.addAttributeModifier(Objects.requireNonNull(event.getPlayer().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)), EffectHandler.getSpeedReductionModifier());
             Debug.log("Adding SpeedReductionModifier to player " + event.getPlayer().getName());
             MessageUtils.sendEffectMessages(event.getPlayer(), "PREVENT_SPRINT");
         } else {

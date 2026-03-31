@@ -34,7 +34,7 @@ public class PREVENT_JUMP implements BodyHealthEffect {
         AttributeInstance jumpAttribute = player.getAttribute(Attribute.GENERIC_JUMP_STRENGTH);
         if (jumpAttribute != null && jumpAttribute.getModifiers().stream().noneMatch(mod -> mod.getKey().equals(EffectHandler.getJumpDenialModifier().getKey()))) {
             Debug.log("Adding JumpDenialModifier to player " + player.getName());
-            jumpAttribute.addModifier(EffectHandler.getJumpDenialModifier());
+            BodyHealthUtils.addAttributeModifier(jumpAttribute, EffectHandler.getJumpDenialModifier());
         }
 
     }

@@ -34,7 +34,7 @@ public class PREVENT_WALK implements BodyHealthEffect {
         AttributeInstance walkAttribute = player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED);
         if (walkAttribute != null && walkAttribute.getModifiers().stream().noneMatch(mod -> mod.getKey().equals(EffectHandler.getWalkDenialModifier().getKey()))) {
             Debug.log("Adding WalkDenialModifier to player " + player.getName());
-            walkAttribute.addModifier(EffectHandler.getWalkDenialModifier());
+            BodyHealthUtils.addAttributeModifier(walkAttribute, EffectHandler.getWalkDenialModifier());
         }
 
     }

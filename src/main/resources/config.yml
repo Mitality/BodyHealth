@@ -108,6 +108,12 @@ always-allow-eating: true
 # allow some (~15%) mobility, so players are not completely stuck?
 lenient-movement-restrictions: false
 
+# When movement-restricting effects (PREVENT_WALK, PREVENT_JUMP, PREVENT_SPRINT) add attribute
+# modifiers, should we use transient modifiers when available? Transient modifiers are not saved,
+# so they won't persist through restarts, even if remove-effects-on-shutdown is set to false
+# NOTE: Only has an effect on Paper/Folia. Transient modifiers are unavailable on Spigot
+use-transient-modifiers: true
+
 # Should we remove all active effects from all online players,
 # when the server is shutting down? If set to false, effects are
 # stored and removed when the affected player joins the server again
