@@ -11,6 +11,7 @@ import bodyhealth.listeners.*;
 import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
 import bodyhealth.migrations.Migrator;
+import bodyhealth.util.BodyHealthUtils;
 import bodyhealth.util.FoliaUtils;
 import bodyhealth.util.UpdateChecker;
 import com.github.Anon8281.universalScheduler.UniversalScheduler;
@@ -22,6 +23,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -157,6 +159,9 @@ public final class Main extends JavaPlugin {
         }
 
         else if (Bukkit.getPluginManager().getPlugin("BetterHud") != null) Debug.logErr("BetterHud integration requires PlaceholderAPI to be installed!");
+
+        Plugin betterHud = Bukkit.getPluginManager().getPlugin("BetterHud");
+        BodyHealthUtils.betterHudEnabled = betterHud != null && betterHud.isEnabled();
 
         // Set up DataManager
         DataManager.load();

@@ -34,6 +34,8 @@ import java.util.*;
 
 public class BodyHealthUtils {
 
+    public static boolean betterHudEnabled = false;
+
     /**
      * Reloads the plugin, momentarily removing all effects
      * @return whether the reload was successful or not
@@ -104,6 +106,9 @@ public class BodyHealthUtils {
             EffectHandler.addEffectsToPlayer(player);
         }
 
+        Plugin betterHud = Bukkit.getPluginManager().getPlugin("BetterHud");
+        betterHudEnabled = betterHud != null && betterHud.isEnabled();
+
         return true;
     }
 
@@ -136,8 +141,7 @@ public class BodyHealthUtils {
      * @param player The player to do this for
      */
     public static void applyBodyHealthHudVisibility(Player player) {
-        Plugin betterHudPlugin = Bukkit.getPluginManager().getPlugin("BetterHud");
-        if (betterHudPlugin == null || !betterHudPlugin.isEnabled()) return;
+        if (!betterHudEnabled) return;
         if (!Config.display_betterhud_enabled_only) {
             BetterHud.setBodyHealthHudEnabled(player, true);
             return;
