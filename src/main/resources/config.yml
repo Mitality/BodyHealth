@@ -513,11 +513,10 @@ display:
     # ItemsAdder interferes with BetterHud on default settings. If you can't see the display
     # in game, try adjusting the following settings as shown in your ItemsAdder config.yml:
     #
-    #   effects:
-    #      hide-scoreboard-numbers: false
-    #      hide-scoreboard-numbers-old-clients: false
-    #      text-effects:
-    #         enabled: false
+    #   text_effects:
+    #      enabled: false
+    #      hide_scoreboard_numbers: false
+    #      hide_scoreboard_numbers_old_clients: false
     #
     #   custom-font:
     #      enabled: false
@@ -528,7 +527,7 @@ display:
     #   pack-type: folder
 
     # !!! Nexo users read here !!!
-    # Nexo's GIF shaders interfere with BetterHud on default settings. If you cant see the display
+    # Nexo's GIF shaders interfere with BetterHud on default settings. If you can't see the display
     # in game, try adjusting the following settings as shown in your Nexo settings.yml:
     #
     #   Glyphs:
