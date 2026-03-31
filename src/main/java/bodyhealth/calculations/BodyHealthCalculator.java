@@ -94,8 +94,11 @@ public class BodyHealthCalculator {
         AttributeInstance scaleAttribute = player.getAttribute(Attribute.GENERIC_SCALE);
         double scale = (scaleAttribute != null) ? scaleAttribute.getValue() : 1.0;
         double yDiff = (block.getLocation().getY() + 1) - player.getLocation().getY();
-        double relativeYaw = getRelativeYaw(player, block.getLocation());
-        return determineHitParts(relativeYaw, yDiff, player.isSneaking(), scale);
+        Location blockCenterBottom = block.getLocation().clone().add(0.5, 0, 0.5);
+        double relativeYaw = getRelativeYaw(player, blockCenterBottom);
+        boolean close = Math.abs(player.getLocation().getX() - blockCenterBottom.getX()) < 0.4
+                     && Math.abs(player.getLocation().getZ() - blockCenterBottom.getZ()) < 0.4;
+        return determineHitParts(relativeYaw, yDiff, player.isSneaking(), scale, close);
     }
 
     /**
@@ -106,9 +109,9 @@ public class BodyHealthCalculator {
      * @param scale The scale of the player
      * @return The hit BodyParts
      */
-    private static BodyPart[] determineHitParts(double relativeYaw, double yDiff, boolean sneaking, double scale) {
-        Debug.logDev("Relative yaw: " + relativeYaw + ", Height difference: " + yDiff + ", Sneaking: " + sneaking + ", Scale: " + scale);
-        if (relativeYaw <= 45 || relativeYaw >= 315 || relativeYaw >= 135 && relativeYaw <= 225) return calculateHitPartsCentered(yDiff, sneaking, scale);
+    private static BodyPart[] determineHitParts(double relativeYaw, double yDiff, boolean sneaking, double scale, boolean close) {
+        Debug.logDev("Relative yaw: " + relativeYaw + ", Height difference: " + yDiff + ", Sneaking: " + sneaking + ", Scale: " + scale + ", Close: " + close);
+        if (relativeYaw <= 45 || relativeYaw >= 315 || relativeYaw >= 135 && relativeYaw <= 225 || close) return calculateHitPartsCentered(yDiff, sneaking, scale);
         else if (relativeYaw > 45 && relativeYaw < 135) return calculateHitPartsLeftSide(yDiff, sneaking, scale);
         else return calculateHitPartsRightSide(yDiff, sneaking, scale);
     }
