@@ -9,13 +9,13 @@
 
 #   Commands:
 #
-#      /bodyhealth reload                              ...reloads the plugins configuration, including effects and language files
-#      /bodyhealth heal [player] [body part]           ...heal a player (sets the health value of all affected body parts to 100%)
-#      /bodyhealth get [player] [body part]            ...retrieve a player's health (in percent) for a specific body part, or all
-#      /bodyhealth set [player] [body part] <health>   ...set a player's health for a specific body part (or all if not specified)
-#      /bodyhealth add [player] [body part] <health>   ...add health to all parts or the given one for a given player or yourself
-#      /bodyhealth data <save/dump/erase/move> [...]   ...controls BodyHealth's DataManager, managing data in all storage types
-#      /bodyhealth debug <dump/toggle> [...]           ...dump debug information, or toggle debug- or development mode in game
+#      /bodyhealth reload ······························ reloads the plugins configuration, including effects and language files
+#      /bodyhealth heal [player] [body part] ··········· heal a player (sets the health value of all affected body parts to 100%)
+#      /bodyhealth get [player] [body part] ············ retrieve a player's health (in percent) for a specific body part, or all
+#      /bodyhealth set [player] [body part] <health> ··· set a player's health for a specific body part (or all if not specified)
+#      /bodyhealth add [player] [body part] <health> ··· add health to all parts or the given one for a given player or yourself
+#      /bodyhealth data <save/dump/erase/move> […] ····· controls BodyHealth's DataManager, managing data in all storage types
+#      /bodyhealth debug <dump/toggle> […] ············· dump debug information, or toggle debug- or development mode in game
 #
 #      <health> value can end with a '%' sign to modify health directly in percent
 #
@@ -23,33 +23,33 @@
 
 #   Permissions:
 #
-#      bodyhealth.update-notify   ...notifications upon new updates
-#      bodyhealth.reload          ...allows reloading the system
-#      bodyhealth.heal            ...allows using the heal command
-#      bodyhealth.get             ...allows using the get command
-#      bodyhealth.set             ...allows using the set command
-#      bodyhealth.add             ...allows using the add command
-#      bodyhealth.data            ...allows using the data command
-#      bodyhealth.debug            ...allows using the debug command
+#      bodyhealth.update-notify ··· notifications upon new updates
+#      bodyhealth.reload ·········· allows reloading the system
+#      bodyhealth.heal ············ allows using the heal command
+#      bodyhealth.get ············· allows using the get command
+#      bodyhealth.set ············· allows using the set command
+#      bodyhealth.add ············· allows using the add command
+#      bodyhealth.data ············ allows using the data command
+#      bodyhealth.debug ··········· allows using the debug command
 #
 #   wildcard: bodyhealth.* (Does NOT include bypass permissions!)
 
 #   Bypass Permissions:
 #
-#      bodyhealth.bypass.regen.<BodyPart>    ...bypass all regeneration for a specific body part
-#      bodyhealth.bypass.damage.<BodyPart>   ...bypass all damage to a specific body part
-#      bodyhealth.bypass.regen.*             ...bypass all regeneration to all body parts
-#      bodyhealth.bypass.damage.*            ...bypass all damage to all body parts
+#      bodyhealth.bypass.regen.<BodyPart> ···· bypass all regeneration for a specific body part
+#      bodyhealth.bypass.damage.<BodyPart> ··· bypass all damage to a specific body part
+#      bodyhealth.bypass.regen.* ············· bypass all regeneration to all body parts
+#      bodyhealth.bypass.damage.* ············ bypass all damage to all body parts
 #
 #   wildcard: bodyhealth.bypass.*   <-- SET THIS PERMISSION TO 'FALSE' FOR ALL PLAYERS/GROUPS WITH THE '*' PERMISSION, OR THEY WON'T TAKE DAMAGE TO BODY PARTS !!!
 
 #   PlaceholderAPI Placeholders:
 #
-#      %bodyhealth_health_<BodyPart>%   ...returns the current amount of health for a body part in percent
-#      %bodyhealth_health_<BodyPart>_rounded%   ...same as the one above, just without decimal places
-#      %bodyhealth_state_<BodyPart>%   ...returns the current state of a body part (e.g. DAMAGED)
-#      %bodyhealth_state_<BodyPart>_translated%   ...same as the one above, just translated
-#      %bodyhealth_enabled%   ...returns whether the system is enabled at the players location
+#      %bodyhealth_health_<BodyPart>% ············· returns the current amount of health for a body part in percent
+#      %bodyhealth_health_<BodyPart>_rounded% ····· same as the one above, just without decimal places
+#      %bodyhealth_state_<BodyPart>% ·············· returns the current state of a body part (e.g. DAMAGED)
+#      %bodyhealth_state_<BodyPart>_translated% ··· same as the one above, just translated
+#      %bodyhealth_enabled% ······················· returns whether the system is enabled at the players location
 #
 #      <BodyPart> can be HEAD, TORSO, ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, FOOT_LEFT, FOOT_RIGHT
 #
@@ -339,26 +339,27 @@ body-damage:
 #
 #      Persistent effects (active as long as conditions are met):
 #
-#         POTION_EFFECT / <EFFECT> / [AMPLIFIER]   ...apply a specific potion effect (amplifier defaults to 1 if not specified)
-#         PREVENT_INTERACT / <HAND> / [MESSAGE]    ...prevent the player from interacting with a given hand (HAND / OFF_HAND)
-#         PREVENT_SPRINT / [MESSAGE]               ...prevent the player from sprinting (sets sprint speed to walk speed)
-#         PREVENT_WALK                             ...prevent the player from walking at all (player can still be knocked back)
-#         PREVENT_JUMP                             ...prevent the player from jumping (player can still climb stairs etc.)
+#         ATTRIBUTE_MODIFIER / <ATTRIBUTE> / <VALUE> / [OPERATION] / [KEY] ··· apply an attribute modifier (OPERATION defaults to add_value if not specified)
+#         POTION_EFFECT / <EFFECT> / [AMPLIFIER] ····························· apply a specific potion effect (amplifier defaults to 1 if not specified)
+#         PREVENT_INTERACT / <HAND> / [MESSAGE] ······························ prevent the player from interacting with a given hand (HAND / OFF_HAND)
+#         PREVENT_SPRINT / [MESSAGE] ········································· prevent the player from sprinting (sets sprint speed to walk speed)
+#         PREVENT_WALK ······················································· prevent the player from walking at all (player can still be knocked back)
+#         PREVENT_JUMP ······················································· prevent the player from jumping (player can still climb stairs etc.)
 #
 #      One-time effects (activate once when conditions are met):
 #
-#         COMMAND / cmd args[...]                  ...execute a command (can use %PlayerName%, %PlayerUUID% and %BodyPart%)
-#         COMMAND_UNDO / cmd args[...]             ...execute a command when the condition is no longer met (to undo stuff)
-#         SOUND / <ID> / [VOLUME] / [PITCH]        ...play a vanilla or custom sound (namespace optional) to only the player
-#         MESSAGE / <MESSAGE>                      ...send a message to the target player to notify them of their status
-#         KILL_PLAYER                              ...you guessed it, this kills the player when the condition is met
+#         COMMAND / cmd args[…] ··············· execute a command (can use %PlayerName%, %PlayerUUID% and %BodyPart%)
+#         COMMAND_UNDO / cmd args[…] ·········· execute a command when the condition is no longer met (to undo stuff)
+#         SOUND / <ID> / [VOLUME] / [PITCH] ··· play a vanilla or custom sound (namespace optional) to only the player
+#         MESSAGE / <MESSAGE> ················· send a message to the target player to notify them of their status
+#         KILL_PLAYER ························· you guessed it, this kills the player when the condition is met
 #
 #      Meta effects (logic-based triggers for non-persistent effects):
 #
-#         REPEATING / <delay> / <interval> / <EFFECT[...]>   ...repeats effect at the specified interval (e.g. 5s for 5 seconds)
-#         DELAYED / <delay> / <EFFECT[...]>               ...executes effect after the specified delay (e.g. 10t for 10 ticks)
-#         WHEN_DAMAGED / <EFFECT[...]>                 ...triggers effect when the condition is met due to taking damage
-#         WHEN_HEALED / <EFFECT[...]>               ...triggers effect when the condition is met due to regeneration
+#         REPEATING / <delay> / <interval> / <EFFECT[…]> ··· repeats effect at the specified interval (e.g. 5s for 5 seconds)
+#         DELAYED / <delay> / <EFFECT[…]> ·················· executes effect after the specified delay (e.g. 10t for 10 ticks)
+#         WHEN_DAMAGED / <EFFECT[…]> ······················· triggers effect when the condition is met due to taking damage
+#         WHEN_HEALED / <EFFECT[…]> ························ triggers effect when the condition is met due to regeneration
 #
 #   <MESSAGE> (or [MESSAGE]) can be the following:
 #
@@ -383,10 +384,12 @@ effects:
     INTERMEDIATE: []
     DAMAGED:
       - WHEN_DAMAGED / MESSAGE / actionbar:&cYour head is pounding
+      - REPEATING / 10t / 10t / SOUND / entity.warden.heartbeat / 1 / 0.75
       - POTION_EFFECT / NAUSEA / 1
     BROKEN:
+      - POTION_EFFECT / BLINDNESS / 1
+      - REPEATING / 10t / 10t / SOUND / entity.warden.heartbeat / 1 / 0.75
       - POTION_EFFECT / NAUSEA / 1
-      - KILL_PLAYER
   TORSO:
     FULL:
       - WHEN_HEALED / DELAYED / 1s / MESSAGE / actionbar:&aYou feel a little better
@@ -398,16 +401,21 @@ effects:
       - WHEN_DAMAGED / MESSAGE / actionbar:&cYour heart is pounding
       - REPEATING / 10t / 10t / SOUND / entity.warden.heartbeat / 1 / 0.75
     BROKEN:
-      - KILL_PLAYER
+      - REPEATING / 10t / 10t / SOUND / entity.warden.heartbeat / 1 / 0.75
+      - POTION_EFFECT / NAUSEA / 1
   ARM_LEFT:
     FULL: []
     NEARLYFULL: []
     INTERMEDIATE: []
     DAMAGED:
       - WHEN_DAMAGED / MESSAGE / actionbar:&cYou arm hurts
+      - ATTRIBUTE_MODIFIER / ENTITY_INTERACTION_RANGE / -0.75 / add_value / damaged_arm
+      - ATTRIBUTE_MODIFIER / BLOCK_INTERACTION_RANGE / -0.75 / add_value / damaged_arm
       - POTION_EFFECT / WEAKNESS / 1
     BROKEN:
       - PREVENT_INTERACT / OFF_HAND / actionbar:&cYou arm hurts badly
+      - ATTRIBUTE_MODIFIER / ENTITY_INTERACTION_RANGE / -1.5 / add_value / damaged_arm
+      - ATTRIBUTE_MODIFIER / BLOCK_INTERACTION_RANGE / -1.5 / add_value / damaged_arm
       - POTION_EFFECT / WEAKNESS / 2
   ARM_RIGHT:
     FULL: []
@@ -415,17 +423,21 @@ effects:
     INTERMEDIATE: []
     DAMAGED:
       - WHEN_DAMAGED / MESSAGE / actionbar:&cYou arm hurts
+      - ATTRIBUTE_MODIFIER / ENTITY_INTERACTION_RANGE / -0.75 / add_value / damaged_arm
+      - ATTRIBUTE_MODIFIER / BLOCK_INTERACTION_RANGE / -0.75 / add_value / damaged_arm
       - POTION_EFFECT / WEAKNESS / 1
     BROKEN:
       - PREVENT_INTERACT / HAND / actionbar:&cYou arm hurts badly
+      - ATTRIBUTE_MODIFIER / ENTITY_INTERACTION_RANGE / -1.5 / add_value / damaged_arm
+      - ATTRIBUTE_MODIFIER / BLOCK_INTERACTION_RANGE / -1.5 / add_value / damaged_arm
       - POTION_EFFECT / WEAKNESS / 2
   LEG_LEFT:
     FULL: []
     NEARLYFULL: []
     INTERMEDIATE: []
     DAMAGED:
+      - ATTRIBUTE_MODIFIER / JUMP_STRENGTH / -0.2 / add_multiplied_total / damaged_leg
       - PREVENT_SPRINT
-      - PREVENT_JUMP
     BROKEN:
       - POTION_EFFECT / SLOWNESS / 3
       - PREVENT_JUMP
@@ -434,8 +446,8 @@ effects:
     NEARLYFULL: []
     INTERMEDIATE: []
     DAMAGED:
+      - ATTRIBUTE_MODIFIER / JUMP_STRENGTH / -0.2 / add_multiplied_total / damaged_leg
       - PREVENT_SPRINT
-      - PREVENT_JUMP
     BROKEN:
       - POTION_EFFECT / SLOWNESS / 3
       - PREVENT_JUMP
@@ -467,7 +479,7 @@ display:
   #
   #      To make this work, you need to install two plugins, if you don't have them already:       <--
   #      PlaceholderAPI -> https://www.spigotmc.org/resources/placeholderapi.6245/               <-- DON'T OVERLOOK THIS PART
-  #      ...and obviously BetterHud -> https://modrinth.com/plugin/betterhud2                      <--
+  #      …and obviously BetterHud -> https://modrinth.com/plugin/betterhud2                        <--
   #
   #   When both plugins are installed, the following options activate:
   betterhud:
