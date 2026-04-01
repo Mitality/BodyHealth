@@ -22,6 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class EffectHandler {
 
     private static Map<String, BodyHealthEffect> effects = new ConcurrentHashMap<>(Map.ofEntries(
+        Map.entry("ATTRIBUTE_MODIFIER", new ATTRIBUTE_MODIFIER()),
         Map.entry("POTION_EFFECT", new POTION_EFFECT()),
         Map.entry("PREVENT_INTERACT", new PREVENT_INTERACT()),
         Map.entry("PREVENT_SPRINT", new PREVENT_SPRINT()),
