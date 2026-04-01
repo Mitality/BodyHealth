@@ -21,6 +21,7 @@ public class ReloadCommand implements SubCommand {
         if (Config.display_betterhud_auto_reload) {
             if (Bukkit.getPluginManager().getPlugin("BetterHud") == null) return true;
             if (!Bukkit.getPluginManager().getPlugin("BetterHud").isEnabled()) return true;
+            Main.validationTimestamp = System.currentTimeMillis();
             Main.getScheduler().runTask(() -> Bukkit
                     .dispatchCommand(Bukkit.getConsoleSender(), "betterhud reload"));
         }
