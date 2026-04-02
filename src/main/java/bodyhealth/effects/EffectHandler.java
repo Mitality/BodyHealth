@@ -11,6 +11,7 @@ import bodyhealth.config.Debug;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlotGroup;
@@ -216,8 +217,8 @@ public class EffectHandler {
      * Utility method to get an attribute modifier that reduces walk speed to zero (or 15% if lenient)
      * @return An attribute modifier that reduces walk speed to zero
      */
-    public static AttributeModifier getWalkDenialModifier() {
-        double amount = Config.lenient_movement_restrictions ? -0.85 : -1.0;
+    public static AttributeModifier getWalkDenialModifier(boolean lenient) {
+        double amount = lenient ? -0.85 : -1.0;
         return new AttributeModifier(new NamespacedKey("bodyhealth", "walk_denial"), amount, AttributeModifier.Operation.MULTIPLY_SCALAR_1, EquipmentSlotGroup.ANY);
     }
 
@@ -225,8 +226,8 @@ public class EffectHandler {
      * Utility method to get an attribute modifier that reduces jump strength to zero (or 15% if lenient)
      * @return An attribute modifier that reduces jump strength to zero
      */
-    public static AttributeModifier getJumpDenialModifier() {
-        double amount = Config.lenient_movement_restrictions ? -0.85 : -1.0;
+    public static AttributeModifier getJumpDenialModifier(boolean lenient) {
+        double amount = lenient ? -0.85 : -1.0;
         return new AttributeModifier(new NamespacedKey("bodyhealth", "jump_denial"), amount, AttributeModifier.Operation.MULTIPLY_SCALAR_1, EquipmentSlotGroup.ANY);
     }
 
@@ -240,11 +241,21 @@ public class EffectHandler {
         for (BodyPart part : BodyPart.values()) {
             EffectHandler.onBodyPartStateChange(player, part, BodyHealthUtils.getBodyHealthState(bodyHealth, part), null);
         }
+
         // Ensure that all attribute modifiers are removed
         EffectHandler.preventSprint.remove(player);
-        Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).removeModifier(EffectHandler.getSpeedReductionModifier());
-        Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).removeModifier(EffectHandler.getWalkDenialModifier());
-        Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_JUMP_STRENGTH)).removeModifier(EffectHandler.getJumpDenialModifier());
+        AttributeInstance movementSpeedAttribute = player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED);
+        if (movementSpeedAttribute != null) {
+            movementSpeedAttribute.removeModifier(EffectHandler.getSpeedReductionModifier());
+            movementSpeedAttribute.removeModifier(EffectHandler.getWalkDenialModifier(true));
+            movementSpeedAttribute.removeModifier(EffectHandler.getWalkDenialModifier(false));
+        }
+        AttributeInstance jumpStrengthAttribute = player.getAttribute(Attribute.GENERIC_JUMP_STRENGTH);
+        if (jumpStrengthAttribute != null) {
+            jumpStrengthAttribute.removeModifier(EffectHandler.getJumpDenialModifier(true));
+            jumpStrengthAttribute.removeModifier(EffectHandler.getJumpDenialModifier(false));
+        }
+
         // Remove invalid effects if present
         BodyHealthUtils.validateEffects(player);
     }

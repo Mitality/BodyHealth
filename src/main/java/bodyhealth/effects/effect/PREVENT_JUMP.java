@@ -1,5 +1,6 @@
 package bodyhealth.effects.effect;
 
+import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
 import bodyhealth.core.BodyPart;
 import bodyhealth.effects.BodyHealthEffect;
@@ -30,11 +31,12 @@ public class PREVENT_JUMP implements BodyHealthEffect {
     @Override
     public void onApply(Player player, BodyPart part, String[] args, boolean isRecovery) {
 
+        boolean lenient = Config.lenient_movement_restrictions;
         Debug.log("(" + part.name() +") Preventing jump for player " + player.getName());
         AttributeInstance jumpAttribute = player.getAttribute(Attribute.GENERIC_JUMP_STRENGTH);
-        if (jumpAttribute != null && jumpAttribute.getModifiers().stream().noneMatch(mod -> mod.getKey().equals(EffectHandler.getJumpDenialModifier().getKey()))) {
+        if (jumpAttribute != null && jumpAttribute.getModifiers().stream().noneMatch(mod -> mod.getKey().equals(EffectHandler.getJumpDenialModifier(lenient).getKey()))) {
             Debug.log("Adding JumpDenialModifier to player " + player.getName());
-            BodyHealthUtils.addAttributeModifier(jumpAttribute, EffectHandler.getJumpDenialModifier());
+            BodyHealthUtils.addAttributeModifier(jumpAttribute, EffectHandler.getJumpDenialModifier(lenient));
         }
 
     }
@@ -42,12 +44,16 @@ public class PREVENT_JUMP implements BodyHealthEffect {
     @Override
     public void onRemove(Player player, BodyPart part, String[] args, boolean isRecovery) {
 
+        boolean lenient = Config.lenient_movement_restrictions;
         Debug.log("(" + part.name() +") No longer preventing jump for player " + player.getName());
         AttributeInstance jumpAttribute = player.getAttribute(Attribute.GENERIC_JUMP_STRENGTH);
         if (jumpAttribute != null && BodyHealthUtils.canPlayerJump(player)) {
-            if (jumpAttribute.getModifiers().stream().anyMatch(mod -> mod.getKey().equals(EffectHandler.getJumpDenialModifier().getKey()))) {
+            if (jumpAttribute.getModifiers().stream().anyMatch(mod -> mod.getKey().equals(EffectHandler.getJumpDenialModifier(lenient).getKey()))) {
                 Debug.log("Removing JumpDenialModifier from player " + player.getName());
-                jumpAttribute.removeModifier(EffectHandler.getJumpDenialModifier());
+                jumpAttribute.removeModifier(EffectHandler.getJumpDenialModifier(lenient));
+            } else if (jumpAttribute.getModifiers().stream().anyMatch(mod -> mod.getKey().equals(EffectHandler.getJumpDenialModifier(!lenient).getKey()))) {
+                Debug.log("Removing JumpDenialModifier from player " + player.getName());
+                jumpAttribute.removeModifier(EffectHandler.getJumpDenialModifier(!lenient));
             }
         }
 

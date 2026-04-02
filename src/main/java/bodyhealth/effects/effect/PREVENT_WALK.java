@@ -1,5 +1,6 @@
 package bodyhealth.effects.effect;
 
+import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
 import bodyhealth.core.BodyPart;
 import bodyhealth.effects.BodyHealthEffect;
@@ -30,11 +31,12 @@ public class PREVENT_WALK implements BodyHealthEffect {
     @Override
     public void onApply(Player player, BodyPart part, String[] args, boolean isRecovery) {
 
+        boolean lenient = Config.lenient_movement_restrictions;
         Debug.log("(" + part.name() +") Preventing walk for player " + player.getName());
         AttributeInstance walkAttribute = player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED);
-        if (walkAttribute != null && walkAttribute.getModifiers().stream().noneMatch(mod -> mod.getKey().equals(EffectHandler.getWalkDenialModifier().getKey()))) {
+        if (walkAttribute != null && walkAttribute.getModifiers().stream().noneMatch(mod -> mod.getKey().equals(EffectHandler.getWalkDenialModifier(lenient).getKey()))) {
             Debug.log("Adding WalkDenialModifier to player " + player.getName());
-            BodyHealthUtils.addAttributeModifier(walkAttribute, EffectHandler.getWalkDenialModifier());
+            BodyHealthUtils.addAttributeModifier(walkAttribute, EffectHandler.getWalkDenialModifier(lenient));
         }
 
     }
@@ -42,12 +44,16 @@ public class PREVENT_WALK implements BodyHealthEffect {
     @Override
     public void onRemove(Player player, BodyPart part, String[] args, boolean isRecovery) {
 
+        boolean lenient = Config.lenient_movement_restrictions;
         Debug.log("(" + part.name() +") No longer preventing walk for player " + player.getName());
         AttributeInstance walkAttribute = player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED);
         if (walkAttribute != null && BodyHealthUtils.canPlayerWalk(player)) {
-            if (walkAttribute.getModifiers().stream().anyMatch(mod -> mod.getKey().equals(EffectHandler.getWalkDenialModifier().getKey()))) {
+            if (walkAttribute.getModifiers().stream().anyMatch(mod -> mod.getKey().equals(EffectHandler.getWalkDenialModifier(lenient).getKey()))) {
                 Debug.log("Removing WalkDenialModifier from player " + player.getName());
-                walkAttribute.removeModifier(EffectHandler.getWalkDenialModifier());
+                walkAttribute.removeModifier(EffectHandler.getWalkDenialModifier(lenient));
+            } else if (walkAttribute.getModifiers().stream().anyMatch(mod -> mod.getKey().equals(EffectHandler.getWalkDenialModifier(!lenient).getKey()))) {
+                Debug.log("Removing WalkDenialModifier from player " + player.getName());
+                walkAttribute.removeModifier(EffectHandler.getWalkDenialModifier(!lenient));
             }
         }
 
