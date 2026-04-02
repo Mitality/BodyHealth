@@ -54,7 +54,7 @@ public class REPEATING implements BodyHealthEffect {
             return;
         }
 
-        MyScheduledTask task = Main.getScheduler().runTaskTimer(() -> effectObject.onApply(player, part, effectParts, isRecovery), delay, interval);
+        MyScheduledTask task = Main.getScheduler().runTaskTimer(player, () -> effectObject.onApply(player, part, effectParts, isRecovery), delay, interval);
         storeTask(player, part, task);
     }
 

@@ -56,7 +56,7 @@ public class DELAYED implements BodyHealthEffect {
 
         if (ticks > 0) {
             AtomicReference<MyScheduledTask> taskReference = new AtomicReference<>();
-            MyScheduledTask task = Main.getScheduler().runTaskLater(() -> {
+            MyScheduledTask task = Main.getScheduler().runTaskLater(player, () -> {
                 effectObject.onApply(player, part, effectParts, isRecovery);
                 removeTask(player, part, taskReference.get());
             }, ticks);

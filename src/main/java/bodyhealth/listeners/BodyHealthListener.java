@@ -128,7 +128,7 @@ public class BodyHealthListener implements Listener {
     public void onPlayerRespawn(PlayerRespawnEvent event) {
         if (!Config.heal_on_respawn) return;
         BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(event.getPlayer());
-        Main.getScheduler().runTask(() -> bodyHealth
+        Main.getScheduler().runTask(event.getPlayer(), () -> bodyHealth
                 .regenerateHealth(Integer.MAX_VALUE, true, event));
     }
 
@@ -205,7 +205,7 @@ public class BodyHealthListener implements Listener {
     }
 
     private void checkHealthDelayed(Player player, double health, @Nullable Event cause) {
-        Main.getScheduler().runTaskLater(() -> {
+        Main.getScheduler().runTaskLater(player, () -> {
             if (player.getHealth() == player.getMaxHealth()) {
                 if (!Config.heal_on_full_health) return;
                 BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(player);
