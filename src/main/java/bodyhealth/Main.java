@@ -7,6 +7,7 @@ import bodyhealth.data.DataManager;
 import bodyhealth.depend.PlaceholderAPI;
 import bodyhealth.depend.WorldGuard;
 import bodyhealth.effects.EffectHandler;
+import bodyhealth.effects.effect.POTION_EFFECT;
 import bodyhealth.listeners.*;
 import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
@@ -166,6 +167,9 @@ public final class Main extends JavaPlugin {
         // Set up DataManager
         DataManager.load();
 
+        // Start repeating potion effect refresh task if configured
+        if (Config.apply_potion_effects_repeatedly) POTION_EFFECT.startRefreshTask();
+
         // Check for updates
         UpdateChecker updateChecker = new UpdateChecker("BodyHealth", "bodyhealth", getDescription().getVersion()).checkNow();
         if (Config.update_check_interval > 0) updateChecker.checkEveryXHours(Config.update_check_interval);
@@ -183,6 +187,7 @@ public final class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         Debug.log("Disabling System...");
+        POTION_EFFECT.stopRefreshTask();
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (!FoliaUtils.isFolia() && Config.remove_effects_on_shutdown)
                 EffectHandler.removeEffectsFromPlayer(player);

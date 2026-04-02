@@ -8,6 +8,7 @@ import bodyhealth.data.DataManager;
 import bodyhealth.depend.BetterHud;
 import bodyhealth.depend.WorldGuard;
 import bodyhealth.effects.EffectHandler;
+import bodyhealth.effects.effect.POTION_EFFECT;
 import bodyhealth.core.BodyHealth;
 import bodyhealth.Main;
 import bodyhealth.core.BodyPart;
@@ -89,7 +90,9 @@ public class BodyHealthUtils {
             Main.getInstance().reloadConfig();
 
             // Load config internally
+            POTION_EFFECT.stopRefreshTask();
             Config.load(Main.getInstance().getConfig());
+            if (Config.apply_potion_effects_repeatedly) POTION_EFFECT.startRefreshTask();
 
             // Ensure language directory exists
             File languageDir = new File(Main.getInstance().getDataFolder(), "language");

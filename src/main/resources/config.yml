@@ -114,13 +114,19 @@ lenient-movement-restrictions: false
 # NOTE: Only has an effect on Paper/Folia. Transient modifiers are unavailable on Spigot
 use-transient-modifiers: true
 
-# Should we remove all active effects from all online players,
+# Should we remove all active effects from all online players
 # when the server is shutting down? If set to false, effects are
 # stored and removed when the affected player joins the server again
 # NOTE: This is impossible to do on Folia due to it shutting down the
 # global thread needed to remove effects before plugins can know that
 # the server is shutting down. Hence, this defaults to false on Folia
 remove-effects-on-shutdown: true
+
+# Should we apply potion effects repeatedly like a beacon would?
+# This is beneficial for Folia-based servers, where effects cannot
+# be removed on shutdown. This makes leftover potion effects run
+# out after a few seconds, even when this plugin is removed
+apply-potion-effects-repeatedly: false
 
 # Should we hide potion effects applied by the POTION_EFFECT effect from
 # players? This removes the effect icon, particles and so on, but players

@@ -25,6 +25,7 @@ public class Config {
     public static boolean lenient_movement_restrictions;
     public static boolean use_transient_modifiers;
     public static boolean remove_effects_on_shutdown;
+    public static boolean apply_potion_effects_repeatedly;
     public static boolean hide_potion_effects;
     public static boolean kill_with_command;
     public static boolean heal_on_respawn;
@@ -93,6 +94,7 @@ public class Config {
         lenient_movement_restrictions = config.getBoolean("lenient-movement-restrictions", false);
         use_transient_modifiers = config.getBoolean("use-transient-modifiers", true);
         remove_effects_on_shutdown = config.getBoolean("remove-effects-on-shutdown", true);
+        apply_potion_effects_repeatedly = config.getBoolean("apply-potion-effects-repeatedly", false);
         hide_potion_effects = config.getBoolean("hide-potion-effects", true);
         kill_with_command = config.getBoolean("kill-with-command", true);
         heal_on_respawn = config.getBoolean("heal-on-respawn", true);
