@@ -2,6 +2,8 @@
     "pack": {
         "pack_format": 33,
         "supported_formats": [33, 99],
+        "min_format": 33,
+        "max_format": 99,
         "description": [
             {"text": "Bo", "color": "#C41A05"},
             {"text": "dy", "color": "#CC8F16"},
