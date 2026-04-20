@@ -188,6 +188,7 @@ public final class Main extends JavaPlugin {
     public void onDisable() {
         Debug.log("Disabling System...");
         POTION_EFFECT.stopRefreshTask();
+        FoliaUtils.stopWorldChangeWatcher();
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (!FoliaUtils.isFolia() && Config.remove_effects_on_shutdown)
                 EffectHandler.removeEffectsFromPlayer(player);

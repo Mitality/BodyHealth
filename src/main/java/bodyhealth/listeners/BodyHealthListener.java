@@ -10,7 +10,9 @@ import bodyhealth.Main;
 import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
 import bodyhealth.util.MessageUtils;
+import bodyhealth.util.FoliaUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.*;
 import org.bukkit.event.Event;
@@ -24,6 +26,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 
 public class BodyHealthListener implements Listener {
+
+    public BodyHealthListener() {
+        if (FoliaUtils.isFolia()) FoliaUtils.startWorldChangeWatcher(this::handleWorldChange);
+    }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerDamage(EntityDamageEvent event) {
@@ -181,25 +187,34 @@ public class BodyHealthListener implements Listener {
 
     @EventHandler
     public void onPlayerChangeWorld(PlayerChangedWorldEvent event) {
-        BodyHealthUtils.applyBodyHealthHudVisibility(event.getPlayer());
-        boolean isEnabledInFrom = BodyHealthUtils.isSystemEnabled(event.getFrom());
-        boolean isEnabledInTo = BodyHealthUtils.isSystemEnabled(event.getPlayer());
-        if (!isEnabledInFrom && isEnabledInTo) EffectHandler.addEffectsToPlayer(event.getPlayer());
+        FoliaUtils.updatePlayerWorld(event.getPlayer()); // Keep the watcher in sync so it doesn't double-fire
+        Main.getScheduler().runTaskLater(event.getPlayer(), () ->
+                handleWorldChange(event.getPlayer(), event.getFrom()), 1L);
+    }
+
+    private void handleWorldChange(Player player, World from) {
+        boolean isEnabledInFrom = BodyHealthUtils.isSystemEnabled(from);
+        boolean isEnabledInTo = BodyHealthUtils.isSystemEnabled(player);
+        if (!isEnabledInFrom && isEnabledInTo) EffectHandler.addEffectsToPlayer(player);
         else if (isEnabledInFrom && !isEnabledInTo) {
-            if (BodyHealthUtils.getBodyHealth(event.getPlayer()).getOngoingEffects().isEmpty()) return;
-            EffectHandler.removeEffectsFromPlayer(event.getPlayer());
+            if (!BodyHealthUtils.getBodyHealth(player).getOngoingEffects().isEmpty())
+                EffectHandler.removeEffectsFromPlayer(player);
         }
+        BodyHealthUtils.applyBodyHealthHudVisibility(player);
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
+        FoliaUtils.updatePlayerWorld(event.getPlayer());
         EffectHandler.removeOngoingEffects(event.getPlayer()); // Clean up known leftover effects
         if (BodyHealthUtils.isSystemEnabled(event.getPlayer())) EffectHandler.addEffectsToPlayer(event.getPlayer());
-        BodyHealthUtils.applyBodyHealthHudVisibility(event.getPlayer());
+        Main.getScheduler().runTaskLater(event.getPlayer(), () -> BodyHealthUtils
+                .applyBodyHealthHudVisibility(event.getPlayer()), 1L);
     }
 
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent event) {
+        FoliaUtils.removePlayerWorld(event.getPlayer());
         if (BodyHealthUtils.isSystemEnabled(event.getPlayer())) EffectHandler.removeEffectsFromPlayer(event.getPlayer());
         DataManager.saveBodyHealth(event.getPlayer().getUniqueId());
     }
