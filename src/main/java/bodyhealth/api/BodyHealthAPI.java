@@ -16,6 +16,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -410,6 +411,7 @@ public class BodyHealthAPI {
      * @param player the player whose BodyHealth object is to be retrieved
      * @return the BodyHealth object that belongs to the given player
      */
+    @ApiStatus.Experimental
     public BodyHealth getBodyHealth(@NotNull Player player) {
         return BodyHealthUtils.getBodyHealth(player);
     }

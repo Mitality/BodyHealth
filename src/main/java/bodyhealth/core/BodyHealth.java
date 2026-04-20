@@ -8,10 +8,12 @@ import bodyhealth.util.BodyHealthUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
+@ApiStatus.Internal
 public class BodyHealth {
 
     private final Map<BodyPart, Long> command_timestamps;
@@ -219,8 +221,8 @@ public class BodyHealth {
     }
 
     /**
-     * Retrieves a list of all currently ongoing effects for a given BodyPart
-     * @return The BodyPart to retrieve all ongoing effects for
+     * Retrieves all currently ongoing effects, mapped per BodyPart
+     * @return All currently ongoing effects, mapped per BodyPart
      */
     public Map<BodyPart, List<String[]>> getOngoingEffects() {
         return ongoingEffects;
