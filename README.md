@@ -32,16 +32,6 @@
 </p>
 
 <p align="center">
-  Official Addon:<br>
-  <a href="https://modrinth.com/plugin/bodyhealthaddon-locationalarmoraddon">LocationalArmorAddon</a>
-</p>
-
-<p align="center">
-  Unofficial Addon:<br>
-  <a href="https://github.com/tnhzr/RealisticBodyHealth-Addon">RealisticBodyHealthAddon</a>
-</p>
-
-<p align="center">
   Demo Server:<br>
   <a href="https://mcsrvstat.us/server/showcase.breweryteam.dev">showcase.breweryteam.dev</a>
 </p>
@@ -89,6 +79,28 @@ Safe to say this won't be the<br>plugin lagging your server</p>
 <a href="https://github.com/Mitality/BodyHealth/wiki/Code-Quality">
   <img src="https://www.codefactor.io/repository/github/mitality/bodyhealth/badge" alt="CodeFactor" />
 </a>
+</p>
+
+<p align="center">
+  <img width="500" src="https://raw.githubusercontent.com/Mitality/BodyHealth/refs/heads/main/src/main/resources/assets/addons.png" alt="Addons">
+</p>
+
+<p align="center">
+  <b>Official</b><br>
+  <a href="https://modrinth.com/plugin/bodyhealthaddon-locationalarmoraddon">LocationalArmorAddon</a>
+  <br>
+</p>
+
+<p align="center">
+  <b>Unofficial</b><br>
+  <a href="https://github.com/tnhzr/RealisticBodyHealth-Addon">RealisticBodyHealthAddon</a>
+  <br>
+</p>
+
+<p align="center">
+  <br>
+  <i>Have an addon to share?</i><br>
+  Contact me to have it listed here
 </p>
 
 <p align="center">
