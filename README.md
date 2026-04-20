@@ -37,6 +37,11 @@
 </p>
 
 <p align="center">
+  Unofficial Addon:<br>
+  <a href="https://github.com/tnhzr/RealisticBodyHealth-Addon">RealisticBodyHealthAddon</a>
+</p>
+
+<p align="center">
   Demo Server:<br>
   <a href="https://mcsrvstat.us/server/showcase.breweryteam.dev">showcase.breweryteam.dev</a>
 </p>
