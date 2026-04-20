@@ -92,7 +92,7 @@ Safe to say this won't be the<br>plugin lagging your server</p>
 </p>
 
 <p align="center">
-  <b>Unofficial</b><br>
+  <b>Community</b><br>
   <a href="https://github.com/tnhzr/RealisticBodyHealth-Addon">RealisticBodyHealthAddon</a>
   <br>
 </p>
