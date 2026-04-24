@@ -1,5 +1,6 @@
 package bodyhealth.effects;
 
+import bodyhealth.Main;
 import bodyhealth.api.events.BodyPartStateChangeEvent;
 import bodyhealth.core.BodyHealth;
 import bodyhealth.core.BodyPart;
@@ -14,6 +15,7 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Player;
+import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.EquipmentSlotGroup;
 
 import javax.annotation.Nullable;
@@ -48,6 +50,7 @@ public class EffectHandler {
     public static boolean registerEffect(BodyHealthEffect effect) {
         if (effects.containsKey(effect.getIdentifier())) return false;
         effects.put(effect.getIdentifier(), effect);
+        if (listenersRegistered) Bukkit.getPluginManager().registerEvents(effect, Main.getInstance());
         return true;
     }
 
@@ -59,6 +62,7 @@ public class EffectHandler {
     public static boolean unregisterEffect(BodyHealthEffect effect) {
         if (!effects.containsKey(effect.getIdentifier())) return false;
         effects.remove(effect.getIdentifier());
+        HandlerList.unregisterAll(effect);
         return true;
     }
 
@@ -70,7 +74,14 @@ public class EffectHandler {
         return effects;
     }
 
-    public static List<Player> preventSprint = new ArrayList<>();
+    private static boolean listenersRegistered = false;
+
+    public static void registerListeners() {
+        for (BodyHealthEffect effect : effects.values()) {
+            Bukkit.getPluginManager().registerEvents(effect, Main.getInstance());
+        }
+        listenersRegistered = true;
+    }
 
     /**
      * Calculate what should happen in terms of effects when the BodyPart of a player changes its state
@@ -243,7 +254,7 @@ public class EffectHandler {
         }
 
         // Ensure that all attribute modifiers are removed
-        EffectHandler.preventSprint.remove(player);
+        PREVENT_SPRINT.clearCacheFor(player); // Shouldn't be necessary, but just in case
         AttributeInstance movementSpeedAttribute = player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED);
         if (movementSpeedAttribute != null) {
             movementSpeedAttribute.removeModifier(EffectHandler.getSpeedReductionModifier());

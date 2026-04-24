@@ -9,11 +9,9 @@ import bodyhealth.util.BodyHealthUtils;
 import bodyhealth.Main;
 import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
-import bodyhealth.util.MessageUtils;
 import bodyhealth.util.FoliaUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.*;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
@@ -141,12 +139,6 @@ public class BodyHealthListener implements Listener {
     @EventHandler (priority = EventPriority.MONITOR)
     public void onPlayerInteract(PlayerInteractEvent event) {
         checkHealthDelayed(event.getPlayer(), event.getPlayer().getHealth(), event); // Other plugins could heal the player here -> check delayed
-        if (event.getHand() == null) return; // Turns out PlayerInteractEvent covers way more than I thought it would
-        if (!Config.always_allow_eating || event.getItem() == null || event.getItem().getItemMeta() == null || !event.getItem().getItemMeta().hasFood()) {
-            if (BodyHealthUtils.canPlayerInteract(event.getPlayer(), event.getHand())) return;
-            MessageUtils.sendEffectMessages(event.getPlayer(), "PREVENT_INTERACT");
-            event.setCancelled(true);
-        }
     }
 
     @EventHandler
@@ -167,21 +159,6 @@ public class BodyHealthListener implements Listener {
     public void onPlayerMove(PlayerMoveEvent event) {
         if (event.getTo() != null && (event.getFrom().getBlockX() != event.getTo().getBlockX() || event.getFrom().getBlockZ() != event.getTo().getBlockZ())) {
             BodyHealthUtils.applyBodyHealthHudVisibility(event.getPlayer()); // Refresh when moved to a new block
-        }
-
-        if (event.getPlayer().isSprinting()) {
-            if (EffectHandler.preventSprint.contains(event.getPlayer())) return; // Player is already slowed down
-            //if (event.getFrom().getBlockX() == event.getTo().getBlockX() && event.getFrom().getBlockZ() != event.getTo().getBlockZ()) return; // Player hasn't moved a block yet (possible optimization for the line below)
-            if (BodyHealthUtils.canPlayerSprint(event.getPlayer())) return; // Player is allowed to sprint
-            EffectHandler.preventSprint.add(event.getPlayer());
-            BodyHealthUtils.addAttributeModifier(Objects.requireNonNull(event.getPlayer().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)), EffectHandler.getSpeedReductionModifier());
-            Debug.log("Adding SpeedReductionModifier to player " + event.getPlayer().getName());
-            MessageUtils.sendEffectMessages(event.getPlayer(), "PREVENT_SPRINT");
-        } else {
-            if (!EffectHandler.preventSprint.contains(event.getPlayer())) return; // Player isn't slowed down
-            EffectHandler.preventSprint.remove(event.getPlayer());
-            Objects.requireNonNull(event.getPlayer().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).removeModifier(EffectHandler.getSpeedReductionModifier());
-            Debug.log("Removing SpeedReductionModifier from player " + event.getPlayer().getName());
         }
     }
 

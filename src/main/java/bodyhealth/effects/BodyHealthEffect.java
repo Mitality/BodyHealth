@@ -2,8 +2,9 @@ package bodyhealth.effects;
 
 import bodyhealth.core.BodyPart;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 
-public interface BodyHealthEffect {
+public interface BodyHealthEffect extends Listener {
 
     /**
      * Returns the effect's type as an EffectType object (enum)

@@ -130,6 +130,7 @@ public final class Main extends JavaPlugin {
 
         // Commands and Listeners
         Bukkit.getPluginManager().registerEvents(new BodyHealthListener(), this);
+        EffectHandler.registerListeners();
         Objects.requireNonNull(getCommand("bodyhealth")).setExecutor(new CommandManager());
         Debug.log("Registered Commands and Listeners");
 

@@ -26,9 +26,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
@@ -388,121 +386,6 @@ public class BodyHealthUtils {
     }
 
     /**
-     * Utility method to check if a player should be able to sprint
-     * @param player The player to calculate this for
-     * @return A boolean representing if the player should currently be able to sprint normally
-     */
-    public static boolean canPlayerSprint(Player player) {
-        BodyHealth bodyHealth = getBodyHealth(player);
-        if (bodyHealth.getOngoingEffects().isEmpty()) return true;
-        for (Map.Entry<BodyPart, List<String[]>> entry : bodyHealth.getOngoingEffects().entrySet()) {
-            List<String[]> effectsList = entry.getValue();
-            for (String[] effectParts : effectsList) {
-                if (effectParts.length > 0
-                        && effectParts[0].trim().equalsIgnoreCase("PREVENT_SPRINT")) return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Utility method to check if a player should be able to walk
-     * @param player The player to calculate this for
-     * @return A boolean representing if the player should currently be able to walk
-     */
-    public static boolean canPlayerWalk(Player player) {
-        BodyHealth bodyHealth = getBodyHealth(player);
-        if (bodyHealth.getOngoingEffects().isEmpty()) return true;
-        for (Map.Entry<BodyPart, List<String[]>> entry : bodyHealth.getOngoingEffects().entrySet()) {
-            List<String[]> effectsList = entry.getValue();
-            for (String[] effectParts : effectsList) {
-                if (effectParts.length > 0
-                        && effectParts[0].trim().equalsIgnoreCase("PREVENT_WALK")) return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Utility method to check if a player should be able to jump
-     * @param player The player to calculate this for
-     * @return A boolean representing if the player should currently be able to jump
-     */
-    public static boolean canPlayerJump(Player player) {
-        BodyHealth bodyHealth = getBodyHealth(player);
-        if (bodyHealth.getOngoingEffects().isEmpty()) return true;
-        for (Map.Entry<BodyPart, List<String[]>> entry : bodyHealth.getOngoingEffects().entrySet()) {
-            List<String[]> effectsList = entry.getValue();
-            for (String[] effectParts : effectsList) {
-                if (effectParts.length > 0
-                        && effectParts[0].trim().equalsIgnoreCase("PREVENT_JUMP")) return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Utility method to check if a player should be able to interact with something
-     * @param player The player to calculate this for
-     * @param hand The equipment slot to calculate this for
-     * @return A boolean representing if the player should currently be able to interact with something
-     */
-    public static boolean canPlayerInteract(Player player, EquipmentSlot hand) {
-        BodyHealth bodyHealth = getBodyHealth(player);
-        if (bodyHealth.getOngoingEffects().isEmpty()) return true;
-        for (Map.Entry<BodyPart, List<String[]>> entry : bodyHealth.getOngoingEffects().entrySet()) {
-            List<String[]> effectsList = entry.getValue();
-            for (String[] effectParts : effectsList) {
-                if (effectParts.length > 0 && effectParts[0].trim().equalsIgnoreCase("PREVENT_INTERACT")
-                        && effectParts[1].trim().equalsIgnoreCase(hand.name())) return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Utility method to check if a player currently has a specific potion effect type
-     * @param player The player to calculate this for
-     * @param effect The effect type to check for
-     * @return A boolean representing if the player currently has the given potion effect type
-     */
-    public static boolean hasPlayerPotionEffect(Player player, PotionEffectType effect) {
-        BodyHealth bodyHealth = getBodyHealth(player);
-        if (bodyHealth.getOngoingEffects().isEmpty()) return false;
-        for (Map.Entry<BodyPart, List<String[]>> entry : bodyHealth.getOngoingEffects().entrySet()) {
-            List<String[]> effectsList = entry.getValue();
-            for (String[] effectParts : effectsList) {
-                if (effectParts.length > 0 && effectParts[0].trim().equalsIgnoreCase("POTION_EFFECT")
-                        && effectParts[1].trim().equalsIgnoreCase(effect.getKey().getKey())) return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Utility method to retrieve the highest amplifier of a potion effect that a player should currently have
-     * @param player The player to calculate this for
-     * @param effect The effect to calculate this for
-     * @return The highest amplifier of thew given potion effect that the given player should currently have
-     */
-    public static int getHighestPotionEffectAmplifier(Player player, PotionEffectType effect) {
-        BodyHealth bodyHealth = getBodyHealth(player);
-        if (bodyHealth.getOngoingEffects().isEmpty()) return -1;
-        int highestAmplifier = -1;
-        for (Map.Entry<BodyPart, List<String[]>> entry : bodyHealth.getOngoingEffects().entrySet()) {
-            List<String[]> effectsList = entry.getValue();
-            for (String[] effectParts : effectsList) {
-                if (effectParts.length > 0
-                        && effectParts[0].trim().equalsIgnoreCase("POTION_EFFECT")
-                        && effectParts[1].trim().equalsIgnoreCase(effect.getKey().getKey())
-                        && Integer.parseInt(effectParts[2].trim()) > highestAmplifier)
-                    highestAmplifier = Integer.parseInt(effectParts[2].trim());
-            }
-        }
-        return highestAmplifier;
-    }
-
-    /**
      * Unnecessary method to remove invalid (leftover) effects from a players BodyHealth -> ongoingEffects.
      * This should never be necessary, meaning if this method does catch something, I messed up, but I'll
      * leave it here as an extra layer of safety in case that should ever happen ¯\_(ツ)_/¯
@@ -535,7 +418,7 @@ public class BodyHealthUtils {
 
                 if (validEffects.stream().anyMatch(valid -> Arrays.equals(valid, normalizedEffect))) continue;
                 getBodyHealth(player).removeFromOngoingEffects(bodyPart, effectParts);
-                Debug.log("Removing invalid effect \"" + Arrays.toString(effectParts) + "\" from player " + player.getName() + " for body part " + bodyPart.name());
+                Debug.logRaw("Removing invalid effect \"" + Arrays.toString(effectParts) + "\" from player " + player.getName() + " for body part " + bodyPart.name());
             }
         }
     }

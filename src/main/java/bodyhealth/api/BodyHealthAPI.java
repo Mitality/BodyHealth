@@ -7,6 +7,10 @@ import bodyhealth.core.BodyPartState;
 import bodyhealth.depend.VanishPlugins;
 import bodyhealth.effects.BodyHealthEffect;
 import bodyhealth.effects.EffectHandler;
+import bodyhealth.effects.effect.PREVENT_INTERACT;
+import bodyhealth.effects.effect.PREVENT_JUMP;
+import bodyhealth.effects.effect.PREVENT_SPRINT;
+import bodyhealth.effects.effect.PREVENT_WALK;
 import bodyhealth.util.BodyHealthUtils;
 import bodyhealth.util.MessageUtils;
 import org.bukkit.World;
@@ -491,7 +495,7 @@ public class BodyHealthAPI {
      * @return true if able to interact
      */
     public boolean canPlayerInteract(@NotNull Player player, @NotNull EquipmentSlot hand) {
-        return BodyHealthUtils.canPlayerInteract(player, hand);
+        return PREVENT_INTERACT.canPlayerInteract(player, hand);
     }
 
     /**
@@ -500,7 +504,7 @@ public class BodyHealthAPI {
      * @return true if able to jump
      */
     public boolean canPlayerJump(@NotNull Player player) {
-        return BodyHealthUtils.canPlayerJump(player);
+        return PREVENT_JUMP.canPlayerJump(player);
     }
 
     /**
@@ -509,7 +513,7 @@ public class BodyHealthAPI {
      * @return true if able to sprint
      */
     public boolean canPlayerSprint(@NotNull Player player) {
-        return BodyHealthUtils.canPlayerSprint(player);
+        return PREVENT_SPRINT.canPlayerSprint(player);
     }
 
     /**
@@ -518,7 +522,7 @@ public class BodyHealthAPI {
      * @return true if able to walk
      */
     public boolean canPlayerWalk(@NotNull Player player) {
-        return BodyHealthUtils.canPlayerWalk(player);
+        return PREVENT_WALK.canPlayerWalk(player);
     }
 
 

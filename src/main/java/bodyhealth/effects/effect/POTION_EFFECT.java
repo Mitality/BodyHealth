@@ -3,6 +3,7 @@ package bodyhealth.effects.effect;
 import bodyhealth.Main;
 import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
+import bodyhealth.core.BodyHealth;
 import bodyhealth.core.BodyPart;
 import bodyhealth.effects.BodyHealthEffect;
 import bodyhealth.effects.EffectType;
@@ -14,6 +15,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
@@ -124,7 +126,7 @@ public class POTION_EFFECT implements BodyHealthEffect {
             return;
         }
 
-        int highestAmplifier = BodyHealthUtils.getHighestPotionEffectAmplifier(player, effectType);
+        int highestAmplifier = getHighestPotionEffectAmplifier(player, effectType);
 
         if (Config.apply_potion_effects_repeatedly) {
             if (highestAmplifier >= 0) {
@@ -152,6 +154,34 @@ public class POTION_EFFECT implements BodyHealthEffect {
             }
         }
 
+    }
+
+    public static int getHighestPotionEffectAmplifier(Player player, PotionEffectType effect) {
+        BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(player);
+        if (bodyHealth.getOngoingEffects().isEmpty()) return -1;
+        int highestAmplifier = -1;
+        for (Map.Entry<BodyPart, List<String[]>> entry : bodyHealth.getOngoingEffects().entrySet()) {
+            for (String[] effectParts : entry.getValue()) {
+                if (effectParts.length > 2 && effectParts[0].trim().equalsIgnoreCase("POTION_EFFECT")
+                        && effectParts[1].trim().equalsIgnoreCase(effect.getKey().getKey())) {
+                    int amplifier = Integer.parseInt(effectParts[2].trim());
+                    if (amplifier > highestAmplifier) highestAmplifier = amplifier;
+                }
+            }
+        }
+        return highestAmplifier;
+    }
+
+    public static boolean shouldPlayerHavePotionEffect(Player player, PotionEffectType effect) {
+        BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(player);
+        if (bodyHealth.getOngoingEffects().isEmpty()) return false;
+        for (Map.Entry<BodyPart, List<String[]>> entry : bodyHealth.getOngoingEffects().entrySet()) {
+            for (String[] effectParts : entry.getValue()) {
+                if (effectParts.length > 1 && effectParts[0].trim().equalsIgnoreCase("POTION_EFFECT")
+                        && effectParts[1].trim().equalsIgnoreCase(effect.getKey().getKey())) return true;
+            }
+        }
+        return false;
     }
 
 }
