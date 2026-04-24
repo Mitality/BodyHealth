@@ -14,6 +14,7 @@ import bodyhealth.effects.effect.DELAYED;
 import bodyhealth.effects.effect.KILL_PLAYER;
 import bodyhealth.effects.effect.MESSAGE;
 import bodyhealth.effects.effect.POTION_EFFECT;
+import bodyhealth.effects.effect.PREVENT_HOLD;
 import bodyhealth.effects.effect.PREVENT_INTERACT;
 import bodyhealth.effects.effect.PREVENT_JUMP;
 import bodyhealth.effects.effect.PREVENT_SPRINT;
@@ -46,6 +47,7 @@ public class EffectHandler {
         Map.entry("ATTRIBUTE_MODIFIER", new ATTRIBUTE_MODIFIER()),
         Map.entry("POTION_EFFECT", new POTION_EFFECT()),
         Map.entry("PREVENT_INTERACT", new PREVENT_INTERACT()),
+        Map.entry("PREVENT_HOLD", new PREVENT_HOLD()),
         Map.entry("PREVENT_SPRINT", new PREVENT_SPRINT()),
         Map.entry("PREVENT_WALK", new PREVENT_WALK()),
         Map.entry("PREVENT_JUMP", new PREVENT_JUMP()),

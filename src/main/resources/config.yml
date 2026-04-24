@@ -348,6 +348,7 @@ body-damage:
 #         ATTRIBUTE_MODIFIER / <ATTRIBUTE> / <VALUE> / [OPERATION] / [KEY] ··· apply an attribute modifier (OPERATION defaults to add_value if not specified)
 #         POTION_EFFECT / <EFFECT> / [AMPLIFIER] ····························· apply a specific potion effect (amplifier defaults to 1 if not specified)
 #         PREVENT_INTERACT / <HAND> / [MESSAGE] ······························ prevent the player from interacting with a given hand (HAND / OFF_HAND)
+#         PREVENT_HOLD / <HAND> / [MESSAGE] ·································· prevent the player from holding items in a given hand (HAND / OFF_HAND)
 #         PREVENT_SPRINT / [MESSAGE] ········································· prevent the player from sprinting (sets sprint speed to walk speed)
 #         PREVENT_WALK ······················································· prevent the player from walking at all (player can still be knocked back)
 #         PREVENT_JUMP ······················································· prevent the player from jumping (player can still climb stairs etc.)
