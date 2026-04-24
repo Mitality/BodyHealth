@@ -31,16 +31,16 @@ public class DebugCommand implements SubCommand {
             return true;
         }
 
-        switch(args[1].toLowerCase()) {
-            case "dump" : {
+        switch (args[1].toLowerCase()) {
+            case "dump": {
                 handleDump(sender);
                 break;
             }
-            case "toggle" : {
+            case "toggle": {
                 handleToggle(sender, args);
                 break;
             }
-            default : {
+            default: {
                 MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_debug_usage);
                 break;
             }

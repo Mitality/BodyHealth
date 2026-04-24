@@ -39,7 +39,7 @@ public class KILL_PLAYER implements BodyHealthEffect {
         } else {
             if (player.getHealth() > 0) player.setHealth(0);
         }
-        Debug.log("(" + part.name() +") Killed player " + player.getName());
+        Debug.log("(" + part.name() + ") Killed player " + player.getName());
 
     }
 

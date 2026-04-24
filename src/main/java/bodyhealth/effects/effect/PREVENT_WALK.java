@@ -36,7 +36,7 @@ public class PREVENT_WALK implements BodyHealthEffect {
     public void onApply(Player player, BodyPart part, String[] args, boolean isRecovery) {
 
         boolean lenient = Config.lenient_movement_restrictions;
-        Debug.log("(" + part.name() +") Preventing walk for player " + player.getName());
+        Debug.log("(" + part.name() + ") Preventing walk for player " + player.getName());
         AttributeInstance walkAttribute = player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED);
         if (walkAttribute != null && walkAttribute.getModifiers().stream().noneMatch(mod -> mod.getKey().equals(EffectHandler.getWalkDenialModifier(lenient).getKey()))) {
             Debug.log("Adding WalkDenialModifier to player " + player.getName());
@@ -49,7 +49,7 @@ public class PREVENT_WALK implements BodyHealthEffect {
     public void onRemove(Player player, BodyPart part, String[] args, boolean isRecovery) {
 
         boolean lenient = Config.lenient_movement_restrictions;
-        Debug.log("(" + part.name() +") No longer preventing walk for player " + player.getName());
+        Debug.log("(" + part.name() + ") No longer preventing walk for player " + player.getName());
         AttributeInstance walkAttribute = player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED);
         if (walkAttribute != null && canPlayerWalk(player)) {
             if (walkAttribute.getModifiers().stream().anyMatch(mod -> mod.getKey().equals(EffectHandler.getWalkDenialModifier(lenient).getKey()))) {

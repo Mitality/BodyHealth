@@ -15,12 +15,22 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.potion.PotionEffect;
 
-import java.io.*;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.TreeMap;
+import java.util.UUID;
 import java.util.function.BiConsumer;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -213,11 +223,11 @@ public class DebugUtils {
             // Active potion effects
             for (PotionEffect effect : player.getActivePotionEffects()) {
                 String key = "players." + uuid + ".effects." + effect.getType();
-                players.set(key + ".amplifier",  effect.getAmplifier());
-                players.set(key + ".duration",  effect.getDuration());
-                players.set(key + ".particles",  effect.hasParticles());
-                players.set(key + ".ambient",  effect.isAmbient());
-                players.set(key + ".icon",  effect.hasIcon());
+                players.set(key + ".amplifier", effect.getAmplifier());
+                players.set(key + ".duration", effect.getDuration());
+                players.set(key + ".particles", effect.hasParticles());
+                players.set(key + ".ambient", effect.isAmbient());
+                players.set(key + ".icon", effect.hasIcon());
             }
         }
         return players;

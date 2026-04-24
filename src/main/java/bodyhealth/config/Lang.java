@@ -160,7 +160,7 @@ public class Lang {
         bodyhealth_data_move_start = config.getString("commands.bodyhealth.data.move.start", "bodyhealth_data_move_start");
 
         // Debug Command
-        bodyhealth_debug_usage =  config.getString("commands.bodyhealth.debug.usage", "bodyhealth_debug_usage");
+        bodyhealth_debug_usage = config.getString("commands.bodyhealth.debug.usage", "bodyhealth_debug_usage");
         bodyhealth_debug_dump_start = config.getString("commands.bodyhealth.debug.dump.start", "bodyhealth_debug_dump_start");
         bodyhealth_debug_dump_success = config.getString("commands.bodyhealth.debug.dump.success", "bodyhealth_debug_dump_success");
         bodyhealth_debug_dump_fail = config.getString("commands.bodyhealth.debug.dump.fail", "bodyhealth_debug_dump_fail");
@@ -184,6 +184,7 @@ public class Lang {
             case FOOT_RIGHT -> FOOT_RIGHT;
         };
     }
+
     public static String stateName(BodyPartState state) {
         return switch (state) {
             case FULL -> FULL;

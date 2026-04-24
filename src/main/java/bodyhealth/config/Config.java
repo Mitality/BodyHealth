@@ -40,8 +40,8 @@ public class Config {
 
     public static boolean raytracing_enabled;
     public static boolean raytracing_fix_rotation;
-    public static double  raytracing_max_distance;
-    public static double  raytracing_step_size;
+    public static double raytracing_max_distance;
+    public static double raytracing_step_size;
 
     public static StorageType storage_type;
 
@@ -74,7 +74,7 @@ public class Config {
     public static boolean display_betterhud_add_icon;
 
     public static boolean display_betterhud_package_compress;
-    public static String  display_betterhud_package_filename;
+    public static String display_betterhud_package_filename;
 
     public static void load(FileConfiguration config) {
 

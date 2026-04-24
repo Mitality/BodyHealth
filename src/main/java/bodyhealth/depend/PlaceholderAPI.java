@@ -2,16 +2,15 @@ package bodyhealth.depend;
 
 import bodyhealth.config.Lang;
 import bodyhealth.core.BodyHealth;
+import bodyhealth.core.BodyPart;
 import bodyhealth.core.BodyPartState;
 import bodyhealth.util.BodyHealthUtils;
-import bodyhealth.core.BodyPart;
 import io.github.milkdrinkers.colorparser.bukkit.ColorParser;
-import net.kyori.adventure.text.Component;
+import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 
 public class PlaceholderAPI extends PlaceholderExpansion {
 

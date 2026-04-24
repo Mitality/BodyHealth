@@ -1,6 +1,12 @@
 package bodyhealth.commands;
 
-import bodyhealth.commands.subcommands.*;
+import bodyhealth.commands.subcommands.AddCommand;
+import bodyhealth.commands.subcommands.DataCommand;
+import bodyhealth.commands.subcommands.DebugCommand;
+import bodyhealth.commands.subcommands.GetCommand;
+import bodyhealth.commands.subcommands.HealCommand;
+import bodyhealth.commands.subcommands.ReloadCommand;
+import bodyhealth.commands.subcommands.SetCommand;
 import bodyhealth.config.Config;
 import bodyhealth.config.Lang;
 import bodyhealth.util.MessageUtils;

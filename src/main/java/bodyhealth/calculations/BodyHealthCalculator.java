@@ -1,14 +1,18 @@
 package bodyhealth.calculations;
 
 import bodyhealth.config.Config;
-import bodyhealth.core.BodyPart;
 import bodyhealth.config.Debug;
+import bodyhealth.core.BodyPart;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.block.Block;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Arrow;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import java.util.Objects;

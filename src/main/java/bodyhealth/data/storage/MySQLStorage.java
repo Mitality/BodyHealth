@@ -6,12 +6,16 @@ import bodyhealth.core.BodyHealth;
 import bodyhealth.core.BodyPart;
 import bodyhealth.data.Storage;
 import bodyhealth.data.StorageType;
-import org.jetbrains.annotations.NotNull;
-
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.jetbrains.annotations.NotNull;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

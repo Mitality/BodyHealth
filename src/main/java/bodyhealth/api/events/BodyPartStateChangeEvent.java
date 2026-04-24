@@ -33,6 +33,7 @@ public class BodyPartStateChangeEvent extends Event {
     public @NotNull HandlerList getHandlers() {
         return HANDLERS;
     }
+
     public static @NotNull HandlerList getHandlerList() {
         return HANDLERS;
     }

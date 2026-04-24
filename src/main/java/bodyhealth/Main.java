@@ -2,15 +2,18 @@ package bodyhealth;
 
 import bodyhealth.api.addons.AddonManager;
 import bodyhealth.commands.CommandManager;
+import bodyhealth.config.Config;
+import bodyhealth.config.Debug;
 import bodyhealth.config.Lang;
 import bodyhealth.data.DataManager;
 import bodyhealth.depend.PlaceholderAPI;
 import bodyhealth.depend.WorldGuard;
 import bodyhealth.effects.EffectHandler;
 import bodyhealth.effects.effect.POTION_EFFECT;
-import bodyhealth.listeners.*;
-import bodyhealth.config.Config;
-import bodyhealth.config.Debug;
+import bodyhealth.listeners.BetterHudListener;
+import bodyhealth.listeners.BodyHealthListener;
+import bodyhealth.listeners.PlaceholderAPIListener;
+import bodyhealth.listeners.UpdateNotifyListener;
 import bodyhealth.migrations.Migrator;
 import bodyhealth.util.BodyHealthUtils;
 import bodyhealth.util.FoliaUtils;
@@ -30,7 +33,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Objects;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 

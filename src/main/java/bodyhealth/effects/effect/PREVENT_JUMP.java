@@ -36,7 +36,7 @@ public class PREVENT_JUMP implements BodyHealthEffect {
     public void onApply(Player player, BodyPart part, String[] args, boolean isRecovery) {
 
         boolean lenient = Config.lenient_movement_restrictions;
-        Debug.log("(" + part.name() +") Preventing jump for player " + player.getName());
+        Debug.log("(" + part.name() + ") Preventing jump for player " + player.getName());
         AttributeInstance jumpAttribute = player.getAttribute(Attribute.GENERIC_JUMP_STRENGTH);
         if (jumpAttribute != null && jumpAttribute.getModifiers().stream().noneMatch(mod -> mod.getKey().equals(EffectHandler.getJumpDenialModifier(lenient).getKey()))) {
             Debug.log("Adding JumpDenialModifier to player " + player.getName());
@@ -49,7 +49,7 @@ public class PREVENT_JUMP implements BodyHealthEffect {
     public void onRemove(Player player, BodyPart part, String[] args, boolean isRecovery) {
 
         boolean lenient = Config.lenient_movement_restrictions;
-        Debug.log("(" + part.name() +") No longer preventing jump for player " + player.getName());
+        Debug.log("(" + part.name() + ") No longer preventing jump for player " + player.getName());
         AttributeInstance jumpAttribute = player.getAttribute(Attribute.GENERIC_JUMP_STRENGTH);
         if (jumpAttribute != null && canPlayerJump(player)) {
             if (jumpAttribute.getModifiers().stream().anyMatch(mod -> mod.getKey().equals(EffectHandler.getJumpDenialModifier(lenient).getKey()))) {

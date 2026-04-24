@@ -41,7 +41,7 @@ public class COMMAND_UNDO implements BodyHealthEffect {
         } else {
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
         }
-        Debug.log("(" + part.name() +") Dispatched command: /" + args[1].trim());
+        Debug.log("(" + part.name() + ") Dispatched command: /" + args[1].trim());
 
     }
 

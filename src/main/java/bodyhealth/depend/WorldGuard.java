@@ -11,7 +11,7 @@ import com.sk89q.worldguard.protection.regions.RegionContainer;
 import org.bukkit.entity.Player;
 
 public class WorldGuard {
-    public static  StateFlag BODY_HEALTH_FLAG = null;
+    public static StateFlag BODY_HEALTH_FLAG = null;
 
     public static void initialize() {
         try {

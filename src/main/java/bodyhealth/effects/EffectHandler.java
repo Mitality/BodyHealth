@@ -2,13 +2,27 @@ package bodyhealth.effects;
 
 import bodyhealth.Main;
 import bodyhealth.api.events.BodyPartStateChangeEvent;
+import bodyhealth.config.Config;
+import bodyhealth.config.Debug;
 import bodyhealth.core.BodyHealth;
 import bodyhealth.core.BodyPart;
 import bodyhealth.core.BodyPartState;
-import bodyhealth.effects.effect.*;
+import bodyhealth.effects.effect.ATTRIBUTE_MODIFIER;
+import bodyhealth.effects.effect.COMMAND;
+import bodyhealth.effects.effect.COMMAND_UNDO;
+import bodyhealth.effects.effect.DELAYED;
+import bodyhealth.effects.effect.KILL_PLAYER;
+import bodyhealth.effects.effect.MESSAGE;
+import bodyhealth.effects.effect.POTION_EFFECT;
+import bodyhealth.effects.effect.PREVENT_INTERACT;
+import bodyhealth.effects.effect.PREVENT_JUMP;
+import bodyhealth.effects.effect.PREVENT_SPRINT;
+import bodyhealth.effects.effect.PREVENT_WALK;
+import bodyhealth.effects.effect.REPEATING;
+import bodyhealth.effects.effect.SOUND;
+import bodyhealth.effects.effect.WHEN_DAMAGED;
+import bodyhealth.effects.effect.WHEN_HEALED;
 import bodyhealth.util.BodyHealthUtils;
-import bodyhealth.config.Config;
-import bodyhealth.config.Debug;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
@@ -19,7 +33,11 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.EquipmentSlotGroup;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class EffectHandler {

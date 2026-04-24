@@ -32,7 +32,7 @@ public class SOUND implements BodyHealthEffect {
         }
         String sound = args[1].trim().toLowerCase();
         float volume = args.length >= 3 ? parseOrDefault(args[2]) : 1.0f;
-        float pitch  = args.length >= 4 ? parseOrDefault(args[3]) : 1.0f;
+        float pitch = args.length >= 4 ? parseOrDefault(args[3]) : 1.0f;
         player.playSound(player, sound, volume, pitch);
 
     }

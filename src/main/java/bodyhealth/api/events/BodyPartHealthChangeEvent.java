@@ -35,6 +35,7 @@ public class BodyPartHealthChangeEvent extends Event implements Cancellable {
     public @NotNull HandlerList getHandlers() {
         return HANDLERS;
     }
+
     public @NotNull static HandlerList getHandlerList() {
         return HANDLERS;
     }
@@ -43,6 +44,7 @@ public class BodyPartHealthChangeEvent extends Event implements Cancellable {
     public boolean isCancelled() {
         return cancelled;
     }
+
     @Override
     public void setCancelled(boolean cancel) {
         cancelled = cancel;

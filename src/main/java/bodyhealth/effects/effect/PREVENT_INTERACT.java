@@ -43,7 +43,7 @@ public class PREVENT_INTERACT implements BodyHealthEffect {
 
         try {
             EquipmentSlot hand = EquipmentSlot.valueOf(args[1].trim().toUpperCase());
-            Debug.log("(" + part.name() +") Preventing " + hand.name() + " interaction for player " + player.getName());
+            Debug.log("(" + part.name() + ") Preventing " + hand.name() + " interaction for player " + player.getName());
         } catch (IllegalArgumentException e) {
             Debug.logErr("EquipmentSlot (Hand) \"" + args[1].trim() + "\" is invalid, check syntax!");
         }
@@ -60,7 +60,7 @@ public class PREVENT_INTERACT implements BodyHealthEffect {
 
         try {
             EquipmentSlot hand = EquipmentSlot.valueOf(args[1].trim().toUpperCase());
-            Debug.log("(" + part.name() +") No longer preventing " + hand.name() + " interaction for player " + player.getName());
+            Debug.log("(" + part.name() + ") No longer preventing " + hand.name() + " interaction for player " + player.getName());
         } catch (IllegalArgumentException e) {
             Debug.logErr("EquipmentSlot (Hand) \"" + args[1].trim() + "\" is invalid, check syntax!");
         }

@@ -1,9 +1,9 @@
 package bodyhealth.effects.effect;
 
 import bodyhealth.config.Debug;
+import bodyhealth.core.BodyHealth;
 import bodyhealth.core.BodyPart;
 import bodyhealth.effects.BodyHealthEffect;
-import bodyhealth.core.BodyHealth;
 import bodyhealth.effects.EffectHandler;
 import bodyhealth.effects.EffectType;
 import bodyhealth.util.BodyHealthUtils;
@@ -39,12 +39,12 @@ public class PREVENT_SPRINT implements BodyHealthEffect {
 
     @Override
     public void onApply(Player player, BodyPart part, String[] args, boolean isRecovery) {
-        Debug.log("(" + part.name() +") Preventing sprint for player " + player.getName());
+        Debug.log("(" + part.name() + ") Preventing sprint for player " + player.getName());
     }
 
     @Override
     public void onRemove(Player player, BodyPart part, String[] args, boolean isRecovery) {
-        Debug.log("(" + part.name() +") No longer preventing sprint for player " + player.getName());
+        Debug.log("(" + part.name() + ") No longer preventing sprint for player " + player.getName());
     }
 
     public static boolean canPlayerSprint(Player player) {

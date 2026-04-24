@@ -1,9 +1,9 @@
 package bodyhealth.effects.effect;
 
 import bodyhealth.Main;
+import bodyhealth.config.Debug;
 import bodyhealth.core.BodyHealth;
 import bodyhealth.core.BodyPart;
-import bodyhealth.config.Debug;
 import bodyhealth.effects.BodyHealthEffect;
 import bodyhealth.effects.EffectType;
 import bodyhealth.util.BodyHealthUtils;
