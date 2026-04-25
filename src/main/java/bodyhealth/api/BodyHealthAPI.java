@@ -7,6 +7,7 @@ import bodyhealth.core.BodyPartState;
 import bodyhealth.depend.VanishPlugins;
 import bodyhealth.effects.BodyHealthEffect;
 import bodyhealth.effects.EffectHandler;
+import bodyhealth.effects.effect.PREVENT_HOLD;
 import bodyhealth.effects.effect.PREVENT_INTERACT;
 import bodyhealth.effects.effect.PREVENT_JUMP;
 import bodyhealth.effects.effect.PREVENT_SPRINT;
@@ -108,7 +109,17 @@ public class BodyHealthAPI {
      * @param player the player to heal by the specified amount
      * @param amount the amount of health to restore
      */
+    @ApiStatus.Obsolete
     public void healPlayer(@NotNull Player player, int amount) {
+        BodyHealthUtils.getBodyHealth(player).regenerateHealth(amount, false, null);
+    }
+
+    /**
+     * Heals the given player by a specified amount across all body parts
+     * @param player the player to heal by the specified amount
+     * @param amount the amount of health to restore
+     */
+    public void healPlayer(@NotNull Player player, double amount) {
         BodyHealthUtils.getBodyHealth(player).regenerateHealth(amount, false, null);
     }
 
@@ -118,7 +129,18 @@ public class BodyHealthAPI {
      * @param amount the amount of health to restore
      * @param force heal even where BodyHealth is disabled
      */
+    @ApiStatus.Obsolete
     public void healPlayer(@NotNull Player player, int amount, boolean force) {
+        BodyHealthUtils.getBodyHealth(player).regenerateHealth(amount, force, null);
+    }
+
+    /**
+     * Heals the given player by a specified amount across all body parts
+     * @param player the player to heal by the specified amount
+     * @param amount the amount of health to restore
+     * @param force heal even where BodyHealth is disabled
+     */
+    public void healPlayer(@NotNull Player player, double amount, boolean force) {
         BodyHealthUtils.getBodyHealth(player).regenerateHealth(amount, force, null);
     }
 
@@ -129,7 +151,19 @@ public class BodyHealthAPI {
      * @param force heal even where BodyHealth is disabled
      * @param cause the underlying event that caused this
      */
+    @ApiStatus.Obsolete
     public void healPlayer(@NotNull Player player, int amount, boolean force, @Nullable Event cause) {
+        BodyHealthUtils.getBodyHealth(player).regenerateHealth(amount, force, cause);
+    }
+
+    /**
+     * Heals the given player by a specified amount across all body parts
+     * @param player the player to heal by the specified amount
+     * @param amount the amount of health to restore
+     * @param force heal even where BodyHealth is disabled
+     * @param cause the underlying event that caused this
+     */
+    public void healPlayer(@NotNull Player player, double amount, boolean force, @Nullable Event cause) {
         BodyHealthUtils.getBodyHealth(player).regenerateHealth(amount, force, cause);
     }
 
@@ -171,7 +205,18 @@ public class BodyHealthAPI {
      * @param part the body part to heal by the specified amount
      * @param amount the amount of health to restore
      */
+    @ApiStatus.Obsolete
     public void healPlayer(@NotNull Player player, @NotNull BodyPart part, int amount) {
+        BodyHealthUtils.getBodyHealth(player).regenerateHealth(amount, part, false, null);
+    }
+
+    /**
+     * Heals a specific body part of the given player by a specified amount
+     * @param player the player to heal by the specified amount
+     * @param part the body part to heal by the specified amount
+     * @param amount the amount of health to restore
+     */
+    public void healPlayer(@NotNull Player player, @NotNull BodyPart part, double amount) {
         BodyHealthUtils.getBodyHealth(player).regenerateHealth(amount, part, false, null);
     }
 
@@ -182,7 +227,19 @@ public class BodyHealthAPI {
      * @param amount the amount of health to restore
      * @param force heal even where BodyHealth is disabled
      */
+    @ApiStatus.Obsolete
     public void healPlayer(@NotNull Player player, @NotNull BodyPart part, int amount, boolean force) {
+        BodyHealthUtils.getBodyHealth(player).regenerateHealth(amount, part, force, null);
+    }
+
+    /**
+     * Heals a specific body part of the given player by a specified amount
+     * @param player the player to heal by the specified amount
+     * @param part the body part to heal by the specified amount
+     * @param amount the amount of health to restore
+     * @param force heal even where BodyHealth is disabled
+     */
+    public void healPlayer(@NotNull Player player, @NotNull BodyPart part, double amount, boolean force) {
         BodyHealthUtils.getBodyHealth(player).regenerateHealth(amount, part, force, null);
     }
 
@@ -194,7 +251,20 @@ public class BodyHealthAPI {
      * @param force heal even where BodyHealth is disabled
      * @param cause the underlying event that caused this
      */
+    @ApiStatus.Obsolete
     public void healPlayer(@NotNull Player player, @NotNull BodyPart part, int amount, boolean force, @Nullable Event cause) {
+        BodyHealthUtils.getBodyHealth(player).regenerateHealth(amount, part, force, cause);
+    }
+
+    /**
+     * Heals a specific body part of the given player by a specified amount
+     * @param player the player to heal by the specified amount
+     * @param part the body part to heal by the specified amount
+     * @param amount the amount of health to restore
+     * @param force heal even where BodyHealth is disabled
+     * @param cause the underlying event that caused this
+     */
+    public void healPlayer(@NotNull Player player, @NotNull BodyPart part, double amount, boolean force, @Nullable Event cause) {
         BodyHealthUtils.getBodyHealth(player).regenerateHealth(amount, part, force, cause);
     }
 
@@ -487,6 +557,16 @@ public class BodyHealthAPI {
         MessageUtils.notifyConsole(message);
     }
 
+
+    /**
+     * Checks whether a player is currently able to hold an item in a given hand
+     * @param player The player to check for
+     * @param hand EquipmentSlot.HAND/OFF_HAND
+     * @return true if able to hold an item in the given hand
+     */
+    public boolean canPlayerHoldItemInHand(@NotNull Player player, @NotNull EquipmentSlot hand) {
+        return !PREVENT_HOLD.isHandPrevented(player, hand);
+    }
 
     /**
      * Checks whether a player is currently able to interact with a given hand
