@@ -13,6 +13,7 @@ import bodyhealth.depend.BetterHud;
 import bodyhealth.depend.WorldGuard;
 import bodyhealth.effects.EffectHandler;
 import bodyhealth.effects.effect.POTION_EFFECT;
+import bodyhealth.tasks.GradualHealthRegenTask;
 import com.tchristofferson.configupdater.ConfigUpdater;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
@@ -92,8 +93,10 @@ public class BodyHealthUtils {
 
             // Load config internally
             POTION_EFFECT.stopRefreshTask();
+            GradualHealthRegenTask.stop();
             Config.load(Main.getInstance().getConfig());
             if (Config.apply_potion_effects_repeatedly) POTION_EFFECT.startRefreshTask();
+            if (Config.gradual_heath_regen_enabled) GradualHealthRegenTask.start();
 
             // Ensure language directory exists
             File languageDir = new File(Main.getInstance().getDataFolder(), "language");

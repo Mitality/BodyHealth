@@ -1,6 +1,7 @@
 package bodyhealth.config;
 
 import bodyhealth.data.StorageType;
+import bodyhealth.util.TimeUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -30,6 +31,15 @@ public class Config {
     public static boolean kill_with_command;
     public static boolean heal_on_respawn;
     public static boolean heal_on_full_health;
+    public static boolean apply_vanilla_regen;
+
+    public static boolean gradual_heath_regen_enabled;
+    public static long gradual_heath_regen_interval;
+    public static boolean gradual_heath_regen_amount_is_percent;
+    public static double gradual_heath_regen_amount;
+    public static double gradual_heath_regen_min_vanilla_health;
+    public static double gradual_heath_regen_min_vanilla_hunger;
+    public static double gradual_heath_regen_hunger_drain;
 
     public static int force_keep_time;
     public static boolean force_keep_relative;
@@ -99,6 +109,21 @@ public class Config {
         kill_with_command = config.getBoolean("kill-with-command", true);
         heal_on_respawn = config.getBoolean("heal-on-respawn", true);
         heal_on_full_health = config.getBoolean("heal-on-full-health", true);
+        apply_vanilla_regen = config.getBoolean("apply-vanilla-regen", true);
+
+        gradual_heath_regen_enabled = config.getBoolean("gradual-heath-regen.enabled", false);
+        gradual_heath_regen_interval = TimeUtils.convertToTicks(config.getString("gradual-heath-regen.interval", "5s"));
+        String regenAmountStr = config.getString("gradual-heath-regen.amount", "10%").trim();
+        gradual_heath_regen_amount_is_percent = regenAmountStr.endsWith("%");
+        try {
+            gradual_heath_regen_amount = Double.parseDouble(regenAmountStr.replace("%", ""));
+        } catch (NumberFormatException e) {
+            gradual_heath_regen_amount_is_percent = true;
+            gradual_heath_regen_amount = 10.0;
+        }
+        gradual_heath_regen_min_vanilla_health = config.getDouble("gradual-heath-regen.min-vanilla-health", 10.0);
+        gradual_heath_regen_min_vanilla_hunger = config.getDouble("gradual-heath-regen.min-vanilla-hunger", 18.0);
+        gradual_heath_regen_hunger_drain = config.getDouble("gradual-heath-regen.hunger-drain", 0.2);
 
         force_keep_time = config.getInt("force-keep-time", 10);
         force_keep_relative = config.getBoolean("force-keep-relative", false);

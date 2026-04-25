@@ -116,10 +116,12 @@ public class BodyHealthListener implements Listener {
     public void onPlayerRegenerate(EntityRegainHealthEvent event) {
         if (!(event.getEntity() instanceof Player player)) return;
 
+        BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(player);
         double regenAmount = event.getAmount();
 
-        BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(player);
-        bodyHealth.regenerateHealth(regenAmount, false, event);
+        if (Config.apply_vanilla_regen) {
+            bodyHealth.regenerateHealth(regenAmount, false, event);
+        }
 
         Debug.logDev("Player " + player.getName() + " regenerated " + String.format("%.2f", regenAmount) + " HP");
 

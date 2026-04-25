@@ -137,14 +137,6 @@ hide-potion-effects: true
 # Way more consistent across different server software, therefore recommended
 kill-with-command: true
 
-# Whether we should set all body parts to 100% health when a player respawns
-# In reality, this is done 1 tick (0.05s) after respawning to avoid issues
-heal-on-respawn: true
-
-# Whether we should set all body parts to 100% health when we detect that a player
-# has full vanilla health. This prevents desyncs with varying max vanilla health
-heal-on-full-health: true
-
 # Force keep body parts that have been modified by a command
 # at their modified state for the given amount of seconds
 force-keep-time: 10
@@ -156,6 +148,40 @@ force-keep-relative: false
 # Destructive commands may require confirmation by sending the command
 # again. After how many seconds should we request a new confirmation?
 confirmation-expiration: 30
+
+# Whether we should set all body parts to 100% health when a player respawns
+# In reality, this is done 1 tick (0.05s) after respawning to avoid issues
+# (doesn't consider bypass permissions like bodyhealth.bypass.regen.*)
+heal-on-respawn: true
+
+# Whether we should set all body parts to 100% health when we detect that a player
+# has full vanilla health. This prevents desyncs with varying max vanilla health
+# (respects bypass permissions like bodyhealth.bypass.regen.foot_left)
+heal-on-full-health: true
+
+# Whether we should apply a player's vanilla
+# health regeneration to their body parts
+# (respects bypass permissions)
+apply-vanilla-regen: true
+
+
+# Passive health regeneration settings:
+gradual-heath-regen:
+  # Whether body parts should regenerate health gradually over time
+  enabled: false
+  # How often should regeneration be applied? (in ticks when no unit is specified)
+  interval: 5s
+  # How much health to regenerate (append a '%' symbol to heal percentage-based)
+  amount: 10%
+  # Only apply regeneration when vanilla health is above or equal to this value
+  # Set in HP, not hearts! Default vanilla max health is 20 HP (=20 half hearts)
+  min-vanilla-health: 10.0
+  # Only apply regeneration when vanilla hunger is above or equal to this value
+  # Default vanilla max hunger is 20 (hunger points? no? 20 something… whatever)
+  min-vanilla-hunger: 18.0
+  # How much hunger to drain for healing one body part by the amount specified above
+  # Scales with the fraction of regeneration that was actually successfully applied
+  hunger-drain: 0.2
 
 
 # World Blacklist/Whitelist settings:

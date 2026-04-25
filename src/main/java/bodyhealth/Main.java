@@ -10,6 +10,7 @@ import bodyhealth.depend.PlaceholderAPI;
 import bodyhealth.depend.WorldGuard;
 import bodyhealth.effects.EffectHandler;
 import bodyhealth.effects.effect.POTION_EFFECT;
+import bodyhealth.tasks.GradualHealthRegenTask;
 import bodyhealth.listeners.BetterHudListener;
 import bodyhealth.listeners.BodyHealthListener;
 import bodyhealth.listeners.PlaceholderAPIListener;
@@ -177,6 +178,9 @@ public final class Main extends JavaPlugin {
         // Start repeating potion effect refresh task if configured
         if (Config.apply_potion_effects_repeatedly) POTION_EFFECT.startRefreshTask();
 
+        // Start gradual health regen task if configured
+        if (Config.gradual_heath_regen_enabled) GradualHealthRegenTask.start();
+
         // Check for updates
         UpdateChecker updateChecker = new UpdateChecker("BodyHealth", "bodyhealth", getDescription().getVersion()).checkNow();
         if (Config.update_check_interval > 0) updateChecker.checkEveryXHours(Config.update_check_interval);
@@ -195,6 +199,7 @@ public final class Main extends JavaPlugin {
     public void onDisable() {
         Debug.log("Disabling System...");
         POTION_EFFECT.stopRefreshTask();
+        GradualHealthRegenTask.stop();
         FoliaUtils.stopWorldChangeWatcher();
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (!FoliaUtils.isFolia() && Config.remove_effects_on_shutdown)
