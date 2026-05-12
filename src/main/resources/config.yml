@@ -508,6 +508,14 @@ effects:
 
 display:
 
+  #   Which plugin renders your body health on screen:
+  #      BETTERHUD  - use BetterHud            (requires BetterHud + PlaceholderAPI; configure under "betterhud:" below)
+  #      HARSHLANDS - use the Harshlands plugin (requires Harshlands + PlaceholderAPI; Harshlands ships its own
+  #                                              resource pack and HUD position - there is nothing to configure here
+  #                                              and no resource pack to generate)
+  #      NONE       - render no HUD             (the bodyhealth_* placeholders still work for your own HUD setup)
+  provider: BETTERHUD
+
   #   Use BetterHud to display your body health in game:
   #
   #      To make this work, you need to install two plugins, if you don't have them already:       <--
@@ -523,6 +531,7 @@ display:
     # Show BodyHealth's HUD to all players **IN SURVIVAL/ADVENTURE MODE**
     as-default: true
     # Show BodyHealth's HUD only in worlds/regions where BodyHealth is enabled
+    # (this option also applies when display.provider is HARSHLANDS)
     enabled-only: true
     # Position BodyHealth's HUD on your screen (REQUIRES REGENERATING THE RESOURCE PACK)
     position:

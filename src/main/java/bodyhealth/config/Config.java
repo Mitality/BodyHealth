@@ -66,6 +66,8 @@ public class Config {
     public static ConfigurationSection body_damage;
     public static ConfigurationSection effects;
 
+    public static String display_provider;
+
     public static boolean display_betterhud_auto_reload;
     public static boolean display_betterhud_inject_config;
     public static boolean display_betterhud_as_default;
@@ -149,6 +151,8 @@ public class Config {
         body_health = config.getConfigurationSection("body-health");
         body_damage = config.getConfigurationSection("body-damage");
         effects = config.getConfigurationSection("effects");
+
+        display_provider = config.getString("display.provider", "BETTERHUD").trim().toUpperCase();
 
         display_betterhud_auto_reload = config.getBoolean("display.betterhud.auto-reload", true);
         display_betterhud_inject_config = config.getBoolean("display.betterhud.inject-config", true);
