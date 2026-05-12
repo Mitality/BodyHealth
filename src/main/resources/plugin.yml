@@ -10,6 +10,7 @@ website: https://github.com/Mitality/BodyHealth
 softdepend:
   - PlaceholderAPI
   - BetterHud
+  - Harshlands
   - WorldGuard
 
 commands:
