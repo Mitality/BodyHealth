@@ -1,6 +1,7 @@
 package bodyhealth.util;
 
 import bodyhealth.Main;
+import bodyhealth.commands.subcommands.AddonCommand;
 import bodyhealth.commands.subcommands.DataCommand;
 import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
@@ -99,6 +100,7 @@ public class BodyHealthUtils {
 
             // Reset pending confirmations
             DataCommand.resetPendingActions();
+            AddonCommand.resetPendingActions();
 
         } catch (Exception e) {
             Debug.logErr("Could not reload your configuration!");

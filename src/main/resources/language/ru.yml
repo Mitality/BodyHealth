@@ -165,6 +165,119 @@ commands:
         # Message shown if moving data fails
         fail: '&cНе удалось переместить существующие данные из {Type1}-хранилища в {Type2}-хранилище BodyHealth.'
 
+
+    addon:
+
+      # Message shown for incorrect command usage
+      usage: '&bИспользование: /bodyhealth addon <list/info/enable/disable/reload/load/unload>'
+
+      # Message shown when the specified addon could not be found
+      not-found: '&cАддон "{Addon}" не найден.'
+
+      list:
+
+        # Header shown before listing addons
+        header: '&bЗагруженные аддоны ({Count}): '
+
+        # Separator between addon name entries
+        separator: '&7, '
+
+        # Entry format for enabled addons
+        entry-enabled: '&a{Name}'
+
+        # Entry format for disabled addons
+        entry-disabled: '&c{Name}'
+
+        # Message shown when no addons are loaded
+        none: '&7Нет загруженных аддонов.'
+
+      info:
+
+        # Message shown for incorrect command usage
+        usage: '&bИспользование: /bodyhealth addon info <addon>'
+
+        # Message shown to display addon information
+        display: "&bИнформация об аддоне &f{Name}&b:\n&bОписание: &f{Description}\n&bАвтор: &f{Author}\n&bВерсия: &f{Version}\n&bСтатус: {Status}"
+
+        # Label for an enabled addon status
+        status-enabled: '&aВключён'
+
+        # Label for a disabled addon status
+        status-disabled: '&cОтключён'
+
+      enable:
+
+        # Message shown for incorrect command usage
+        usage: '&bИспользование: /bodyhealth addon enable <addon>'
+
+        # Message shown if the addon is already enabled
+        already-enabled: '&cАддон "{Addon}" уже включён.'
+
+        # Message shown on successful enable
+        success: '&aАддон "{Addon}" включён.'
+
+        # Message shown if enabling fails
+        fail: '&cНе удалось включить аддон "{Addon}".'
+
+      disable:
+
+        # Message shown for incorrect command usage
+        usage: '&bИспользование: /bodyhealth addon disable <addon>'
+
+        # Message shown if the addon is already disabled
+        already-disabled: '&cАддон "{Addon}" уже отключён.'
+
+        # Message shown on successful disable
+        success: '&aАддон "{Addon}" отключён.'
+
+        # Message shown if disabling fails
+        fail: '&cНе удалось отключить аддон "{Addon}".'
+
+      reload:
+
+        # Message shown for incorrect command usage
+        usage: '&bИспользование: /bodyhealth addon reload <addon>'
+
+        # Message shown on successful reload
+        success: '&aАддон "{Addon}" перезагружен.'
+
+        # Message shown if reloading fails
+        fail: '&cНе удалось перезагрузить аддон "{Addon}".'
+
+      load:
+
+        # Message shown for incorrect command usage
+        usage: '&bИспользование: /bodyhealth addon load <файл>'
+
+        # Message shown when the specified addon file could not be found
+        not-found: '&cФайл аддона "{File}" не найден в директории аддонов.'
+
+        # Warning shown before loading an addon post onLoad (requires confirmation)
+        warning: '&c&lПРЕДУПРЕЖДЕНИЕ: &r&cРучная загрузка аддонов может не поддерживаться каждым аддоном!<br> &eЧтобы продолжить, введите эту команду ещё раз.'
+
+        # Message shown if the addon is already loaded
+        already-loaded: '&cАддон из "{File}" уже загружен.'
+
+        # Message shown on successful load
+        success: '&aАддон из "{File}" успешно загружен.'
+
+        # Message shown if loading fails
+        fail: '&cНе удалось загрузить аддон из "{File}".'
+
+      unload:
+
+        # Message shown for incorrect command usage
+        usage: '&bИспользование: /bodyhealth addon unload <addon>'
+
+        # Warning shown before unloading an addon (requires confirmation)
+        warning: '&c&lПРЕДУПРЕЖДЕНИЕ: &r&cРучная выгрузка аддонов может не поддерживаться каждым аддоном!<br> &eЧтобы продолжить, введите эту команду ещё раз.'
+
+        # Message shown on successful unload
+        success: '&aАддон "{Addon}" успешно выгружен.'
+
+        # Message shown if unloading fails
+        fail: '&cНе удалось выгрузить аддон "{Addon}".'
+
     debug:
 
       # Message shown for incorrect command usage

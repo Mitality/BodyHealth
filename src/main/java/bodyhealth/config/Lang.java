@@ -77,6 +77,40 @@ public class Lang {
     public static String bodyhealth_data_erase_start;
     public static String bodyhealth_data_move_start;
 
+    // Addon Command
+    public static String bodyhealth_addon_usage;
+    public static String bodyhealth_addon_not_found;
+    public static String bodyhealth_addon_list_header;
+    public static String bodyhealth_addon_list_separator;
+    public static String bodyhealth_addon_list_entry_enabled;
+    public static String bodyhealth_addon_list_entry_disabled;
+    public static String bodyhealth_addon_list_none;
+    public static String bodyhealth_addon_info_usage;
+    public static String bodyhealth_addon_info_display;
+    public static String bodyhealth_addon_status_enabled;
+    public static String bodyhealth_addon_status_disabled;
+    public static String bodyhealth_addon_enable_usage;
+    public static String bodyhealth_addon_enable_already;
+    public static String bodyhealth_addon_enable_success;
+    public static String bodyhealth_addon_enable_fail;
+    public static String bodyhealth_addon_disable_usage;
+    public static String bodyhealth_addon_disable_already;
+    public static String bodyhealth_addon_disable_success;
+    public static String bodyhealth_addon_disable_fail;
+    public static String bodyhealth_addon_reload_usage;
+    public static String bodyhealth_addon_reload_success;
+    public static String bodyhealth_addon_reload_fail;
+    public static String bodyhealth_addon_load_usage;
+    public static String bodyhealth_addon_load_not_found;
+    public static String bodyhealth_addon_load_warning;
+    public static String bodyhealth_addon_load_success;
+    public static String bodyhealth_addon_load_already;
+    public static String bodyhealth_addon_load_fail;
+    public static String bodyhealth_addon_unload_usage;
+    public static String bodyhealth_addon_unload_warning;
+    public static String bodyhealth_addon_unload_success;
+    public static String bodyhealth_addon_unload_fail;
+
     // Debug Command
     public static String bodyhealth_debug_usage;
     public static String bodyhealth_debug_dump_start;
@@ -158,6 +192,40 @@ public class Lang {
         bodyhealth_data_dump_start = config.getString("commands.bodyhealth.data.dump.start", "bodyhealth_data_dump_start");
         bodyhealth_data_erase_start = config.getString("commands.bodyhealth.data.erase.start", "bodyhealth_data_erase_start");
         bodyhealth_data_move_start = config.getString("commands.bodyhealth.data.move.start", "bodyhealth_data_move_start");
+
+        // Addon Command
+        bodyhealth_addon_usage = config.getString("commands.bodyhealth.addon.usage", "bodyhealth_addon_usage");
+        bodyhealth_addon_not_found = config.getString("commands.bodyhealth.addon.not-found", "bodyhealth_addon_not_found");
+        bodyhealth_addon_list_header = config.getString("commands.bodyhealth.addon.list.header", "bodyhealth_addon_list_header");
+        bodyhealth_addon_list_separator = config.getString("commands.bodyhealth.addon.list.separator", "bodyhealth_addon_list_separator");
+        bodyhealth_addon_list_entry_enabled = config.getString("commands.bodyhealth.addon.list.entry-enabled", "bodyhealth_addon_list_entry_enabled");
+        bodyhealth_addon_list_entry_disabled = config.getString("commands.bodyhealth.addon.list.entry-disabled", "bodyhealth_addon_list_entry_disabled");
+        bodyhealth_addon_list_none = config.getString("commands.bodyhealth.addon.list.none", "bodyhealth_addon_list_none");
+        bodyhealth_addon_info_usage = config.getString("commands.bodyhealth.addon.info.usage", "bodyhealth_addon_info_usage");
+        bodyhealth_addon_info_display = config.getString("commands.bodyhealth.addon.info.display", "bodyhealth_addon_info_display");
+        bodyhealth_addon_status_enabled = config.getString("commands.bodyhealth.addon.info.status-enabled", "bodyhealth_addon_status_enabled");
+        bodyhealth_addon_status_disabled = config.getString("commands.bodyhealth.addon.info.status-disabled", "bodyhealth_addon_status_disabled");
+        bodyhealth_addon_enable_usage = config.getString("commands.bodyhealth.addon.enable.usage", "bodyhealth_addon_enable_usage");
+        bodyhealth_addon_enable_already = config.getString("commands.bodyhealth.addon.enable.already-enabled", "bodyhealth_addon_enable_already");
+        bodyhealth_addon_enable_success = config.getString("commands.bodyhealth.addon.enable.success", "bodyhealth_addon_enable_success");
+        bodyhealth_addon_enable_fail = config.getString("commands.bodyhealth.addon.enable.fail", "bodyhealth_addon_enable_fail");
+        bodyhealth_addon_disable_usage = config.getString("commands.bodyhealth.addon.disable.usage", "bodyhealth_addon_disable_usage");
+        bodyhealth_addon_disable_already = config.getString("commands.bodyhealth.addon.disable.already-disabled", "bodyhealth_addon_disable_already");
+        bodyhealth_addon_disable_success = config.getString("commands.bodyhealth.addon.disable.success", "bodyhealth_addon_disable_success");
+        bodyhealth_addon_disable_fail = config.getString("commands.bodyhealth.addon.disable.fail", "bodyhealth_addon_disable_fail");
+        bodyhealth_addon_reload_usage = config.getString("commands.bodyhealth.addon.reload.usage", "bodyhealth_addon_reload_usage");
+        bodyhealth_addon_reload_success = config.getString("commands.bodyhealth.addon.reload.success", "bodyhealth_addon_reload_success");
+        bodyhealth_addon_reload_fail = config.getString("commands.bodyhealth.addon.reload.fail", "bodyhealth_addon_reload_fail");
+        bodyhealth_addon_load_usage = config.getString("commands.bodyhealth.addon.load.usage", "bodyhealth_addon_load_usage");
+        bodyhealth_addon_load_not_found = config.getString("commands.bodyhealth.addon.load.not-found", "bodyhealth_addon_load_not_found");
+        bodyhealth_addon_load_warning = config.getString("commands.bodyhealth.addon.load.warning", "bodyhealth_addon_load_warning");
+        bodyhealth_addon_load_success = config.getString("commands.bodyhealth.addon.load.success", "bodyhealth_addon_load_success");
+        bodyhealth_addon_load_already = config.getString("commands.bodyhealth.addon.load.already-loaded", "bodyhealth_addon_load_already");
+        bodyhealth_addon_load_fail = config.getString("commands.bodyhealth.addon.load.fail", "bodyhealth_addon_load_fail");
+        bodyhealth_addon_unload_usage = config.getString("commands.bodyhealth.addon.unload.usage", "bodyhealth_addon_unload_usage");
+        bodyhealth_addon_unload_warning = config.getString("commands.bodyhealth.addon.unload.warning", "bodyhealth_addon_unload_warning");
+        bodyhealth_addon_unload_success = config.getString("commands.bodyhealth.addon.unload.success", "bodyhealth_addon_unload_success");
+        bodyhealth_addon_unload_fail = config.getString("commands.bodyhealth.addon.unload.fail", "bodyhealth_addon_unload_fail");
 
         // Debug Command
         bodyhealth_debug_usage = config.getString("commands.bodyhealth.debug.usage", "bodyhealth_debug_usage");

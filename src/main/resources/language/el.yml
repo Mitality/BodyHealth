@@ -165,6 +165,119 @@ commands:
         # Message shown if moving data fails
         fail: '&cΑποτυχία μετακίνησης των υπαρχόντων δεδομένων από την αποθήκευση {Type1} στην {Type2} του BodyHealth.'
 
+
+    addon:
+
+      # Message shown for incorrect command usage
+      usage: '&bΧρήση: /bodyhealth addon <list/info/enable/disable/reload/load/unload>'
+
+      # Message shown when the specified addon could not be found
+      not-found: '&cΤο addon "{Addon}" δεν βρέθηκε.'
+
+      list:
+
+        # Header shown before listing addons
+        header: '&bΦορτωμένα Addons ({Count}): '
+
+        # Separator between addon name entries
+        separator: '&7, '
+
+        # Entry format for enabled addons
+        entry-enabled: '&a{Name}'
+
+        # Entry format for disabled addons
+        entry-disabled: '&c{Name}'
+
+        # Message shown when no addons are loaded
+        none: '&7Δεν υπάρχουν φορτωμένα addons.'
+
+      info:
+
+        # Message shown for incorrect command usage
+        usage: '&bΧρήση: /bodyhealth addon info <addon>'
+
+        # Message shown to display addon information
+        display: "&bΠληροφορίες addon για &f{Name}&b:\n&bΠεριγραφή: &f{Description}\n&bΣυγγραφέας: &f{Author}\n&bΈκδοση: &f{Version}\n&bΚατάσταση: {Status}"
+
+        # Label for an enabled addon status
+        status-enabled: '&aΕνεργοποιημένο'
+
+        # Label for a disabled addon status
+        status-disabled: '&cΑπενεργοποιημένο'
+
+      enable:
+
+        # Message shown for incorrect command usage
+        usage: '&bΧρήση: /bodyhealth addon enable <addon>'
+
+        # Message shown if the addon is already enabled
+        already-enabled: '&cΤο addon "{Addon}" είναι ήδη ενεργοποιημένο.'
+
+        # Message shown on successful enable
+        success: '&aΤο addon "{Addon}" ενεργοποιήθηκε.'
+
+        # Message shown if enabling fails
+        fail: '&cΑποτυχία ενεργοποίησης του addon "{Addon}".'
+
+      disable:
+
+        # Message shown for incorrect command usage
+        usage: '&bΧρήση: /bodyhealth addon disable <addon>'
+
+        # Message shown if the addon is already disabled
+        already-disabled: '&cΤο addon "{Addon}" είναι ήδη απενεργοποιημένο.'
+
+        # Message shown on successful disable
+        success: '&aΤο addon "{Addon}" απενεργοποιήθηκε.'
+
+        # Message shown if disabling fails
+        fail: '&cΑποτυχία απενεργοποίησης του addon "{Addon}".'
+
+      reload:
+
+        # Message shown for incorrect command usage
+        usage: '&bΧρήση: /bodyhealth addon reload <addon>'
+
+        # Message shown on successful reload
+        success: '&aΤο addon "{Addon}" επαναφορτώθηκε.'
+
+        # Message shown if reloading fails
+        fail: '&cΑποτυχία επαναφόρτωσης του addon "{Addon}".'
+
+      load:
+
+        # Message shown for incorrect command usage
+        usage: '&bΧρήση: /bodyhealth addon load <αρχείο>'
+
+        # Message shown when the specified addon file could not be found
+        not-found: '&cΤο αρχείο addon "{File}" δεν βρέθηκε στον κατάλογο addons.'
+
+        # Warning shown before loading an addon post onLoad (requires confirmation)
+        warning: '&c&lΠΡΟΕΙΔΟΠΟΙΗΣΗ: &r&cΗ χειροκίνητη φόρτωση addons ενδέχεται να μην υποστηρίζεται από κάθε addon!<br> &eΓια να συνεχίσετε, πληκτρολογήστε ξανά αυτήν την εντολή.'
+
+        # Message shown if the addon is already loaded
+        already-loaded: '&cΤο addon από "{File}" είναι ήδη φορτωμένο.'
+
+        # Message shown on successful load
+        success: '&aΤο addon από "{File}" φορτώθηκε επιτυχώς.'
+
+        # Message shown if loading fails
+        fail: '&cΑποτυχία φόρτωσης addon από "{File}".'
+
+      unload:
+
+        # Message shown for incorrect command usage
+        usage: '&bΧρήση: /bodyhealth addon unload <addon>'
+
+        # Warning shown before unloading an addon (requires confirmation)
+        warning: '&c&lΠΡΟΕΙΔΟΠΟΙΗΣΗ: &r&cΗ χειροκίνητη αφαίρεση addons ενδέχεται να μην υποστηρίζεται από κάθε addon!<br> &eΓια να συνεχίσετε, πληκτρολογήστε ξανά αυτήν την εντολή.'
+
+        # Message shown on successful unload
+        success: '&aΤο addon "{Addon}" αφαιρέθηκε επιτυχώς.'
+
+        # Message shown if unloading fails
+        fail: '&cΑποτυχία αφαίρεσης του addon "{Addon}".'
+
     debug:
 
       # Message shown for incorrect command usage

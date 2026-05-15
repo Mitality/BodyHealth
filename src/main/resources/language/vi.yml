@@ -165,6 +165,119 @@ commands:
         # Message shown if moving data fails
         fail: '&cKhông thể di chuyển dữ liệu hiện có từ kho lưu trữ {Type1} sang kho lưu trữ {Type2} của BodyHealth.'
 
+
+    addon:
+
+      # Message shown for incorrect command usage
+      usage: '&bCách dùng: /bodyhealth addon <list/info/enable/disable/reload/load/unload>'
+
+      # Message shown when the specified addon could not be found
+      not-found: '&cKhông tìm thấy addon "{Addon}".'
+
+      list:
+
+        # Header shown before listing addons
+        header: '&bAddon đã tải ({Count}): '
+
+        # Separator between addon name entries
+        separator: '&7, '
+
+        # Entry format for enabled addons
+        entry-enabled: '&a{Name}'
+
+        # Entry format for disabled addons
+        entry-disabled: '&c{Name}'
+
+        # Message shown when no addons are loaded
+        none: '&7Không có addon nào được tải.'
+
+      info:
+
+        # Message shown for incorrect command usage
+        usage: '&bCách dùng: /bodyhealth addon info <addon>'
+
+        # Message shown to display addon information
+        display: "&bThông tin addon &f{Name}&b:\n&bMô tả: &f{Description}\n&bTác giả: &f{Author}\n&bPhiên bản: &f{Version}\n&bTrạng thái: {Status}"
+
+        # Label for an enabled addon status
+        status-enabled: '&aĐã bật'
+
+        # Label for a disabled addon status
+        status-disabled: '&cĐã tắt'
+
+      enable:
+
+        # Message shown for incorrect command usage
+        usage: '&bCách dùng: /bodyhealth addon enable <addon>'
+
+        # Message shown if the addon is already enabled
+        already-enabled: '&cAddon "{Addon}" đã được bật.'
+
+        # Message shown on successful enable
+        success: '&aAddon "{Addon}" đã được bật.'
+
+        # Message shown if enabling fails
+        fail: '&cKhông thể bật addon "{Addon}".'
+
+      disable:
+
+        # Message shown for incorrect command usage
+        usage: '&bCách dùng: /bodyhealth addon disable <addon>'
+
+        # Message shown if the addon is already disabled
+        already-disabled: '&cAddon "{Addon}" đã được tắt.'
+
+        # Message shown on successful disable
+        success: '&aAddon "{Addon}" đã được tắt.'
+
+        # Message shown if disabling fails
+        fail: '&cKhông thể tắt addon "{Addon}".'
+
+      reload:
+
+        # Message shown for incorrect command usage
+        usage: '&bCách dùng: /bodyhealth addon reload <addon>'
+
+        # Message shown on successful reload
+        success: '&aAddon "{Addon}" đã được tải lại.'
+
+        # Message shown if reloading fails
+        fail: '&cKhông thể tải lại addon "{Addon}".'
+
+      load:
+
+        # Message shown for incorrect command usage
+        usage: '&bCách dùng: /bodyhealth addon load <tệp>'
+
+        # Message shown when the specified addon file could not be found
+        not-found: '&cKhông tìm thấy tệp addon "{File}" trong thư mục addons.'
+
+        # Warning shown before loading an addon post onLoad (requires confirmation)
+        warning: '&c&lCẢNH BÁO: &r&cTải addon thủ công có thể không được hỗ trợ bởi mọi addon!<br> &eĐể tiếp tục, vui lòng nhập lại lệnh này.'
+
+        # Message shown if the addon is already loaded
+        already-loaded: '&cAddon từ "{File}" đã được tải.'
+
+        # Message shown on successful load
+        success: '&aAddon từ "{File}" đã được tải thành công.'
+
+        # Message shown if loading fails
+        fail: '&cKhông thể tải addon từ "{File}".'
+
+      unload:
+
+        # Message shown for incorrect command usage
+        usage: '&bCách dùng: /bodyhealth addon unload <addon>'
+
+        # Warning shown before unloading an addon (requires confirmation)
+        warning: '&c&lCẢNH BÁO: &r&cGỡ addon thủ công có thể không được hỗ trợ bởi mọi addon!<br> &eĐể tiếp tục, vui lòng nhập lại lệnh này.'
+
+        # Message shown on successful unload
+        success: '&aAddon "{Addon}" đã được gỡ thành công.'
+
+        # Message shown if unloading fails
+        fail: '&cKhông thể gỡ addon "{Addon}".'
+
     debug:
 
       # Message shown for incorrect command usage

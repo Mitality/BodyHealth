@@ -165,6 +165,119 @@ commands:
         # Message shown if moving data fails
         fail: '&cנכשל בהעברת הנתונים מאחסון {Type1} אל אחסון {Type2} של BodyHealth.'
 
+
+    addon:
+
+      # Message shown for incorrect command usage
+      usage: '&bשימוש: /bodyhealth addon <list/info/enable/disable/reload/load/unload>'
+
+      # Message shown when the specified addon could not be found
+      not-found: '&cהתוסף "{Addon}" לא נמצא.'
+
+      list:
+
+        # Header shown before listing addons
+        header: '&bתוספים טעונים ({Count}): '
+
+        # Separator between addon name entries
+        separator: '&7, '
+
+        # Entry format for enabled addons
+        entry-enabled: '&a{Name}'
+
+        # Entry format for disabled addons
+        entry-disabled: '&c{Name}'
+
+        # Message shown when no addons are loaded
+        none: '&7אין תוספים טעונים.'
+
+      info:
+
+        # Message shown for incorrect command usage
+        usage: '&bשימוש: /bodyhealth addon info <addon>'
+
+        # Message shown to display addon information
+        display: "&bמידע על תוסף &f{Name}&b:\n&bתיאור: &f{Description}\n&bמחבר: &f{Author}\n&bגרסה: &f{Version}\n&bסטטוס: {Status}"
+
+        # Label for an enabled addon status
+        status-enabled: '&aמופעל'
+
+        # Label for a disabled addon status
+        status-disabled: '&cמושבת'
+
+      enable:
+
+        # Message shown for incorrect command usage
+        usage: '&bשימוש: /bodyhealth addon enable <addon>'
+
+        # Message shown if the addon is already enabled
+        already-enabled: '&cהתוסף "{Addon}" כבר מופעל.'
+
+        # Message shown on successful enable
+        success: '&aהתוסף "{Addon}" הופעל.'
+
+        # Message shown if enabling fails
+        fail: '&cנכשל בהפעלת התוסף "{Addon}".'
+
+      disable:
+
+        # Message shown for incorrect command usage
+        usage: '&bשימוש: /bodyhealth addon disable <addon>'
+
+        # Message shown if the addon is already disabled
+        already-disabled: '&cהתוסף "{Addon}" כבר מושבת.'
+
+        # Message shown on successful disable
+        success: '&aהתוסף "{Addon}" הושבת.'
+
+        # Message shown if disabling fails
+        fail: '&cנכשל בהשבתת התוסף "{Addon}".'
+
+      reload:
+
+        # Message shown for incorrect command usage
+        usage: '&bשימוש: /bodyhealth addon reload <addon>'
+
+        # Message shown on successful reload
+        success: '&aהתוסף "{Addon}" נטען מחדש.'
+
+        # Message shown if reloading fails
+        fail: '&cנכשל בטעינה מחדש של התוסף "{Addon}".'
+
+      load:
+
+        # Message shown for incorrect command usage
+        usage: '&bשימוש: /bodyhealth addon load <קובץ>'
+
+        # Message shown when the specified addon file could not be found
+        not-found: '&cקובץ התוסף "{File}" לא נמצא בתיקיית התוספים.'
+
+        # Warning shown before loading an addon post onLoad (requires confirmation)
+        warning: '&c&lאזהרה: &r&cטעינה ידנית של תוספים עשויה שלא להיות נתמכת על ידי כל תוסף!<br> &eכדי להמשיך, אנא הקלד פקודה זו שוב.'
+
+        # Message shown if the addon is already loaded
+        already-loaded: '&cהתוסף מ-"{File}" כבר טעון.'
+
+        # Message shown on successful load
+        success: '&aהתוסף מ-"{File}" נטען בהצלחה.'
+
+        # Message shown if loading fails
+        fail: '&cנכשל בטעינת התוסף מ-"{File}".'
+
+      unload:
+
+        # Message shown for incorrect command usage
+        usage: '&bשימוש: /bodyhealth addon unload <addon>'
+
+        # Warning shown before unloading an addon (requires confirmation)
+        warning: '&c&lאזהרה: &r&cהסרה ידנית של תוספים עשויה שלא להיות נתמכת על ידי כל תוסף!<br> &eכדי להמשיך, אנא הקלד פקודה זו שוב.'
+
+        # Message shown on successful unload
+        success: '&aהתוסף "{Addon}" הוסר בהצלחה.'
+
+        # Message shown if unloading fails
+        fail: '&cנכשל בהסרת התוסף "{Addon}".'
+
     debug:
 
       # Message shown for incorrect command usage

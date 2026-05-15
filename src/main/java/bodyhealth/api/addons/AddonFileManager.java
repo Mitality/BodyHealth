@@ -157,6 +157,14 @@ public class AddonFileManager {
     }
 
     /**
+     * Retrieves the jar file this addon was loaded from
+     * @return The jar File
+     */
+    public File getJarFile() {
+        return jarFile;
+    }
+
+    /**
      * Extracts the addon name from the jar file name, removing any version information.
      * Assumes that the version is appended with a '-' and contains numbers, dots, and possibly other characters.
      */

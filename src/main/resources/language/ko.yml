@@ -165,6 +165,119 @@ commands:
         # Message shown if moving data fails
         fail: '&cBodyHealth의 {Type1} 저장소에서 {Type2} 저장소로 데이터를 이동하지 못했습니다.'
 
+
+    addon:
+
+      # Message shown for incorrect command usage
+      usage: '&b사용법: /bodyhealth addon <list/info/enable/disable/reload/load/unload>'
+
+      # Message shown when the specified addon could not be found
+      not-found: '&c애드온 "{Addon}"을(를) 찾을 수 없습니다.'
+
+      list:
+
+        # Header shown before listing addons
+        header: '&b로드된 애드온 ({Count}): '
+
+        # Separator between addon name entries
+        separator: '&7, '
+
+        # Entry format for enabled addons
+        entry-enabled: '&a{Name}'
+
+        # Entry format for disabled addons
+        entry-disabled: '&c{Name}'
+
+        # Message shown when no addons are loaded
+        none: '&7로드된 애드온이 없습니다.'
+
+      info:
+
+        # Message shown for incorrect command usage
+        usage: '&b사용법: /bodyhealth addon info <addon>'
+
+        # Message shown to display addon information
+        display: "&b&f{Name}&b 애드온 정보:\n&b설명: &f{Description}\n&b작성자: &f{Author}\n&b버전: &f{Version}\n&b상태: {Status}"
+
+        # Label for an enabled addon status
+        status-enabled: '&a활성화됨'
+
+        # Label for a disabled addon status
+        status-disabled: '&c비활성화됨'
+
+      enable:
+
+        # Message shown for incorrect command usage
+        usage: '&b사용법: /bodyhealth addon enable <addon>'
+
+        # Message shown if the addon is already enabled
+        already-enabled: '&c애드온 "{Addon}"은(는) 이미 활성화되어 있습니다.'
+
+        # Message shown on successful enable
+        success: '&a애드온 "{Addon}"이(가) 활성화되었습니다.'
+
+        # Message shown if enabling fails
+        fail: '&c애드온 "{Addon}" 활성화에 실패했습니다.'
+
+      disable:
+
+        # Message shown for incorrect command usage
+        usage: '&b사용법: /bodyhealth addon disable <addon>'
+
+        # Message shown if the addon is already disabled
+        already-disabled: '&c애드온 "{Addon}"은(는) 이미 비활성화되어 있습니다.'
+
+        # Message shown on successful disable
+        success: '&a애드온 "{Addon}"이(가) 비활성화되었습니다.'
+
+        # Message shown if disabling fails
+        fail: '&c애드온 "{Addon}" 비활성화에 실패했습니다.'
+
+      reload:
+
+        # Message shown for incorrect command usage
+        usage: '&b사용법: /bodyhealth addon reload <addon>'
+
+        # Message shown on successful reload
+        success: '&a애드온 "{Addon}"이(가) 재로드되었습니다.'
+
+        # Message shown if reloading fails
+        fail: '&c애드온 "{Addon}" 재로드에 실패했습니다.'
+
+      load:
+
+        # Message shown for incorrect command usage
+        usage: '&b사용법: /bodyhealth addon load <파일>'
+
+        # Message shown when the specified addon file could not be found
+        not-found: '&c애드온 파일 "{File}"을(를) 애드온 디렉토리에서 찾을 수 없습니다.'
+
+        # Warning shown before loading an addon post onLoad (requires confirmation)
+        warning: '&c&l경고: &r&c애드온을 수동으로 로드하는 것은 모든 애드온에서 지원되지 않을 수 있습니다!<br> &e계속하려면 이 명령어를 다시 입력하세요.'
+
+        # Message shown if the addon is already loaded
+        already-loaded: '&c"{File}"의 애드온은 이미 로드되어 있습니다.'
+
+        # Message shown on successful load
+        success: '&a"{File}"에서 애드온이 성공적으로 로드되었습니다.'
+
+        # Message shown if loading fails
+        fail: '&c"{File}"에서 애드온 로드에 실패했습니다.'
+
+      unload:
+
+        # Message shown for incorrect command usage
+        usage: '&b사용법: /bodyhealth addon unload <addon>'
+
+        # Warning shown before unloading an addon (requires confirmation)
+        warning: '&c&l경고: &r&c애드온을 수동으로 언로드하는 것은 모든 애드온에서 지원되지 않을 수 있습니다!<br> &e계속하려면 이 명령어를 다시 입력하세요.'
+
+        # Message shown on successful unload
+        success: '&a애드온 "{Addon}"이(가) 성공적으로 언로드되었습니다.'
+
+        # Message shown if unloading fails
+        fail: '&c애드온 "{Addon}" 언로드에 실패했습니다.'
+
     debug:
 
       # Message shown for incorrect command usage

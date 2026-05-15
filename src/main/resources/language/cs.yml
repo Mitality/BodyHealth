@@ -165,6 +165,119 @@ commands:
         # Message shown if moving data fails
         fail: '&cNepodařilo se přesunout všechna existující data z {Type1}-úložiště do {Type2}-úložiště BodyHealth.'
 
+
+    addon:
+
+      # Message shown for incorrect command usage
+      usage: '&bPoužití: /bodyhealth addon <list/info/enable/disable/reload/load/unload>'
+
+      # Message shown when the specified addon could not be found
+      not-found: '&cAddon "{Addon}" nebyl nalezen.'
+
+      list:
+
+        # Header shown before listing addons
+        header: '&bNačtené addony ({Count}): '
+
+        # Separator between addon name entries
+        separator: '&7, '
+
+        # Entry format for enabled addons
+        entry-enabled: '&a{Name}'
+
+        # Entry format for disabled addons
+        entry-disabled: '&c{Name}'
+
+        # Message shown when no addons are loaded
+        none: '&7Žádné addony nejsou načteny.'
+
+      info:
+
+        # Message shown for incorrect command usage
+        usage: '&bPoužití: /bodyhealth addon info <addon>'
+
+        # Message shown to display addon information
+        display: "&bInformace o addonu &f{Name}&b:\n&bPopis: &f{Description}\n&bAutor: &f{Author}\n&bVerze: &f{Version}\n&bStav: {Status}"
+
+        # Label for an enabled addon status
+        status-enabled: '&aPovoleno'
+
+        # Label for a disabled addon status
+        status-disabled: '&cZakázáno'
+
+      enable:
+
+        # Message shown for incorrect command usage
+        usage: '&bPoužití: /bodyhealth addon enable <addon>'
+
+        # Message shown if the addon is already enabled
+        already-enabled: '&cAddon "{Addon}" je již povolen.'
+
+        # Message shown on successful enable
+        success: '&aAddon "{Addon}" byl povolen.'
+
+        # Message shown if enabling fails
+        fail: '&cNepodařilo se povolit addon "{Addon}".'
+
+      disable:
+
+        # Message shown for incorrect command usage
+        usage: '&bPoužití: /bodyhealth addon disable <addon>'
+
+        # Message shown if the addon is already disabled
+        already-disabled: '&cAddon "{Addon}" je již zakázán.'
+
+        # Message shown on successful disable
+        success: '&aAddon "{Addon}" byl zakázán.'
+
+        # Message shown if disabling fails
+        fail: '&cNepodařilo se zakázat addon "{Addon}".'
+
+      reload:
+
+        # Message shown for incorrect command usage
+        usage: '&bPoužití: /bodyhealth addon reload <addon>'
+
+        # Message shown on successful reload
+        success: '&aAddon "{Addon}" byl znovu načten.'
+
+        # Message shown if reloading fails
+        fail: '&cNepodařilo se znovu načíst addon "{Addon}".'
+
+      load:
+
+        # Message shown for incorrect command usage
+        usage: '&bPoužití: /bodyhealth addon load <soubor>'
+
+        # Message shown when the specified addon file could not be found
+        not-found: '&cSoubor addonu "{File}" nebyl nalezen v adresáři addonů.'
+
+        # Warning shown before loading an addon post onLoad (requires confirmation)
+        warning: '&c&lUPOZORNĚNÍ: &r&cRuční načítání addonů nemusí být každým addonem podporováno!<br> &eChcete-li pokračovat, zadejte tento příkaz znovu.'
+
+        # Message shown if the addon is already loaded
+        already-loaded: '&cAddon ze souboru "{File}" je již načten.'
+
+        # Message shown on successful load
+        success: '&aAddon ze souboru "{File}" byl úspěšně načten.'
+
+        # Message shown if loading fails
+        fail: '&cNepodařilo se načíst addon ze souboru "{File}".'
+
+      unload:
+
+        # Message shown for incorrect command usage
+        usage: '&bPoužití: /bodyhealth addon unload <addon>'
+
+        # Warning shown before unloading an addon (requires confirmation)
+        warning: '&c&lUPOZORNĚNÍ: &r&cRuční odebírání addonů nemusí být každým addonem podporováno!<br> &eChcete-li pokračovat, zadejte tento příkaz znovu.'
+
+        # Message shown on successful unload
+        success: '&aAddon "{Addon}" byl úspěšně odebrán.'
+
+        # Message shown if unloading fails
+        fail: '&cNepodařilo se odebrat addon "{Addon}".'
+
     debug:
 
       # Message shown for incorrect command usage

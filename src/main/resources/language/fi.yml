@@ -165,6 +165,119 @@ commands:
         # Message shown if moving data fails
         fail: '&cTietojen siirtäminen epäonnistui BodyHealthin {Type1}-tallennuksesta sen {Type2}-tallennukseen.'
 
+
+    addon:
+
+      # Message shown for incorrect command usage
+      usage: '&bKäyttö: /bodyhealth addon <list/info/enable/disable/reload/load/unload>'
+
+      # Message shown when the specified addon could not be found
+      not-found: '&cAddonia "{Addon}" ei löydy.'
+
+      list:
+
+        # Header shown before listing addons
+        header: '&bLadatut Addonit ({Count}): '
+
+        # Separator between addon name entries
+        separator: '&7, '
+
+        # Entry format for enabled addons
+        entry-enabled: '&a{Name}'
+
+        # Entry format for disabled addons
+        entry-disabled: '&c{Name}'
+
+        # Message shown when no addons are loaded
+        none: '&7Ei ladattuja addoneja.'
+
+      info:
+
+        # Message shown for incorrect command usage
+        usage: '&bKäyttö: /bodyhealth addon info <addon>'
+
+        # Message shown to display addon information
+        display: "&bAddon-tiedot kohteelle &f{Name}&b:\n&bKuvaus: &f{Description}\n&bTekijä: &f{Author}\n&bVersio: &f{Version}\n&bTila: {Status}"
+
+        # Label for an enabled addon status
+        status-enabled: '&aKäytössä'
+
+        # Label for a disabled addon status
+        status-disabled: '&cPois käytöstä'
+
+      enable:
+
+        # Message shown for incorrect command usage
+        usage: '&bKäyttö: /bodyhealth addon enable <addon>'
+
+        # Message shown if the addon is already enabled
+        already-enabled: '&cAddon "{Addon}" on jo käytössä.'
+
+        # Message shown on successful enable
+        success: '&aAddon "{Addon}" on otettu käyttöön.'
+
+        # Message shown if enabling fails
+        fail: '&cAddonia "{Addon}" ei voitu ottaa käyttöön.'
+
+      disable:
+
+        # Message shown for incorrect command usage
+        usage: '&bKäyttö: /bodyhealth addon disable <addon>'
+
+        # Message shown if the addon is already disabled
+        already-disabled: '&cAddon "{Addon}" on jo pois käytöstä.'
+
+        # Message shown on successful disable
+        success: '&aAddon "{Addon}" on poistettu käytöstä.'
+
+        # Message shown if disabling fails
+        fail: '&cAddonia "{Addon}" ei voitu poistaa käytöstä.'
+
+      reload:
+
+        # Message shown for incorrect command usage
+        usage: '&bKäyttö: /bodyhealth addon reload <addon>'
+
+        # Message shown on successful reload
+        success: '&aAddon "{Addon}" on ladattu uudelleen.'
+
+        # Message shown if reloading fails
+        fail: '&cAddonia "{Addon}" ei voitu ladata uudelleen.'
+
+      load:
+
+        # Message shown for incorrect command usage
+        usage: '&bKäyttö: /bodyhealth addon load <tiedosto>'
+
+        # Message shown when the specified addon file could not be found
+        not-found: '&cAddon-tiedostoa "{File}" ei löydy addons-kansiosta.'
+
+        # Warning shown before loading an addon post onLoad (requires confirmation)
+        warning: '&c&lVAROITUS: &r&cAddonien manuaalinen lataaminen ei välttämättä ole kaikkien addonien tukemaa!<br> &eJatka kirjoittamalla tämä komento uudelleen.'
+
+        # Message shown if the addon is already loaded
+        already-loaded: '&cAddon tiedostosta "{File}" on jo ladattu.'
+
+        # Message shown on successful load
+        success: '&aAddon tiedostosta "{File}" on ladattu onnistuneesti.'
+
+        # Message shown if loading fails
+        fail: '&cAddonia tiedostosta "{File}" ei voitu ladata.'
+
+      unload:
+
+        # Message shown for incorrect command usage
+        usage: '&bKäyttö: /bodyhealth addon unload <addon>'
+
+        # Warning shown before unloading an addon (requires confirmation)
+        warning: '&c&lVAROITUS: &r&cAddonien manuaalinen poistaminen ei välttämättä ole kaikkien addonien tukemaa!<br> &eJatka kirjoittamalla tämä komento uudelleen.'
+
+        # Message shown on successful unload
+        success: '&aAddon "{Addon}" on poistettu onnistuneesti.'
+
+        # Message shown if unloading fails
+        fail: '&cAddonia "{Addon}" ei voitu poistaa.'
+
     debug:
 
       # Message shown for incorrect command usage

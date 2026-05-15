@@ -14,7 +14,9 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CompletionException;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
@@ -23,6 +25,7 @@ public class AddonManager extends ClassLoader {
 
     private final File addonsDir;
     private final static List<BodyHealthAddon> addons = new ArrayList<>();
+    private final static Set<String> loadedJarPaths = new HashSet<>();
 
     public AddonManager(Main main) {
         this.addonsDir = new File(main.getDataFolder(), "addons");
@@ -47,9 +50,15 @@ public class AddonManager extends ClassLoader {
             addon.onAddonDisable();
             addon.unregisterListeners();
             addon.unregisterCommands();
+            addon.setEnabled(false);
             addon.getAddonDebug().log("Addon successfully disabled");
         } catch (Throwable t) {
             Debug.logErr("Error while disabling addon " + addon.getClass().getName() + ": " + t.getMessage());
+        }
+        try {
+            loadedJarPaths.remove(addon.getAddonFileManager().getJarFile().getCanonicalPath());
+        } catch (IOException e) {
+            Debug.logErr("Failed to clean up jar path for addon " + addon.getAddonInfo().name() + ": " + e.getMessage());
         }
         addons.remove(addon);
     }
@@ -106,8 +115,14 @@ public class AddonManager extends ClassLoader {
      */
     public void loadAddon(File file) {
         try {
+            String canonicalPath = file.getCanonicalPath();
+            if (loadedJarPaths.contains(canonicalPath)) {
+                Debug.logErr("Addon jar " + file.getName() + " is already loaded");
+                return;
+            }
             List<Class<?>> classes = loadAllLoadableClassesFromJar(file);
 
+            boolean anyLoaded = false;
             for (Class<?> clazz : classes) {
 
                 // Check if the class is a concrete subclass of BodyHealthAddon
@@ -143,12 +158,14 @@ public class AddonManager extends ClassLoader {
                     Debug.log("Loading addon " + addon.getAddonInfo().name() + " (v" + addon.getAddonInfo().version() + ") by " + addon.getAddonInfo().author());
 
                     addons.add(addon);
+                    anyLoaded = true;
                     addon.onAddonLoad();
                 } catch (Exception e) {
                     Debug.logErr("Failed to load addon class " + clazz + ": " + e.getMessage());
                     Debug.logErr(e);
                 }
             }
+            if (anyLoaded) loadedJarPaths.add(canonicalPath);
         } catch (Throwable t) {
             Debug.logErr("Failed to load addon classes from jar " + file.getName() + ": " + t.getMessage());
             Debug.logErr(t);
@@ -172,9 +189,26 @@ public class AddonManager extends ClassLoader {
     public void enableAddon(BodyHealthAddon addon) {
         try {
             addon.onAddonEnable();
+            addon.setEnabled(true);
         } catch (Throwable t) {
             Debug.logErr("Error while enabling addon " + addon.getClass().getName() + ": " + t.getMessage());
             Debug.logErr(t);
+        }
+    }
+
+    /**
+     * Disables a specific BodyHealthAddon without unloading it
+     * @param addon The addon to disable
+     */
+    public void disableAddon(BodyHealthAddon addon) {
+        try {
+            addon.onAddonDisable();
+            addon.unregisterListeners();
+            addon.unregisterCommands();
+            addon.setEnabled(false);
+            addon.getAddonDebug().log("Addon successfully disabled");
+        } catch (Throwable t) {
+            Debug.logErr("Error while disabling addon " + addon.getClass().getName() + ": " + t.getMessage());
         }
     }
 

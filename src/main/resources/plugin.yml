@@ -40,6 +40,9 @@ commands:
       bodyhealth.debug:
         description: Allows using the debug command
         default: op
+      bodyhealth.addon:
+        description: Allows using the addon command
+        default: op
       bodyhealth.*:
         description: Allows managing body health
         default: op
@@ -51,6 +54,7 @@ commands:
           bodyhealth.add: true
           bodyhealth.data: true
           bodyhealth.debug: true
+          bodyhealth.addon: true
 
 permissions:
 

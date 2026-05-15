@@ -165,6 +165,118 @@ commands:
         # Message shown if moving data fails
         fail: '&cFailed to move all existing data from BodyHealth''s {Type1}-Storage to its {Type2}-Storage.'
 
+    addon:
+
+      # Message shown for incorrect command usage
+      usage: '&bUsage: /bodyhealth addon <list/info/enable/disable/reload/load/unload>'
+
+      # Message shown when the specified addon could not be found
+      not-found: '&cAddon "{Addon}" not found.'
+
+      list:
+
+        # Header shown before listing addons
+        header: '&bLoaded Addons ({Count}): '
+
+        # Separator between addon name entries
+        separator: '&7, '
+
+        # Entry format for enabled addons
+        entry-enabled: '&a{Name}'
+
+        # Entry format for disabled addons
+        entry-disabled: '&c{Name}'
+
+        # Message shown when no addons are loaded
+        none: '&7No addons loaded.'
+
+      info:
+
+        # Message shown for incorrect command usage
+        usage: '&bUsage: /bodyhealth addon info <addon>'
+
+        # Message shown to display addon information
+        display: "&bAddon info for &f{Name}&b:\n&bDescription: &f{Description}\n&bAuthor: &f{Author}\n&bVersion: &f{Version}\n&bStatus: {Status}"
+
+        # Label for an enabled addon status
+        status-enabled: '&aEnabled'
+
+        # Label for a disabled addon status
+        status-disabled: '&cDisabled'
+
+      enable:
+
+        # Message shown for incorrect command usage
+        usage: '&bUsage: /bodyhealth addon enable <addon>'
+
+        # Message shown if the addon is already enabled
+        already-enabled: '&cAddon "{Addon}" is already enabled.'
+
+        # Message shown on successful enable
+        success: '&aAddon "{Addon}" has been enabled.'
+
+        # Message shown if enabling fails
+        fail: '&cFailed to enable addon "{Addon}".'
+
+      disable:
+
+        # Message shown for incorrect command usage
+        usage: '&bUsage: /bodyhealth addon disable <addon>'
+
+        # Message shown if the addon is already disabled
+        already-disabled: '&cAddon "{Addon}" is already disabled.'
+
+        # Message shown on successful disable
+        success: '&aAddon "{Addon}" has been disabled.'
+
+        # Message shown if disabling fails
+        fail: '&cFailed to disable addon "{Addon}".'
+
+      reload:
+
+        # Message shown for incorrect command usage
+        usage: '&bUsage: /bodyhealth addon reload <addon>'
+
+        # Message shown on successful reload
+        success: '&aAddon "{Addon}" has been reloaded.'
+
+        # Message shown if reloading fails
+        fail: '&cFailed to reload addon "{Addon}".'
+
+      load:
+
+        # Message shown for incorrect command usage
+        usage: '&bUsage: /bodyhealth addon load <file>'
+
+        # Message shown when the specified addon file could not be found
+        not-found: '&cAddon file "{File}" not found in the addons directory.'
+
+        # Warning shown before loading an addon post onLoad (requires confirmation)
+        warning: '&c&lWARNING: &r&cLoading addons manually might not be fully supported by every addon!<br> &eTo proceed, please type this command again.'
+
+        # Message shown if the addon is already loaded
+        already-loaded: '&cAddon from "{File}" is already loaded.'
+
+        # Message shown on successful load
+        success: '&aAddon from "{File}" has been loaded successfully.'
+
+        # Message shown if loading fails
+        fail: '&cFailed to load addon from "{File}".'
+
+      unload:
+
+        # Message shown for incorrect command usage
+        usage: '&bUsage: /bodyhealth addon unload <addon>'
+
+        # Warning shown before unloading an addon (requires confirmation)
+        warning: '&c&lWARNING: &r&cUnloading addons manually might not be fully supported by every addon!<br> &eTo proceed, please type this command again.'
+
+        # Message shown on successful unload
+        success: '&aAddon "{Addon}" has been unloaded successfully.'
+
+        # Message shown if unloading fails
+        fail: '&cFailed to unload addon "{Addon}".'
+
     debug:
 
       # Message shown for incorrect command usage

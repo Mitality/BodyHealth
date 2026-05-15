@@ -165,6 +165,119 @@ commands:
         # Message shown if moving data fails
         fail: '&cMisslyckades med att flytta all befintlig data från BodyHealths {Type1}-lagring till {Type2}-lagringen.'
 
+
+    addon:
+
+      # Message shown for incorrect command usage
+      usage: '&bAnvändning: /bodyhealth addon <list/info/enable/disable/reload/load/unload>'
+
+      # Message shown when the specified addon could not be found
+      not-found: '&cAddon "{Addon}" hittades inte.'
+
+      list:
+
+        # Header shown before listing addons
+        header: '&bLaddade Addons ({Count}): '
+
+        # Separator between addon name entries
+        separator: '&7, '
+
+        # Entry format for enabled addons
+        entry-enabled: '&a{Name}'
+
+        # Entry format for disabled addons
+        entry-disabled: '&c{Name}'
+
+        # Message shown when no addons are loaded
+        none: '&7Inga addons laddade.'
+
+      info:
+
+        # Message shown for incorrect command usage
+        usage: '&bAnvändning: /bodyhealth addon info <addon>'
+
+        # Message shown to display addon information
+        display: "&bAddon-info för &f{Name}&b:\n&bBeskrivning: &f{Description}\n&bFörfattare: &f{Author}\n&bVersion: &f{Version}\n&bStatus: {Status}"
+
+        # Label for an enabled addon status
+        status-enabled: '&aAktiverad'
+
+        # Label for a disabled addon status
+        status-disabled: '&cInaktiverad'
+
+      enable:
+
+        # Message shown for incorrect command usage
+        usage: '&bAnvändning: /bodyhealth addon enable <addon>'
+
+        # Message shown if the addon is already enabled
+        already-enabled: '&cAddon "{Addon}" är redan aktiverad.'
+
+        # Message shown on successful enable
+        success: '&aAddon "{Addon}" har aktiverats.'
+
+        # Message shown if enabling fails
+        fail: '&cKunde inte aktivera addon "{Addon}".'
+
+      disable:
+
+        # Message shown for incorrect command usage
+        usage: '&bAnvändning: /bodyhealth addon disable <addon>'
+
+        # Message shown if the addon is already disabled
+        already-disabled: '&cAddon "{Addon}" är redan inaktiverad.'
+
+        # Message shown on successful disable
+        success: '&aAddon "{Addon}" har inaktiverats.'
+
+        # Message shown if disabling fails
+        fail: '&cKunde inte inaktivera addon "{Addon}".'
+
+      reload:
+
+        # Message shown for incorrect command usage
+        usage: '&bAnvändning: /bodyhealth addon reload <addon>'
+
+        # Message shown on successful reload
+        success: '&aAddon "{Addon}" har laddats om.'
+
+        # Message shown if reloading fails
+        fail: '&cKunde inte ladda om addon "{Addon}".'
+
+      load:
+
+        # Message shown for incorrect command usage
+        usage: '&bAnvändning: /bodyhealth addon load <fil>'
+
+        # Message shown when the specified addon file could not be found
+        not-found: '&cAddon-fil "{File}" hittades inte i addons-mappen.'
+
+        # Warning shown before loading an addon post onLoad (requires confirmation)
+        warning: '&c&lVARNING: &r&cManuell laddning av addons stöds kanske inte av alla addons!<br> &eFor att fortsätta, skriv detta kommando igen.'
+
+        # Message shown if the addon is already loaded
+        already-loaded: '&cAddon från "{File}" är redan inläst.'
+
+        # Message shown on successful load
+        success: '&aAddon från "{File}" har laddats in.'
+
+        # Message shown if loading fails
+        fail: '&cKunde inte ladda addon från "{File}".'
+
+      unload:
+
+        # Message shown for incorrect command usage
+        usage: '&bAnvändning: /bodyhealth addon unload <addon>'
+
+        # Warning shown before unloading an addon (requires confirmation)
+        warning: '&c&lVARNING: &r&cManuell borttagning av addons stöds kanske inte av alla addons!<br> &eFor att fortsätta, skriv detta kommando igen.'
+
+        # Message shown on successful unload
+        success: '&aAddon "{Addon}" har tagits bort.'
+
+        # Message shown if unloading fails
+        fail: '&cKunde inte ta bort addon "{Addon}".'
+
     debug:
 
       # Message shown for incorrect command usage
