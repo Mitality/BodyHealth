@@ -7,6 +7,7 @@ import bodyhealth.effects.BodyHealthEffect;
 import bodyhealth.effects.EffectHandler;
 import bodyhealth.effects.EffectType;
 import bodyhealth.util.BodyHealthUtils;
+import bodyhealth.util.PaperUtils;
 import bodyhealth.util.MessageUtils;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
@@ -64,7 +65,7 @@ public class PREVENT_SPRINT implements BodyHealthEffect {
             if (preventSprint.contains(event.getPlayer())) return;
             if (canPlayerSprint(event.getPlayer())) return;
             preventSprint.add(event.getPlayer());
-            BodyHealthUtils.addAttributeModifier(Objects.requireNonNull(event.getPlayer().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)), EffectHandler.getSpeedReductionModifier());
+            PaperUtils.addAttributeModifier(Objects.requireNonNull(event.getPlayer().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)), EffectHandler.getSpeedReductionModifier());
             Debug.log("Adding SpeedReductionModifier to player " + event.getPlayer().getName());
             MessageUtils.sendEffectMessages(event.getPlayer(), "PREVENT_SPRINT");
         } else {

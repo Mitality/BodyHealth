@@ -7,6 +7,7 @@ import bodyhealth.core.BodyPart;
 import bodyhealth.effects.BodyHealthEffect;
 import bodyhealth.effects.EffectType;
 import bodyhealth.util.BodyHealthUtils;
+import bodyhealth.util.PaperUtils;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
@@ -68,7 +69,7 @@ public class ATTRIBUTE_MODIFIER implements BodyHealthEffect {
             return;
         }
 
-        BodyHealthUtils.addAttributeModifier(attributeInstance, new AttributeModifier(modifierKey, value, operation, EquipmentSlotGroup.ANY));
+        PaperUtils.addAttributeModifier(attributeInstance, new AttributeModifier(modifierKey, value, operation, EquipmentSlotGroup.ANY));
         Debug.log("(" + part.name() + ") Applied attribute modifier '" + modifierKey.getKey() +
                 "' to " + player.getName() + "'s " + attribute.getKey().getKey() + " attribute.");
     }

@@ -164,6 +164,12 @@ heal-on-full-health: true
 # (respects bypass permissions)
 apply-vanilla-regen: true
 
+# Sleep regeneration settings:
+regenerate-on-sleep:
+  # Whether body parts should regenerate health when the player skips a night in a bed
+  enabled: true
+  # How much health to regenerate (append a '%' symbol to heal percentage-based)
+  amount: 50%
 
 # Passive health regeneration settings:
 gradual-heath-regen:

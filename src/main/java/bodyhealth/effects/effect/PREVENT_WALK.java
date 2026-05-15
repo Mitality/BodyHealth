@@ -8,6 +8,7 @@ import bodyhealth.effects.BodyHealthEffect;
 import bodyhealth.effects.EffectHandler;
 import bodyhealth.effects.EffectType;
 import bodyhealth.util.BodyHealthUtils;
+import bodyhealth.util.PaperUtils;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Player;
@@ -40,7 +41,7 @@ public class PREVENT_WALK implements BodyHealthEffect {
         AttributeInstance walkAttribute = player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED);
         if (walkAttribute != null && walkAttribute.getModifiers().stream().noneMatch(mod -> mod.getKey().equals(EffectHandler.getWalkDenialModifier(lenient).getKey()))) {
             Debug.log("Adding WalkDenialModifier to player " + player.getName());
-            BodyHealthUtils.addAttributeModifier(walkAttribute, EffectHandler.getWalkDenialModifier(lenient));
+            PaperUtils.addAttributeModifier(walkAttribute, EffectHandler.getWalkDenialModifier(lenient));
         }
 
     }
