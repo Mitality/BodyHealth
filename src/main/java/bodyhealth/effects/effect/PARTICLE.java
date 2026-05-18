@@ -117,7 +117,10 @@ public class PARTICLE implements BodyHealthEffect {
 
         Location playerLoc = tokens[1].startsWith("^") ? player.getEyeLocation() : player.getLocation();
         boolean hasCarets = false;
-        for (String token : tokens) if (token.startsWith("^")) { hasCarets = true; break; }
+        for (String token : tokens) if (token.startsWith("^")) {
+            hasCarets = true;
+            break;
+        }
 
         if (hasCarets) {
             double yaw = Math.toRadians(playerLoc.getYaw());

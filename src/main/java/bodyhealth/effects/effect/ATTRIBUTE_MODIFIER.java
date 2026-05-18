@@ -162,7 +162,8 @@ public class ATTRIBUTE_MODIFIER implements BodyHealthEffect {
                 Attribute attr = resolveAttribute(effectParts[1]);
                 if (attr == null) continue;
                 double val;
-                try { val = Double.parseDouble(effectParts[2].trim()); } catch (NumberFormatException e) { continue; }
+                try { val = Double.parseDouble(effectParts[2].trim()); }
+                catch (NumberFormatException e) { continue; }
                 AttributeModifier.Operation op = resolveOperation(effectParts.length > 3 ? effectParts[3] : "");
                 if (modifierKey.equals(buildModifierKey(effectParts, part, attr, op, val))) return true;
             }
