@@ -13,6 +13,7 @@ import bodyhealth.effects.effect.COMMAND_UNDO;
 import bodyhealth.effects.effect.DELAYED;
 import bodyhealth.effects.effect.KILL_PLAYER;
 import bodyhealth.effects.effect.MESSAGE;
+import bodyhealth.effects.effect.PARTICLE;
 import bodyhealth.effects.effect.POTION_EFFECT;
 import bodyhealth.effects.effect.PREVENT_HOLD;
 import bodyhealth.effects.effect.PREVENT_INTERACT;
@@ -55,6 +56,7 @@ public class EffectHandler {
         Map.entry("COMMAND", new COMMAND()),
         Map.entry("COMMAND_UNDO", new COMMAND_UNDO()),
         Map.entry("MESSAGE", new MESSAGE()),
+        Map.entry("PARTICLE", new PARTICLE()),
         Map.entry("SOUND", new SOUND()),
         Map.entry("REPEATING", new REPEATING()),
         Map.entry("DELAYED", new DELAYED()),

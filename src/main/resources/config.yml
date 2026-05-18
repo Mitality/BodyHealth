@@ -373,6 +373,9 @@ body-damage:
 
 # Configure effects per body part and body part state:
 #
+#   All effects are explained in more detail here:
+#   https://github.com/Mitality/BodyHealth/wiki/effects
+#
 #   Effects (<> = required, [] = optional):
 #
 #      Persistent effects (active as long as conditions are met):
@@ -387,6 +390,7 @@ body-damage:
 #
 #      One-time effects (activate once when conditions are met):
 #
+#         PARTICLE / <PARTICLE> / [POS] / [COUNT] / [OFFSET] / [SPEED] / [FORCE] / [GLOBAL] / [DATA] ··· refer to wiki for this
 #         COMMAND / cmd args[…] ·························· execute a command (can use %PlayerName%, %PlayerUUID% and %BodyPart%)
 #         COMMAND_UNDO / cmd args[…] ····················· execute a command when the condition is no longer met (to undo stuff)
 #         SOUND / <ID> / [VOLUME] / [PITCH] / [GLOBAL] ··· play a vanilla or custom sound to only the player or all nearby players
