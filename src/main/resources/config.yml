@@ -387,11 +387,11 @@ body-damage:
 #
 #      One-time effects (activate once when conditions are met):
 #
-#         COMMAND / cmd args[…] ··············· execute a command (can use %PlayerName%, %PlayerUUID% and %BodyPart%)
-#         COMMAND_UNDO / cmd args[…] ·········· execute a command when the condition is no longer met (to undo stuff)
-#         SOUND / <ID> / [VOLUME] / [PITCH] ··· play a vanilla or custom sound (namespace optional) to only the player
-#         MESSAGE / <MESSAGE> ················· send a message to the target player to notify them of their status
-#         KILL_PLAYER ························· you guessed it, this kills the player when the condition is met
+#         COMMAND / cmd args[…] ·························· execute a command (can use %PlayerName%, %PlayerUUID% and %BodyPart%)
+#         COMMAND_UNDO / cmd args[…] ····················· execute a command when the condition is no longer met (to undo stuff)
+#         SOUND / <ID> / [VOLUME] / [PITCH] / [GLOBAL] ··· play a vanilla or custom sound to only the player or all nearby players
+#         MESSAGE / <MESSAGE> ···························· send a message to the target player to notify them of their status
+#         KILL_PLAYER ···································· you guessed it, this kills the player when the condition is met
 #
 #      Meta effects (logic-based triggers for non-persistent effects):
 #
