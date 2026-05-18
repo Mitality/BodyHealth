@@ -8,6 +8,7 @@ import bodyhealth.core.BodyHealth;
 import bodyhealth.core.BodyPart;
 import bodyhealth.core.BodyPartState;
 import bodyhealth.effects.effect.ATTRIBUTE_MODIFIER;
+import bodyhealth.effects.effect.CHANCE;
 import bodyhealth.effects.effect.COMMAND;
 import bodyhealth.effects.effect.COMMAND_UNDO;
 import bodyhealth.effects.effect.DELAYED;
@@ -61,7 +62,8 @@ public class EffectHandler {
         Map.entry("REPEATING", new REPEATING()),
         Map.entry("DELAYED", new DELAYED()),
         Map.entry("WHEN_DAMAGED", new WHEN_DAMAGED()),
-        Map.entry("WHEN_HEALED", new WHEN_HEALED())
+        Map.entry("WHEN_HEALED", new WHEN_HEALED()),
+        Map.entry("CHANCE", new CHANCE())
     ));
 
     /**
