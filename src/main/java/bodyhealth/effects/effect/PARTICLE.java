@@ -9,6 +9,7 @@ import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
@@ -93,7 +94,7 @@ public class PARTICLE implements BodyHealthEffect {
 
         Object data = null;
         if (args.length >= 9 && !args[8].trim().isEmpty()) {
-            data = parseData(particle, args[8].trim());
+            data = parseData(particle, args[8].trim(), location, player);
         }
 
         try {
@@ -183,8 +184,11 @@ public class PARTICLE implements BodyHealthEffect {
     // BLOCK_CRACK etc. ········ → "block_type" ··············· e.g. "stone"
     // SCULK_CHARGE ············ → "roll" ····················· e.g. "0.5"
     // SHRIEK ·················· → "delay" ···················· e.g. "10"
+    // SPELL (EFFECT etc.) ····· → "R G B POWER" ·············· e.g. "255 0 0 1.0"
+    // TRAIL ··················· → "R G B DURATION" ··········· e.g. "255 0 0 20"
+    //                             or "TX TY TZ R G B DURATION" for explicit target
     @SuppressWarnings("unchecked")
-    private <T> T parseData(Particle particle, String raw) {
+    private <T> T parseData(Particle particle, String raw, Location spawnLocation, Player player) {
         Class<?> dataType = particle.getDataType();
         String[] parts = raw.split("[,\\s]+");
 
@@ -231,7 +235,7 @@ public class PARTICLE implements BodyHealthEffect {
             }
         }
 
-        if (dataType == org.bukkit.block.data.BlockData.class) {
+        if (dataType == BlockData.class) {
             try {
                 return (T) Bukkit.createBlockData(parts[0].toLowerCase());
             } catch (IllegalArgumentException e) {
@@ -254,6 +258,54 @@ public class PARTICLE implements BodyHealthEffect {
                 return (T) Integer.valueOf(parts[0]);
             } catch (NumberFormatException e) {
                 Debug.logErr("SHRIEK data \"" + raw + "\" is invalid, use an integer value!");
+                return null;
+            }
+        }
+
+        // Types added after 1.21.0
+        String dataTypeName = dataType.getName();
+
+        if (dataTypeName.equals("org.bukkit.Particle$Spell")) {
+            if (parts.length < 4) {
+                Debug.logErr("SPELL data \"" + raw + "\" is invalid, use format \"R G B POWER\"!");
+                return null;
+            }
+            try {
+                int r = Integer.parseInt(parts[0]);
+                int g = Integer.parseInt(parts[1]);
+                int b = Integer.parseInt(parts[2]);
+                float power = Float.parseFloat(parts[3]);
+                return (T) dataType.getConstructor(Color.class, float.class)
+                        .newInstance(Color.fromRGB(r, g, b), power);
+            } catch (Exception e) {
+                Debug.logErr("SPELL data \"" + raw + "\" is invalid, use format \"R G B POWER\"!");
+                return null;
+            }
+        }
+
+        if (dataTypeName.equals("org.bukkit.Particle$Trail")) {
+            int colorOffset = 0;
+            Location target = spawnLocation;
+            if (parts.length >= 7) {
+                colorOffset = 3;
+                target = parsePosition(parts[0] + " " + parts[1] + " " + parts[2], player);
+                if (target == null) {
+                    Debug.logErr("TRAIL data \"" + raw + "\" has invalid target coordinates!");
+                    return null;
+                }
+            } else if (parts.length < 4) {
+                Debug.logErr("TRAIL data \"" + raw + "\" is invalid, use format \"R G B DURATION\" or \"TX TY TZ R G B DURATION\"!");
+                return null;
+            }
+            try {
+                int r = Integer.parseInt(parts[colorOffset]);
+                int g = Integer.parseInt(parts[colorOffset + 1]);
+                int b = Integer.parseInt(parts[colorOffset + 2]);
+                int duration = Integer.parseInt(parts[colorOffset + 3]);
+                return (T) dataType.getConstructor(Location.class, Color.class, int.class)
+                        .newInstance(target, Color.fromRGB(r, g, b), duration);
+            } catch (Exception e) {
+                Debug.logErr("TRAIL data \"" + raw + "\" is invalid, use format \"R G B DURATION\" or \"TX TY TZ R G B DURATION\"!");
                 return null;
             }
         }
