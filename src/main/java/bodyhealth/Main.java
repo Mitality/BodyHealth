@@ -15,6 +15,7 @@ import bodyhealth.listeners.BetterHudListener;
 import bodyhealth.listeners.BodyHealthListener;
 import bodyhealth.listeners.HarshlandsListener;
 import bodyhealth.listeners.PlaceholderAPIListener;
+import bodyhealth.listeners.SleepListener;
 import bodyhealth.listeners.UpdateNotifyListener;
 import bodyhealth.migrations.Migrator;
 import bodyhealth.util.BodyHealthUtils;
@@ -138,6 +139,7 @@ public final class Main extends JavaPlugin {
 
         // Commands and Listeners
         Bukkit.getPluginManager().registerEvents(new BodyHealthListener(), this);
+        Bukkit.getPluginManager().registerEvents(new SleepListener(), this);
         EffectHandler.registerListeners();
         Objects.requireNonNull(getCommand("bodyhealth")).setExecutor(new CommandManager());
         Debug.log("Registered Commands and Listeners");

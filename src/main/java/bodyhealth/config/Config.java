@@ -33,6 +33,10 @@ public class Config {
     public static boolean heal_on_full_health;
     public static boolean apply_vanilla_regen;
 
+    public static boolean regenerate_on_sleep_enabled;
+    public static boolean regenerate_on_sleep_is_percent;
+    public static double regenerate_on_sleep_amount;
+
     public static boolean gradual_heath_regen_enabled;
     public static long gradual_heath_regen_interval;
     public static boolean gradual_heath_regen_amount_is_percent;
@@ -113,12 +117,22 @@ public class Config {
         heal_on_full_health = config.getBoolean("heal-on-full-health", true);
         apply_vanilla_regen = config.getBoolean("apply-vanilla-regen", true);
 
+        regenerate_on_sleep_enabled = config.getBoolean("regenerate-on-sleep.enabled", true);
+        String sleepRegenAmountStr = config.getString("regenerate-on-sleep.amount", "50%").trim();
+        regenerate_on_sleep_is_percent = sleepRegenAmountStr.endsWith("%");
+        try {
+            regenerate_on_sleep_amount = Double.parseDouble(sleepRegenAmountStr.replace("%", ""));
+        } catch (NumberFormatException e) {
+            regenerate_on_sleep_is_percent = true;
+            regenerate_on_sleep_amount = 50.0;
+        }
+
         gradual_heath_regen_enabled = config.getBoolean("gradual-heath-regen.enabled", false);
         gradual_heath_regen_interval = TimeUtils.convertToTicks(config.getString("gradual-heath-regen.interval", "5s"));
-        String regenAmountStr = config.getString("gradual-heath-regen.amount", "10%").trim();
-        gradual_heath_regen_amount_is_percent = regenAmountStr.endsWith("%");
+        String gradualHealthRegenAmountStr = config.getString("gradual-heath-regen.amount", "10%").trim();
+        gradual_heath_regen_amount_is_percent = gradualHealthRegenAmountStr.endsWith("%");
         try {
-            gradual_heath_regen_amount = Double.parseDouble(regenAmountStr.replace("%", ""));
+            gradual_heath_regen_amount = Double.parseDouble(gradualHealthRegenAmountStr.replace("%", ""));
         } catch (NumberFormatException e) {
             gradual_heath_regen_amount_is_percent = true;
             gradual_heath_regen_amount = 10.0;

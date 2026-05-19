@@ -165,6 +165,119 @@ commands:
         # Message shown if moving data fails
         fail: '&cBodyHealth''in {Type1} depolamasındaki mevcut veriler {Type2} depolamasına taşınamadı.'
 
+
+    addon:
+
+      # Message shown for incorrect command usage
+      usage: '&bKullanım: /bodyhealth addon <list/info/enable/disable/reload/load/unload>'
+
+      # Message shown when the specified addon could not be found
+      not-found: '&c"{Addon}" eklentisi bulunamadı.'
+
+      list:
+
+        # Header shown before listing addons
+        header: '&bYüklü Eklentiler ({Count}): '
+
+        # Separator between addon name entries
+        separator: '&7, '
+
+        # Entry format for enabled addons
+        entry-enabled: '&a{Name}'
+
+        # Entry format for disabled addons
+        entry-disabled: '&c{Name}'
+
+        # Message shown when no addons are loaded
+        none: '&7Yüklü eklenti yok.'
+
+      info:
+
+        # Message shown for incorrect command usage
+        usage: '&bKullanım: /bodyhealth addon info <addon>'
+
+        # Message shown to display addon information
+        display: "&b&f{Name}&b eklenti bilgileri:\n&bAçıklama: &f{Description}\n&bYazar: &f{Author}\n&bSürüm: &f{Version}\n&bDurum: {Status}"
+
+        # Label for an enabled addon status
+        status-enabled: '&aEtkin'
+
+        # Label for a disabled addon status
+        status-disabled: '&cDevre Dışı'
+
+      enable:
+
+        # Message shown for incorrect command usage
+        usage: '&bKullanım: /bodyhealth addon enable <addon>'
+
+        # Message shown if the addon is already enabled
+        already-enabled: '&c"{Addon}" eklentisi zaten etkin.'
+
+        # Message shown on successful enable
+        success: '&a"{Addon}" eklentisi etkinleştirildi.'
+
+        # Message shown if enabling fails
+        fail: '&c"{Addon}" eklentisi etkinleştirilemedi.'
+
+      disable:
+
+        # Message shown for incorrect command usage
+        usage: '&bKullanım: /bodyhealth addon disable <addon>'
+
+        # Message shown if the addon is already disabled
+        already-disabled: '&c"{Addon}" eklentisi zaten devre dışı.'
+
+        # Message shown on successful disable
+        success: '&a"{Addon}" eklentisi devre dışı bırakıldı.'
+
+        # Message shown if disabling fails
+        fail: '&c"{Addon}" eklentisi devre dışı bırakılamadı.'
+
+      reload:
+
+        # Message shown for incorrect command usage
+        usage: '&bKullanım: /bodyhealth addon reload <addon>'
+
+        # Message shown on successful reload
+        success: '&a"{Addon}" eklentisi yeniden yüklendi.'
+
+        # Message shown if reloading fails
+        fail: '&c"{Addon}" eklentisi yeniden yüklenemedi.'
+
+      load:
+
+        # Message shown for incorrect command usage
+        usage: '&bKullanım: /bodyhealth addon load <dosya>'
+
+        # Message shown when the specified addon file could not be found
+        not-found: '&c"{File}" eklenti dosyası eklentiler dizininde bulunamadı.'
+
+        # Warning shown before loading an addon post onLoad (requires confirmation)
+        warning: '&c&lUYARI: &r&cEklentilerin manuel olarak yüklenmesi her eklenti tarafından desteklenmeyebilir!<br> &eDevam etmek için bu komutu tekrar yazın.'
+
+        # Message shown if the addon is already loaded
+        already-loaded: '&c"{File}" dosyasındaki eklenti zaten yüklü.'
+
+        # Message shown on successful load
+        success: '&a"{File}" dosyasındaki eklenti başarıyla yüklendi.'
+
+        # Message shown if loading fails
+        fail: '&c"{File}" dosyasından eklenti yüklenemedi.'
+
+      unload:
+
+        # Message shown for incorrect command usage
+        usage: '&bKullanım: /bodyhealth addon unload <addon>'
+
+        # Warning shown before unloading an addon (requires confirmation)
+        warning: '&c&lUYARI: &r&cEklentilerin manuel olarak kaldırılması her eklenti tarafından desteklenmeyebilir!<br> &eDevam etmek için bu komutu tekrar yazın.'
+
+        # Message shown on successful unload
+        success: '&a"{Addon}" eklentisi başarıyla kaldırıldı.'
+
+        # Message shown if unloading fails
+        fail: '&c"{Addon}" eklentisi kaldırılamadı.'
+
     debug:
 
       # Message shown for incorrect command usage

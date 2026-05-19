@@ -165,6 +165,119 @@ commands:
         # Message shown if moving data fails
         fail: '&cفشل نقل جميع البيانات الموجودة من تخزين {Type1} إلى تخزين {Type2} الخاص بـ BodyHealth.'
 
+
+    addon:
+
+      # Message shown for incorrect command usage
+      usage: '&bالاستخدام: /bodyhealth addon <list/info/enable/disable/reload/load/unload>'
+
+      # Message shown when the specified addon could not be found
+      not-found: '&cالإضافة "{Addon}" غير موجودة.'
+
+      list:
+
+        # Header shown before listing addons
+        header: '&bالإضافات المحملة ({Count}): '
+
+        # Separator between addon name entries
+        separator: '&7, '
+
+        # Entry format for enabled addons
+        entry-enabled: '&a{Name}'
+
+        # Entry format for disabled addons
+        entry-disabled: '&c{Name}'
+
+        # Message shown when no addons are loaded
+        none: '&7لا توجد إضافات محملة.'
+
+      info:
+
+        # Message shown for incorrect command usage
+        usage: '&bالاستخدام: /bodyhealth addon info <addon>'
+
+        # Message shown to display addon information
+        display: "&bمعلومات الإضافة لـ &f{Name}&b:\n&bالوصف: &f{Description}\n&bالمؤلف: &f{Author}\n&bالإصدار: &f{Version}\n&bالحالة: {Status}"
+
+        # Label for an enabled addon status
+        status-enabled: '&aمفعّلة'
+
+        # Label for a disabled addon status
+        status-disabled: '&cمعطّلة'
+
+      enable:
+
+        # Message shown for incorrect command usage
+        usage: '&bالاستخدام: /bodyhealth addon enable <addon>'
+
+        # Message shown if the addon is already enabled
+        already-enabled: '&cالإضافة "{Addon}" مفعّلة بالفعل.'
+
+        # Message shown on successful enable
+        success: '&aتم تفعيل الإضافة "{Addon}".'
+
+        # Message shown if enabling fails
+        fail: '&cفشل تفعيل الإضافة "{Addon}".'
+
+      disable:
+
+        # Message shown for incorrect command usage
+        usage: '&bالاستخدام: /bodyhealth addon disable <addon>'
+
+        # Message shown if the addon is already disabled
+        already-disabled: '&cالإضافة "{Addon}" معطّلة بالفعل.'
+
+        # Message shown on successful disable
+        success: '&aتم تعطيل الإضافة "{Addon}".'
+
+        # Message shown if disabling fails
+        fail: '&cفشل تعطيل الإضافة "{Addon}".'
+
+      reload:
+
+        # Message shown for incorrect command usage
+        usage: '&bالاستخدام: /bodyhealth addon reload <addon>'
+
+        # Message shown on successful reload
+        success: '&aتم إعادة تحميل الإضافة "{Addon}".'
+
+        # Message shown if reloading fails
+        fail: '&cفشل إعادة تحميل الإضافة "{Addon}".'
+
+      load:
+
+        # Message shown for incorrect command usage
+        usage: '&bالاستخدام: /bodyhealth addon load <ملف>'
+
+        # Message shown when the specified addon file could not be found
+        not-found: '&cملف الإضافة "{File}" غير موجود في مجلد الإضافات.'
+
+        # Warning shown before loading an addon post onLoad (requires confirmation)
+        warning: '&c&lتحذير: &r&cقد لا يدعم كل addon تحميل الإضافات يدويًا!<br> &eللمتابعة، الرجاء كتابة هذا الأمر مرة أخرى.'
+
+        # Message shown if the addon is already loaded
+        already-loaded: '&cالإضافة من "{File}" محملة بالفعل.'
+
+        # Message shown on successful load
+        success: '&aتم تحميل الإضافة من "{File}" بنجاح.'
+
+        # Message shown if loading fails
+        fail: '&cفشل تحميل الإضافة من "{File}".'
+
+      unload:
+
+        # Message shown for incorrect command usage
+        usage: '&bالاستخدام: /bodyhealth addon unload <addon>'
+
+        # Warning shown before unloading an addon (requires confirmation)
+        warning: '&c&lتحذير: &r&cقد لا يدعم كل addon إلغاء تحميل الإضافات يدويًا!<br> &eللمتابعة، الرجاء كتابة هذا الأمر مرة أخرى.'
+
+        # Message shown on successful unload
+        success: '&aتم إلغاء تحميل الإضافة "{Addon}" بنجاح.'
+
+        # Message shown if unloading fails
+        fail: '&cفشل إلغاء تحميل الإضافة "{Addon}".'
+
     debug:
 
       # Message shown for incorrect command usage

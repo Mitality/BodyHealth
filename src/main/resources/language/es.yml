@@ -165,6 +165,119 @@ commands:
         # Message shown if moving data fails
         fail: '&cError al mover todos los datos existentes del almacenamiento {Type1} al {Type2} de BodyHealth.'
 
+
+    addon:
+
+      # Message shown for incorrect command usage
+      usage: '&bUso: /bodyhealth addon <list/info/enable/disable/reload/load/unload>'
+
+      # Message shown when the specified addon could not be found
+      not-found: '&cAddon "{Addon}" no encontrado.'
+
+      list:
+
+        # Header shown before listing addons
+        header: '&bAddons cargados ({Count}): '
+
+        # Separator between addon name entries
+        separator: '&7, '
+
+        # Entry format for enabled addons
+        entry-enabled: '&a{Name}'
+
+        # Entry format for disabled addons
+        entry-disabled: '&c{Name}'
+
+        # Message shown when no addons are loaded
+        none: '&7No hay addons cargados.'
+
+      info:
+
+        # Message shown for incorrect command usage
+        usage: '&bUso: /bodyhealth addon info <addon>'
+
+        # Message shown to display addon information
+        display: "&bInformación del addon &f{Name}&b:\n&bDescripción: &f{Description}\n&bAutor: &f{Author}\n&bVersión: &f{Version}\n&bEstado: {Status}"
+
+        # Label for an enabled addon status
+        status-enabled: '&aActivado'
+
+        # Label for a disabled addon status
+        status-disabled: '&cDesactivado'
+
+      enable:
+
+        # Message shown for incorrect command usage
+        usage: '&bUso: /bodyhealth addon enable <addon>'
+
+        # Message shown if the addon is already enabled
+        already-enabled: '&cEl addon "{Addon}" ya está activado.'
+
+        # Message shown on successful enable
+        success: '&aEl addon "{Addon}" ha sido activado.'
+
+        # Message shown if enabling fails
+        fail: '&cNo se pudo activar el addon "{Addon}".'
+
+      disable:
+
+        # Message shown for incorrect command usage
+        usage: '&bUso: /bodyhealth addon disable <addon>'
+
+        # Message shown if the addon is already disabled
+        already-disabled: '&cEl addon "{Addon}" ya está desactivado.'
+
+        # Message shown on successful disable
+        success: '&aEl addon "{Addon}" ha sido desactivado.'
+
+        # Message shown if disabling fails
+        fail: '&cNo se pudo desactivar el addon "{Addon}".'
+
+      reload:
+
+        # Message shown for incorrect command usage
+        usage: '&bUso: /bodyhealth addon reload <addon>'
+
+        # Message shown on successful reload
+        success: '&aEl addon "{Addon}" ha sido recargado.'
+
+        # Message shown if reloading fails
+        fail: '&cNo se pudo recargar el addon "{Addon}".'
+
+      load:
+
+        # Message shown for incorrect command usage
+        usage: '&bUso: /bodyhealth addon load <archivo>'
+
+        # Message shown when the specified addon file could not be found
+        not-found: '&cArchivo de addon "{File}" no encontrado en el directorio de addons.'
+
+        # Warning shown before loading an addon post onLoad (requires confirmation)
+        warning: '&c&lADVERTENCIA: &r&cCargar addons manualmente puede no ser compatible con todos los addons!<br> &ePara continuar, escribe este comando nuevamente.'
+
+        # Message shown if the addon is already loaded
+        already-loaded: '&cEl addon de "{File}" ya está cargado.'
+
+        # Message shown on successful load
+        success: '&aAddon de "{File}" cargado correctamente.'
+
+        # Message shown if loading fails
+        fail: '&cNo se pudo cargar el addon de "{File}".'
+
+      unload:
+
+        # Message shown for incorrect command usage
+        usage: '&bUso: /bodyhealth addon unload <addon>'
+
+        # Warning shown before unloading an addon (requires confirmation)
+        warning: '&c&lADVERTENCIA: &r&cDescargar addons manualmente puede no ser compatible con todos los addons!<br> &ePara continuar, escribe este comando nuevamente.'
+
+        # Message shown on successful unload
+        success: '&aAddon "{Addon}" descargado correctamente.'
+
+        # Message shown if unloading fails
+        fail: '&cNo se pudo descargar el addon "{Addon}".'
+
     debug:
 
       # Message shown for incorrect command usage

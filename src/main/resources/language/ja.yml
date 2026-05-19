@@ -165,6 +165,119 @@ commands:
         # Message shown if moving data fails
         fail: '&cBodyHealthの{Type1}ストレージから{Type2}ストレージへのデータ移動に失敗しました。'
 
+
+    addon:
+
+      # Message shown for incorrect command usage
+      usage: '&b使用法: /bodyhealth addon <list/info/enable/disable/reload/load/unload>'
+
+      # Message shown when the specified addon could not be found
+      not-found: '&cアドオン "{Addon}" が見つかりません。'
+
+      list:
+
+        # Header shown before listing addons
+        header: '&b読み込み済みアドオン ({Count}): '
+
+        # Separator between addon name entries
+        separator: '&7, '
+
+        # Entry format for enabled addons
+        entry-enabled: '&a{Name}'
+
+        # Entry format for disabled addons
+        entry-disabled: '&c{Name}'
+
+        # Message shown when no addons are loaded
+        none: '&7読み込まれているアドオンはありません。'
+
+      info:
+
+        # Message shown for incorrect command usage
+        usage: '&b使用法: /bodyhealth addon info <addon>'
+
+        # Message shown to display addon information
+        display: "&b&f{Name}&b のアドオン情報:\n&b説明: &f{Description}\n&b作者: &f{Author}\n&bバージョン: &f{Version}\n&bステータス: {Status}"
+
+        # Label for an enabled addon status
+        status-enabled: '&a有効'
+
+        # Label for a disabled addon status
+        status-disabled: '&c無効'
+
+      enable:
+
+        # Message shown for incorrect command usage
+        usage: '&b使用法: /bodyhealth addon enable <addon>'
+
+        # Message shown if the addon is already enabled
+        already-enabled: '&cアドオン "{Addon}" はすでに有効です。'
+
+        # Message shown on successful enable
+        success: '&aアドオン "{Addon}" が有効になりました。'
+
+        # Message shown if enabling fails
+        fail: '&cアドオン "{Addon}" の有効化に失敗しました。'
+
+      disable:
+
+        # Message shown for incorrect command usage
+        usage: '&b使用法: /bodyhealth addon disable <addon>'
+
+        # Message shown if the addon is already disabled
+        already-disabled: '&cアドオン "{Addon}" はすでに無効です。'
+
+        # Message shown on successful disable
+        success: '&aアドオン "{Addon}" が無効になりました。'
+
+        # Message shown if disabling fails
+        fail: '&cアドオン "{Addon}" の無効化に失敗しました。'
+
+      reload:
+
+        # Message shown for incorrect command usage
+        usage: '&b使用法: /bodyhealth addon reload <addon>'
+
+        # Message shown on successful reload
+        success: '&aアドオン "{Addon}" が再読み込みされました。'
+
+        # Message shown if reloading fails
+        fail: '&cアドオン "{Addon}" の再読み込みに失敗しました。'
+
+      load:
+
+        # Message shown for incorrect command usage
+        usage: '&b使用法: /bodyhealth addon load <ファイル>'
+
+        # Message shown when the specified addon file could not be found
+        not-found: '&cアドオンファイル "{File}" がアドオンディレクトリに見つかりません。'
+
+        # Warning shown before loading an addon post onLoad (requires confirmation)
+        warning: '&c&l警告: &r&cアドオンの手動読み込みはすべてのアドオンでサポートされていない場合があります！<br> &e続行するには、このコマンドを再度入力してください。'
+
+        # Message shown if the addon is already loaded
+        already-loaded: '&c"{File}" からのアドオンはすでに読み込まれています。'
+
+        # Message shown on successful load
+        success: '&a"{File}" からアドオンが正常に読み込まれました。'
+
+        # Message shown if loading fails
+        fail: '&c"{File}" からアドオンの読み込みに失敗しました。'
+
+      unload:
+
+        # Message shown for incorrect command usage
+        usage: '&b使用法: /bodyhealth addon unload <addon>'
+
+        # Warning shown before unloading an addon (requires confirmation)
+        warning: '&c&l警告: &r&cアドオンの手動アンロードはすべてのアドオンでサポートされていない場合があります！<br> &e続行するには、このコマンドを再度入力してください。'
+
+        # Message shown on successful unload
+        success: '&aアドオン "{Addon}" が正常にアンロードされました。'
+
+        # Message shown if unloading fails
+        fail: '&cアドオン "{Addon}" のアンロードに失敗しました。'
+
     debug:
 
       # Message shown for incorrect command usage

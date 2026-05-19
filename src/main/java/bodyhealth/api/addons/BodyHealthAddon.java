@@ -20,6 +20,7 @@ public abstract class BodyHealthAddon {
     private AddonFileManager fileManager = null;
     private AddonInfo addonInfo = null;
     private AddonManager addonManager = null;
+    private boolean enabled = false;
 
     public void onAddonLoad() {
     }
@@ -31,6 +32,14 @@ public abstract class BodyHealthAddon {
     }
 
     public void onAddonDisable() {
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     @NotNull

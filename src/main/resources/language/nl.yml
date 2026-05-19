@@ -165,6 +165,119 @@ commands:
         # Message shown if moving data fails
         fail: '&cHet is niet gelukt om alle bestaande gegevens van de {Type1}-opslag naar de {Type2}-opslag van BodyHealth te verplaatsen.'
 
+
+    addon:
+
+      # Message shown for incorrect command usage
+      usage: '&bGebruik: /bodyhealth addon <list/info/enable/disable/reload/load/unload>'
+
+      # Message shown when the specified addon could not be found
+      not-found: '&cAddon "{Addon}" niet gevonden.'
+
+      list:
+
+        # Header shown before listing addons
+        header: '&bGeladen Addons ({Count}): '
+
+        # Separator between addon name entries
+        separator: '&7, '
+
+        # Entry format for enabled addons
+        entry-enabled: '&a{Name}'
+
+        # Entry format for disabled addons
+        entry-disabled: '&c{Name}'
+
+        # Message shown when no addons are loaded
+        none: '&7Geen addons geladen.'
+
+      info:
+
+        # Message shown for incorrect command usage
+        usage: '&bGebruik: /bodyhealth addon info <addon>'
+
+        # Message shown to display addon information
+        display: "&bAddon-info voor &f{Name}&b:\n&bBeschrijving: &f{Description}\n&bAuteur: &f{Author}\n&bVersie: &f{Version}\n&bStatus: {Status}"
+
+        # Label for an enabled addon status
+        status-enabled: '&aIngeschakeld'
+
+        # Label for a disabled addon status
+        status-disabled: '&cUitgeschakeld'
+
+      enable:
+
+        # Message shown for incorrect command usage
+        usage: '&bGebruik: /bodyhealth addon enable <addon>'
+
+        # Message shown if the addon is already enabled
+        already-enabled: '&cAddon "{Addon}" is al ingeschakeld.'
+
+        # Message shown on successful enable
+        success: '&aAddon "{Addon}" is ingeschakeld.'
+
+        # Message shown if enabling fails
+        fail: '&cKon addon "{Addon}" niet inschakelen.'
+
+      disable:
+
+        # Message shown for incorrect command usage
+        usage: '&bGebruik: /bodyhealth addon disable <addon>'
+
+        # Message shown if the addon is already disabled
+        already-disabled: '&cAddon "{Addon}" is al uitgeschakeld.'
+
+        # Message shown on successful disable
+        success: '&aAddon "{Addon}" is uitgeschakeld.'
+
+        # Message shown if disabling fails
+        fail: '&cKon addon "{Addon}" niet uitschakelen.'
+
+      reload:
+
+        # Message shown for incorrect command usage
+        usage: '&bGebruik: /bodyhealth addon reload <addon>'
+
+        # Message shown on successful reload
+        success: '&aAddon "{Addon}" is opnieuw geladen.'
+
+        # Message shown if reloading fails
+        fail: '&cKon addon "{Addon}" niet opnieuw laden.'
+
+      load:
+
+        # Message shown for incorrect command usage
+        usage: '&bGebruik: /bodyhealth addon load <bestand>'
+
+        # Message shown when the specified addon file could not be found
+        not-found: '&cAddon-bestand "{File}" niet gevonden in de addons-map.'
+
+        # Warning shown before loading an addon post onLoad (requires confirmation)
+        warning: '&c&lWAARSCHUWING: &r&cHandmatig laden van addons wordt mogelijk niet door elke addon ondersteund!<br> &eTyp deze opdracht opnieuw om door te gaan.'
+
+        # Message shown if the addon is already loaded
+        already-loaded: '&cAddon van "{File}" is al geladen.'
+
+        # Message shown on successful load
+        success: '&aAddon van "{File}" is succesvol geladen.'
+
+        # Message shown if loading fails
+        fail: '&cKon addon van "{File}" niet laden.'
+
+      unload:
+
+        # Message shown for incorrect command usage
+        usage: '&bGebruik: /bodyhealth addon unload <addon>'
+
+        # Warning shown before unloading an addon (requires confirmation)
+        warning: '&c&lWAARSCHUWING: &r&cHandmatig verwijderen van addons wordt mogelijk niet door elke addon ondersteund!<br> &eTyp deze opdracht opnieuw om door te gaan.'
+
+        # Message shown on successful unload
+        success: '&aAddon "{Addon}" is succesvol verwijderd.'
+
+        # Message shown if unloading fails
+        fail: '&cKon addon "{Addon}" niet verwijderen.'
+
     debug:
 
       # Message shown for incorrect command usage

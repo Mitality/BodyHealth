@@ -38,12 +38,12 @@ public class BodyHealthCalculator {
     public static BodyPart calculateHitByEntity(Player player, Entity entity) {
 
         if (!(entity instanceof LivingEntity)) {
-            Debug.log("Damaging entity is not an instance of LivingEntity, applying damage to all body parts...");
+            Debug.logDev("Damaging entity is not an instance of LivingEntity, applying damage to all body parts...");
             return null;
         }
 
         if (!Config.raytracing_enabled) {
-            Debug.log("Ray tracing is disabled, defaulting to legacy calculation...");
+            Debug.logDev("Ray tracing is disabled, defaulting to legacy calculation...");
             return calculateHitByEntityLegacy(player, entity);
         }
 

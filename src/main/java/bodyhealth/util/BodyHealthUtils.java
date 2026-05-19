@@ -1,6 +1,7 @@
 package bodyhealth.util;
 
 import bodyhealth.Main;
+import bodyhealth.commands.subcommands.AddonCommand;
 import bodyhealth.commands.subcommands.DataCommand;
 import bodyhealth.config.Config;
 import bodyhealth.config.Debug;
@@ -20,8 +21,6 @@ import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
-import org.bukkit.attribute.AttributeInstance;
-import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -33,7 +32,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -44,31 +42,6 @@ public class BodyHealthUtils {
 
     public static boolean betterHudEnabled = false;
     public static boolean harshlandsEnabled = false;
-
-    private static final Method ADD_TRANSIENT_MODIFIER;
-    static {
-        Method m = null;
-        try {
-            m = AttributeInstance.class.getMethod("addTransientModifier", AttributeModifier.class);
-        } catch (NoSuchMethodException ignored) {}
-        ADD_TRANSIENT_MODIFIER = m;
-    }
-
-    /**
-     * Adds an AttributeModifier to an AttributeInstance, using addTransientModifier (Paper/Folia)
-     * when the config option is enabled and the method is available, falling back to addModifier otherwise
-     * @param attribute The AttributeInstance to add the modifier to
-     * @param modifier The AttributeModifier to add
-     */
-    public static void addAttributeModifier(AttributeInstance attribute, AttributeModifier modifier) {
-        if (Config.use_transient_modifiers && ADD_TRANSIENT_MODIFIER != null) {
-            try {
-                ADD_TRANSIENT_MODIFIER.invoke(attribute, modifier);
-                return;
-            } catch (Exception ignored) {}
-        }
-        attribute.addModifier(modifier);
-    }
 
     /**
      * Reloads the plugin, momentarily removing all effects
@@ -130,6 +103,7 @@ public class BodyHealthUtils {
 
             // Reset pending confirmations
             DataCommand.resetPendingActions();
+            AddonCommand.resetPendingActions();
 
         } catch (Exception e) {
             Debug.logErr("Could not reload your configuration!");

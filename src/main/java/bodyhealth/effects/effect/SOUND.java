@@ -20,7 +20,7 @@ public class SOUND implements BodyHealthEffect {
 
     @Override
     public String getUsage() {
-        return "SOUND / <ID> / [VOLUME] / [PITCH]";
+        return "SOUND / <ID> / [VOLUME] / [PITCH] / [WORLD]";
     }
 
     @Override
@@ -33,7 +33,12 @@ public class SOUND implements BodyHealthEffect {
         String sound = args[1].trim().toLowerCase();
         float volume = args.length >= 3 ? parseOrDefault(args[2]) : 1.0f;
         float pitch = args.length >= 4 ? parseOrDefault(args[3]) : 1.0f;
-        player.playSound(player, sound, volume, pitch);
+        boolean global = args.length >= 5 && Boolean.parseBoolean(args[4].trim());
+        if (global) {
+            player.getWorld().playSound(player.getLocation(), sound, volume, pitch);
+        } else {
+            player.playSound(player, sound, volume, pitch);
+        }
 
     }
 

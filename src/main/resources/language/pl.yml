@@ -165,6 +165,119 @@ commands:
         # Message shown if moving data fails
         fail: '&cNie udało się przenieść istniejących danych z magazynu {Type1} do magazynu {Type2} BodyHealth.'
 
+
+    addon:
+
+      # Message shown for incorrect command usage
+      usage: '&bUżycie: /bodyhealth addon <list/info/enable/disable/reload/load/unload>'
+
+      # Message shown when the specified addon could not be found
+      not-found: '&cAddon "{Addon}" nie został znaleziony.'
+
+      list:
+
+        # Header shown before listing addons
+        header: '&bZaładowane Addony ({Count}): '
+
+        # Separator between addon name entries
+        separator: '&7, '
+
+        # Entry format for enabled addons
+        entry-enabled: '&a{Name}'
+
+        # Entry format for disabled addons
+        entry-disabled: '&c{Name}'
+
+        # Message shown when no addons are loaded
+        none: '&7Brak załadowanych addonów.'
+
+      info:
+
+        # Message shown for incorrect command usage
+        usage: '&bUżycie: /bodyhealth addon info <addon>'
+
+        # Message shown to display addon information
+        display: "&bInformacje o addonie &f{Name}&b:\n&bOpis: &f{Description}\n&bAutor: &f{Author}\n&bWersja: &f{Version}\n&bStatus: {Status}"
+
+        # Label for an enabled addon status
+        status-enabled: '&aWłączony'
+
+        # Label for a disabled addon status
+        status-disabled: '&cWyłączony'
+
+      enable:
+
+        # Message shown for incorrect command usage
+        usage: '&bUżycie: /bodyhealth addon enable <addon>'
+
+        # Message shown if the addon is already enabled
+        already-enabled: '&cAddon "{Addon}" jest już włączony.'
+
+        # Message shown on successful enable
+        success: '&aAddon "{Addon}" został włączony.'
+
+        # Message shown if enabling fails
+        fail: '&cNie udało się włączyć addona "{Addon}".'
+
+      disable:
+
+        # Message shown for incorrect command usage
+        usage: '&bUżycie: /bodyhealth addon disable <addon>'
+
+        # Message shown if the addon is already disabled
+        already-disabled: '&cAddon "{Addon}" jest już wyłączony.'
+
+        # Message shown on successful disable
+        success: '&aAddon "{Addon}" został wyłączony.'
+
+        # Message shown if disabling fails
+        fail: '&cNie udało się wyłączyć addona "{Addon}".'
+
+      reload:
+
+        # Message shown for incorrect command usage
+        usage: '&bUżycie: /bodyhealth addon reload <addon>'
+
+        # Message shown on successful reload
+        success: '&aAddon "{Addon}" został przeładowany.'
+
+        # Message shown if reloading fails
+        fail: '&cNie udało się przeładować addona "{Addon}".'
+
+      load:
+
+        # Message shown for incorrect command usage
+        usage: '&bUżycie: /bodyhealth addon load <plik>'
+
+        # Message shown when the specified addon file could not be found
+        not-found: '&cPlik addona "{File}" nie został znaleziony w katalogu addons.'
+
+        # Warning shown before loading an addon post onLoad (requires confirmation)
+        warning: '&c&lOSTRZEŻENIE: &r&cRęczne ładowanie addonów może nie być obsługiwane przez każdy addon!<br> &eAby kontynuować, wpisz ponownie to polecenie.'
+
+        # Message shown if the addon is already loaded
+        already-loaded: '&cAddon z "{File}" jest już załadowany.'
+
+        # Message shown on successful load
+        success: '&aAddon z "{File}" został pomyślnie załadowany.'
+
+        # Message shown if loading fails
+        fail: '&cNie udało się załadować addona z "{File}".'
+
+      unload:
+
+        # Message shown for incorrect command usage
+        usage: '&bUżycie: /bodyhealth addon unload <addon>'
+
+        # Warning shown before unloading an addon (requires confirmation)
+        warning: '&c&lOSTRZEŻENIE: &r&cRęczne usuwanie addonów może nie być obsługiwane przez każdy addon!<br> &eAby kontynuować, wpisz ponownie to polecenie.'
+
+        # Message shown on successful unload
+        success: '&aAddon "{Addon}" został pomyślnie usunięty.'
+
+        # Message shown if unloading fails
+        fail: '&cNie udało się usunąć addona "{Addon}".'
+
     debug:
 
       # Message shown for incorrect command usage

@@ -165,6 +165,119 @@ commands:
         # Message shown if moving data fails
         fail: '&cPremeštanje postojećih podataka iz {Type1} skladišta u {Type2} skladište BodyHealth-a nije uspelo.'
 
+
+    addon:
+
+      # Message shown for incorrect command usage
+      usage: '&bKorišćenje: /bodyhealth addon <list/info/enable/disable/reload/load/unload>'
+
+      # Message shown when the specified addon could not be found
+      not-found: '&cAddon "{Addon}" nije pronađen.'
+
+      list:
+
+        # Header shown before listing addons
+        header: '&bUčitani Addoni ({Count}): '
+
+        # Separator between addon name entries
+        separator: '&7, '
+
+        # Entry format for enabled addons
+        entry-enabled: '&a{Name}'
+
+        # Entry format for disabled addons
+        entry-disabled: '&c{Name}'
+
+        # Message shown when no addons are loaded
+        none: '&7Nema učitanih addona.'
+
+      info:
+
+        # Message shown for incorrect command usage
+        usage: '&bKorišćenje: /bodyhealth addon info <addon>'
+
+        # Message shown to display addon information
+        display: "&bInformacije o addonu &f{Name}&b:\n&bOpis: &f{Description}\n&bAutor: &f{Author}\n&bVerzija: &f{Version}\n&bStatus: {Status}"
+
+        # Label for an enabled addon status
+        status-enabled: '&aOmogućen'
+
+        # Label for a disabled addon status
+        status-disabled: '&cOnemogućen'
+
+      enable:
+
+        # Message shown for incorrect command usage
+        usage: '&bKorišćenje: /bodyhealth addon enable <addon>'
+
+        # Message shown if the addon is already enabled
+        already-enabled: '&cAddon "{Addon}" je već omogućen.'
+
+        # Message shown on successful enable
+        success: '&aAddon "{Addon}" je omogućen.'
+
+        # Message shown if enabling fails
+        fail: '&cNije uspelo omogućavanje addona "{Addon}".'
+
+      disable:
+
+        # Message shown for incorrect command usage
+        usage: '&bKorišćenje: /bodyhealth addon disable <addon>'
+
+        # Message shown if the addon is already disabled
+        already-disabled: '&cAddon "{Addon}" je već onemogućen.'
+
+        # Message shown on successful disable
+        success: '&aAddon "{Addon}" je onemogućen.'
+
+        # Message shown if disabling fails
+        fail: '&cNije uspelo onemogućavanje addona "{Addon}".'
+
+      reload:
+
+        # Message shown for incorrect command usage
+        usage: '&bKorišćenje: /bodyhealth addon reload <addon>'
+
+        # Message shown on successful reload
+        success: '&aAddon "{Addon}" je ponovo učitan.'
+
+        # Message shown if reloading fails
+        fail: '&cNije uspelo ponovno učitavanje addona "{Addon}".'
+
+      load:
+
+        # Message shown for incorrect command usage
+        usage: '&bKorišćenje: /bodyhealth addon load <fajl>'
+
+        # Message shown when the specified addon file could not be found
+        not-found: '&cFajl addona "{File}" nije pronađen u direktorijumu addona.'
+
+        # Warning shown before loading an addon post onLoad (requires confirmation)
+        warning: '&c&lUPOZORENJE: &r&cRučno učitavanje addona možda nije podržano od strane svakog addona!<br> &eDa biste nastavili, unesite ovu komandu ponovo.'
+
+        # Message shown if the addon is already loaded
+        already-loaded: '&cAddon iz "{File}" je već učitan.'
+
+        # Message shown on successful load
+        success: '&aAddon iz "{File}" je uspešno učitan.'
+
+        # Message shown if loading fails
+        fail: '&cNije uspelo učitavanje addona iz "{File}".'
+
+      unload:
+
+        # Message shown for incorrect command usage
+        usage: '&bKorišćenje: /bodyhealth addon unload <addon>'
+
+        # Warning shown before unloading an addon (requires confirmation)
+        warning: '&c&lUPOZORENJE: &r&cRučno uklanjanje addona možda nije podržano od strane svakog addona!<br> &eDa biste nastavili, unesite ovu komandu ponovo.'
+
+        # Message shown on successful unload
+        success: '&aAddon "{Addon}" je uspešno uklonjen.'
+
+        # Message shown if unloading fails
+        fail: '&cNije uspelo uklanjanje addona "{Addon}".'
+
     debug:
 
       # Message shown for incorrect command usage

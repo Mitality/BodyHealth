@@ -164,6 +164,12 @@ heal-on-full-health: true
 # (respects bypass permissions)
 apply-vanilla-regen: true
 
+# Sleep regeneration settings:
+regenerate-on-sleep:
+  # Whether body parts should regenerate health when the player skips a night in a bed
+  enabled: true
+  # How much health to regenerate (append a '%' symbol to heal percentage-based)
+  amount: 50%
 
 # Passive health regeneration settings:
 gradual-heath-regen:
@@ -367,6 +373,9 @@ body-damage:
 
 # Configure effects per body part and body part state:
 #
+#   All effects are explained in more detail here:
+#   https://github.com/Mitality/BodyHealth/wiki/effects
+#
 #   Effects (<> = required, [] = optional):
 #
 #      Persistent effects (active as long as conditions are met):
@@ -381,14 +390,17 @@ body-damage:
 #
 #      One-time effects (activate once when conditions are met):
 #
-#         COMMAND / cmd args[…] ··············· execute a command (can use %PlayerName%, %PlayerUUID% and %BodyPart%)
-#         COMMAND_UNDO / cmd args[…] ·········· execute a command when the condition is no longer met (to undo stuff)
-#         SOUND / <ID> / [VOLUME] / [PITCH] ··· play a vanilla or custom sound (namespace optional) to only the player
-#         MESSAGE / <MESSAGE> ················· send a message to the target player to notify them of their status
-#         KILL_PLAYER ························· you guessed it, this kills the player when the condition is met
+#         PARTICLE / <PARTICLE> / [POS] / [COUNT] / [OFFSET] / [SPEED] / [FORCE] / [GLOBAL] / [DATA] ··· refer to wiki for this
+#         BODYHEALTH / <ADD/SET> / [PLAYER/ALL] / [PART] / <VALUE> ··· modify body health values (percentage-based when value ends on '%')
+#         COMMAND / cmd args[…] ······································ execute a command (can use %PlayerName%, %PlayerUUID% and %BodyPart%)
+#         COMMAND_UNDO / cmd args[…] ································· execute a command when the condition is no longer met (to undo stuff)
+#         SOUND / <ID> / [VOLUME] / [PITCH] / [GLOBAL] ··············· play a vanilla or custom sound to only the player or all nearby players
+#         MESSAGE / <MESSAGE> ········································ send a message to the target player to notify them of their status
+#         KILL_PLAYER ················································ you guessed it, this kills the player when the condition is met
 #
 #      Meta effects (logic-based triggers for non-persistent effects):
 #
+#         CHANCE / <CHANCE> / [KEY] / <EFFECT[…]> ·········· executes effects chance (0.0-1.0) based, optionally grouped by key
 #         REPEATING / <delay> / <interval> / <EFFECT[…]> ··· repeats effect at the specified interval (e.g. 5s for 5 seconds)
 #         DELAYED / <delay> / <EFFECT[…]> ·················· executes effect after the specified delay (e.g. 10t for 10 ticks)
 #         WHEN_DAMAGED / <EFFECT[…]> ······················· triggers effect when the condition is met due to taking damage
@@ -450,6 +462,7 @@ effects:
       - ATTRIBUTE_MODIFIER / ENTITY_INTERACTION_RANGE / -1.5 / add_value / damaged_arm
       - ATTRIBUTE_MODIFIER / BLOCK_INTERACTION_RANGE / -1.5 / add_value / damaged_arm
       - POTION_EFFECT / WEAKNESS / 2
+      - REPEATING / 6t / 6t / PARTICLE / DUST / ^-0.45 ~0.85 ^ / 4 / 0.08 0.12 0.08 / 0 / false / true / 220 20 60 0.85
   ARM_RIGHT:
     FULL: []
     NEARLYFULL: []
@@ -464,6 +477,7 @@ effects:
       - ATTRIBUTE_MODIFIER / ENTITY_INTERACTION_RANGE / -1.5 / add_value / damaged_arm
       - ATTRIBUTE_MODIFIER / BLOCK_INTERACTION_RANGE / -1.5 / add_value / damaged_arm
       - POTION_EFFECT / WEAKNESS / 2
+      - REPEATING / 6t / 6t / PARTICLE / DUST / ^0.45 ~0.85 ^ / 4 / 0.08 0.12 0.08 / 0 / false / true / 220 20 60 0.85
   LEG_LEFT:
     FULL: []
     NEARLYFULL: []

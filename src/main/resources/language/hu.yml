@@ -165,6 +165,119 @@ commands:
         # Message shown if moving data fails
         fail: '&cNem sikerült áthelyezni az adatokat a BodyHealth {Type1} tárolójából a {Type2} tárolóba.'
 
+
+    addon:
+
+      # Message shown for incorrect command usage
+      usage: '&bHasználat: /bodyhealth addon <list/info/enable/disable/reload/load/unload>'
+
+      # Message shown when the specified addon could not be found
+      not-found: '&cAz "{Addon}" addon nem található.'
+
+      list:
+
+        # Header shown before listing addons
+        header: '&bBetöltött Addonok ({Count}): '
+
+        # Separator between addon name entries
+        separator: '&7, '
+
+        # Entry format for enabled addons
+        entry-enabled: '&a{Name}'
+
+        # Entry format for disabled addons
+        entry-disabled: '&c{Name}'
+
+        # Message shown when no addons are loaded
+        none: '&7Nincs betöltött addon.'
+
+      info:
+
+        # Message shown for incorrect command usage
+        usage: '&bHasználat: /bodyhealth addon info <addon>'
+
+        # Message shown to display addon information
+        display: "&bAddon adatok - &f{Name}&b:\n&bLeírás: &f{Description}\n&bSzerző: &f{Author}\n&bVerzió: &f{Version}\n&bÁllapot: {Status}"
+
+        # Label for an enabled addon status
+        status-enabled: '&aEngedélyezett'
+
+        # Label for a disabled addon status
+        status-disabled: '&cLetiltott'
+
+      enable:
+
+        # Message shown for incorrect command usage
+        usage: '&bHasználat: /bodyhealth addon enable <addon>'
+
+        # Message shown if the addon is already enabled
+        already-enabled: '&cAz "{Addon}" addon már engedélyezve van.'
+
+        # Message shown on successful enable
+        success: '&aAz "{Addon}" addon engedélyezve lett.'
+
+        # Message shown if enabling fails
+        fail: '&cNem sikerült engedélyezni az "{Addon}" addont.'
+
+      disable:
+
+        # Message shown for incorrect command usage
+        usage: '&bHasználat: /bodyhealth addon disable <addon>'
+
+        # Message shown if the addon is already disabled
+        already-disabled: '&cAz "{Addon}" addon már le van tiltva.'
+
+        # Message shown on successful disable
+        success: '&aAz "{Addon}" addon le lett tiltva.'
+
+        # Message shown if disabling fails
+        fail: '&cNem sikerült letiltani az "{Addon}" addont.'
+
+      reload:
+
+        # Message shown for incorrect command usage
+        usage: '&bHasználat: /bodyhealth addon reload <addon>'
+
+        # Message shown on successful reload
+        success: '&aAz "{Addon}" addon újratöltve.'
+
+        # Message shown if reloading fails
+        fail: '&cNem sikerült újratölteni az "{Addon}" addont.'
+
+      load:
+
+        # Message shown for incorrect command usage
+        usage: '&bHasználat: /bodyhealth addon load <fájl>'
+
+        # Message shown when the specified addon file could not be found
+        not-found: '&cAz "{File}" addon-fájl nem található az addons könyvtárban.'
+
+        # Warning shown before loading an addon post onLoad (requires confirmation)
+        warning: '&c&lFIGYELMEZTETÉS: &r&cAddonok kézi betöltése esetleg nem támogatott minden addon által!<br> &eA folytatáshoz kérjük, írd be újra ezt a parancsot.'
+
+        # Message shown if the addon is already loaded
+        already-loaded: '&cAz "{File}" fájlból az addon már be van töltve.'
+
+        # Message shown on successful load
+        success: '&aAz "{File}" fájlból az addon sikeresen betöltve.'
+
+        # Message shown if loading fails
+        fail: '&cNem sikerült betölteni az addont az "{File}" fájlból.'
+
+      unload:
+
+        # Message shown for incorrect command usage
+        usage: '&bHasználat: /bodyhealth addon unload <addon>'
+
+        # Warning shown before unloading an addon (requires confirmation)
+        warning: '&c&lFIGYELMEZTETÉS: &r&cAddonok kézi eltávolítása esetleg nem támogatott minden addon által!<br> &eA folytatáshoz kérjük, írd be újra ezt a parancsot.'
+
+        # Message shown on successful unload
+        success: '&aAz "{Addon}" addon sikeresen eltávolítva.'
+
+        # Message shown if unloading fails
+        fail: '&cNem sikerült eltávolítani az "{Addon}" addont.'
+
     debug:
 
       # Message shown for incorrect command usage

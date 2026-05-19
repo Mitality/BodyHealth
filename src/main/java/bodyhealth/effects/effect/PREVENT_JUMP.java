@@ -8,6 +8,7 @@ import bodyhealth.effects.BodyHealthEffect;
 import bodyhealth.effects.EffectHandler;
 import bodyhealth.effects.EffectType;
 import bodyhealth.util.BodyHealthUtils;
+import bodyhealth.util.PaperUtils;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Player;
@@ -40,7 +41,7 @@ public class PREVENT_JUMP implements BodyHealthEffect {
         AttributeInstance jumpAttribute = player.getAttribute(Attribute.GENERIC_JUMP_STRENGTH);
         if (jumpAttribute != null && jumpAttribute.getModifiers().stream().noneMatch(mod -> mod.getKey().equals(EffectHandler.getJumpDenialModifier(lenient).getKey()))) {
             Debug.log("Adding JumpDenialModifier to player " + player.getName());
-            BodyHealthUtils.addAttributeModifier(jumpAttribute, EffectHandler.getJumpDenialModifier(lenient));
+            PaperUtils.addAttributeModifier(jumpAttribute, EffectHandler.getJumpDenialModifier(lenient));
         }
 
     }

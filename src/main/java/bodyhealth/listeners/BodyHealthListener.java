@@ -42,10 +42,9 @@ public class BodyHealthListener implements Listener {
         if (FoliaUtils.isFolia()) FoliaUtils.startWorldChangeWatcher(this::handleWorldChange);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerDamage(EntityDamageEvent event) {
 
-        if (event.isCancelled()) return;
         if (!(event.getEntity() instanceof Player player)) return;
 
         BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(player);
@@ -112,7 +111,7 @@ public class BodyHealthListener implements Listener {
 
     }
 
-    @EventHandler (priority = EventPriority.MONITOR)
+    @EventHandler (priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerRegenerate(EntityRegainHealthEvent event) {
         if (!(event.getEntity() instanceof Player player)) return;
 

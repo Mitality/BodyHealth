@@ -165,6 +165,119 @@ commands:
         # Message shown if moving data fails
         fail: '&cNu s-au putut muta datele existente din stocarea {Type1} în stocarea {Type2} a BodyHealth.'
 
+
+    addon:
+
+      # Message shown for incorrect command usage
+      usage: '&bUtilizare: /bodyhealth addon <list/info/enable/disable/reload/load/unload>'
+
+      # Message shown when the specified addon could not be found
+      not-found: '&cAddon-ul "{Addon}" nu a fost găsit.'
+
+      list:
+
+        # Header shown before listing addons
+        header: '&bAddon-uri încărcate ({Count}): '
+
+        # Separator between addon name entries
+        separator: '&7, '
+
+        # Entry format for enabled addons
+        entry-enabled: '&a{Name}'
+
+        # Entry format for disabled addons
+        entry-disabled: '&c{Name}'
+
+        # Message shown when no addons are loaded
+        none: '&7Nu există addon-uri încărcate.'
+
+      info:
+
+        # Message shown for incorrect command usage
+        usage: '&bUtilizare: /bodyhealth addon info <addon>'
+
+        # Message shown to display addon information
+        display: "&bInformații addon pentru &f{Name}&b:\n&bDescriere: &f{Description}\n&bAutor: &f{Author}\n&bVersiune: &f{Version}\n&bStatus: {Status}"
+
+        # Label for an enabled addon status
+        status-enabled: '&aActivat'
+
+        # Label for a disabled addon status
+        status-disabled: '&cDezactivat'
+
+      enable:
+
+        # Message shown for incorrect command usage
+        usage: '&bUtilizare: /bodyhealth addon enable <addon>'
+
+        # Message shown if the addon is already enabled
+        already-enabled: '&cAddon-ul "{Addon}" este deja activat.'
+
+        # Message shown on successful enable
+        success: '&aAddon-ul "{Addon}" a fost activat.'
+
+        # Message shown if enabling fails
+        fail: '&cActivarea addon-ului "{Addon}" a eșuat.'
+
+      disable:
+
+        # Message shown for incorrect command usage
+        usage: '&bUtilizare: /bodyhealth addon disable <addon>'
+
+        # Message shown if the addon is already disabled
+        already-disabled: '&cAddon-ul "{Addon}" este deja dezactivat.'
+
+        # Message shown on successful disable
+        success: '&aAddon-ul "{Addon}" a fost dezactivat.'
+
+        # Message shown if disabling fails
+        fail: '&cDezactivarea addon-ului "{Addon}" a eșuat.'
+
+      reload:
+
+        # Message shown for incorrect command usage
+        usage: '&bUtilizare: /bodyhealth addon reload <addon>'
+
+        # Message shown on successful reload
+        success: '&aAddon-ul "{Addon}" a fost reîncărcat.'
+
+        # Message shown if reloading fails
+        fail: '&cReîncărcarea addon-ului "{Addon}" a eșuat.'
+
+      load:
+
+        # Message shown for incorrect command usage
+        usage: '&bUtilizare: /bodyhealth addon load <fișier>'
+
+        # Message shown when the specified addon file could not be found
+        not-found: '&cFișierul addon "{File}" nu a fost găsit în directorul addons.'
+
+        # Warning shown before loading an addon post onLoad (requires confirmation)
+        warning: '&c&lATENȚIE: &r&cÎncărcarea manuală a addon-urilor poate să nu fie suportată de toate addon-urile!<br> &ePentru a continua, tastați din nou această comandă.'
+
+        # Message shown if the addon is already loaded
+        already-loaded: '&cAddon-ul din "{File}" este deja încărcat.'
+
+        # Message shown on successful load
+        success: '&aAddon-ul din "{File}" a fost încărcat cu succes.'
+
+        # Message shown if loading fails
+        fail: '&cÎncărcarea addon-ului din "{File}" a eșuat.'
+
+      unload:
+
+        # Message shown for incorrect command usage
+        usage: '&bUtilizare: /bodyhealth addon unload <addon>'
+
+        # Warning shown before unloading an addon (requires confirmation)
+        warning: '&c&lATENȚIE: &r&cDescărcarea manuală a addon-urilor poate să nu fie suportată de toate addon-urile!<br> &ePentru a continua, tastați din nou această comandă.'
+
+        # Message shown on successful unload
+        success: '&aAddon-ul "{Addon}" a fost descărcat cu succes.'
+
+        # Message shown if unloading fails
+        fail: '&cDescărcarea addon-ului "{Addon}" a eșuat.'
+
     debug:
 
       # Message shown for incorrect command usage

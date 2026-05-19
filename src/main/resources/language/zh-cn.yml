@@ -165,6 +165,119 @@ commands:
         # Message shown if moving data fails
         fail: '&c无法将现有数据从 BodyHealth 的 {Type1} 存储移动到 {Type2} 存储。'
 
+
+    addon:
+
+      # Message shown for incorrect command usage
+      usage: '&b用法: /bodyhealth addon <list/info/enable/disable/reload/load/unload>'
+
+      # Message shown when the specified addon could not be found
+      not-found: '&c找不到插件 "{Addon}"。'
+
+      list:
+
+        # Header shown before listing addons
+        header: '&b已加载插件 ({Count}): '
+
+        # Separator between addon name entries
+        separator: '&7, '
+
+        # Entry format for enabled addons
+        entry-enabled: '&a{Name}'
+
+        # Entry format for disabled addons
+        entry-disabled: '&c{Name}'
+
+        # Message shown when no addons are loaded
+        none: '&7没有已加载的插件。'
+
+      info:
+
+        # Message shown for incorrect command usage
+        usage: '&b用法: /bodyhealth addon info <addon>'
+
+        # Message shown to display addon information
+        display: "&b插件 &f{Name}&b 的信息:\n&b描述: &f{Description}\n&b作者: &f{Author}\n&b版本: &f{Version}\n&b状态: {Status}"
+
+        # Label for an enabled addon status
+        status-enabled: '&a已启用'
+
+        # Label for a disabled addon status
+        status-disabled: '&c已禁用'
+
+      enable:
+
+        # Message shown for incorrect command usage
+        usage: '&b用法: /bodyhealth addon enable <addon>'
+
+        # Message shown if the addon is already enabled
+        already-enabled: '&c插件 "{Addon}" 已经启用。'
+
+        # Message shown on successful enable
+        success: '&a插件 "{Addon}" 已启用。'
+
+        # Message shown if enabling fails
+        fail: '&c无法启用插件 "{Addon}"。'
+
+      disable:
+
+        # Message shown for incorrect command usage
+        usage: '&b用法: /bodyhealth addon disable <addon>'
+
+        # Message shown if the addon is already disabled
+        already-disabled: '&c插件 "{Addon}" 已经禁用。'
+
+        # Message shown on successful disable
+        success: '&a插件 "{Addon}" 已禁用。'
+
+        # Message shown if disabling fails
+        fail: '&c无法禁用插件 "{Addon}"。'
+
+      reload:
+
+        # Message shown for incorrect command usage
+        usage: '&b用法: /bodyhealth addon reload <addon>'
+
+        # Message shown on successful reload
+        success: '&a插件 "{Addon}" 已重新加载。'
+
+        # Message shown if reloading fails
+        fail: '&c无法重新加载插件 "{Addon}"。'
+
+      load:
+
+        # Message shown for incorrect command usage
+        usage: '&b用法: /bodyhealth addon load <文件>'
+
+        # Message shown when the specified addon file could not be found
+        not-found: '&c在插件目录中找不到插件文件 "{File}"。'
+
+        # Warning shown before loading an addon post onLoad (requires confirmation)
+        warning: '&c&l警告: &r&c手动加载插件可能不被所有插件支持！<br> &e如需继续，请再次输入此命令。'
+
+        # Message shown if the addon is already loaded
+        already-loaded: '&c来自 "{File}" 的插件已经加载。'
+
+        # Message shown on successful load
+        success: '&a来自 "{File}" 的插件已成功加载。'
+
+        # Message shown if loading fails
+        fail: '&c无法从 "{File}" 加载插件。'
+
+      unload:
+
+        # Message shown for incorrect command usage
+        usage: '&b用法: /bodyhealth addon unload <addon>'
+
+        # Warning shown before unloading an addon (requires confirmation)
+        warning: '&c&l警告: &r&c手动卸载插件可能不被所有插件支持！<br> &e如需继续，请再次输入此命令。'
+
+        # Message shown on successful unload
+        success: '&a插件 "{Addon}" 已成功卸载。'
+
+        # Message shown if unloading fails
+        fail: '&c无法卸载插件 "{Addon}"。'
+
     debug:
 
       # Message shown for incorrect command usage

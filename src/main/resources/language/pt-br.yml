@@ -165,6 +165,119 @@ commands:
         # Message shown if moving data fails
         fail: '&cFalha ao mover todos os dados existentes do armazenamento {Type1} para o armazenamento {Type2} do BodyHealth.'
 
+
+    addon:
+
+      # Message shown for incorrect command usage
+      usage: '&bUso: /bodyhealth addon <list/info/enable/disable/reload/load/unload>'
+
+      # Message shown when the specified addon could not be found
+      not-found: '&cAddon "{Addon}" não encontrado.'
+
+      list:
+
+        # Header shown before listing addons
+        header: '&bAddons carregados ({Count}): '
+
+        # Separator between addon name entries
+        separator: '&7, '
+
+        # Entry format for enabled addons
+        entry-enabled: '&a{Name}'
+
+        # Entry format for disabled addons
+        entry-disabled: '&c{Name}'
+
+        # Message shown when no addons are loaded
+        none: '&7Nenhum addon carregado.'
+
+      info:
+
+        # Message shown for incorrect command usage
+        usage: '&bUso: /bodyhealth addon info <addon>'
+
+        # Message shown to display addon information
+        display: "&bInformações do addon &f{Name}&b:\n&bDescrição: &f{Description}\n&bAutor: &f{Author}\n&bVersão: &f{Version}\n&bStatus: {Status}"
+
+        # Label for an enabled addon status
+        status-enabled: '&aAtivado'
+
+        # Label for a disabled addon status
+        status-disabled: '&cDesativado'
+
+      enable:
+
+        # Message shown for incorrect command usage
+        usage: '&bUso: /bodyhealth addon enable <addon>'
+
+        # Message shown if the addon is already enabled
+        already-enabled: '&cO addon "{Addon}" já está ativado.'
+
+        # Message shown on successful enable
+        success: '&aO addon "{Addon}" foi ativado.'
+
+        # Message shown if enabling fails
+        fail: '&cFalha ao ativar o addon "{Addon}".'
+
+      disable:
+
+        # Message shown for incorrect command usage
+        usage: '&bUso: /bodyhealth addon disable <addon>'
+
+        # Message shown if the addon is already disabled
+        already-disabled: '&cO addon "{Addon}" já está desativado.'
+
+        # Message shown on successful disable
+        success: '&aO addon "{Addon}" foi desativado.'
+
+        # Message shown if disabling fails
+        fail: '&cFalha ao desativar o addon "{Addon}".'
+
+      reload:
+
+        # Message shown for incorrect command usage
+        usage: '&bUso: /bodyhealth addon reload <addon>'
+
+        # Message shown on successful reload
+        success: '&aO addon "{Addon}" foi recarregado.'
+
+        # Message shown if reloading fails
+        fail: '&cFalha ao recarregar o addon "{Addon}".'
+
+      load:
+
+        # Message shown for incorrect command usage
+        usage: '&bUso: /bodyhealth addon load <arquivo>'
+
+        # Message shown when the specified addon file could not be found
+        not-found: '&cArquivo de addon "{File}" não encontrado no diretório de addons.'
+
+        # Warning shown before loading an addon post onLoad (requires confirmation)
+        warning: '&c&lAVISO: &r&cCarregar addons manualmente pode não ser suportado por todos os addons!<br> &ePara continuar, digite este comando novamente.'
+
+        # Message shown if the addon is already loaded
+        already-loaded: '&cO addon de "{File}" já está carregado.'
+
+        # Message shown on successful load
+        success: '&aAddon de "{File}" carregado com sucesso.'
+
+        # Message shown if loading fails
+        fail: '&cFalha ao carregar o addon de "{File}".'
+
+      unload:
+
+        # Message shown for incorrect command usage
+        usage: '&bUso: /bodyhealth addon unload <addon>'
+
+        # Warning shown before unloading an addon (requires confirmation)
+        warning: '&c&lAVISO: &r&cDescarregar addons manualmente pode não ser suportado por todos os addons!<br> &ePara continuar, digite este comando novamente.'
+
+        # Message shown on successful unload
+        success: '&aAddon "{Addon}" descarregado com sucesso.'
+
+        # Message shown if unloading fails
+        fail: '&cFalha ao descarregar o addon "{Addon}".'
+
     debug:
 
       # Message shown for incorrect command usage

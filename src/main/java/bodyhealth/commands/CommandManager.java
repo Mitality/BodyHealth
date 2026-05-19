@@ -1,6 +1,7 @@
 package bodyhealth.commands;
 
 import bodyhealth.commands.subcommands.AddCommand;
+import bodyhealth.commands.subcommands.AddonCommand;
 import bodyhealth.commands.subcommands.DataCommand;
 import bodyhealth.commands.subcommands.DebugCommand;
 import bodyhealth.commands.subcommands.GetCommand;
@@ -34,6 +35,7 @@ public class CommandManager implements TabExecutor {
         subCommands.put("add", new AddCommand());
         subCommands.put("data", new DataCommand());
         subCommands.put("debug", new DebugCommand());
+        subCommands.put("addon", new AddonCommand());
     }
 
     @Override

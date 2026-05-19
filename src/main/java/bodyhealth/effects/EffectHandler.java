@@ -8,11 +8,14 @@ import bodyhealth.core.BodyHealth;
 import bodyhealth.core.BodyPart;
 import bodyhealth.core.BodyPartState;
 import bodyhealth.effects.effect.ATTRIBUTE_MODIFIER;
+import bodyhealth.effects.effect.BODYHEALTH;
+import bodyhealth.effects.effect.CHANCE;
 import bodyhealth.effects.effect.COMMAND;
 import bodyhealth.effects.effect.COMMAND_UNDO;
 import bodyhealth.effects.effect.DELAYED;
 import bodyhealth.effects.effect.KILL_PLAYER;
 import bodyhealth.effects.effect.MESSAGE;
+import bodyhealth.effects.effect.PARTICLE;
 import bodyhealth.effects.effect.POTION_EFFECT;
 import bodyhealth.effects.effect.PREVENT_HOLD;
 import bodyhealth.effects.effect.PREVENT_INTERACT;
@@ -45,19 +48,22 @@ public class EffectHandler {
 
     private static Map<String, BodyHealthEffect> effects = new ConcurrentHashMap<>(Map.ofEntries(
         Map.entry("ATTRIBUTE_MODIFIER", new ATTRIBUTE_MODIFIER()),
-        Map.entry("POTION_EFFECT", new POTION_EFFECT()),
-        Map.entry("PREVENT_INTERACT", new PREVENT_INTERACT()),
-        Map.entry("PREVENT_HOLD", new PREVENT_HOLD()),
-        Map.entry("PREVENT_SPRINT", new PREVENT_SPRINT()),
-        Map.entry("PREVENT_WALK", new PREVENT_WALK()),
-        Map.entry("PREVENT_JUMP", new PREVENT_JUMP()),
-        Map.entry("KILL_PLAYER", new KILL_PLAYER()),
+        Map.entry("BODYHEALTH", new BODYHEALTH()),
+        Map.entry("CHANCE", new CHANCE()),
         Map.entry("COMMAND", new COMMAND()),
         Map.entry("COMMAND_UNDO", new COMMAND_UNDO()),
-        Map.entry("MESSAGE", new MESSAGE()),
-        Map.entry("SOUND", new SOUND()),
-        Map.entry("REPEATING", new REPEATING()),
         Map.entry("DELAYED", new DELAYED()),
+        Map.entry("KILL_PLAYER", new KILL_PLAYER()),
+        Map.entry("MESSAGE", new MESSAGE()),
+        Map.entry("PARTICLE", new PARTICLE()),
+        Map.entry("POTION_EFFECT", new POTION_EFFECT()),
+        Map.entry("PREVENT_HOLD", new PREVENT_HOLD()),
+        Map.entry("PREVENT_INTERACT", new PREVENT_INTERACT()),
+        Map.entry("PREVENT_JUMP", new PREVENT_JUMP()),
+        Map.entry("PREVENT_SPRINT", new PREVENT_SPRINT()),
+        Map.entry("PREVENT_WALK", new PREVENT_WALK()),
+        Map.entry("REPEATING", new REPEATING()),
+        Map.entry("SOUND", new SOUND()),
         Map.entry("WHEN_DAMAGED", new WHEN_DAMAGED()),
         Map.entry("WHEN_HEALED", new WHEN_HEALED())
     ));
