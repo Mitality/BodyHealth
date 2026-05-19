@@ -48,24 +48,24 @@ public class EffectHandler {
 
     private static Map<String, BodyHealthEffect> effects = new ConcurrentHashMap<>(Map.ofEntries(
         Map.entry("ATTRIBUTE_MODIFIER", new ATTRIBUTE_MODIFIER()),
-        Map.entry("POTION_EFFECT", new POTION_EFFECT()),
-        Map.entry("PREVENT_INTERACT", new PREVENT_INTERACT()),
-        Map.entry("PREVENT_HOLD", new PREVENT_HOLD()),
-        Map.entry("PREVENT_SPRINT", new PREVENT_SPRINT()),
-        Map.entry("PREVENT_WALK", new PREVENT_WALK()),
-        Map.entry("PREVENT_JUMP", new PREVENT_JUMP()),
-        Map.entry("KILL_PLAYER", new KILL_PLAYER()),
+        Map.entry("BODYHEALTH", new BODYHEALTH()),
+        Map.entry("CHANCE", new CHANCE()),
         Map.entry("COMMAND", new COMMAND()),
         Map.entry("COMMAND_UNDO", new COMMAND_UNDO()),
+        Map.entry("DELAYED", new DELAYED()),
+        Map.entry("KILL_PLAYER", new KILL_PLAYER()),
         Map.entry("MESSAGE", new MESSAGE()),
         Map.entry("PARTICLE", new PARTICLE()),
-        Map.entry("SOUND", new SOUND()),
+        Map.entry("POTION_EFFECT", new POTION_EFFECT()),
+        Map.entry("PREVENT_HOLD", new PREVENT_HOLD()),
+        Map.entry("PREVENT_INTERACT", new PREVENT_INTERACT()),
+        Map.entry("PREVENT_JUMP", new PREVENT_JUMP()),
+        Map.entry("PREVENT_SPRINT", new PREVENT_SPRINT()),
+        Map.entry("PREVENT_WALK", new PREVENT_WALK()),
         Map.entry("REPEATING", new REPEATING()),
-        Map.entry("DELAYED", new DELAYED()),
+        Map.entry("SOUND", new SOUND()),
         Map.entry("WHEN_DAMAGED", new WHEN_DAMAGED()),
-        Map.entry("WHEN_HEALED", new WHEN_HEALED()),
-        Map.entry("CHANCE", new CHANCE()),
-        Map.entry("BODYHEALTH", new BODYHEALTH())
+        Map.entry("WHEN_HEALED", new WHEN_HEALED())
     ));
 
     /**
