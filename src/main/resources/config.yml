@@ -401,8 +401,8 @@ body-damage:
 #      Meta effects (logic-based triggers for non-persistent effects):
 #
 #         CHANCE / <CHANCE> / [KEY] / <EFFECT[…]> ·········· executes effects chance (0.0-1.0) based, optionally grouped by key
-#         REPEATING / <delay> / <interval> / <EFFECT[…]> ··· repeats effect at the specified interval (e.g. 5s for 5 seconds)
-#         DELAYED / <delay> / <EFFECT[…]> ·················· executes effect after the specified delay (e.g. 10t for 10 ticks)
+#         REPEATING / <DELAY> / <INTERVAL> / <EFFECT[…]> ··· repeats effect at the specified interval (e.g. 5s for 5 seconds)
+#         DELAYED / <DELAY> / <EFFECT[…]> ·················· executes effect after the specified delay (e.g. 10t for 10 ticks)
 #         WHEN_DAMAGED / <EFFECT[…]> ······················· triggers effect when the condition is met due to taking damage
 #         WHEN_HEALED / <EFFECT[…]> ························ triggers effect when the condition is met due to regeneration
 #
