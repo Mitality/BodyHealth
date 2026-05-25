@@ -15,7 +15,7 @@ public class Harshlands {
 
     /**
      * Enables or disables the BodyHealth HUD for a given player via the Harshlands API.
-     * @param player  the player for whom the HUD should be enabled or disabled
+     * @param player the player for whom the HUD should be enabled or disabled
      * @param enabled whether the HUD should be enabled or disabled
      * @return whether the operation changed the player's shown-state
      */

@@ -91,7 +91,7 @@ public class BodyHealthListener implements Listener {
                 for (BodyPart bodyPart : BodyPart.values()) {
                     BodyHealthUtils.applyDamageWithConfig(bodyHealth, cause, damage, bodyPart, false, event);
                 }
-                Debug.logDev("Player " + player.getName() + " was hit by a block that couldn't be retrieved because of a bug in your server software (https://github.com/PaperMC/Paper/issues/11984) applying " + String.format("%.2f", damage) + " damage to all body parts.");
+                Debug.logDev("Player " + player.getName() + " was hit by a block that couldn't be retrieved because of a bug in your server software (https://github.com/PaperMC/Paper/issues/11984), applying " + String.format("%.2f", damage) + " damage to all body parts.");
                 return;
             }
 

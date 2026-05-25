@@ -156,16 +156,15 @@ public class BodyHealthUtils {
      * @param player The player to do this for
      */
     public static void applyBodyHealthHudVisibility(Player player) {
-        switch (Config.display_provider) {
-            case "BETTERHUD"  -> applyHudVisibility(player, betterHudEnabled,  BetterHud::setBodyHealthHudEnabled);
-            case "HARSHLANDS" -> applyHudVisibility(player, harshlandsEnabled, Harshlands::setBodyHealthHudEnabled);
-            default           -> { /* NONE or unrecognised provider - render no HUD */ }
-        }
+        if (Config.display_betterhud_enabled)
+            applyHudVisibility(player, betterHudEnabled,  BetterHud::setBodyHealthHudEnabled, Config.display_betterhud_enabled_only);
+        if (Config.display_harshlands_enabled)
+            applyHudVisibility(player, harshlandsEnabled, Harshlands::setBodyHealthHudEnabled, Config.display_harshlands_enabled_only);
     }
 
-    private static void applyHudVisibility(Player player, boolean providerActive, BiPredicate<Player, Boolean> setter) {
+    private static void applyHudVisibility(Player player, boolean providerActive, BiPredicate<Player, Boolean> setter, boolean enabledOnly) {
         if (!providerActive) return;
-        if (!Config.display_betterhud_enabled_only) {
+        if (!enabledOnly) {
             setter.test(player, true);
             return;
         }

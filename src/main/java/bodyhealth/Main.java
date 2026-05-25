@@ -150,8 +150,8 @@ public final class Main extends JavaPlugin {
             placeholderAPIexpansion.register();
             Debug.log("Registered PlaceholderAPI expansion");
 
-            // Display integration - Only works with PAPI installed (BodyHealth's own placeholders feed the HUD)
-            if (Config.display_provider.equals("BETTERHUD")
+            // Load BetterHud integration
+            if (Config.display_betterhud_enabled
                     && Bukkit.getPluginManager().getPlugin("BetterHud") != null && Bukkit.getPluginManager().getPlugin("BetterHud").isEnabled()) {
                 Debug.log("BetterHud detected, enabling BetterHud integration...");
                 BetterHudListener bhl = new BetterHudListener();
@@ -169,15 +169,12 @@ public final class Main extends JavaPlugin {
                 Bukkit.getPluginManager().registerEvents(new PlaceholderAPIListener(), this);
             }
 
-            else if (Config.display_provider.equals("HARSHLANDS")
+            // Load Harshlands integration
+            if (Config.display_harshlands_enabled
                     && Bukkit.getPluginManager().getPlugin("Harshlands") != null && Bukkit.getPluginManager().getPlugin("Harshlands").isEnabled()) {
                 Debug.log("Harshlands detected, enabling Harshlands display integration...");
                 Bukkit.getPluginManager().registerEvents(new HarshlandsListener(), this);
 
-                /*
-                 * Harshlands may have enabled before us; re-apply HUD visibility for every
-                 * player already online once things have settled.
-                 */
                 scheduler.runTaskLater(() -> {
                     for (Player player : Bukkit.getOnlinePlayers()) BodyHealthUtils.applyBodyHealthHudVisibility(player);
                 }, 60L);
@@ -185,11 +182,12 @@ public final class Main extends JavaPlugin {
             }
 
         }
-
-        else if (Config.display_provider.equals("BETTERHUD") && Bukkit.getPluginManager().getPlugin("BetterHud") != null)
-            Debug.logErr("BetterHud integration requires PlaceholderAPI to be installed!");
-        else if (Config.display_provider.equals("HARSHLANDS") && Bukkit.getPluginManager().getPlugin("Harshlands") != null)
-            Debug.logErr("Harshlands display integration requires PlaceholderAPI to be installed!");
+        else {
+            if (Bukkit.getPluginManager().getPlugin("BetterHud") != null)
+                Debug.logErr("BetterHud integration requires PlaceholderAPI to be installed!");
+            if (Bukkit.getPluginManager().getPlugin("Harshlands") != null)
+                Debug.logErr("Harshlands display integration requires PlaceholderAPI to be installed!");
+        }
 
         Plugin betterHud = Bukkit.getPluginManager().getPlugin("BetterHud");
         BodyHealthUtils.betterHudEnabled = betterHud != null && betterHud.isEnabled();
