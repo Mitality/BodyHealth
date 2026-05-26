@@ -11,6 +11,7 @@ import bodyhealth.core.BodyPart;
 import bodyhealth.core.BodyPartState;
 import bodyhealth.data.DataManager;
 import bodyhealth.depend.BetterHud;
+import bodyhealth.depend.Harshlands;
 import bodyhealth.depend.WorldGuard;
 import bodyhealth.effects.EffectHandler;
 import bodyhealth.effects.effect.POTION_EFFECT;
@@ -35,10 +36,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiPredicate;
 
 public class BodyHealthUtils {
 
     public static boolean betterHudEnabled = false;
+    public static boolean harshlandsEnabled = false;
 
     /**
      * Reloads the plugin, momentarily removing all effects
@@ -118,6 +121,9 @@ public class BodyHealthUtils {
         Plugin betterHud = Bukkit.getPluginManager().getPlugin("BetterHud");
         betterHudEnabled = betterHud != null && betterHud.isEnabled();
 
+        Plugin harshlands = Bukkit.getPluginManager().getPlugin("Harshlands");
+        harshlandsEnabled = harshlands != null && harshlands.isEnabled();
+
         return true;
     }
 
@@ -150,13 +156,20 @@ public class BodyHealthUtils {
      * @param player The player to do this for
      */
     public static void applyBodyHealthHudVisibility(Player player) {
-        if (!betterHudEnabled) return;
-        if (!Config.display_betterhud_enabled_only) {
-            BetterHud.setBodyHealthHudEnabled(player, true);
+        if (Config.display_betterhud_enabled)
+            applyHudVisibility(player, betterHudEnabled,  BetterHud::setBodyHealthHudEnabled, Config.display_betterhud_enabled_only);
+        if (Config.display_harshlands_enabled)
+            applyHudVisibility(player, harshlandsEnabled, Harshlands::setBodyHealthHudEnabled, Config.display_harshlands_enabled_only);
+    }
+
+    private static void applyHudVisibility(Player player, boolean providerActive, BiPredicate<Player, Boolean> setter, boolean enabledOnly) {
+        if (!providerActive) return;
+        if (!enabledOnly) {
+            setter.test(player, true);
             return;
         }
         boolean enabled = isSystemEnabled(player);
-        boolean changed = BetterHud.setBodyHealthHudEnabled(player, enabled);
+        boolean changed = setter.test(player, enabled);
         if (changed) Debug.logDev((enabled ? "Enabled" : "Disabled") + " BodyHealth's HUD for player " + player.getName() + ".");
     }
 

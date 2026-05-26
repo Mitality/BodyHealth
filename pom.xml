@@ -181,6 +181,14 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- Harshlands API (interface-only; provided like the other API deps, never shaded) -->
+        <dependency>
+            <groupId>com.github.Hashiri-CZ.Harshlands</groupId>
+            <artifactId>harshlands-api</artifactId>
+            <version>1.3.2</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- WorldGuard -->
         <dependency>
             <groupId>com.sk89q.worldguard</groupId>

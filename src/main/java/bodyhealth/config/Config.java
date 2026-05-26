@@ -70,6 +70,7 @@ public class Config {
     public static ConfigurationSection body_damage;
     public static ConfigurationSection effects;
 
+    public static boolean display_betterhud_enabled;
     public static boolean display_betterhud_auto_reload;
     public static boolean display_betterhud_inject_config;
     public static boolean display_betterhud_as_default;
@@ -89,6 +90,9 @@ public class Config {
 
     public static boolean display_betterhud_package_compress;
     public static String display_betterhud_package_filename;
+
+    public static boolean display_harshlands_enabled;
+    public static boolean display_harshlands_enabled_only;
 
     public static void load(FileConfiguration config) {
 
@@ -164,6 +168,7 @@ public class Config {
         body_damage = config.getConfigurationSection("body-damage");
         effects = config.getConfigurationSection("effects");
 
+        display_betterhud_enabled = config.getBoolean("display.betterhud.enabled", true);
         display_betterhud_auto_reload = config.getBoolean("display.betterhud.auto-reload", true);
         display_betterhud_inject_config = config.getBoolean("display.betterhud.inject-config", true);
         display_betterhud_as_default = config.getBoolean("display.betterhud.as-default", true);
@@ -183,6 +188,9 @@ public class Config {
 
         display_betterhud_package_compress = config.getBoolean("display.betterhud.package.compress", true);
         display_betterhud_package_filename = config.getString("display.betterhud.package.filename", "resource_pack");
+
+        display_harshlands_enabled = config.getBoolean("display.harshlands.enabled", true);
+        display_harshlands_enabled_only = config.getBoolean("display.harshlands.enabled-only", true);
 
     }
 
