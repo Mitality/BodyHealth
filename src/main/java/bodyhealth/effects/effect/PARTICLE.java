@@ -2,6 +2,7 @@ package bodyhealth.effects.effect;
 
 import bodyhealth.config.Debug;
 import bodyhealth.core.BodyPart;
+import bodyhealth.depend.VanishPlugins;
 import bodyhealth.effects.BodyHealthEffect;
 import bodyhealth.effects.EffectType;
 import org.bukkit.Bukkit;
@@ -91,6 +92,7 @@ public class PARTICLE implements BodyHealthEffect {
 
         boolean force = args.length >= 7 && Boolean.parseBoolean(args[6].trim());
         boolean global = args.length >= 8 && Boolean.parseBoolean(args[7].trim());
+        if (VanishPlugins.isVanished(player)) global = false;
 
         Object data = null;
         if (args.length >= 9 && !args[8].trim().isEmpty()) {

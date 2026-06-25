@@ -2,6 +2,7 @@ package bodyhealth.effects.effect;
 
 import bodyhealth.config.Debug;
 import bodyhealth.core.BodyPart;
+import bodyhealth.depend.VanishPlugins;
 import bodyhealth.effects.BodyHealthEffect;
 import bodyhealth.effects.EffectType;
 import org.bukkit.entity.Player;
@@ -34,6 +35,7 @@ public class SOUND implements BodyHealthEffect {
         float volume = args.length >= 3 ? parseOrDefault(args[2]) : 1.0f;
         float pitch = args.length >= 4 ? parseOrDefault(args[3]) : 1.0f;
         boolean global = args.length >= 5 && Boolean.parseBoolean(args[4].trim());
+        if (VanishPlugins.isVanished(player)) global = false;
         if (global) {
             player.getWorld().playSound(player.getLocation(), sound, volume, pitch);
         } else {
