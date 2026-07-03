@@ -59,7 +59,7 @@ public class HealCommand implements SubCommand {
 
                 MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_heal_success_single
                         .replace("{Player}", target.getName())
-                        .replace("{Part}", Lang.partName(part))
+                        .replace("{Part}", part.name().toUpperCase())
                 );
                 return true;
 

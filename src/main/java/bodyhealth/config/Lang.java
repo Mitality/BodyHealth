@@ -1,7 +1,5 @@
 package bodyhealth.config;
 
-import bodyhealth.core.BodyPart;
-import bodyhealth.core.BodyPartState;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public class Lang {
@@ -121,6 +119,22 @@ public class Lang {
     public static String bodyhealth_debug_toggle_verbose_on;
     public static String bodyhealth_debug_toggle_verbose_off;
 
+    // Enable Command
+    public static String bodyhealth_enable_usage;
+    public static String bodyhealth_enable_no_target;
+    public static String bodyhealth_enable_invalid_target;
+    public static String bodyhealth_enable_success_self;
+    public static String bodyhealth_enable_success_other;
+    public static String bodyhealth_enable_notification;
+
+    // Disable Command
+    public static String bodyhealth_disable_usage;
+    public static String bodyhealth_disable_no_target;
+    public static String bodyhealth_disable_invalid_target;
+    public static String bodyhealth_disable_success_self;
+    public static String bodyhealth_disable_success_other;
+    public static String bodyhealth_disable_notification;
+
     public static void load(FileConfiguration config) {
 
         // Body Parts
@@ -237,29 +251,21 @@ public class Lang {
         bodyhealth_debug_toggle_verbose_on = config.getString("commands.bodyhealth.debug.toggle.verbose-on", "bodyhealth_debug_toggle_verbose_on");
         bodyhealth_debug_toggle_verbose_off = config.getString("commands.bodyhealth.debug.toggle.verbose-off", "bodyhealth_debug_toggle_verbose_off");
 
-    }
+        // Enable Command
+        bodyhealth_enable_usage = config.getString("commands.bodyhealth.enable.usage", "bodyhealth_enable_usage");
+        bodyhealth_enable_no_target = config.getString("commands.bodyhealth.enable.no-target", "bodyhealth_enable_no_target");
+        bodyhealth_enable_invalid_target = config.getString("commands.bodyhealth.enable.invalid-target", "bodyhealth_enable_invalid_target");
+        bodyhealth_enable_success_self = config.getString("commands.bodyhealth.enable.success-self", "bodyhealth_enable_success_self");
+        bodyhealth_enable_success_other = config.getString("commands.bodyhealth.enable.success-other", "bodyhealth_enable_success_other");
+        bodyhealth_enable_notification = config.getString("commands.bodyhealth.enable.notification", "bodyhealth_enable_notification");
 
-    // If someone's got a better approach, let me know
-    public static String partName(BodyPart part) {
-        return switch (part) {
-            case HEAD -> HEAD;
-            case TORSO -> TORSO;
-            case ARM_LEFT -> ARM_LEFT;
-            case ARM_RIGHT -> ARM_RIGHT;
-            case LEG_LEFT -> LEG_LEFT;
-            case LEG_RIGHT -> LEG_RIGHT;
-            case FOOT_LEFT -> FOOT_LEFT;
-            case FOOT_RIGHT -> FOOT_RIGHT;
-        };
-    }
+        // Disable Command
+        bodyhealth_disable_usage = config.getString("commands.bodyhealth.disable.usage", "bodyhealth_disable_usage");
+        bodyhealth_disable_no_target = config.getString("commands.bodyhealth.disable.no-target", "bodyhealth_disable_no_target");
+        bodyhealth_disable_invalid_target = config.getString("commands.bodyhealth.disable.invalid-target", "bodyhealth_disable_invalid_target");
+        bodyhealth_disable_success_self = config.getString("commands.bodyhealth.disable.success-self", "bodyhealth_disable_success_self");
+        bodyhealth_disable_success_other = config.getString("commands.bodyhealth.disable.success-other", "bodyhealth_disable_success_other");
+        bodyhealth_disable_notification = config.getString("commands.bodyhealth.disable.notification", "bodyhealth_disable_notification");
 
-    public static String stateName(BodyPartState state) {
-        return switch (state) {
-            case FULL -> FULL;
-            case NEARLYFULL -> NEARLYFULL;
-            case INTERMEDIATE -> INTERMEDIATE;
-            case DAMAGED -> DAMAGED;
-            case BROKEN -> BROKEN;
-        };
     }
 }

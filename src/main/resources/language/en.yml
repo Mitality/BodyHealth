@@ -306,3 +306,43 @@ commands:
 
         # Message shown for toggling on debug mode
         verbose-off: '&aDisabled development mode.'
+
+    enable:
+
+      # Message shown for incorrect command usage
+      usage: '&bUsage: /bodyhealth enable [player]'
+
+      # Message shown when no valid target player could be retrieved
+      no-target: '&cPlease provide a player to target when executing this command from the console.'
+
+      # Message shown when the specified target player is not online
+      invalid-target: '&cPlayer ''{Player}'' is not online.'
+
+      # Message shown when you enable body health for yourself
+      success-self: '&7Successfully &aenabled &7body health for yourself.'
+
+      # Message shown when you enable body health for another player
+      success-other: '&7Successfully &aenabled &7body health for {Player}.'
+
+      # Notification for players having their body health toggled
+      notification: '&7{Player} has &aenabled &7BodyHealth for you.'
+
+    disable:
+
+      # Message shown for incorrect command usage
+      usage: '&bUsage: /bodyhealth disable [player]'
+
+      # Message shown when no valid target player could be retrieved
+      no-target: '&cPlease provide a player to target when executing this command from the console.'
+
+      # Message shown when the specified target player is not online
+      invalid-target: '&cPlayer ''{Player}'' is not online.'
+
+      # Message shown when you disable body health for yourself
+      success-self: '&7Successfully &cdisabled &7body health for yourself.'
+
+      # Message shown when you disable body health for another player
+      success-other: '&7Successfully &cdisabled &7body health for {Player}.'
+
+      # Notification for players having their body health toggled
+      notification: '&7{Player} has &cdisabled &7body health for you.'

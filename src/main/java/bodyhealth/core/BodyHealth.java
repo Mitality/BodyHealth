@@ -22,6 +22,7 @@ import java.util.UUID;
 @ApiStatus.Internal
 public class BodyHealth {
 
+    private boolean enabled = true;
     private final Map<BodyPart, Long> command_timestamps;
     private final Map<BodyPart, List<String[]>> ongoingEffects;
 
@@ -59,6 +60,26 @@ public class BodyHealth {
      */
     public UUID getPlayerUUID() {
         return playerUUID;
+    }
+
+    /**
+     * Checks whether BodyHealth is enabled for this player. When disabled, all non-forced
+     * requests to change part health are voided and no effects are applied, just as if the
+     * player was in creative mode.
+     * @return Whether BodyHealth is enabled for this player
+     */
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    /**
+     * Sets whether BodyHealth is enabled for this player. When disabled, all non-forced
+     * requests to change part health are voided and no effects are applied, just as if the
+     * player was in creative mode.
+     * @param enabled Whether BodyHealth should be enabled for this player
+     */
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     /**

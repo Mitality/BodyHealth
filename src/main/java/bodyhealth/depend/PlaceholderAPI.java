@@ -108,7 +108,7 @@ public class PlaceholderAPI extends PlaceholderExpansion {
             BodyPartState partState = BodyHealthUtils.getBodyHealthState(bodyHealth, part);
             if (splitParams[splitParams.length - 1].equalsIgnoreCase("translated"))
                 return LegacyComponentSerializer.legacySection()
-                        .serialize(ColorParser.of(Lang.stateName(partState))
+                        .serialize(ColorParser.of(partState.name().toUpperCase())
                                 .papi(player).legacy().build());
             return partState.name();
         }

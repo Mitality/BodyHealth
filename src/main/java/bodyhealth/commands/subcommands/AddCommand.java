@@ -81,7 +81,7 @@ public class AddCommand implements SubCommand {
 
                 MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_add_success_single
                         .replace("{Player}", target.getName())
-                        .replace("{Part}", Lang.partName(part))
+                        .replace("{Part}", part.name().toUpperCase())
                         .replace("{Value}", args[index] + (percent ? "%" : " HP"))
                 );
                 return true;

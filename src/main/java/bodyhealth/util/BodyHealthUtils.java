@@ -133,6 +133,7 @@ public class BodyHealthUtils {
      * @return A boolean representing if BodyHealth should be enabled for the given player
      */
     public static boolean isSystemEnabled(Player player) {
+        if (!getBodyHealth(player).isEnabled()) return false;
         if (!isSystemEnabled(player.getWorld())) return false;
         if (Bukkit.getPluginManager().getPlugin("WorldGuard") != null
                 && Bukkit.getPluginManager().getPlugin("WorldGuard").isEnabled())

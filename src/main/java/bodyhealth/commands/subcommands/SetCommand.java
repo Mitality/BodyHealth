@@ -81,7 +81,7 @@ public class SetCommand implements SubCommand {
 
                 MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_set_success_single
                         .replace("{Player}", target.getName())
-                        .replace("{Part}", Lang.partName(part))
+                        .replace("{Part}", part.name().toUpperCase())
                         .replace("{Value}", args[index] + (percent ? "%" : " HP"))
                 );
                 return true;

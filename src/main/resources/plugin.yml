@@ -44,6 +44,12 @@ commands:
       bodyhealth.addon:
         description: Allows using the addon command
         default: op
+      bodyhealth.enable:
+        description: Allows using the enable command
+        default: op
+      bodyhealth.disable:
+        description: Allows using the disable command
+        default: op
       bodyhealth.*:
         description: Allows managing body health
         default: op
@@ -56,12 +62,25 @@ commands:
           bodyhealth.data: true
           bodyhealth.debug: true
           bodyhealth.addon: true
+          bodyhealth.enable.others: true
+          bodyhealth.disable.others: true
 
 permissions:
 
   bodyhealth.update-notify:
     description: Notifies the player when the plugin has an update available.
     default: op
+
+  bodyhealth.enable.others:
+    description: Allows enabling BodyHealth for other players.
+    default: op
+    children:
+      bodyhealth.enable: true
+  bodyhealth.disable.others:
+    description: Allows disabling BodyHealth for other players.
+    default: op
+    children:
+      bodyhealth.disable: true
 
   bodyhealth.bypass.damage.head:
     description: Players with this permission bypass damage to their head
