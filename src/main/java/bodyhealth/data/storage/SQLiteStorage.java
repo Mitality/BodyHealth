@@ -74,6 +74,14 @@ public class SQLiteStorage implements Storage {
                 }
             }
             if (hasBody && !hasTorso) stmt.execute("ALTER TABLE body_health RENAME COLUMN body TO torso");
+
+            boolean hasEnabled = false;
+            try (ResultSet rs = stmt.executeQuery("PRAGMA table_info(body_health)")) {
+                while (rs.next()) {
+                    if ("enabled".equalsIgnoreCase(rs.getString("name"))) hasEnabled = true;
+                }
+            }
+            if (!hasEnabled) stmt.execute("ALTER TABLE body_health ADD COLUMN enabled INTEGER NOT NULL DEFAULT 1");
         } catch (SQLException e) {
             Debug.logErr(e);
         }
@@ -89,7 +97,8 @@ public class SQLiteStorage implements Storage {
                 + "leg_left REAL, "
                 + "leg_right REAL, "
                 + "foot_left REAL, "
-                + "foot_right REAL"
+                + "foot_right REAL, "
+                + "enabled INTEGER NOT NULL DEFAULT 1"
                 + ")";
         String sqlEffects = "CREATE TABLE IF NOT EXISTS active_effects ("
                 + "uuid TEXT NOT NULL, "
@@ -129,11 +138,12 @@ public class SQLiteStorage implements Storage {
 
     @Override
     public void saveBodyHealth(UUID uuid, BodyHealth bodyHealth) {
-        String upsertHealth = "INSERT INTO body_health (uuid, head, torso, arm_left, arm_right, leg_left, leg_right, foot_left, foot_right) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) "
+        String upsertHealth = "INSERT INTO body_health (uuid, head, torso, arm_left, arm_right, leg_left, leg_right, foot_left, foot_right, enabled) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) "
                 + "ON CONFLICT(uuid) DO UPDATE SET "
                 + "head = excluded.head, torso = excluded.torso, arm_left = excluded.arm_left, arm_right = excluded.arm_right, "
-                + "leg_left = excluded.leg_left, leg_right = excluded.leg_right, foot_left = excluded.foot_left, foot_right = excluded.foot_right";
+                + "leg_left = excluded.leg_left, leg_right = excluded.leg_right, foot_left = excluded.foot_left, foot_right = excluded.foot_right, "
+                + "enabled = excluded.enabled";
         String deleteEffects = "DELETE FROM active_effects WHERE uuid = ?";
         String insertEffect = "INSERT INTO active_effects (uuid, body_part, position, effect) VALUES (?, ?, ?, ?)";
 
@@ -150,6 +160,7 @@ public class SQLiteStorage implements Storage {
                 for (BodyPart part : BodyPart.values()) {
                     pstmt.setDouble(index++, bodyHealth.getHealth(part));
                 }
+                pstmt.setInt(index, bodyHealth.isEnabled() ? 1 : 0);
                 pstmt.executeUpdate();
             }
 
@@ -210,7 +221,7 @@ public class SQLiteStorage implements Storage {
 
     @Override
     public @NotNull Map<UUID, BodyHealth> loadAllBodyHealth() {
-        final String sql = "SELECT uuid, head, torso, arm_left, arm_right, leg_left, leg_right, foot_left, foot_right FROM body_health";
+        final String sql = "SELECT uuid, head, torso, arm_left, arm_right, leg_left, leg_right, foot_left, foot_right, enabled FROM body_health";
         Map<UUID, BodyHealth> map = new HashMap<>();
 
         try (Connection conn = dataSource.getConnection();
@@ -269,7 +280,7 @@ public class SQLiteStorage implements Storage {
     }
 
     private BodyHealth getBodyHealth(UUID uuid, ResultSet rs) throws SQLException {
-        return new BodyHealth(uuid,
+        BodyHealth bh = new BodyHealth(uuid,
             rs.getDouble("head"),
             rs.getDouble("torso"),
             rs.getDouble("arm_left"),
@@ -278,6 +289,8 @@ public class SQLiteStorage implements Storage {
             rs.getDouble("leg_right"),
             rs.getDouble("foot_left"),
             rs.getDouble("foot_right"));
+        bh.setEnabled(rs.getInt("enabled") != 0);
+        return bh;
     }
 
 }

@@ -69,16 +69,21 @@ public class MySQLStorage implements Storage {
             try (ResultSet tables = meta.getTables(null, null, tableName, null)) {
                 if (!tables.next()) return; // Table doesn't exist (yet)
             }
-            boolean hasBody = false, hasTorso = false;
+            boolean hasBody = false, hasTorso = false, hasEnabled = false;
             try (ResultSet cols = meta.getColumns(null, null, tableName, null)) {
                 while (cols.next()) {
                     String colName = cols.getString("COLUMN_NAME");
                     if ("torso".equalsIgnoreCase(colName)) hasTorso = true;
                     if ("body".equalsIgnoreCase(colName)) hasBody = true;
+                    if ("enabled".equalsIgnoreCase(colName)) hasEnabled = true;
                 }
             }
             if (hasBody && !hasTorso) {
                 String sql = "ALTER TABLE " + tableName + " CHANGE COLUMN body torso DOUBLE";
+                stmt.execute(sql);
+            }
+            if (!hasEnabled) {
+                String sql = "ALTER TABLE " + tableName + " ADD COLUMN enabled BOOLEAN NOT NULL DEFAULT TRUE";
                 stmt.execute(sql);
             }
         } catch (SQLException e) {
@@ -98,7 +103,8 @@ public class MySQLStorage implements Storage {
                 + "leg_left DOUBLE, "
                 + "leg_right DOUBLE, "
                 + "foot_left DOUBLE, "
-                + "foot_right DOUBLE"
+                + "foot_right DOUBLE, "
+                + "enabled BOOLEAN NOT NULL DEFAULT TRUE"
                 + ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
 
         String sqlEffects = "CREATE TABLE IF NOT EXISTS " + prefix + "active_effects ("
@@ -141,11 +147,12 @@ public class MySQLStorage implements Storage {
         String prefix = Config.storage_mysql_prefix;
 
         String upsertHealth = "INSERT INTO " + prefix + "body_health "
-                + "(uuid, head, torso, arm_left, arm_right, leg_left, leg_right, foot_left, foot_right) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) "
+                + "(uuid, head, torso, arm_left, arm_right, leg_left, leg_right, foot_left, foot_right, enabled) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) "
                 + "ON DUPLICATE KEY UPDATE "
                 + "head=VALUES(head), torso=VALUES(torso), arm_left=VALUES(arm_left), arm_right=VALUES(arm_right), "
-                + "leg_left=VALUES(leg_left), leg_right=VALUES(leg_right), foot_left=VALUES(foot_left), foot_right=VALUES(foot_right)";
+                + "leg_left=VALUES(leg_left), leg_right=VALUES(leg_right), foot_left=VALUES(foot_left), foot_right=VALUES(foot_right), "
+                + "enabled=VALUES(enabled)";
         String deleteEffects = "DELETE FROM " + prefix + "active_effects WHERE uuid = ?";
         String insertEffect = "INSERT INTO " + prefix + "active_effects "
                 + "(uuid, body_part, position, effect) VALUES (?, ?, ?, ?)";
@@ -159,6 +166,7 @@ public class MySQLStorage implements Storage {
                 for (BodyPart part : BodyPart.values()) {
                     pstmt.setDouble(idx++, bodyHealth.getHealth(part));
                 }
+                pstmt.setBoolean(idx, bodyHealth.isEnabled());
                 pstmt.executeUpdate();
             }
 
@@ -221,7 +229,7 @@ public class MySQLStorage implements Storage {
     public @NotNull Map<UUID, BodyHealth> loadAllBodyHealth() {
         String prefix = Config.storage_mysql_prefix;
         final String sql = "SELECT uuid, head, torso, arm_left, arm_right, "
-                + "leg_left, leg_right, foot_left, foot_right FROM " + prefix + "body_health";
+                + "leg_left, leg_right, foot_left, foot_right, enabled FROM " + prefix + "body_health";
 
         Map<UUID, BodyHealth> map = new HashMap<>();
         try (
@@ -291,7 +299,7 @@ public class MySQLStorage implements Storage {
     }
 
     private BodyHealth getBodyHealth(UUID uuid, ResultSet rs) throws SQLException {
-        return new BodyHealth(uuid,
+        BodyHealth bh = new BodyHealth(uuid,
             rs.getDouble("head"),
             rs.getDouble("torso"),
             rs.getDouble("arm_left"),
@@ -300,6 +308,8 @@ public class MySQLStorage implements Storage {
             rs.getDouble("leg_right"),
             rs.getDouble("foot_left"),
             rs.getDouble("foot_right"));
+        bh.setEnabled(rs.getBoolean("enabled"));
+        return bh;
     }
 
 }

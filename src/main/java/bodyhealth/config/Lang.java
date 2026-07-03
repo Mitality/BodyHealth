@@ -124,6 +124,7 @@ public class Lang {
     public static String bodyhealth_enable_no_target;
     public static String bodyhealth_enable_invalid_target;
     public static String bodyhealth_enable_success_self;
+    public static String bodyhealth_enable_denied_other;
     public static String bodyhealth_enable_success_other;
     public static String bodyhealth_enable_notification;
 
@@ -132,6 +133,7 @@ public class Lang {
     public static String bodyhealth_disable_no_target;
     public static String bodyhealth_disable_invalid_target;
     public static String bodyhealth_disable_success_self;
+    public static String bodyhealth_disable_denied_other;
     public static String bodyhealth_disable_success_other;
     public static String bodyhealth_disable_notification;
 
@@ -256,6 +258,7 @@ public class Lang {
         bodyhealth_enable_no_target = config.getString("commands.bodyhealth.enable.no-target", "bodyhealth_enable_no_target");
         bodyhealth_enable_invalid_target = config.getString("commands.bodyhealth.enable.invalid-target", "bodyhealth_enable_invalid_target");
         bodyhealth_enable_success_self = config.getString("commands.bodyhealth.enable.success-self", "bodyhealth_enable_success_self");
+        bodyhealth_enable_denied_other = config.getString("commands.bodyhealth.enable.denied-other", "bodyhealth_enable_denied_other");
         bodyhealth_enable_success_other = config.getString("commands.bodyhealth.enable.success-other", "bodyhealth_enable_success_other");
         bodyhealth_enable_notification = config.getString("commands.bodyhealth.enable.notification", "bodyhealth_enable_notification");
 
@@ -264,6 +267,7 @@ public class Lang {
         bodyhealth_disable_no_target = config.getString("commands.bodyhealth.disable.no-target", "bodyhealth_disable_no_target");
         bodyhealth_disable_invalid_target = config.getString("commands.bodyhealth.disable.invalid-target", "bodyhealth_disable_invalid_target");
         bodyhealth_disable_success_self = config.getString("commands.bodyhealth.disable.success-self", "bodyhealth_disable_success_self");
+        bodyhealth_disable_denied_other = config.getString("commands.bodyhealth.disable.denied-other", "bodyhealth_disable_denied_other");
         bodyhealth_disable_success_other = config.getString("commands.bodyhealth.disable.success-other", "bodyhealth_disable_success_other");
         bodyhealth_disable_notification = config.getString("commands.bodyhealth.disable.notification", "bodyhealth_disable_notification");
 

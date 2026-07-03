@@ -45,6 +45,28 @@ public class YAMLStorage implements Storage {
             } catch (IOException e) {
                 Debug.logErr(e);
             }
+            migrateEnabled();
+        }
+    }
+
+    private void migrateEnabled() {
+        YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
+        ConfigurationSection players = yaml.getConfigurationSection("players");
+        if (players == null) return;
+
+        boolean changed = false;
+        for (String key : players.getKeys(false)) {
+            ConfigurationSection player = players.getConfigurationSection(key);
+            if (player == null || player.contains("enabled")) continue;
+            player.set("enabled", true);
+            changed = true;
+        }
+
+        if (!changed) return;
+        try {
+            yaml.save(file);
+        } catch (IOException e) {
+            Debug.logErr(e);
         }
     }
 
@@ -64,6 +86,8 @@ public class YAMLStorage implements Storage {
     @Override
     public void saveBodyHealth(UUID uuid, BodyHealth bodyHealth) {
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
+
+        yaml.set("players." + uuid + ".enabled", bodyHealth.isEnabled());
 
         for (BodyPart part : BodyPart.values()) {
             double health = bodyHealth.getHealth(part);
@@ -99,7 +123,7 @@ public class YAMLStorage implements Storage {
         if (health == null) return new BodyHealth(uuid);
 
         ConfigurationSection effects = player.getConfigurationSection("effects");
-        return getBodyHealth(uuid, health, effects);
+        return getBodyHealth(uuid, health, effects, player.getBoolean("enabled", true));
     }
 
     @Override
@@ -123,7 +147,7 @@ public class YAMLStorage implements Storage {
 
             try {
                 UUID uuid = UUID.fromString(key);
-                map.put(uuid, getBodyHealth(uuid, health, effects));
+                map.put(uuid, getBodyHealth(uuid, health, effects, player.getBoolean("enabled", true)));
             } catch (Exception ignored) {
             }
         }
@@ -131,7 +155,7 @@ public class YAMLStorage implements Storage {
         return map;
     }
 
-    private BodyHealth getBodyHealth(UUID uuid, ConfigurationSection health, ConfigurationSection effects) {
+    private BodyHealth getBodyHealth(UUID uuid, ConfigurationSection health, ConfigurationSection effects, boolean enabled) {
 
         double head = health.getDouble(BodyPart.HEAD.name(), 100.0);
         double torso = health.getDouble(BodyPart.TORSO.name(), 100.0);
@@ -143,6 +167,7 @@ public class YAMLStorage implements Storage {
         double foot_right = health.getDouble(BodyPart.FOOT_RIGHT.name(), 100.0);
 
         BodyHealth bh = new BodyHealth(uuid, head, torso, arm_left, arm_right, leg_left, leg_right, foot_left, foot_right);
+        bh.setEnabled(enabled);
         if (effects == null) return bh;
 
         for (BodyPart part : BodyPart.values()) {

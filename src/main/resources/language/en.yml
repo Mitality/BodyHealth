@@ -321,6 +321,9 @@ commands:
       # Message shown when you enable body health for yourself
       success-self: '&7Successfully &aenabled &7body health for yourself.'
 
+      # Message shown when you are not allowed to enable body health for another player
+      denied-other: '&cYou are not allowed to enable body health for other players.'
+
       # Message shown when you enable body health for another player
       success-other: '&7Successfully &aenabled &7body health for {Player}.'
 
@@ -340,6 +343,9 @@ commands:
 
       # Message shown when you disable body health for yourself
       success-self: '&7Successfully &cdisabled &7body health for yourself.'
+
+      # Message shown when you are not allowed to enable body health for another player
+      denied-other: '&cYou are not allowed to disable body health for other players.'
 
       # Message shown when you disable body health for another player
       success-other: '&7Successfully &cdisabled &7body health for {Player}.'

@@ -4,6 +4,8 @@ import bodyhealth.commands.subcommands.AddCommand;
 import bodyhealth.commands.subcommands.AddonCommand;
 import bodyhealth.commands.subcommands.DataCommand;
 import bodyhealth.commands.subcommands.DebugCommand;
+import bodyhealth.commands.subcommands.DisableCommand;
+import bodyhealth.commands.subcommands.EnableCommand;
 import bodyhealth.commands.subcommands.GetCommand;
 import bodyhealth.commands.subcommands.HealCommand;
 import bodyhealth.commands.subcommands.ReloadCommand;
@@ -36,6 +38,8 @@ public class CommandManager implements TabExecutor {
         subCommands.put("data", new DataCommand());
         subCommands.put("debug", new DebugCommand());
         subCommands.put("addon", new AddonCommand());
+        subCommands.put("enable", new EnableCommand());
+        subCommands.put("disable", new DisableCommand());
     }
 
     @Override
