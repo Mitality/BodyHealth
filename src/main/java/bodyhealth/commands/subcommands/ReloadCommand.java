@@ -18,6 +18,7 @@ public class ReloadCommand implements SubCommand {
 
         if (BodyHealthUtils.reloadSystem()) MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_reload_success);
         else MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_reload_fail);
+        if (args.length > 2 && args[2].equalsIgnoreCase("exclusive")) return true;
         if (Config.display_betterhud_auto_reload) {
             if (Bukkit.getPluginManager().getPlugin("BetterHud") == null) return true;
             if (!Bukkit.getPluginManager().getPlugin("BetterHud").isEnabled()) return true;
@@ -31,6 +32,7 @@ public class ReloadCommand implements SubCommand {
 
     @Override
     public List<String> tabComplete(CommandSender sender, String[] args) {
+        if (args.length == 2) return List.of("exclusive");
         return List.of();
     }
 
