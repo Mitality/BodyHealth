@@ -91,7 +91,7 @@ public class ATTRIBUTE_MODIFIER implements BodyHealthEffect {
         AttributeModifier.Operation operation = resolveOperation(args.length > 3 ? args[3] : "");
         NamespacedKey modifierKey = buildModifierKey(args, part, attribute, operation, value);
 
-        if (isModifierStillNeeded(player, part, modifierKey)) {
+        if (isModifierStillNeeded(player, part, attribute, modifierKey)) {
             Debug.log("(" + part.name() + ") Keeping attribute modifier '" + modifierKey.getKey() + "' on " + player.getName() + " (still needed by another body part).");
             return;
         }
@@ -154,13 +154,13 @@ public class ATTRIBUTE_MODIFIER implements BodyHealthEffect {
     }
 
     // Returns true if another body part's ongoing effects still require this modifier key.
-    private static boolean isModifierStillNeeded(Player player, BodyPart part, NamespacedKey modifierKey) {
+    private static boolean isModifierStillNeeded(Player player, BodyPart part, Attribute attribute, NamespacedKey modifierKey) {
         BodyHealth bodyHealth = BodyHealthUtils.getBodyHealth(player);
         for (List<String[]> effectsList : bodyHealth.getOngoingEffects().values()) {
             for (String[] effectParts : effectsList) {
                 if (effectParts.length < 3 || !effectParts[0].trim().equalsIgnoreCase("ATTRIBUTE_MODIFIER")) continue;
                 Attribute attr = resolveAttribute(effectParts[1]);
-                if (attr == null) continue;
+                if (attr == null || attr != attribute) continue;
                 double val;
                 try { val = Double.parseDouble(effectParts[2].trim()); }
                 catch (NumberFormatException e) { continue; }
