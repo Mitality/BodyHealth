@@ -258,6 +258,9 @@ public class BodyHealth {
             if (force_keep) command_timestamps.put(part, System.currentTimeMillis());
             if (!BodyHealthUtils.isSystemEnabled(player)) return;
             EffectHandler.onBodyPartStateChange(player, part, oldState, BodyHealthUtils.getBodyHealthState(this, part));
+        } else {
+            healthMap.put(part, Math.min(100, Math.max(0, newHealth))); // Ensure health stays between 0 and 100
+            if (force_keep) command_timestamps.put(part, System.currentTimeMillis());
         }
     }
 

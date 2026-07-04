@@ -5,15 +5,15 @@ import bodyhealth.config.Config;
 import bodyhealth.config.Lang;
 import bodyhealth.core.BodyHealth;
 import bodyhealth.core.BodyPart;
-import bodyhealth.depend.VanishPlugins;
 import bodyhealth.util.BodyHealthUtils;
 import bodyhealth.util.MessageUtils;
-import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class AddCommand implements SubCommand {
 
@@ -22,22 +22,28 @@ public class AddCommand implements SubCommand {
 
         // bodyhealth add [player] [body part] <value>
 
+        OfflinePlayer target = null;
         try {
 
             boolean percent = false;
-            Player target = null;
             BodyPart part = null;
-            double value = 0;
+            double value;
             int index = 1;
 
-            if (args.length > index && Bukkit.getPlayer(args[index]) != null) {
-                target = Bukkit.getPlayer(args[index]);
-                index++;
-            } else if (sender instanceof Player) {
-                target = ((Player) sender).getPlayer();
-            } else {
-                MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_add_no_target);
-                return true;
+            if (args.length > index) {
+                OfflinePlayer resolved = BodyHealthUtils.resolveTarget(args[index]);
+                if (resolved != null) {
+                    target = resolved;
+                    index++;
+                }
+            }
+            if (target == null) {
+                if (sender instanceof Player) {
+                    target = (Player) sender;
+                } else {
+                    MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_add_no_target);
+                    return true;
+                }
             }
 
             if (args.length > index && BodyHealthUtils.isValidBodyPart(args[index].toUpperCase())) {
@@ -69,10 +75,9 @@ public class AddCommand implements SubCommand {
                 }
 
                 MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_add_success_all
-                        .replace("{Player}", target.getName())
+                        .replace("{Player}", Objects.requireNonNull(target.getName()))
                         .replace("{Value}", args[index] + (percent ? "%" : " HP"))
                 );
-                return true;
 
             } else {
 
@@ -80,17 +85,19 @@ public class AddCommand implements SubCommand {
                 bodyHealth.setHealth(part, bodyHealth.getHealth(part) + addValue, Config.force_keep_relative, null);
 
                 MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_add_success_single
-                        .replace("{Player}", target.getName())
+                        .replace("{Player}", Objects.requireNonNull(target.getName()))
                         .replace("{Part}", part.name().toUpperCase())
                         .replace("{Value}", args[index] + (percent ? "%" : " HP"))
                 );
-                return true;
 
             }
+            return true;
 
         } catch (ArrayIndexOutOfBoundsException e) {
             MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_add_usage);
             return true;
+        } finally {
+            if (target != null) BodyHealthUtils.unloadIfOffline(target);
         }
 
     }
@@ -105,11 +112,7 @@ public class AddCommand implements SubCommand {
                 String partialInput = args[1].toUpperCase();
                 List<String> result = new ArrayList<>();
                 if (partialInput.matches("\\d+")) result.add(partialInput + "%");
-                for (Player player : Bukkit.getOnlinePlayers()) {
-                    if (player.getName().toUpperCase().startsWith(partialInput)
-                            && !VanishPlugins.isVanished(player)
-                    ) result.add(player.getName());
-                }
+                result.addAll(BodyHealthUtils.matchingPlayerNames(args[1]));
                 for (BodyPart part : BodyPart.values()) {
                     if (part.name().startsWith(partialInput)) result.add(part.name());
                 }
@@ -120,7 +123,7 @@ public class AddCommand implements SubCommand {
         if (args.length == 3) {
 
             if (args[1].matches("\\d+%?")) return List.of();
-            if (Bukkit.getPlayer(args[1]) == null && args[2].isEmpty()) return List.of("value");
+            if (BodyHealthUtils.resolveTarget(args[1]) == null && args[2].isEmpty()) return List.of("value");
 
             if (args[2].isEmpty()) {
                 return List.of("body part / value");

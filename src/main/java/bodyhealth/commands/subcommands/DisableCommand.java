@@ -3,15 +3,14 @@ package bodyhealth.commands.subcommands;
 import bodyhealth.commands.SubCommand;
 import bodyhealth.config.Config;
 import bodyhealth.config.Lang;
-import bodyhealth.depend.VanishPlugins;
 import bodyhealth.util.BodyHealthUtils;
 import bodyhealth.util.MessageUtils;
-import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class DisableCommand implements SubCommand {
 
@@ -23,29 +22,34 @@ public class DisableCommand implements SubCommand {
             return true;
         }
 
-        Player target = args.length > 1 ? Bukkit.getPlayer(args[1]) : (Player) sender;
+        OfflinePlayer target = args.length > 1 ? BodyHealthUtils.resolveTarget(args[1]) : (Player) sender;
         if (target == null) {
             MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_disable_invalid_target.replace("{Player}", args[1]));
             return true;
         }
 
-        if (sender instanceof Player player && player.equals(target)) {
-            BodyHealthUtils.getBodyHealth(target).setEnabled(false);
-            MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_disable_success_self);
-        } else {
+        try {
+            boolean isSelf = sender instanceof Player player && player.getUniqueId().equals(target.getUniqueId());
+            if (isSelf) {
+                BodyHealthUtils.getBodyHealth(target).setEnabled(false);
+                MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_disable_success_self);
+            } else {
 
-            if (!sender.hasPermission("bodyhealth.disable.others")) {
-                MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_disable_denied_other);
-                return true;
+                if (!sender.hasPermission("bodyhealth.disable.others")) {
+                    MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_disable_denied_other);
+                    return true;
+                }
+
+                BodyHealthUtils.getBodyHealth(target).setEnabled(false);
+                MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_disable_success_other.replace("{Player}", Objects.requireNonNull(target.getName())));
+                if (target.isOnline()) MessageUtils.notifyPlayer(target.getPlayer(), Config.prefix + Lang.bodyhealth_disable_notification.replace("{Player}", sender.getName()));
             }
 
-            BodyHealthUtils.getBodyHealth(target).setEnabled(false);
-            MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_disable_success_other.replace("{Player}", target.getName()));
-            MessageUtils.notifySender(target, Config.prefix + Lang.bodyhealth_disable_notification.replace("{Player}", sender.getName()));
+            if (target.isOnline()) BodyHealthUtils.applyBodyHealthHudVisibility(target.getPlayer());
+            return true;
+        } finally {
+            BodyHealthUtils.unloadIfOffline(target);
         }
-
-        BodyHealthUtils.applyBodyHealthHudVisibility(target);
-        return true;
     }
 
     @Override
@@ -55,20 +59,13 @@ public class DisableCommand implements SubCommand {
 
         if (args.length == 2) {
             if (args[1].isEmpty()) {
-                return !perm ? List.of(sender.getName()) : Bukkit.getOnlinePlayers().stream()
-                        .filter(player -> !VanishPlugins.isVanished(player))
-                        .map(Player::getName)
-                        .toList();
+                return !perm ? List.of(sender.getName()) : BodyHealthUtils.matchingPlayerNames("");
             } else {
-                String partialInput = args[1].toUpperCase();
-                List<String> result = new ArrayList<>();
-                for (Player player : Bukkit.getOnlinePlayers()) {
-                    if (!perm && player.getName().equals(sender.getName())) continue;
-                    if (player.getName().toUpperCase().startsWith(partialInput)
-                            && !VanishPlugins.isVanished(player)
-                    ) result.add(player.getName());
+                if (!perm) {
+                    return sender.getName().toUpperCase().startsWith(args[1].toUpperCase())
+                            ? List.of(sender.getName()) : List.of();
                 }
-                return result;
+                return BodyHealthUtils.matchingPlayerNames(args[1]);
             }
         }
 

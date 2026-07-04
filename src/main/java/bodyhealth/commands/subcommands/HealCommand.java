@@ -5,15 +5,15 @@ import bodyhealth.config.Config;
 import bodyhealth.config.Lang;
 import bodyhealth.core.BodyHealth;
 import bodyhealth.core.BodyPart;
-import bodyhealth.depend.VanishPlugins;
 import bodyhealth.util.BodyHealthUtils;
 import bodyhealth.util.MessageUtils;
-import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class HealCommand implements SubCommand {
 
@@ -22,20 +22,26 @@ public class HealCommand implements SubCommand {
 
         // bodyhealth heal [player] [body part]
 
+        OfflinePlayer target = null;
         try {
 
-            Player target = null;
             BodyPart part = null;
             int index = 1;
 
-            if (args.length > index && Bukkit.getPlayer(args[index]) != null) {
-                target = Bukkit.getPlayer(args[index]);
-                index++;
-            } else if (sender instanceof Player) {
-                target = ((Player) sender).getPlayer();
-            } else {
-                MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_heal_no_target);
-                return true;
+            if (args.length > index) {
+                OfflinePlayer resolved = BodyHealthUtils.resolveTarget(args[index]);
+                if (resolved != null) {
+                    target = resolved;
+                    index++;
+                }
+            }
+            if (target == null) {
+                if (sender instanceof Player) {
+                    target = (Player) sender;
+                } else {
+                    MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_heal_no_target);
+                    return true;
+                }
             }
 
             if (args.length > index && BodyHealthUtils.isValidBodyPart(args[index].toUpperCase())) {
@@ -49,25 +55,26 @@ public class HealCommand implements SubCommand {
                 bodyHealth.setHealth(100, false, null);
 
                 MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_heal_success_all
-                        .replace("{Player}", target.getName())
+                        .replace("{Player}", Objects.requireNonNull(target.getName()))
                 );
-                return true;
 
             } else {
 
                 bodyHealth.setHealth(part, 100, false, null);
 
                 MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_heal_success_single
-                        .replace("{Player}", target.getName())
+                        .replace("{Player}", Objects.requireNonNull(target.getName()))
                         .replace("{Part}", part.name().toUpperCase())
                 );
-                return true;
 
             }
+            return true;
 
         } catch (ArrayIndexOutOfBoundsException e) {
             MessageUtils.notifySender(sender, Config.prefix + Lang.bodyhealth_heal_usage);
             return true;
+        } finally {
+            if (target != null) BodyHealthUtils.unloadIfOffline(target);
         }
 
     }
@@ -80,12 +87,7 @@ public class HealCommand implements SubCommand {
                 return List.of("player / body part");
             } else {
                 String partialInput = args[1].toUpperCase();
-                List<String> result = new ArrayList<>();
-                for (Player player : Bukkit.getOnlinePlayers()) {
-                    if (player.getName().toUpperCase().startsWith(partialInput)
-                            && !VanishPlugins.isVanished(player)
-                    ) result.add(player.getName());
-                }
+                List<String> result = new ArrayList<>(BodyHealthUtils.matchingPlayerNames(args[1]));
                 for (BodyPart part : BodyPart.values()) {
                     if (part.name().startsWith(partialInput)) result.add(part.name());
                 }
@@ -95,7 +97,7 @@ public class HealCommand implements SubCommand {
 
         if (args.length == 3) {
 
-            if (Bukkit.getPlayer(args[1]) == null) return List.of();
+            if (BodyHealthUtils.resolveTarget(args[1]) == null) return List.of();
 
             if (args[2].isEmpty()) {
                 return List.of("body part");

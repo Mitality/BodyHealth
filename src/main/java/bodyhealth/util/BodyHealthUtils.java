@@ -17,9 +17,11 @@ import bodyhealth.effects.EffectHandler;
 import bodyhealth.effects.effect.POTION_EFFECT;
 import bodyhealth.tasks.GradualHealthRegenTask;
 import com.tchristofferson.configupdater.ConfigUpdater;
+import bodyhealth.depend.VanishPlugins;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -184,6 +186,64 @@ public class BodyHealthUtils {
     }
 
     /**
+     * Retrieves a given players BodyHealth object, loading it from
+     * storage if necessary. Also works for offline players.
+     * @param player The player of which the BodyHealth object should be retrieved
+     * @return The given players BodyHealth object
+     */
+    public static BodyHealth getBodyHealth(OfflinePlayer player) {
+        return DataManager.getBodyHealth(player.getUniqueId());
+    }
+
+    /**
+     * Unloads (saves and removes from memory) a players BodyHealth object,
+     * but only if the player is currently offline. This is used to avoid
+     * keeping data of offline players loaded after a command touched it.
+     * @param player The player whose data should be unloaded when offline
+     */
+    public static void unloadIfOffline(OfflinePlayer player) {
+        if (!player.isOnline()) DataManager.saveBodyHealth(player.getUniqueId());
+    }
+
+    /**
+     * Resolves a player name to an OfflinePlayer, preferring an online player
+     * with that exact name and otherwise falling back to a cached offline player
+     * that has played on the server before
+     * @param name The name of the player to resolve
+     * @return The resolved OfflinePlayer, or null if no such player is known
+     */
+    public static OfflinePlayer resolveTarget(String name) {
+        Player online = Bukkit.getPlayerExact(name);
+        if (online != null) return online;
+        for (OfflinePlayer offline : Bukkit.getOfflinePlayers()) {
+            if (name.equalsIgnoreCase(offline.getName())) return offline;
+        }
+        return null;
+    }
+
+    /**
+     * Collects the names of all players (online and cached offline) whose name
+     * starts with the given input, used for player argument tab completion.
+     * Vanished online players are excluded.
+     * @param partialInput The partial name the player is typing
+     * @return A list of matching player names
+     */
+    public static List<String> matchingPlayerNames(String partialInput) {
+        String upper = partialInput.toUpperCase();
+        List<String> result = new ArrayList<>();
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (VanishPlugins.isVanished(player)) continue;
+            if (player.getName().toUpperCase().startsWith(upper)) result.add(player.getName());
+        }
+        for (OfflinePlayer offline : Bukkit.getOfflinePlayers()) {
+            if (offline.isOnline()) continue; // Already covered above
+            String name = offline.getName();
+            if (name != null && name.toUpperCase().startsWith(upper)) result.add(name);
+        }
+        return result;
+    }
+
+    /**
      * Applies damage to all BodyParts for a BodyHealth object while taking the fine-tuning section of BodyHealth's config into account
      * @param bodyHealth The BodyHealth object to which the damage should be applied to
      * @param damageCause The DamageCause that caused the player to take damage
@@ -339,24 +399,58 @@ public class BodyHealthUtils {
     }
 
     /**
+     * Calculates the maximum amount of health that a players BodyPart should be able to have,
+     * also supporting offline players. When the player is offline, permission based overrides
+     * and the players actual max health attribute are unavailable, so the default configuration
+     * is used while assuming a vanilla max health of 20.
+     * @param part The BodyPart to calculate the maximum amount of health for
+     * @param player The player to which the BodyPart belongs
+     * @return The maximum amount of health for the given BodyPart
+     */
+    public static double getMaxHealth(BodyPart part, OfflinePlayer player) {
+        if (player.isOnline()) return getMaxHealth(part, player.getPlayer());
+
+        double maxHealth = -1;
+        Object defaultValue = Config.body_health.get(part.name());
+        if (defaultValue != null) maxHealth = parseHealthExpression(20.0, 20.0, defaultValue);
+
+        if (maxHealth > 0) return maxHealth;
+        Debug.logErr("Invalid maxHealth for part " + part.name() + " of offline player! Defaulting to '10'");
+        return 20.0 / 2;
+    }
+
+    /**
      * Parses a health value from Integer/Double/String to a Double, evaluating expressions
      * @param player The player to which the BodyPart belongs to which the health value belongs
      * @param value The health value of a BodyPart in Integer, Double or String (expression) form
      * @return A Double representing how much health a BodyPart should be able to have at best
      */
     public static double parseHealthExpression(Player player, Object value) {
+        return parseHealthExpression(player.getMaxHealth(), player.getHealth(), value);
+    }
+
+    /**
+     * Parses a health value from Integer/Double/String to a Double, evaluating expressions.
+     * This numeric variant allows evaluating expressions for offline players, where the actual
+     * player attributes are unavailable and substitute values have to be supplied instead.
+     * @param maxHealth The value to substitute for %PlayerMaxHealth%
+     * @param currentHealth The value to substitute for %PlayerCurrentHealth%
+     * @param value The health value of a BodyPart in Integer, Double or String (expression) form
+     * @return A Double representing how much health a BodyPart should be able to have at best
+     */
+    public static double parseHealthExpression(double maxHealth, double currentHealth, Object value) {
         if (value instanceof Number) {
             return ((Number) value).doubleValue();
         } else if (value instanceof String) {
             String expression = ((String) value)
-                .replace("%PlayerMaxHealth%", String.valueOf(player.getMaxHealth()))
-                .replace("%PlayerCurrentHealth%", String.valueOf(player.getHealth()));
+                .replace("%PlayerMaxHealth%", String.valueOf(maxHealth))
+                .replace("%PlayerCurrentHealth%", String.valueOf(currentHealth));
                 // Why on earth did I add %PlayerCurrentHealth%... Don't you dare, silly!
 
             double result = evaluateExpression(expression);
             if (result == -1) {
                 Debug.logErr("Invalid health expression: \"" + expression + "\". Defaulting to %PlayerMaxHealth% / 2");
-                return player.getMaxHealth() / 2;
+                return maxHealth / 2;
             }
             return result;
         } else {
