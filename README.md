@@ -87,7 +87,8 @@ Safe to say this won't be the<br>plugin lagging your server</p>
 
 <p align="center">
   <b>Official</b><br>
-  <a href="https://modrinth.com/plugin/bodyhealthaddon-locationalarmoraddon">LocationalArmorAddon</a>
+  <a href="https://modrinth.com/plugin/bodyhealthaddon-locationalarmoraddon">LocationalArmorAddon</a><br>
+  <a href="https://modrinth.com/plugin/bodyhealthaddon-skriptaddon">SkriptAddon</a>
   <br>
 </p>
 
@@ -121,6 +122,8 @@ Safe to say this won't be the<br>plugin lagging your server</p>
 
 <p align="center"><b>/bodyhealth debug &lt;dump/toggle&gt; [...]</b><br><em>dump debug information, or toggle debug- or development mode in game</em></p>
 
+<p align="center"><b>/bodyhealth addon &lt;info/list/reload/enable/disable/load/unload&gt; [...]</b><br><em>manage BodyHealth addons while the server is running</em></p>
+
 <p align="center">
   <img width="500" src="https://raw.githubusercontent.com/Mitality/BodyHealth/refs/heads/main/src/main/resources/assets/permissions.png" alt="Permissions">
 </p>
@@ -133,6 +136,7 @@ Safe to say this won't be the<br>plugin lagging your server</p>
 <p align="center"><b>bodyhealth.add</b><br><em>allows using the add command</em></p>
 <p align="center"><b>bodyhealth.data</b><br><em>allows using the data command</em></p>
 <p align="center"><b>bodyhealth.debug</b><br><em>allows using the debug command</em></p>
+<p align="center"><b>bodyhealth.addon</b><br><em>allows using the addon command</em></p>
 <p align="center"><em>+ <a href="https://github.com/Mitality/BodyHealth/blob/7a0c68af2ef66e8ec5c3b449bbde7d24aa3a2fd5/src/main/resources/config.yml#L35-L42">bypass permissions</a></em></p>
 
 <p align="center">
